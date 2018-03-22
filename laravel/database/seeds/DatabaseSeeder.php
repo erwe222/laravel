@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         
         $date = date('Y-m-d H:i:s');
         // 添加一个用户
-        $intAdminId = DB::table('lar_users')->insertGetId([
+        $intAdminId = DB::table('users')->insertGetId([
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin888'),
