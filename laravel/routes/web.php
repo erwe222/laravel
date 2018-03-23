@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
+
+
     return view('welcome');
 });
+
+
+
+Route::get('/test/index', 'Test\TestController@index')->name('test.test.index');
+
+	
