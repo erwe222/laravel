@@ -68,7 +68,7 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    <span style="color: red;">Laravel xjy</span>
+                    <span style="color: red;">Laravel</span>
                 </div>
             </div>
         </div>
