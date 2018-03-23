@@ -21,4 +21,14 @@ Route::get('/', function () {
 
 Route::get('/test/index', 'Test\TestController@index')->name('test.test.index');
 
+
+Route::get('foo/bar', function(){
+	return 'Hello World';
+});
 	
+
+
+Route::get('user/{id}', function($id){
+
+	return 'User '.$id;
+});
