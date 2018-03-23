@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 
 
-Route::get('/test/index', 'Test\TestController@index')->name('test.test.index');
+#Route::get('/test/index', 'Test\TestController@index')->name('test.test.index');
 
 
 Route::get('foo/bar', function(){
@@ -31,4 +31,13 @@ Route::get('foo/bar', function(){
 Route::get('user/{id}', function($id){
 
 	return 'User '.$id;
+});
+
+
+
+Route::group(['namespace' => 'Test'], function()
+{
+    // Controllers Within The "App\Http\Controllers\Admin" Namespace
+
+    Route::get('test/index', 'TestController@index')->name('test.index');#  //echo route('test.index');
 });
