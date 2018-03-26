@@ -14,7 +14,7 @@ class TestController extends Controller
 
 	public function index(){
 		//echo route('test.index');
-
+		echo 'aaaaaaaaa';
 		$test = app('test');
 		$test->callMe('测试服务容器');
 
