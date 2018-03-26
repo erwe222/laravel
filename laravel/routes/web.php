@@ -41,3 +41,27 @@ Route::group(['namespace' => 'Test'], function()
 
     Route::get('test/index', 'TestController@index')->name('test.index');#  //echo route('test.index');
 });
+
+
+
+
+// Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
+
+//     // 用户登录和退出
+//     Route::post('/login', 'LoginController@login');
+//     Route::post('/logout', 'LoginController@logout');
+// });
+
+
+Route::group(['namespace' => 'Auth'], function()
+{
+     // 用户登录和退出
+	Route::get('auth/login', 'LoginController@login');
+});
+
+
+
+
+// Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
