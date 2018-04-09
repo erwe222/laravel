@@ -43,3 +43,9 @@ Route::group(['namespace' => 'Test'], function()
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('test/code', function(){
+    echo Captcha::src();
+	exit;
+});
