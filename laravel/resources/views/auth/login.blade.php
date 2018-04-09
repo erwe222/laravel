@@ -322,6 +322,10 @@
                 $('#cus-register-but').on('click',function(){
                     
                 });
+                
+                $('.cus-label-img img').on('click',function(){
+                    alert('刷新验证码');
+                });
             });
         </script>
     </body>
