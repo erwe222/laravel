@@ -60,6 +60,7 @@
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
                                                             <?php  echo captcha_img();?>
+                                                            <input type="text" class="form-control" placeholder="验证码" />
                                                         </span>
                                                     </label>
                                                     
