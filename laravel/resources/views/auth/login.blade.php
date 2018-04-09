@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{asset('ace-asstes/css/ace.min.css')}}" />
         <link rel="stylesheet" href="{{asset('ace-asstes/css/ace-rtl.min.css')}}" />
         <style>
-            .cus-label-img img {float:left;margin-left:2px;}
+            .cus-label-img img {float:right;margin-left:2px;height: 34px;}
         </style>
     </head>
     <body class="login-layout">
