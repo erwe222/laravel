@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{asset('ace-asstes/css/ace-rtl.min.css')}}" />
     </head>
     <body class="login-layout">
+        <?php echo captcha_img();?>
         <div class="main-container">
             <div class="main-content">
                 <div class="row">
