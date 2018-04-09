@@ -14,7 +14,6 @@
         <link rel="stylesheet" href="{{asset('ace-asstes/css/ace-rtl.min.css')}}" />
     </head>
     <body class="login-layout">
-        <?php // echo captcha_img();?>
         <div class="main-container">
             <div class="main-content">
                 <div class="row">
@@ -56,6 +55,14 @@
                                                             <i class="ace-icon fa fa-lock"></i>
                                                         </span>
                                                     </label>
+                                                    
+                                                    
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <?php  echo captcha_img();?>
+                                                        </span>
+                                                    </label>
+                                                    
                                                     <div class="space"></div>
                                                     <div class="clearfix">
                                                         <label class="inline">
