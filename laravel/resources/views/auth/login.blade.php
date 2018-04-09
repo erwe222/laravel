@@ -12,6 +12,9 @@
         <link rel="stylesheet" href="{{asset('ace-asstes/googlefonts/fonts.googleapis.com.css')}}" />
         <link rel="stylesheet" href="{{asset('ace-asstes/css/ace.min.css')}}" />
         <link rel="stylesheet" href="{{asset('ace-asstes/css/ace-rtl.min.css')}}" />
+        <style>
+            .cus-label-img img {float:left;margin-left:2px;}
+        </style>
     </head>
     <body class="login-layout">
         <div class="main-container">
@@ -58,9 +61,9 @@
                                                     
                                                     
                                                     <label class="block clearfix">
-                                                        <span class="block input-icon input-icon-right">
+                                                        <span class="block input-icon input-icon-right cus-label-img">
+                                                            <input type="text" class="form-control" placeholder="验证码" style="width:50%;float:left;">
                                                             <?php  echo captcha_img();?>
-                                                            <input type="text" class="form-control" placeholder="验证码" />
                                                         </span>
                                                     </label>
                                                     
