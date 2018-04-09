@@ -46,7 +46,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('test/code', function(){
-    echo $img_url = Captcha::src();
-    echo "<img src='{$img_url}'>";
-	exit;
+    $img_url = Captcha::src();
+    return json_encode(['img_url'=>$img_url]);
 });

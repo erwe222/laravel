@@ -4,6 +4,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
         <title>登录和注册-ACE后台管理系统</title>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content="User login page" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <link rel="stylesheet" href="http://www.lar.test.com/ace-asstes/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
@@ -13,7 +14,7 @@
         <link rel="stylesheet" href="{{asset('ace-asstes/css/ace.min.css')}}" />
         <link rel="stylesheet" href="{{asset('ace-asstes/css/ace-rtl.min.css')}}" />
         <style>
-            .cus-label-img img {float:right;margin-left:2px;height: 34px;}
+            .cus-label-img img {float:right;margin-left:2px;height: 34px;cursor: pointer;}
         </style>
     </head>
     <body class="login-layout">
@@ -256,6 +257,11 @@
         </script>
         <script type="text/javascript">
             jQuery(function($) {
+                $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                });
                 
                 $(document).on('click', '.toolbar a[data-target]', function(e) {
                     e.preventDefault();
@@ -324,7 +330,15 @@
                 });
                 
                 $('.cus-label-img img').on('click',function(){
-                    alert('刷新验证码');
+                    var _that = $(this);
+                    $.ajax({
+                        url:'/test/code',
+                        type:'get',
+                        dataType:'json',
+                        success:function(res){
+                            _that.attr('src',res.img_url); 
+                        }
+                    });
                 });
             });
         </script>
