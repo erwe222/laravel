@@ -62,7 +62,7 @@
                                                     
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right cus-label-img">
-                                                            <input type="text" class="form-control" placeholder="验证码" style="width:50%;float:left;">
+                                                            <input type="text" class="form-control" placeholder="验证码" style="width:60%;float:left;">
                                                             <?php  echo captcha_img();?>
                                                         </span>
                                                     </label>
