@@ -20,15 +20,15 @@ Route::get('/', function () {
 #Route::get('/test/index', 'Test\TestController@index')->name('test.test.index');
 
 
-Route::get('foo/bar', function(){
-	return 'Hello World';
-});
 	
 
+Route::group(['namespace' => 'Auth'], function()
+{
+    Route::post('login/postLogin', 'LoginController@postLogin');#  //echo route('test.index');
+});
 
 Route::get('user/{id}', function($id){
-
-	return 'User '.$id;
+    return 'User '.$id;
 });
 
 

@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
-        <title>登录和注册-ACE后台管理系统</title>
+        <title>登录--后台管理系统</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content="User login page" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -48,14 +48,14 @@
                                                 <fieldset>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="text" class="form-control" placeholder="用户名" />
+                                                            <input type="email" class="form-control" placeholder="用户名" name="username" id="cus-username-input"/>
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
                                                     </label>
 
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="password" class="form-control" placeholder="密码" />
+                                                            <input type="password" class="form-control" placeholder="密码" name="pasword" id="cus-password-input" />
                                                             <i class="ace-icon fa fa-lock"></i>
                                                         </span>
                                                     </label>
@@ -63,7 +63,7 @@
                                                     
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right cus-label-img">
-                                                            <input type="text" class="form-control" placeholder="验证码" style="width:60%;float:left;">
+                                                            <input type="text" class="form-control" placeholder="验证码" style="width:60%;float:left;" name="code" id="cus-code-input" maxlength="5">
                                                             <?php  echo captcha_img();?>
                                                         </span>
                                                     </label>
@@ -71,7 +71,7 @@
                                                     <div class="space"></div>
                                                     <div class="clearfix">
                                                         <label class="inline">
-                                                            <input type="checkbox" class="ace" id="cus-checkbox" />
+                                                            <input type="checkbox" class="ace" id="cus-checkbox"  />
                                                             <span class="lbl">记住我</span>
                                                         </label>
                                                         <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="cus-login-but">
@@ -253,9 +253,6 @@
         <script src="{{url('ace-asstes/layer/layer.js')}}"></script>
         <script src="{{url('ace-asstes/js/spin.js')}}"></script>
         <script type="text/javascript">
-//                if('ontouchstart' in document.documentElement) document.write("<script src='"{{asset('ace-asstes/js/jquery.mobile.custom.min.js')}"'>"+"<"+"/script>");
-        </script>
-        <script type="text/javascript">
             jQuery(function($) {
                 $.ajaxSetup({
                         headers: {
@@ -295,22 +292,21 @@
                  });
                  
                 $('#cus-login-but').on('click',function(){
-                    
-                    
-                    var rememberme = $('#cus-check').hasClass('layui-form-checked') ?'yes':'no';
+                    var rememberme = $('#cus-checkbox').is(':checked')?true:false;
                     var username = $.trim($('#cus-username-input').val());
-                    var pwd = $.trim($('#cus-pwd-input').val());
+                    var pwd = $.trim($('#cus-password-input').val());
                     var code = $.trim($('#cus-code-input').val());
                     $.ajax({
-                        url:'/login/post-login',
+                        url:'/login/postLogin',
                         type:'post',
-                        data:{username:username,password:pwd,rememberme:rememberme,code:code},
+                        data:{email:username,password:pwd,remember:rememberme,code:code},
                         dataType:'json',
                         success:function(res){
-                            layer.close(loadIndex);
-                            console.log(res);
-                            if(res.code == 200){
-                                window.location.href = '/';
+                            if(res.result){
+                                layer.msg('登录成功');
+                                setTimeout(function(){
+                                    window.location.href = '/';
+                                },1000);
                                 return false;
                             }else if(res.code == 302){
                                 layer.msg('用户不存在');

@@ -47,7 +47,7 @@ class Handler extends ExceptionHandler
 
         #自定义错误页面
         if ($exception) {
-            return response()->view('errors.'.$exception->getStatusCode(), [],$exception->getStatusCode());
+            //return response()->view('errors.'.$exception->getStatusCode(), [],$exception->getStatusCode());
         }
 
         return parent::render($request, $exception);
