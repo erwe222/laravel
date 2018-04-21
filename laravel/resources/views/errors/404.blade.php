@@ -1,74 +1,61 @@
-<!doctype html>
-<html >
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/ace-asstes/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/ace-asstes/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/ace-asstes/googlefonts/fonts.googleapis.com.css" />
+<link rel="stylesheet" href="/ace-asstes/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+<link rel="stylesheet" href="/ace-asstes/css/ace-skins.min.css" />
+<link rel="stylesheet" href="/ace-asstes/css/ace-rtl.min.css" />
+<script src="/ace-asstes/js/ace-extra.min.js"></script>
 
-        <title>Laravel</title>
+<div class="error-container">
+                            <div class="well">
+                                <h1 class="grey lighter smaller">
+											<span class="blue bigger-125">
+												<i class="ace-icon fa fa-sitemap"></i>
+												404
+											</span>
+                                    未找到页面
+                                </h1>
 
+                                <hr />
+                                <h3 class="lighter smaller">无法找到请求页面！</h3>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+                                <div>
+                                    
 
-            .full-height {
-                height: 100vh;
-            }
+                                    <div class="space"></div>
+                                    <h4 class="smaller">建议使用以下方法尝试解决问题：</h4>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+                                    <ul class="list-unstyled spaced inline bigger-110 margin-15">
+                                        <li>
+                                            <i class="ace-icon fa fa-hand-o-right blue"></i>
+                                            再次检查您的URL是否输入正确
+                                        </li>
 
-            .position-ref {
-                position: relative;
-            }
+                                        <li>
+                                            <i class="ace-icon fa fa-hand-o-right blue"></i>
+                                            阅读常见问题
+                                        </li>
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+                                        <li>
+                                            <i class="ace-icon fa fa-hand-o-right blue"></i>
+                                            联系我们解决
+                                        </li>
+                                    </ul>
+                                </div>
 
-            .content {
-                text-align: center;
-            }
+										<hr />
+										<div class="space"></div>
 
-            .title {
-                font-size: 84px;
-            }
+										<div class="center">
+											<a href="javascript:history.back()" class="btn btn-grey">
+												<i class="ace-icon fa fa-arrow-left"></i>
+												返回
+											</a>
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            <div class="content">
-                <div class="title m-b-md">
-                    <span style="color: red;">Laravel 404</span>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+											<a href="#" class="btn btn-primary">
+												<i class="ace-icon fa fa-tachometer"></i>
+												控制台
+											</a>
+										</div>
+									</div>
+								</div>
