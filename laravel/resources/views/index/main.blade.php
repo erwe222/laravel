@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/nprogress.css')}}" />
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="{{asset('ace-asstes/css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('ace-asstes/css/jquery.gritter.min.css')}}" />
     <link rel="stylesheet" href="{{asset('ace-asstes/font-awesome/css/font-awesome.min.css')}}" />
     <link rel="stylesheet" href="{{asset('ace-asstes/googlefonts/fonts.googleapis.com.css')}}" />
     <!-- ace styles -->
@@ -51,11 +52,12 @@
     #my-tab-breadcrumb li:nth-child(2){
         margin-right:-4px !important;border-left:1px solid #ccc !important;
     }
+    body{overflow-x:hidden;}
     </style>
     <!-- ace settings handler -->
     <script src="{{asset('ace-asstes/js/ace-extra.min.js')}}"></script>
 </head>
-<body class="no-skin">
+<body class="no-skin" >
         <div id="navbar" class="navbar navbar-default          ace-save-state">
             <div class="navbar-container ace-save-state" id="navbar-container">
                 <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
@@ -299,9 +301,7 @@
                                     </div>
                                     <div class="ace-settings-item">
                                         <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-add-container" autocomplete="off" />
-                                        <label class="lbl" for="ace-settings-add-container">
-                                                切换窄屏
-                                        </label>
+                                        <label class="lbl" for="ace-settings-add-container">切换窄屏</label>
                                     </div>
                                 </div>
                                 <div class="pull-left width-50">
@@ -314,20 +314,11 @@
                                         <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact" autocomplete="off" />
                                         <label class="lbl" for="ace-settings-compact">紧凑侧边栏</label>
                                     </div>
-
-<!--                                    <div class="ace-settings-item">
-                                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-highlight" autocomplete="off" />
-                                        <label class="lbl" for="ace-settings-highlight"> 活动项高亮</label>
-                                    </div>-->
                                 </div>
                             </div>
                         </div>
                         
-                        <div id="page-content-panel">
-<!--                            <div class="row cus-tab-show cus-tab-panel" id="iframe-index" >
-                                <iframe src="index/index" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" width="100%" height=100% name="iframepage" id="iframepage"  onLoad="iFrameHeight('iframepage')" ></iframe>
-                            </div>-->
-                        </div>
+                        <div id="page-content-panel"></div>
                     </div>
                 </div>
             </div>
@@ -352,31 +343,15 @@
             if('ontouchstart' in document.documentElement) document.write("<script src='/ace-asstes/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
         </script>
         <script src="{{asset('ace-asstes/js/bootstrap.min.js')}}"></script>
-
         <script src="{{asset('ace-asstes/js/jquery-ui.custom.min.js')}}"></script>
         <script src="{{asset('ace-asstes/js/jquery.ui.touch-punch.min.js')}}"></script>
-
-        <!-- ace scripts -->
         <script src="{{asset('ace-asstes/js/ace-elements.min.js')}}"></script>
         <script src="{{asset('ace-asstes/js/ace.min.js')}}"></script>
         <script src="{{asset('ace-asstes/layer/layer.js')}}"></script>
+        <script src="{{asset('ace-asstes/js/jquery.gritter.min.js')}}"></script>
         <script type="text/javascript">
             nprogress.start();
-            $(function(){
-                nprogress.done();
-            });
-            
-            function iFrameHeight(name) {
-                var ifm= document.getElementById(name);
-                var subWeb = document.frames ? document.frames[name].document :ifm.contentDocument;
-                if(ifm != null && subWeb != null) {
-                    ifm.height = subWeb.body.scrollHeight;
-                    console.log(ifm.height);
-                }
-            }
-            
-            
-            
+
             /**
              * 选项卡操作类
              * @type type
@@ -407,7 +382,6 @@
                         }
                     }
                     event.stopPropagation();
-                    console.log('当前页：'+this.currentPageIndex+'--上一页'+this.previousPageIndex);
                 },
                 tabChange: function(index) {
                     $('.cus-tab-panel').each(function(){
@@ -428,7 +402,6 @@
                         this.previousPageIndex = this.currentPageIndex;
                         this.currentPageIndex  = index;
                     }
-                    
                     console.log('当前页：'+this.currentPageIndex+'--上一页'+this.previousPageIndex);
                 },
                 tabAdd: function(data) {
@@ -498,7 +471,6 @@
                     for (i = 0; i < len; i++) {
                         pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
                     }
-                    
                     return pwd;
                 }
             }
@@ -510,6 +482,7 @@
                 var data = {url:obj.url,title:obj.title,icon:obj.icon,index:obj.index};
                 objTab.tabAdd(data);
             });
+
             $('.cus-click-url').on('click',function(){
                 $('.cus-click-url').each(function(){
                     $(this).parent().removeClass('active');
@@ -519,8 +492,6 @@
                 var data = {url:obj.url,title:obj.title,icon:obj.icon,index:obj.index};
                 objTab.tabAdd(data);
             });
-            
-            
                 
             $('.cus-tab-caozuo ul li').on('click',function(){
                 var type = $(this).data('type');
@@ -545,7 +516,7 @@
                     objTab.previousPageIndex = objTab.currentPageIndex = objTab.defaultPageIndex;
                     objTab.tabChange(objTab.defaultPageIndex);
                 }else if(type == 5){
-                    layer.confirm('您确定要刷新外层框架吗？', {
+                    layer.confirm('您确定要刷新外层框架吗?', {
                         btn: ['确定','取消']
                       }, function(){
                           location.reload();
@@ -555,7 +526,19 @@
                 }
             });
             
-            
+            /**
+             * 主框架操作类
+             * @type type 
+             */
+            var mainObj = {
+                gritterAdd:function(data){
+                    $.gritter.add(data);
+                }
+            };
+
+            $(function(){
+                nprogress.done();
+            });
         </script>
     </body>
 </html>

@@ -2,16 +2,17 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
-/**
- * Description of AdminController
- *
- * @author dell
- */
+
 class AdminController extends Controller{
     
-    public function menuview(){
+    public function MenuView(){
         return view('admin.menu-view');
     }
+    
+    public function RoleView(){
+        return view('admin.role-view');
+    }
+    
     
     public function menuViewTest(){
         return view('admin.menu-viewtest');
@@ -40,7 +41,10 @@ class AdminController extends Controller{
             ['id'=>'15','name'=>'液晶显示器','note'=>'note','stock'=>'是','ship'=>'TNT','sdate'=>'2018-01-01'],
             ['id'=>'16','name'=>'液晶显示器','note'=>'note','stock'=>'是','ship'=>'TNT','sdate'=>'2018-01-01']
         ];
-        return response()->json(['data'=>$aa,'page'=>$_GET['page'],'totalPage'=>1000,'totalCount'=>16,'repeatitems'=>time(),'test'=>1000]);
+        
+        return response()->json(['draw'=>$_REQUEST['draw'],'recordsTotal'=>1000,'recordsFiltered'=>16,'data'=>$aa]);
+//        return response()->json(['data'=>[],'draw'=>1,'recordsTotal'=>0,'recordsFiltered'=>0]);
+//        return response()->json(['data'=>$aa,'page'=>1,'totalPage'=>1000,'totalCount'=>16,'repeatitems'=>time(),'test'=>1000]);
     }
     
     public function menuviewtest2(){
@@ -59,43 +63,11 @@ class AdminController extends Controller{
             ['id'=>'5','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
             ['id'=>'6','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
             ['id'=>'7','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'1','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'2','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'3','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'4','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'5','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'6','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'7','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'1','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'2','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'3','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'4','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'5','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'6','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'7','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'1','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'2','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'3','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'4','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'5','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'6','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'7','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'1','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'2','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'3','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'4','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'5','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'6','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'7','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'1','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'2','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'3','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'4','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'5','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'6','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'7','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'7','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
         ];
         return response()->json(['total'=>1000,'rows'=>$aa]);
+    }
+    
+    public function profile(){
+        return view('admin.profile-view');
     }
 }

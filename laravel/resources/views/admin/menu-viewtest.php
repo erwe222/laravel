@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/jquery-easyui/themes/material/easyui.css" />
 <script src="/ace-asstes/js/ace-extra.min.js"></script>
 <style>
-    /*.datagrid-header-row{height:40px !important;font-size:18px !important;background:#D0D0D0 !important;}*/
+    .datagrid-header-row{height:35px !important;font-size:28px !important;background:#E4E6E9 !important;}
 </style>
 
 <div class="row" >

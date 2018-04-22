@@ -11,8 +11,6 @@
 |
 */
 
-
-
 Route::group(['namespace' => 'Auth'], function()
 {
     Route::post('login/postLogin', 'LoginController@postLogin');#  //echo route('test.index');
@@ -32,8 +30,16 @@ Route::group(['namespace' => 'Admin'], function()
     Route::get('admin/getmenuslistdata', 'AdminController@getmenuslistdata');
     Route::get('admin/menuviewtest', 'AdminController@menuviewtest');
     Route::get('admin/menuviewtest2', 'AdminController@menuviewtest2');
+    Route::get('admin/profile', 'AdminController@profile');
+    Route::get('admin/roleview', 'AdminController@roleview');
     
     
+    
+});
+
+Route::group(['namespace' => 'Wachat'], function()
+{
+    Route::get('wachat/menu', 'WachatController@menu');#  //echo route('test.index');
 });
 
 Route::group(['namespace' => 'Test'], function()
