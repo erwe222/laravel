@@ -59,6 +59,11 @@ $(function($) {
             mothod:'post',
         },
         columns: [
+            {data:null,title:'<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',width:30,orderable:false,class:'table-checkbox',
+                render:function(data){
+                    return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
+                }
+            },
             {title: 'ID',data: 'id'},
             {title: '栏目',data: 'name'},
             {title: '路由',data: 'note'},
