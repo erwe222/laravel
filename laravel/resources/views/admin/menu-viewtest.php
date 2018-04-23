@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<div id="orderinfo"></div>
+
 
 <script src="/ace-asstes/js/jquery-2.1.4.min.js"></script>
 <script src="/jquery-easyui/easyloader.js"></script>
@@ -48,44 +48,10 @@
 <script src="/ace-asstes/js/ace-elements.min.js"></script>
 <script src="/ace-asstes/js/ace.min.js"></script>
 <script>
-easyloader.base = '/jquery-easyui/'; // 设置 easyui 基础目录 
-easyloader.theme = 'metro';
-easyloader.locale = 'zh_CN';
-easyloader.load('datagrid', function(){ // 加载指定模块 
-   $("#orderinfo").datagrid({
-    url: '/admin/menuviewtest2',
-    loadMsg: '正在载入数据,请耐心等待...',
-    columns: [[//表头标题栏
-        {field: 'id', title: '订单ID号', width: 100, halign: 'center', checkbox: true},
-        {field: 'order_pre_no', title: '旧订单号', align: 'center',width: 150,sortable:true},
-        {field: 'logistics_name', title: '快递公司', align: 'center',width: 150,sortable:true},
-        {field: 'shipping_price', title: '快递价格', width: 100, align: 'center',sortable:true},
-      ]],
-    fit: false,
-    striped: true,
-    pagination: true,
-    pageSize: 10,
-    pageList: [10, 20, 30, 50],
-    rownumbers: true,
-    singleSelect: false,
-    method:'get',
-    onDblClickRow: function (index, row) {
 
-    },
-    queryParams:{testname:1111111111},
-    onLoadSuccess: function (data) {
-      if (data.rows.length === 0) {
-        var body = $(this).data().datagrid.dc.body2;
-        body.find('table tbody').append('<tr><td width="' + body.width() + '" style="height: 25px; text-align: center;font-weight:bold;color:red;" colspan="14">数据库中暂无数据...</td></tr>');
-      }
-    }
-  }); 
-});
 $(function(){
    var myGridTab = new myGrid('#grid-table','#grid-pager');
    myGridTab.init();
-   
-   
 
    function myRefresh(){
        myGridTab.search(true);

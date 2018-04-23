@@ -130,7 +130,6 @@
     height: 18px;
     line-height: 18px;
     font-size: 12px;
-    background:#ccc !important;
 }
 .datagrid-header .datagrid-cell {
     height: auto;
@@ -267,7 +266,7 @@
     cursor: default;
 }
 .datagrid-row-selected {
-    background: #e9ebef;
+    background: #F5F5F5 !important;
     color: #666;
 }
 .datagrid-body .datagrid-editable .datagrid-editable-input {
@@ -354,3 +353,13 @@
     text-align: center;
 }
 .datagrid-row {height: 32px !important;text-align:center;}
+
+
+.datagrid-header td {
+    vertical-align: middle;
+}
+
+.datagrid-header td {
+    border-color: #ddd;
+    font-weight: 700;
+}

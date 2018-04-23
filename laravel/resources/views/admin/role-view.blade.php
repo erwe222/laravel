@@ -1,22 +1,31 @@
 @extends('layouts.body')
 @section('content')
+<style>
+    #example{  
+    width: 100% !important;  
+}  
+</style>
 <div class="row">
     <div class="col-xs-12">
-            <div class="clearfix"><div class="pull-right tableTools-container"></div></div>
-            <div class="table-header">“最新注册域名”的搜索结果</div>
+        <div class="alert alert-info">
+            <form class="form-inline" role="form" id="grid-search-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="search-iframe-10" class="sr-only">ID</label>                
+                    <input type="text" id="search-id" name="params[id]" class="form-control" title="ID" placeholder="请输入ID">
+                </div>
+                <div class="form-group">
+                    <label for="search-iframe-10" class="sr-only">名称</label>                
+                    <input type="text" id="search-name" name="params[name]" class="form-control" title="名称" placeholder="请输入名称">             
+                </div> 
+                <button class="btn btn-info btn-sm"><i class="ace-icon fa fa-search"></i>搜索</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="clearfix"><div class="pull-right tableTools-container"></div></div>
+            <div class="table-header">数据表标题</div>
                 <div>
-                    <table id="dynamic-table" class="table table-striped table-bordered table-hover">
-                        <thead>
-            <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </thead>
-                    </table>
+                    <table id="dynamic-table" class="table table-striped table-bordered table-hover" ></table>
                 </div>
         </div>
 </div>
@@ -35,7 +44,7 @@
 $(function($) {
     var myTable = $('#dynamic-table').DataTable( {
         searching : false,
-        bAutoWidth: false,
+//        bAutoWidth: true,
         aaSorting: [],
         select: {style: 'multi'},
         oLanguage:{
@@ -53,7 +62,8 @@ $(function($) {
             }
         },
         processing : true,  
-        serverSide : true,  
+        serverSide : true,
+        "sScrollX":"100%", 
         ajax : {
             url:'/admin/getmenuslistdata',
             mothod:'post',
@@ -64,16 +74,22 @@ $(function($) {
                     return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
-            {title: 'ID',data: 'id'},
-            {title: '栏目',data: 'name'},
-            {title: '路由',data: 'note'},
-            {title: '图标',data: 'stock'},
-            {title: '图标2',data: 'ship'},
-            {title: '图标3',data: 'sdate'}
+            {title: 'ID',data: 'id',width:50},
+            {title: '栏目',data: 'name',width:100},
+            {title: '路由',data: 'note',width:100},
+            {title: '图标',data: 'stock',width:100},
+            {title: '图标2',data: 'ship',width:100},
+            {title: '图标3',data: 'sdate',width:100},
+            {title: '图标4',data: 'sdate',width:100},
+            
         ],
     });
+    
+    $('#grid-search-form').on('click',function(){
+        myTable.draw();
+    });
 	
-    $.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
+//    $.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
     
     myTable.on( 'select', function ( e, dt, type, index ) {
         if ( type === 'row' ) {

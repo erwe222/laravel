@@ -42,9 +42,8 @@ class AdminController extends Controller{
             ['id'=>'16','name'=>'液晶显示器','note'=>'note','stock'=>'是','ship'=>'TNT','sdate'=>'2018-01-01']
         ];
         
-        return response()->json(['draw'=>$_REQUEST['draw'],'recordsTotal'=>1000,'recordsFiltered'=>16,'data'=>$aa]);
-//        return response()->json(['data'=>[],'draw'=>1,'recordsTotal'=>0,'recordsFiltered'=>0]);
-//        return response()->json(['data'=>$aa,'page'=>1,'totalPage'=>1000,'totalCount'=>16,'repeatitems'=>time(),'test'=>1000]);
+//        return response()->json(['draw'=>$_REQUEST['draw'],'recordsTotal'=>1000,'recordsFiltered'=>16,'data'=>$aa]);
+        return response()->json(['data'=>$aa,'page'=>1,'totalPage'=>1000,'totalCount'=>16,'repeatitems'=>time(),'test'=>1000]);
     }
     
     public function menuviewtest2(){

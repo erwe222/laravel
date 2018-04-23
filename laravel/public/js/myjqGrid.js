@@ -90,7 +90,7 @@
                         {name:'name',index:'name', width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
                         {name:'stock',index:'stock', width:70, editable: true,edittype:"checkbox",editoptions: {value:"是:否"},unformat: that.aceSwitch},
                         {name:'ship',index:'ship', width:90, editable: true,edittype:"select",editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}},
-                        {name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}} 
+                        {name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}},
                     ], 
                     jsonReader:{ //server返回Json解析设定  
                         root: "data",
@@ -117,7 +117,6 @@
                     loadComplete : function() {
                         var table = this;
                         setTimeout(function(){
-                                that.styleCheckbox(table);
                                 that.updateActionIcons(table);
                                 that.updatePagerIcons(table);
                                 that.enableTooltips(table);
@@ -233,16 +232,6 @@
             var form = $(e[0]);
             form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
             MyGrid.prototype.style_edit_form(form);
-    }
-
-    MyGrid.prototype.styleCheckbox = function(table) {
-            $(table).find('input:checkbox').addClass('ace')
-            .wrap('<label />')
-            .after('<span class="lbl align-top" />')
-
-            $('.ui-jqgrid-labels th[id*="_cb"]:first-child')
-            .find('input.cbox[type=checkbox]').addClass('ace')
-            .wrap('<label />').after('<span class="lbl align-top" />');
     }
 
     //unlike navButtons icons, action icons in rows seem to be hard-coded
