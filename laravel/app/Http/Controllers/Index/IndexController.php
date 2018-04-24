@@ -11,10 +11,6 @@ class IndexController extends Controller
     public function index(){
 //            $test = app('test');
 //            $test->callMe('测试服务容器');
-        if(\Auth::check() == false){
-            echo '请登录后台';exit;
-        }
-        
         return view('index.index');
     }
     
@@ -32,6 +28,9 @@ class IndexController extends Controller
 //        echo "{'url':'/auth/menu-page','icon':'icon-desktop','title':'菜单管理',id:'menu-page'}";
         $menus = $this->getMenuData();
         $user = \Auth::user();
+        if(!$user){
+            echo '请登录后台';exit;
+        }
         return view('index.main', ['menus' => $menus,'user_info'=>$user]);
     }
 
