@@ -11,6 +11,10 @@ class IndexController extends Controller
     public function index(){
 //            $test = app('test');
 //            $test->callMe('测试服务容器');
+        if(\Auth::check() == false){
+            echo '请登录后台';exit;
+        }
+        
         return view('index.index');
     }
     
