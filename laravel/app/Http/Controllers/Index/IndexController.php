@@ -29,7 +29,7 @@ class IndexController extends Controller
         $menus = $this->getMenuData();
         $user = \Auth::user();
         if(!$user){
-            echo '请登录后台';exit;
+            return redirect('/login');exit;
         }
         return view('index.main', ['menus' => $menus,'user_info'=>$user]);
     }
