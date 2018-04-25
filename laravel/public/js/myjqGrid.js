@@ -128,9 +128,9 @@
                     editurl: "http://www.lar.test.com/",//nothing is saved
                     caption: "测试表格",
                     width: "100%",
-                    //autowidth: true,
-                    shrinkToFit:false,  
-                    autoScroll: false,  
+                    autowidth: true,
+                    shrinkToFit:true,  
+                    autoScroll: true,  
             });
 
             $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
