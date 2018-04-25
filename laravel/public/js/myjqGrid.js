@@ -128,7 +128,7 @@
                     editurl: "http://www.lar.test.com/",//nothing is saved
                     caption: "测试表格",
                     width: "100%",
-                    autowidth: true,
+                    //autowidth: true,
                     shrinkToFit:false,  
                     autoScroll: false,  
             });
