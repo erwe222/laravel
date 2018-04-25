@@ -49,9 +49,25 @@ class LoginController extends Controller
             $result = Auth::guard()->attempt([
                 'email' => $request->input('email'),
                 'password' => $request->input('password')
-            ], $request->input('remember'));
+            ], (bool)$request->input('remember'));
             return response()->json(['result'=>$result,'code'=>303]);
         }
         return response()->json(['result'=>false,'code'=>403]);
+    }
+    
+    
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        Auth::guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
     }
 }

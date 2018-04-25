@@ -5,6 +5,12 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller{
     
+    public $menuModel = null;
+    
+    public function __construct() {
+        $this->menuModel = new \App\Model\Menus();
+    }
+    
     public function MenuView(){
         return view('admin.menu-view');
     }
@@ -21,7 +27,7 @@ class AdminController extends Controller{
     /**
      * 获取菜单列表数据
      */
-    public function getMenusListData(){
+    public function getMenusListData2(){
         
         $aa = [
             ['id'=>'1','name'=>'台式电脑','note'=>'note','stock'=>'是','ship'=>'TNT','sdate'=>'2018-01-01'],
@@ -46,24 +52,11 @@ class AdminController extends Controller{
         return response()->json(['data'=>$aa,'page'=>1,'totalPage'=>1000,'totalCount'=>16,'repeatitems'=>time(),'test'=>1000]);
     }
     
-    public function menuviewtest2(){
-        $aa = [
-            ['id'=>'1','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'2','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'3','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'4','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'5','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'6','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'7','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'1','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'2','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'3','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'4','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'5','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'6','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-            ['id'=>'7','order_pre_no'=>'台式电脑','logistics_name'=>'note','shipping_price'=>'是'],
-        ];
-        return response()->json(['total'=>1000,'rows'=>$aa]);
+    public function getMenusListData(){
+        $menu_list = $this->menuModel->getMenuList();
+
+        
+        return response()->json(['total'=>count($menu_list),'rows'=>$menu_list]);
     }
     
     public function profile(){

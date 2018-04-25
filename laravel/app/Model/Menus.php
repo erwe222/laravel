@@ -63,7 +63,7 @@ class Menus extends Model
         }
         return $tree;
     }   
-    
+
     public function procHtml($tree,$type){
         $html = '';
         foreach($tree as $t){
@@ -104,17 +104,7 @@ class Menus extends Model
         
     }
     
-//     public function procHtml($tree){
-//        $html = '';
-//        foreach($tree as $t){
-//            if($t['parent_id'] == ''){
-//                $html .= "<li>{$t['name']}</li>";
-//            }else{
-//                $html .= "<li>".$t['name'];
-//                $html .= $this->procHtml($t['parent_id']);
-//                $html = $html."</li>";
-//            }
-//        }
-//        return $html ? '<ul>'.$html.'</ul>' : $html ;
-//    }
+    public function getMenuList(){
+        return $menus_arr = self::where('status', self::STATUS_ENABLE)->get()->toArray();
+    }
 }

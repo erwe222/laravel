@@ -184,7 +184,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#"><i class="ace-icon fa fa-power-off"></i>退出</a>
+                                    <a href="{{url('login/logout')}}"><i class="ace-icon fa fa-power-off"></i>退出</a>
                                 </li>
                             </ul>
                         </li>
@@ -483,7 +483,7 @@
                 objTab.tabAdd(data);
             });
 
-            $('.cus-click-url').on('click,top',function(){
+            $('.cus-click-url').on('click',function(){
                 $('.cus-click-url').each(function(){
                     $(this).parent().removeClass('active');
                 });

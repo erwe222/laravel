@@ -14,6 +14,8 @@
 Route::group(['namespace' => 'Auth'], function()
 {
     Route::post('login/postLogin', 'LoginController@postLogin');#  //echo route('test.index');
+    
+    Route::get('login/logout', 'LoginController@logout');
 });
 
 Route::group(['namespace' => 'Index'], function()

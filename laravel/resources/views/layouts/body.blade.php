@@ -8,6 +8,7 @@
         <meta name="description" content="Common form elements and layouts" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <link rel="stylesheet" href="/ace-asstes/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/ace-asstes/css/jquery-ui.min.css" />
         <link rel="stylesheet" href="/ace-asstes/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/jquery-ui.custom.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/chosen.min.css" />
@@ -48,6 +49,8 @@
             if('ontouchstart' in document.documentElement) document.write("<script src='/ace-asstes/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
         </script>
         <script src="/ace-asstes/js/bootstrap.min.js"></script>
+        <script src="/ace-asstes/js/jquery-ui.min.js"></script>
+        <script src="/ace-asstes/js/jquery.ui.touch-punch.min.js"></script>
         <script src="/ace-asstes/js/ace-elements.min.js"></script>
         <script src="/ace-asstes/js/ace.min.js"></script>
         <script>
@@ -57,6 +60,16 @@
         </script>
         <script>
             $('[data-rel=tooltip]').tooltip();
+            
+            
+            $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+                _title: function(title) {
+                        var $title = this.options.title || '&nbsp;'
+                        if( ("title_html" in this.options) && this.options.title_html == true )
+                                title.html($title);
+                        else title.text($title);
+                }
+            }));
         </script>
          @stack('scripts')
     </body>
