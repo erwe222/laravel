@@ -130,6 +130,9 @@
                     editurl: "http://www.lar.test.com/",//nothing is saved
                     caption: "测试表格",
                     autowidth: true,
+		    gridComplete:function(){//表格加载执行  
+                       $(this).closest('.ui-jqgrid-view').find('div.ui-jqgrid-hdiv').width($(this).width()+15);  
+                    } 
             });
 
             $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size

@@ -483,7 +483,7 @@
                 objTab.tabAdd(data);
             });
 
-            $('.cus-click-url').on('click,top',function(){
+            $('.cus-click-url').on('click',function(){
                 $('.cus-click-url').each(function(){
                     $(this).parent().removeClass('active');
                 });
