@@ -73,8 +73,6 @@
                         alert('测试');
                     },
                     height: 250,
-//                     shrinkToFit:false,   
-//                     autoScroll: true, 
                     rownumbers:false,//若此属性为true，表格左侧将添加一用于显示行数（从1开始）的列
                     colNames:['操作 ', 'ID','最近出售','名称', '库存', '供货商','备注'],
                     colModel:[
@@ -130,9 +128,6 @@
                     editurl: "http://www.lar.test.com/",//nothing is saved
                     caption: "测试表格",
                     autowidth: true,
-		    gridComplete:function(){//表格加载执行  
-                       //$(this).closest('.ui-jqgrid-view').find('div.ui-jqgrid-hdiv').width($(this).width()+15);  
-                    } 
             });
 
             $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
