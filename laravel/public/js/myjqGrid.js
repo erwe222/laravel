@@ -127,7 +127,7 @@
                     },
                     editurl: "http://www.lar.test.com/",//nothing is saved
                     caption: "测试表格",
-                    autowidth: true,
+                    autowidth: true
             });
 
             $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
