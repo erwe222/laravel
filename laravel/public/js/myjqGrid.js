@@ -73,8 +73,8 @@
                         alert('测试');
                     },
                     height: 250,
-                    shrinkToFit:false,   
-                    autoScroll: true, 
+//                     shrinkToFit:false,   
+//                     autoScroll: true, 
                     rownumbers:false,//若此属性为true，表格左侧将添加一用于显示行数（从1开始）的列
                     colNames:['操作 ', 'ID','最近出售','名称', '库存', '供货商','备注'],
                     colModel:[
