@@ -127,10 +127,10 @@
                     },
                     editurl: "http://www.lar.test.com/",//nothing is saved
                     caption: "测试表格",
-                    width: "100%",
-                    autowidth: true,
-                    shrinkToFit:true,  
-                    autoScroll: true,  
+                    width:'100%',
+                    shrinkToFit: false,
+                    autoScroll: true,          //shrinkToFit: false,autoScroll: true,这两个属性产生水平滚动条   
+                    autowidth: false,          //必须要,否则没有水平滚动条
             });
 
             $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
