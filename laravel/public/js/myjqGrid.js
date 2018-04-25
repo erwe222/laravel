@@ -131,7 +131,7 @@
                     caption: "测试表格",
                     autowidth: true,
 		    gridComplete:function(){//表格加载执行  
-                       $(this).closest('.ui-jqgrid-view').find('div.ui-jqgrid-hdiv').width($(this).width()+15);  
+                       //$(this).closest('.ui-jqgrid-view').find('div.ui-jqgrid-hdiv').width($(this).width()+15);  
                     } 
             });
 
