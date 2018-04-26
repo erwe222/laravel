@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Admin'], function()
 {
     Route::get('admin/menuview', 'AdminController@menuview');
     Route::get('admin/getmenuslistdata', 'AdminController@getmenuslistdata');
+    Route::get('admin/getmenuslistdata2', 'AdminController@getmenuslistdata2');
     Route::get('admin/menuviewtest', 'AdminController@menuviewtest');
     Route::get('admin/menuviewtest2', 'AdminController@menuviewtest2');
     Route::get('admin/profile', 'AdminController@profile');
