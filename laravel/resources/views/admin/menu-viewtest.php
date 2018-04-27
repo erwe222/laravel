@@ -112,6 +112,10 @@ $(function(){
         download:function(){
             var rewdata = myGridTab.getAllData();
             download(rewdata);
+        },
+        refresh:function(){
+            myGridTab.search(true);
+            return false;
         }
     }
     
@@ -143,19 +147,13 @@ $(function(){
         a.remove();
     }
 
-   function myRefresh(){
-       myGridTab.search(true);
-       return false;
-   }
-   
    $('#grid-search-form').on('click',function(){
-       myRefresh();
+       obj.refresh();
        return false;
    });
    
    $('#btns-type-one > button').on('click',function(){
         obj[$(this).data('type')]();
-//        evt.preventDefault();
     });
 })
 </script>

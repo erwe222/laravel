@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Menus extends Model
 {
@@ -62,7 +63,9 @@ class Menus extends Model
             }
         }
         return $tree;
-    }   
+    }
+    
+
 
     public function procHtml($tree,$type){
         $html = '';
@@ -107,4 +110,29 @@ class Menus extends Model
     public function getMenuList(){
         return $menus_arr = self::where('status', self::STATUS_ENABLE)->get()->toArray();
     }
+    
+    public function getMenuSelect(){
+        $menus_arr = self::where('status', self::STATUS_ENABLE)->select('id','parent_id', 'name as text',"type",'icon as icon-class')->orderBy('updated_time', 'asc')->get()->toArray();
+        foreach($menus_arr as $key=>$v){
+            $menus_arr[$key]['type'] = $v['type'] == 0?'folder':'item';
+        }
+
+        return $handle_res = $this->getTree2($menus_arr,0);
+        
+    }
+    
+    
+    public function getTree2($data, $pId){
+        $tree = [];
+        foreach($data as $k => $v)
+        {
+            if($v['parent_id'] == $pId){
+                $data2 = $this->getTree2($data, $v['id']);
+                $v['additionalParameters']['children'] = $data2;
+                
+                $tree[] = $v;
+            }
+        }
+        return $tree;
+    }  
 }

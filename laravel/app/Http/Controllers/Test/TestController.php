@@ -10,14 +10,18 @@ use App\User;
 
 class TestController extends Controller
 {
-    
+    public function __construct() {
+        $this->menuModel = new \App\Model\Menus();
+    }
 
-	public function index(){
-		//echo route('test.index');
-		echo 'aaaaaaaaa';
-		$test = app('test');
-		$test->callMe('测试服务容器');
+    public function index(){
+            //echo route('test.index');
+//		echo 'aaaaaaaaa';
+//		$test = app('test');
+//		$test->callMe('测试服务容器');
 
-	}
+        $res = $this->menuModel->getMenuSelect();
+        echo (json_encode($res));
+    }
 
 }

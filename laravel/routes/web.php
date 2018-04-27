@@ -36,6 +36,7 @@ Route::group(['namespace' => 'Admin'], function()
     Route::get('admin/profile', 'AdminController@profile');
     Route::get('admin/roleview', 'AdminController@roleview');
     
+    Route::get('admin/getmenutreelist', 'AdminController@getmenutreelist');
     
     
 });

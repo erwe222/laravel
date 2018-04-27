@@ -62,4 +62,9 @@ class AdminController extends Controller{
     public function profile(){
         return view('admin.profile-view');
     }
+    
+    public function getMenuTreeList(){
+        $res = $this->menuModel->getMenuSelect();
+        return response()->json($res);
+    }
 }

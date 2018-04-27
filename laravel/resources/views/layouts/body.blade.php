@@ -56,7 +56,7 @@
         <script>
             easyloader.base = '/jquery-easyui/'; // 设置 easyui 基础目录 
             easyloader.theme = 'metro';          // 设置 easyui 默认主题
-            easyloader.locale = 'zh_CN';         // 设置 easyui 默认语言
+            //easyloader.locale = 'zh_CN';         // 设置 easyui 默认语言
         </script>
         <script>
             $('[data-rel=tooltip]').tooltip();
