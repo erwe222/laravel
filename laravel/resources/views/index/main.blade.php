@@ -402,7 +402,7 @@
                         this.previousPageIndex = this.currentPageIndex;
                         this.currentPageIndex  = index;
                     }
-                    console.log('当前页：'+this.currentPageIndex+'--上一页'+this.previousPageIndex);
+//                    console.log('当前页：'+this.currentPageIndex+'--上一页'+this.previousPageIndex);
                 },
                 tabAdd: function(data) {
                     if(!this.tabExists(data.index)){
@@ -445,7 +445,7 @@
                             var timer = setInterval(function(){
                                 mainheight = frame_content.contents().find("body").height();
                                 if (mainheight != pre_height){
-                                    console.log('iframe高度改变:原高度-'+pre_height+'===本次改变后高度'+mainheight);
+                                    //console.log('iframe高度改变:原高度-'+pre_height+'===本次改变后高度'+mainheight);
                                     pre_height = mainheight;
                                     frame_content.height(mainheight);
                                  }

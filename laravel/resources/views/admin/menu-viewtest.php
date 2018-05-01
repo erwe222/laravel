@@ -82,7 +82,7 @@ $(function(){
         },
         myGrid:{
             url:'/admin/getmenuslistdata2',
-            height: 250,
+//            height: 400,
             subGrid : false,//设置为true，可使用子表格。启用子表格，将在基本表的左边将添加一列，并包含一个“+”图像，用户可以点击扩展行。
             rowNum:10,
             rowList:[10,20,30],

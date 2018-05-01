@@ -20,7 +20,7 @@
     </div>
     <div class="col-xs-12">
         <p class="pull-right" id="btns-type-one" >
-            <button class="btn btn-white btn-info btn-bold" data-type="add" >
+            <button class="btn btn-white btn-info btn-bold" data-type="showFrom" >
                 <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>添加
             </button>
             <button class="btn btn-white btn-info btn-bold" data-type="download">
@@ -36,51 +36,57 @@
     </div>
 </div>
 
-<div id="orderinfo" style="width: 100%;"></div>
+<div id="orderinfo" style="width: 100%;min-height:400px;"></div>
 
 <div id="dialog-message" class="hide" >
-<form class="form-horizontal" role="form">
+    <form class="form-horizontal" role="form" id="menu-form">
     <div class="form-group">
-        <label class="col-sm-2 control-label no-padding-right" for="form-field-select-3"> 父级菜单 </label>
+        <label class="col-sm-2 control-label no-padding-right"> 父级菜单 </label>
         <div class="col-sm-9">
-            <!--<input type="text" id="form-field-1-1" placeholder="请填写菜单名..." class="form-control" disabled="" />-->
-            <select placeholder="请填写菜单名..." class="form-control" ></select>
-            <div class="widget-box widget-color-blue2" style="height:200px;overflow-y:auto;margin-top:0;">
-                <div class="widget-body">
-                    <div class="widget-main padding-8"><ul id="tree2"></ul></div>
+            <div class="widget-box collapsed">
+                <div class="widget-header">
+                    <h4 class="widget-title" id="menu-parent">请选择父菜单</h4>
+                    <div class="widget-toolbar" id="test">
+                        <a href="#" data-action="collapse"><i class="ace-icon fa fa-chevron-down" id="test-icon"></i></a>
+                    </div>
+                </div>
+                <div class="widget-body" style="display:none;">
+                    <div class="widget-main">
+                        <ul id="tree2"></ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label no-padding-right" for="form-field-1-1"> 菜单名 </label>
+        <label class="col-sm-2 control-label no-padding-right" for="menu-name"> 菜单名 </label>
         <div class="col-sm-9">
-                <input type="text" id="form-field-1-1" placeholder="请填写菜单名..." class="form-control" />
+            <input type="text" id="menu-name" name="menu-name" placeholder="请填写菜单名..." class="form-control" />
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label no-padding-right" for="form-field-1-2"> 地址链接 </label>
+        <label class="col-sm-2 control-label no-padding-right" for="menu-url"> 地址链接 </label>
         <div class="col-sm-9">
-                <input type="text" id="form-field-1-2" placeholder="请填写地址链接..." class="form-control" />
+            <input type="text" id="menu-url" name="menu-url" placeholder="请填写地址链接..." class="form-control" />
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label no-padding-right" for="form-field-1-5"> 菜单图标 </label>
+        <label class="col-sm-2 control-label no-padding-right" for="menu-icon"> 菜单图标 </label>
         <div class="col-sm-9">
-                <input type="text" id="form-field-1-5" placeholder="请填写菜单图标..." class="form-control" />
+            <input type="text" id="menu-icon" placeholder="请填写菜单图标..." class="form-control" name="menu-icon"/>
         </div>
     </div>
-    
+    <input type="hidden" id="menu-id"  name="menu-id" value="0"  />
     <div class="form-group">
         <label class="col-sm-2 control-label no-padding-right" for="form-field-1-3"> 菜单类型 </label>
         <div class="col-sm-9">
             <div class="radio">
                 <label>
-                    <input name="form-field-radio" type="radio" class="ace" checked="" />
+                    <input name="menu-type" type="radio" class="ace" checked="" value="0" />
                     <span class="lbl">目录菜单</span>
                 </label>
                 <label>
-                    <input name="form-field-radio" type="radio" class="ace" />
+                    <input name="menu-type" type="radio" class="ace" value="1" />
                     <span class="lbl">页面菜单</span>
                 </label>
             </div>
@@ -92,18 +98,16 @@
         <div class="col-sm-9">
             <div class="radio">
                 <label>
-                    <input name="form-field-radio" type="radio" class="ace" checked="" />
+                    <input name="menu-status" type="radio"  class="ace" checked="" value="1" />
                     <span class="lbl">启用</span>
                 </label>
                 <label>
-                    <input name="form-field-radio" type="radio" class="ace" />
+                    <input name="menu-status" type="radio"  class="ace" value="2" />
                     <span class="lbl">禁用</span>
                 </label>
             </div>
         </div>
     </div>
-    
-    
 </form>
 </div>
 @endsection
@@ -144,32 +148,30 @@ easyloader.load('datagrid', function(){ // 加载指定模块
             }
         }
     });
-    
+
     $('#grid-search-form').on('submit',function(){
         objClass.refresh();
     });
     
     var objClass = {
         add:function(){
-            
-            $( "#dialog-message" ).removeClass('hide').dialog({
-                modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon glyphicon glyphicon-plus'></i> 添加菜单</h4></div>",
-                title_html: true,
-                width:600,
-                buttons: [{
-                        text: "取消",
-                        class : "btn btn-minier",
-                        click: function() {$( this ).dialog( "close" ); } 
-                    },{
-                        text: "确定",
-                        class: "btn btn-primary btn-minier",
-                        click: function() {
-                                $( this ).dialog( "close" ); 
-                        } 
-                    }
-                ]
-            }).parent().css('top','10px');
+            var parent = $('#menu-parent').text();
+            var id     = $("input[name='menu-id']").val();
+            var name   = $("input[name='menu-name']").val();
+            var url    = $("input[name='menu-url']").val();
+            var icon   = $("input[name='menu-icon']").val();
+            var type   = $("input[name='menu-type']:checked").val();
+            var status = $("input[name='menu-status']:checked").val();
+            return false;
+        },
+        clrarFrom:function(){
+            $('#menu-parent').text('请选择父菜单');
+            $("input[name='menu-id']").val(0);
+            $("input[name='menu-name']").val('');
+            $("input[name='menu-url']").val('');
+            $("input[name='menu-icon']").val('');
+            $("input[name='menu-type']:checked").val('');
+            $("input[name='menu-status']:checked").val('');
         },
         download:function(){
             alert('download');
@@ -183,6 +185,32 @@ easyloader.load('datagrid', function(){ // 加载指定模块
                 start_time: 'ssssssssssss',
                 end_time: 'asdfasd'
             });
+        },
+        showFrom:function(){
+            var _this = this;
+            $( "#dialog-message" ).removeClass('hide').dialog({
+                modal: true,
+                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon glyphicon glyphicon-plus'></i> 添加菜单</h4></div>",
+                title_html: true,
+                width:600,
+                buttons: [{
+                        text: "取消",
+                        class : "btn btn-minier",
+                        click: function() {
+                            _this.clrarFrom();
+                            $( this ).dialog( "close" ); 
+                        } 
+                    },{
+                        text: "确定",
+                        class: "btn btn-primary btn-minier",
+                        click: function() {
+                            if(_this.add()){
+                                $( this ).dialog( "close" );
+                            }
+                        } 
+                    }
+                ]
+            }).parent().css('top','10px');
         }
     };
     
@@ -207,7 +235,10 @@ easyloader.load('datagrid', function(){ // 加载指定模块
 		'folder-open-icon' : 'ace-icon tree-plus',
 		'folder-close-icon' : 'ace-icon tree-minus'
 	}).on('selected.fu.tree', function(e) {
-            console.log(e);
+            $('#menu-parent').text($('.tree-selected >.tree-branch-header .tree-branch-name  .tree-label').text());
+            $('#tree2').parent().parent().css('display','none');
+            $('#test-icon').addClass('fa-chevron-down');
+            $('#tree2').parent().parent().parent().addClass('collapsed');
 	});
 	
 	function initiateDemoData(){
@@ -240,5 +271,5 @@ easyloader.load('datagrid', function(){ // 加载指定模块
 		return { 'dataSource2' : dataSource2}
 	}
 });
-		</script>
+</script>
 @endpush

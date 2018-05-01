@@ -9,6 +9,11 @@ class AdminController extends Controller{
     
     public function __construct() {
         $this->menuModel = new \App\Model\Menus();
+        
+        $path   = request()->path();
+        $method = request()->method();
+        $authManage = new \App\Model\FunctionClass\AuthManage(3);
+        $authManage->verify($path,$method);
     }
     
     public function MenuView(){
@@ -48,8 +53,8 @@ class AdminController extends Controller{
             ['id'=>'16','name'=>'液晶显示器','note'=>'note','stock'=>'是','ship'=>'TNT','sdate'=>'2018-01-01']
         ];
         
-//        return response()->json(['draw'=>$_REQUEST['draw'],'recordsTotal'=>1000,'recordsFiltered'=>16,'data'=>$aa]);
-        return response()->json(['data'=>$aa,'page'=>$_REQUEST['page'],'totalPage'=>1000,'totalCount'=>16,'repeatitems'=>time(),'test'=>1000]);
+        return response()->json(['draw'=>$_REQUEST['draw'],'recordsTotal'=>1000,'recordsFiltered'=>16,'data'=>$aa]);
+//        return response()->json(['data'=>$aa,'page'=>$_REQUEST['page'],'totalPage'=>1000,'totalCount'=>16,'repeatitems'=>time(),'test'=>1000]);
     }
     
     public function getMenusListData(){

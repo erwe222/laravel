@@ -9,8 +9,6 @@ use App\User;
 class IndexController extends Controller
 {
     public function index(){
-//            $test = app('test');
-//            $test->callMe('测试服务容器');
         return view('index.index');
     }
     
@@ -24,8 +22,6 @@ class IndexController extends Controller
     }
     
     public function main(){
-//        echo json_encode(['url'=>'','icon'=>'','title'=>'asdfasd','index'=>"asd"]);
-//        echo "{'url':'/auth/menu-page','icon':'icon-desktop','title':'菜单管理',id:'menu-page'}";
         $menus = $this->getMenuData();
         $user = \Auth::user();
         if(!$user){

@@ -13,7 +13,6 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -232,5 +231,11 @@ return [
 
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
+    
+    //附加配置文件
+    'config'=>[
+        //是否开启页面授权验证（默认开启）
+        'authverify'=>false,
+    ]
 
 ];
