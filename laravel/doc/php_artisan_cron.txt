@@ -1,0 +1,5 @@
+
+
+1.添加定时任务，* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1。这个语句是每分钟执行一次schedule。
+
+2. 队列监听命令 php artisan queue:listen database --queue=default --daemon --timeout=0 --tries=3 --sleep=3
