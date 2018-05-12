@@ -120,7 +120,7 @@ class Roles extends Model{
     }
     
     /**
-     * 获取多条加色信息
+     * 获取多条角色信息
      */
     public function findRolesList($params = [],$all = ''){
         $count_sql = 'select count(1) as total from lar_roles r where 1=1 ';
@@ -149,23 +149,11 @@ class Roles extends Model{
         foreach($list as $_k=>$_v){
             $list[$_k] = (array)$_v;
         }
-        var_dump($list);
+        
+        $page_info['data'] = $list;
+        return $page_info;
     }
     
-    public function getPagingInfo($total,$pageindex=1,$pagesize=20){
-        $pagesize = ((int)$pagesize == 0?1:(int)$pagesize);
-
-        $offset = (intval($pageindex) - 1) * intval($pagesize);
-        
-        return [
-            'offset'=>$offset,
-            'pagesize'=>$pagesize,
-            'toatl'=>$total,
-            'page_index'=>$pageindex,
-            'page_total'=>ceil((int)$total/(int)$pagesize),
-            'limit'=>" limit {$offset},{$pagesize}"
-        ];
-    }
     
     
 }

@@ -12,6 +12,7 @@ class TestController extends Controller
 {
     public function __construct() {
         $this->menuModel = new \App\Model\Menus();
+        $this->rolesModel = new \App\Model\Roles();
     }
 
     public function index(){
@@ -22,6 +23,12 @@ class TestController extends Controller
 
         $res = $this->menuModel->getMenuSelect();
         echo (json_encode($res));
+    }
+    
+    public function test(){
+        
+        exit;
+        return view('test.viewtest');
     }
 
 }

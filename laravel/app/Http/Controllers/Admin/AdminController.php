@@ -56,12 +56,10 @@ class AdminController extends Controller{
         return response()->json(['draw'=>$_REQUEST['draw'],'recordsTotal'=>1000,'recordsFiltered'=>16,'data'=>$aa]);
 //        return response()->json(['data'=>$aa,'page'=>$_REQUEST['page'],'totalPage'=>1000,'totalCount'=>16,'repeatitems'=>time(),'test'=>1000]);
     }
-    
-    public function getMenusListData(){
-        $menu_list = $this->menuModel->getMenuList();
 
-        
-        return response()->json(['total'=>count($menu_list),'rows'=>$menu_list]);
+    public function getMenusListData(){
+        $menu_list = $this->menuModel->findMenuList();
+        return response()->json(['total'=>$menu_list['total'],'rows'=>$menu_list['data']]);
     }
     
     public function profile(){
