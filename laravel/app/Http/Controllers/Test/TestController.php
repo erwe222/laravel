@@ -6,7 +6,7 @@ use App;
 use App\Contracts\TestContract;
 use App\Services\TestService;
 use App\User;
-
+use App\Jobs\TestJob;
 
 class TestController extends Controller
 {
@@ -21,8 +21,12 @@ class TestController extends Controller
 //		$test = app('test');
 //		$test->callMe('测试服务容器');
 
-        $res = $this->menuModel->getMenuSelect();
-        echo (json_encode($res));
+        // $res = $this->menuModel->getMenuSelect();
+        // echo (json_encode($res));
+
+        $job = (new TestJob(1000))->onConnection('database');
+
+        dispatch($job);
     }
     
     public function test(){

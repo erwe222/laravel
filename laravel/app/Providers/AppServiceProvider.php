@@ -13,7 +13,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Queue::failing(function (JobFailed $event) {
+        //     // $event->connectionName
+        //     // $event->job
+        //     // $event->exception
+        //     \Log::alert('--------队列运行失败sssssssssssssss');
+        // });
     }
 
     /**
