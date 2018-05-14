@@ -37,6 +37,8 @@ class TestController extends Controller
 
 
     public function vueApi(){
+        $_params = $_REQUEST;
+        
     	$data = [
             ['id'=>'1','name'=>'台式电脑','note'=>'note','stock'=>'是','ship'=>'TNT','sdate'=>'2018-01-01'],
             ['id'=>'2','name'=>'笔记本电脑','note'=>'note','stock'=>'是','ship'=>'TNT','sdate'=>'2018-01-01'],
@@ -53,7 +55,7 @@ class TestController extends Controller
             ['id'=>'13','name'=>'液晶显示器','note'=>'note','stock'=>'是','ship'=>'TNT','sdate'=>'2018-01-01']
         ];
 
-        return response()->json(['code'=>200,'message'=>'接口请求成功','data'=>$data]);
+        return response()->json(['code'=>200,'message'=>'接口请求成功','data'=>$data,'params'=>$_params]);
     }
 
 }
