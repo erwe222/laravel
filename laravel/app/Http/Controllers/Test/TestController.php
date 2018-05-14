@@ -7,6 +7,7 @@ use App\Contracts\TestContract;
 use App\Services\TestService;
 use App\User;
 use App\Jobs\TestJob;
+use Mail;
 
 class TestController extends Controller
 {
@@ -24,9 +25,21 @@ class TestController extends Controller
         // $res = $this->menuModel->getMenuSelect();
         // echo (json_encode($res));
 
-        $job = (new TestJob(1000))->onConnection('database');
-
-        dispatch($job);
+//        $job = (new TestJob(1000))->onConnection('database');
+//        dispatch($job);
+        
+        #ievlcfzyuipcbcab
+        $name = '学院君';
+        $flag = Mail::send('emails.test',['name'=>$name],function($message){
+            $to = '1276816843@qq.com';
+            $message ->to($to)->subject('测试邮件');
+        });
+var_dump($flag);
+        if($flag){
+            echo '发送邮件成功，请查收！';
+        }else{
+            echo '发送邮件失败，请重试！';
+        }
     }
     
     public function test(){
