@@ -7,7 +7,8 @@ use App\Contracts\TestContract;
 use App\Services\TestService;
 use App\User;
 use App\Jobs\TestJob;
-use Mail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
@@ -16,7 +17,7 @@ class TestController extends Controller
         $this->rolesModel = new \App\Model\Roles();
     }
 
-    public function index(){
+    public function index(Request $request){
             //echo route('test.index');
 //		echo 'aaaaaaaaa';
 //		$test = app('test');
@@ -27,19 +28,25 @@ class TestController extends Controller
 
 //        $job = (new TestJob(1000))->onConnection('database');
 //        dispatch($job);
-        
         #ievlcfzyuipcbcab
-        $name = '学院君';
-        $flag = Mail::send('emails.test',['name'=>$name],function($message){
+        
+        #https://www.jianshu.com/p/8ccb2820df23
+
+        $name = '发件人';
+        $flag = Mail::queue('emails.test',['name'=>$name],function($message){
             $to = '1276816843@qq.com';
-            $message ->to($to)->subject('测试邮件');
+            $message ->to($to)->subject('嗨，你好');
         });
-var_dump($flag);
-        if($flag){
+        if(!$flag){
             echo '发送邮件成功，请查收！';
         }else{
             echo '发送邮件失败，请重试！';
         }
+//        if(count(Mail::failures()) < 1){
+//            echo '发送邮件成功，请查收！';
+//        }else{
+//            echo '发送邮件失败，请重试！';
+//        }
     }
     
     public function test(){
