@@ -322,7 +322,7 @@
                     </div>
                 </div>
             </div>
-            <div class="footer">
+<!--            <div class="footer" id="cus-footer">
                 <div class="footer-inner">
                     <div class="footer-content">
                         <span class="bigger-120">
@@ -330,7 +330,7 @@
                         </span>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
@@ -351,7 +351,8 @@
         <script src="{{asset('ace-asstes/js/jquery.gritter.min.js')}}"></script>
         <script type="text/javascript">
             nprogress.start();
-
+            var w_height = window.innerHeight -  137;
+            
             /**
              * 选项卡操作类
              * @type type
@@ -444,11 +445,15 @@
                             var frame_content = $(this);
                             var timer = setInterval(function(){
                                 mainheight = frame_content.contents().find("body").height();
+                                if(w_height >= mainheight){
+                                    mainheight = w_height;
+                                }
                                 if (mainheight != pre_height){
                                     //console.log('iframe高度改变:原高度-'+pre_height+'===本次改变后高度'+mainheight);
                                     pre_height = mainheight;
+                                    console.log(pre_height);
                                     frame_content.height(mainheight);
-                                 }
+                                }
                             },250);//每0.25秒检查一次
                         })
                     }

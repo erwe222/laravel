@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div id="orderinfo" style="width: 100%;min-height:400px;"></div>
+<div id="orderinfo" style="width: 100%;"></div>
 
 <div id="dialog-message" class="hide" >
     <form class="form-horizontal" role="form" id="menu-form">
@@ -127,8 +127,8 @@ easyloader.load('datagrid', function(){ // 加载指定模块
             {field: 'type', title: '菜单类型', align: 'center'},
             {field: 'icon', title: '菜单图标', width: 100},
             {field: 'status', title: '菜单状态', align: 'center',width: 100},
-            {field: 'created_time', title: '菜单添加时间', align: 'center',width: 120,sortable:true},
-            {field: 'updated_time', title: '菜单修改时间', align: 'center',sortable:true}
+            {field: 'created_at', title: '菜单添加时间', align: 'center',width: 120,sortable:true},
+            {field: 'updated_at', title: '菜单修改时间', align: 'center',sortable:true}
         ]],
         fit: false,
         pagination: true,

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
@@ -37,12 +36,22 @@ class Menus extends Model
      */
     protected $guarded = ['id'];
     
+    /**
+     * 过滤状态
+     * @param type $status
+     * @return type
+     */
     protected function filterStatus($status){
         return ((int)$status == self::STATUS_ENABLE?self::STATUS_ENABLE:self::STATUS_DISABLE);
     }
     
-    protected function filterType($status){
-        switch ($status){
+    /**
+     * 过滤类型
+     * @param type $status
+     * @return type
+     */
+    protected function filterType($type){
+        switch ($type){
             case 0:
                 return self::TYPE_DIR;
                 break;
@@ -57,7 +66,7 @@ class Menus extends Model
                 break;
         }
     }
-    
+
     /**
      * 添加菜单
      */
@@ -108,7 +117,7 @@ class Menus extends Model
         }
         return false;
     }
-    
+
     /**
      * 更新菜单信息
      */
@@ -158,7 +167,7 @@ class Menus extends Model
         }
         return false;
     }
-    
+
     /**
      * 删除菜单
      * @param type $menu_id 菜单id
@@ -182,7 +191,44 @@ class Menus extends Model
         }
         return false;
     }
-    
+
+    /**
+     * 获取菜单列表信息
+     * @return type
+     */
+    public function findMenuList($params = [],$all = ''){
+        $count_sql = 'select count(1) as total from `lar_menus` mes where 1=1 ';
+        $sql = 'SELECT mes.*,ifnull(ms.name,"顶级菜单") as parent_name FROM `lar_menus` mes LEFT JOIN lar_menus ms ON mes.parent_id =ms.id where 1=1 ';
+
+        if(isset($params['name']) && !empty($params['name'])){
+            $sql .= " and mes.name like '%{$params['name']}%'";
+            $count_sql .= " and mes.name like '%{$params['name']}%'";
+        }
+
+        if(isset($params['status'])){
+            $sql .= " and mes.status = {$params['status']}";
+            $count_sql .= " and mes.status = {$params['status']}";
+        }
+        
+        $count_info = DB::select($count_sql);
+        
+        $pageindex = isset($params['pageindex'])?$params['pageindex']:1;
+        $pagesize  = isset($params['pagesize'])?$params['pagesize']:10;
+        $page_info = getPagingInfo($count_info[0]->total,$pageindex,$pagesize);
+        
+        if(isset($params['orderBy']) && isset($params['sort'])){
+            $sql .= " order by {$params['orderBy']} {$params['sort']}";
+        }
+
+        $list = DB::select($sql.$page_info['limit']);
+        foreach($list as $_k=>$_v){
+            $list[$_k] = (array)$_v;
+        }
+
+        $page_info['data'] = $list;
+        return $page_info;
+    }
+
     /**
      * 通过菜单名查询记录
      * @param type $name 菜单名
@@ -205,7 +251,7 @@ class Menus extends Model
         $handle_res = $this->getTree($menus_arr,0);
         return $this->procHtml($handle_res,0);
     }
-    
+
     public function getTree($data, $pId){
         $tree = [];
         foreach($data as $k => $v)
@@ -217,7 +263,7 @@ class Menus extends Model
         }
         return $tree;
     }
-
+    
     public function procHtml($tree,$type){
         $html = '';
         foreach($tree as $t){
@@ -258,10 +304,6 @@ class Menus extends Model
         
     }
     
-    public function getMenuList(){
-        return $menus_arr = self::where('status', self::STATUS_ENABLE)->get()->toArray();
-    }
-
     public function getMenuSelect(){
         $menus_arr = self::where('status', self::STATUS_ENABLE)->where('type',0)->select('id','parent_id', 'name as text',"type",'icon as icon-class')->orderBy('updated_at', 'asc')->get()->toArray();
         foreach($menus_arr as $key=>$v){

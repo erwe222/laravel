@@ -12,6 +12,7 @@ class TestController extends Controller
 {
     public function __construct() {
         $this->menuModel = new \App\Model\Menus();
+        $this->rolesModel = new \App\Model\Roles();
     }
 
     public function index(){
@@ -26,6 +27,12 @@ class TestController extends Controller
         $job = (new TestJob(1000))->onConnection('database');
 
         dispatch($job);
+    }
+    
+    public function test(){
+        
+        exit;
+        return view('test.viewtest');
     }
 
 
