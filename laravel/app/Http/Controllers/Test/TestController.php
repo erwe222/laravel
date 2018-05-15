@@ -9,7 +9,7 @@ use App\User;
 use App\Jobs\TestJob;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
-
+use App\Mail\OrderShipped;
 class TestController extends Controller
 {
     public function __construct() {
@@ -31,17 +31,29 @@ class TestController extends Controller
         #ievlcfzyuipcbcab
         
         #https://www.jianshu.com/p/8ccb2820df23
+		#https://yq.aliyun.com/ziliao/4217
+		#https://yq.aliyun.com/ziliao/4213?spm=a2c4e.11155472.blogcont.22.1e7f770axqYkRM
+		#https://laravel-china.org/topics/2668/laravel-53-new-features-introduction-of-1-laravel-echo
+		#https://segmentfault.com/a/1190000004997982
+		#https://laravel-china.org/topics/2668/laravel-53-new-features-introduction-of-1-laravel-echo
+    	//模板发送
+    	Mail::send(new OrderShipped());
 
-        $name = '发件人';
-        $flag = Mail::queue('emails.test',['name'=>$name],function($message){
-            $to = '1276816843@qq.com';
-            $message ->to($to)->subject('嗨，你好');
-        });
-        if(!$flag){
-            echo '发送邮件成功，请查收！';
-        }else{
-            echo '发送邮件失败，请重试！';
-        }
+    	//队列模板发送
+        //$message = (new OrderShipped())->onConnection('database')->onQueue('emails');
+		// Mail::queue($message);
+
+		//立即发送
+        // $name = '发件人';
+        // $flag = Mail::send('emails.test',['name'=>$name],function($message){
+        //     $to = '1276816843@qq.com';
+        //     $message ->to($to)->subject('嗨，你好');
+        // });
+        // if(!$flag){
+        //     echo '发送邮件成功，请查收！';
+        // }else{
+        //     echo '发送邮件失败，请重试！';
+        // }
 //        if(count(Mail::failures()) < 1){
 //            echo '发送邮件成功，请查收！';
 //        }else{
