@@ -36,7 +36,8 @@ return [
             'secret' => env('PUSHER_APP_SECRET','d3d886ad82409e17d258'),
             'app_id' => env('PUSHER_APP_ID','525985'),
             'options' => [
-                //
+                'cluster' => 'eu',
+                'encrypted' => true
             ],
         ],
 

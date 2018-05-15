@@ -36,6 +36,7 @@ class TestController extends Controller
 		#https://laravel-china.org/topics/2668/laravel-53-new-features-introduction-of-1-laravel-echo
 		#https://segmentfault.com/a/1190000004997982
 		#https://laravel-china.org/topics/2668/laravel-53-new-features-introduction-of-1-laravel-echo
+                ##https://laravel-china.org/docs/laravel/5.4/broadcasting/1246#installing-laravel-echo
     	//模板发送
     	Mail::send(new OrderShipped());
 
