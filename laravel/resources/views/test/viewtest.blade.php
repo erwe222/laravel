@@ -3,12 +3,14 @@
 
 <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
 <script src="/js/app.js"></script>
-<script>
-window.Echo.channel('orders')
-    .listen('OrderShipped', (e) => {
-        console.log(e.order.name);
-    });
-</script>
+
 
 
 <div style="width: 100%;height: 200px;background:red;"></div>
+
+<script>
+    window.Echo.channel('notice')
+        .listen('TestBroadcastingEvent', (e) => {
+            console.log(e);
+        });
+</script>

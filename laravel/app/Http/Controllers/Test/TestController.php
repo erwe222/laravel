@@ -10,6 +10,8 @@ use App\Jobs\TestJob;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Mail\OrderShipped;
+use App\Events\TestBroadcastingEvent;
+
 class TestController extends Controller
 {
     public function __construct() {
@@ -73,6 +75,12 @@ class TestController extends Controller
         
 
         return view('test.viewtest');
+    }
+    
+    public function test2(){
+        $name = isset($_GET['name'])?$_GET['name']:'hhh';
+        
+        event(new TestBroadcastingEvent($name));
     }
 
 
