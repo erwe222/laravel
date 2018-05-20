@@ -1,10 +1,6 @@
 <?php
-
-
 namespace App\Http\Controllers\Index;
 use App\Http\Controllers\Controller;
-use App;
-use App\User;
 
 class IndexController extends Controller
 {

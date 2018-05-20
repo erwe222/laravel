@@ -37,6 +37,8 @@ class LoginController extends Controller
     {
 
         $this->middleware('guest')->except('logout');
+        
+        //$this->middleware('guest:admin')->except('logout');
     }
     
     /**
@@ -69,5 +71,16 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         return redirect('/');
+    }
+
+    /**
+     * 自定义认证驱动
+     * @author 晚黎
+     * @date   2016-09-05T23:53:07+0800
+     * @return [type]                   [description]
+     */
+    protected function guard()
+    {
+        return Auth::guard('admin');
     }
 }

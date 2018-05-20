@@ -14,9 +14,13 @@ use App\Events\TestBroadcastingEvent;
 use App\Events\LoginBroadcastingEvent;
 
 use App\Model\Users;
+use App\Model\Admin;
+
+use Illuminate\Support\Facades\Auth;
 class TestController extends Controller
 {
     public function __construct() {
+        
         $this->menuModel = new \App\Model\Menus();
         $this->rolesModel = new \App\Model\Roles();
     }
@@ -74,8 +78,6 @@ class TestController extends Controller
     }
     
     public function test(){
-        
-
         return view('test.viewtest');
     }
 
@@ -109,6 +111,13 @@ class TestController extends Controller
         ];
 
         return response()->json(['code'=>200,'message'=>'接口请求成功','data'=>$data,'params'=>$_params]);
+    }
+    
+    public function testfunction(){
+//        $admin_model = new Admin();
+//        $res = $admin_model->addUser(['name'=>'小饶','email'=>'18798276809@163.com','password'=>'123456']);
+//        var_dump($res);
+        
     }
 
 }
