@@ -4,7 +4,10 @@
 <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
 <script src="/js/app.js"></script>
 <script>
-    console.log(window.Echo);
+window.Echo.channel('orders')
+    .listen('OrderShipped', (e) => {
+        console.log(e.order.name);
+    });
 </script>
 
 
