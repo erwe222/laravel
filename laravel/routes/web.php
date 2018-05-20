@@ -51,6 +51,8 @@ Route::group(['namespace' => 'Test'], function()
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
     Route::get('test/index', 'TestController@index')->name('test.index');#  //echo route('test.index');
     Route::get('test/vueapi', 'TestController@vueapi')->name('test.vueapi');
+    Route::get('test/test', 'TestController@test')->name('test.test');
+    
 
 });
 

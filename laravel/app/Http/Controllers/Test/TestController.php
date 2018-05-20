@@ -37,6 +37,13 @@ class TestController extends Controller
 		#https://segmentfault.com/a/1190000004997982
 		#https://laravel-china.org/topics/2668/laravel-53-new-features-introduction-of-1-laravel-echo
                 ##https://laravel-china.org/docs/laravel/5.4/broadcasting/1246#installing-laravel-echo
+        #http://laravelacademy.org/post/8559.html
+        #http://laravelacademy.org/post/5449.html  基于 Laravel 的 API 服务端架构代码
+        #http://laravelacademy.org/post/6851.html
+
+        #appId: aceafceb8c2b199c
+        #key: 883ed12036373acfa9c9f3b3c5fbc625
+
     	//模板发送
     	Mail::send(new OrderShipped());
 
@@ -64,7 +71,7 @@ class TestController extends Controller
     
     public function test(){
         
-        exit;
+
         return view('test.viewtest');
     }
 
