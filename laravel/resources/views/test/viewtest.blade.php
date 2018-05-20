@@ -3,11 +3,10 @@
 
 <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
 <script>
-Echo.channel('orders')
+window.Echo.channel('orders')
     .listen('OrderShipped', (e) => {
         console.log(e.order.name);
     });
-
 </script>
 
 
