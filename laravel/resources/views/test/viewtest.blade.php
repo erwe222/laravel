@@ -12,6 +12,7 @@
     window.Echo.channel('notice')
         .listen('TestBroadcastingEvent', (e) => {
             console.log(e);
+            alert(e.notice+'登录啦 嘻嘻');
         });
         
         console.log(window.Echo);
