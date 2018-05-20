@@ -13,4 +13,6 @@
         .listen('TestBroadcastingEvent', (e) => {
             console.log(e);
         });
+        
+        console.log(window.Echo);
 </script>
