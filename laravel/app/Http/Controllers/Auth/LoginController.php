@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     /*
@@ -34,6 +35,39 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+
         $this->middleware('guest')->except('logout');
+    }
+    
+    /**
+     * 用户登录请求控制器
+     * @param \Illuminate\Http\Request $request
+     * @return type
+     */
+    public function postLogin(Request $request){
+        if(captcha_check($request->input('code'))){
+            $result = Auth::guard()->attempt([
+                'email' => $request->input('email'),
+                'password' => $request->input('password')
+            ], (bool)$request->input('remember'));
+            return response()->json(['result'=>$result,'code'=>303]);
+        }
+        return response()->json(['result'=>false,'code'=>403]);
+    }
+    
+    
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        Auth::guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
     }
 }
