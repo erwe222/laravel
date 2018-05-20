@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Mail\OrderShipped;
 use App\Events\TestBroadcastingEvent;
+use App\Events\LoginBroadcastingEvent;
 
+use App\Model\Users;
 class TestController extends Controller
 {
     public function __construct() {
@@ -76,11 +78,14 @@ class TestController extends Controller
 
         return view('test.viewtest');
     }
-    
+
     public function test2(){
         $name = isset($_GET['name'])?$_GET['name']:'hhh';
+//        event(new TestBroadcastingEvent($name));
         
-        event(new TestBroadcastingEvent($name));
+        $users = Users::find(2);
+        
+        event(new LoginBroadcastingEvent($users));
     }
 
 
