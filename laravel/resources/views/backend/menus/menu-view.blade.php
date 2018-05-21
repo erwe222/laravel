@@ -117,7 +117,7 @@
 <script>
 easyloader.load('datagrid', function(){ // 加载指定模块 
     $("#orderinfo").datagrid({
-        url: '/admin/getmenuslistdata',
+        url: "{{route('b_menus_getmenulist')}}",
         loadMsg: '正在载入数据,请耐心等待...',
         columns: [[//表头标题栏
             {field: 'id', title: 'ID', width: 10, align: 'center',checkbox:true},
@@ -244,7 +244,7 @@ easyloader.load('datagrid', function(){ // 加载指定模块
 	function initiateDemoData(){
 		var tree_data = [];
                 $.ajax({
-                    url:'/admin/getmenutreelist',
+                    url:"{{route('b_menus_getmenutreelist')}}",
                     type:'get',
                     async: false,
                     data:{},

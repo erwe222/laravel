@@ -18,7 +18,6 @@ class AuthManage {
     }
     
     public function verify($path){
-//        return true;
         return $this->checkPermissions($path);
     }
     
@@ -93,11 +92,7 @@ class AuthManage {
      */
     public function isJumpCheckUrl($path){
         $array = [
-            '/',
-            'index/index',
-            'login/login',
-            'admin/menuview',
-            'admin/getmenutreelist'
+            'backend/menus/menuview'
         ];
         
         return in_array($path, $array);

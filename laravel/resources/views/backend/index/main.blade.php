@@ -184,7 +184,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{{Route('f_auth_logout')}}"><i class="ace-icon fa fa-power-off"></i>退出</a>
+                                    <a href="{{Route('b_auth_logout')}}"><i class="ace-icon fa fa-power-off"></i>退出</a>
                                 </li>
                             </ul>
                         </li>
@@ -359,7 +359,7 @@
              */
             var objTab = {
                 defaultInfo:{
-                    url:'/Backend/index/index',
+                    url:"{{route('b_index_index')}}",
                     index:'iframe-index',
                     title:'首页',
                     icon:'glyphicon glyphicon-home',

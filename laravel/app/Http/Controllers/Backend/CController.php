@@ -24,6 +24,13 @@ class CController extends Controller{
         return Auth::check();
     }
     
-    
+    /**
+     * 获取管理员信息
+     * @return type
+     */
+    public function getUserInfo(){
+        return Auth::user();
+    }
+
 
 }

@@ -3,24 +3,29 @@ namespace App\Http\Controllers\Backend;
 
 class IndexController extends CController{
 
+    public $menusModel = null;
+    
+    public function __construct() {
+        parent::__construct();
+        
+        $this->menusModel = new \App\Model\Menus();
+    }
+    
     /**
      * 后台主页
      */
     public function index(){
-        echo 'asd';
-        return view('Backend.index.index');
+        return view('backend.index.index');
     }
     
     public function main(){
-        $obg = new \App\Model\Menus();
-        
-        $menus = $obg->getMenus();
-        $user = \Auth::user();
-        if(!$user){
-            return redirect('/login');exit;
+        $menus = $this->menusModel->getMenus();
+        $user_info = $this->getUserInfo();
+        if(!$user_info){
+            return redirect(route('b_auth_tologin'));
         }
-        return view('Backend.index.main', ['menus' => $menus,'user_info'=>$user]);
+
+        return view('backend.index.main', ['menus' => $menus,'user_info'=>$user_info]);
     }
-    
     
 }

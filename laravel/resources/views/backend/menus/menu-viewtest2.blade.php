@@ -15,13 +15,11 @@
                 <button class="btn btn-info btn-sm"><i class="ace-icon fa fa-search"></i>搜索</button>
             </form>
         </div>
-    </div>
-    <div class="col-xs-12">
-            <div class="clearfix"><div class="pull-right tableTools-container"></div></div>
-            <div class="table-header">数据表标题</div>
-            <div>
-                <table id="dynamic-table" class="table table-striped table-bordered table-hover" ></table>
-            </div>
+        <div class="clearfix"><div class="pull-right tableTools-container"></div></div>
+        <div class="table-header">数据表标题</div>
+        <div>
+            <table id="dynamic-table" class="table table-striped table-bordered table-hover" style="width:100%;"></table>
+        </div>
     </div>
 </div>
 @endsection

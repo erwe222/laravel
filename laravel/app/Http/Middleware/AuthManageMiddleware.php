@@ -24,13 +24,11 @@ class AuthManageMiddleware
             $auth_result = $authManage->verify($path);
             if(!$auth_result){
                 if($request->ajax()){
-                    return response()->json([
-                        'message'=>'请求未授权...',
-                        'code'=>403,
-                        'data'=>[],
-                        'method'=>"[{$method}]ajax"
-                    ]);
+                    //return response()->json(['message'=>'请求未授权...','code'=>403,'data'=>[],'method'=>"[{$method}]ajax"]);
+                    
+                    abort(403);
                 }
+
                 return response()->view('errors.403', [],403);
             }
         }

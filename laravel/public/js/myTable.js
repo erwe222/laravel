@@ -32,7 +32,7 @@
             },
             serverSide : true,
             ajax : {
-                url:'/admin/getmenuslistdata2',
+                url:'/backend/menus/getmenuviewtest2',
                 mothod:'get',
                 data: function ( d ) {
                     d.orderBy = [];
