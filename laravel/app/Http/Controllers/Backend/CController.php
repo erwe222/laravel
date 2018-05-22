@@ -31,6 +31,13 @@ class CController extends Controller{
     public function getUserInfo(){
         return Auth::user();
     }
+    
+    /**
+     * 获取 dataTables 表格请求数据
+     */
+    public function queryDatatableParams(){
+        
+    }
 
 
 }
