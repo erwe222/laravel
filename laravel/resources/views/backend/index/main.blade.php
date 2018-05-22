@@ -180,11 +180,11 @@
                                     <a href="#"><i class="ace-icon fa fa-cog"></i>设置</a>
                                 </li>
                                 <li>
-                                    <a href="profile.html"><i class="ace-icon fa fa-user"></i>个人信息</a>
+                                    <a class="cus-open-tab" data-options='{"url":"{{route('b_admin_profile')}}","icon":"icon-desktop","title":"个人信息","index":"admin-profile"}'><i class="ace-icon fa fa-user"></i>个人信息</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{{Route('b_auth_logout')}}"><i class="ace-icon fa fa-power-off"></i>退出</a>
+                                    <a href="{{route('b_auth_logout')}}"><i class="ace-icon fa fa-power-off"></i>退出</a>
                                 </li>
                             </ul>
                         </li>
@@ -543,6 +543,12 @@
 
             $(function(){
                 nprogress.done();
+            });
+            
+            $('.cus-open-tab').on('click',function(){
+                var obj = $(this).data('options');
+                var data = {url:obj.url,title:obj.title,icon:obj.icon,index:obj.index};
+                objTab.tabAdd(data);
             });
         </script>
     </body>

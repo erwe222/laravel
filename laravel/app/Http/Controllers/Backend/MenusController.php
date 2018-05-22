@@ -27,7 +27,7 @@ class MenusController extends CController{
      * 菜单管理页面
      */
     public function menuView(){
-        return view('Backend.menus.menu-view');
+        return view('backend.menus.menu-view');
     }
 
     /**

@@ -28,6 +28,9 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     Route::get('/', 'IndexController@main')->name('b_index_main');
     Route::get('index/index', 'IndexController@index')->name('b_index_index');
     
+    //Admin 控制器路由配置
+    Route::get('/admin/profile', 'AdminController@profile')->name('b_admin_profile');
+    
     
     //Auth    控制器路由配置
     Route::get('auth/login', 'AuthController@login')->name('b_auth_tologin');

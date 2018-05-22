@@ -9,29 +9,29 @@ use Illuminate\Support\Facades\DB;
  *
  * @author dell
  */
-class UserRoles extends Model{
+class AdminRoles extends Model{
 
     /**
      * 关联到模型的数据表
      *
      * @var string
      */
-    protected $table = 'user_roles';
+    protected $table = 'admin_roles';
     
     /**
      * 可以被批量赋值的属性.
      *
      * @var array
      */
-    protected $fillable = ['user_id','role_id','created_at'];
+    protected $fillable = ['admin_id','role_id','created_at'];
     
     /**
      * 赋予用户角色
      */
-    public function addUserRole($user_id,$role_id){
-        if(!$this->checkUserRole($user_id,$role_id)){
+    public function addUserRole($admin_id,$role_id){
+        if(!$this->checkUserRole($admin_id,$role_id)){
             $insterRes = Roles::create([
-                'user_id' => $user_id,
+                'user_id' => $admin_id,
                 'role_id'=>$role_id,
                 'created_at'=>date('Y-m-d H:i:s')
             ]);
@@ -45,8 +45,8 @@ class UserRoles extends Model{
     /**
      * 更新用户角色
      */
-    public function updateUserRole($id,$user_id,$role_id){
-        $res = self::where('id', $id)->where('user_id',$user_id)->update(['role_id' => (int)$role_id]);
+    public function updateUserRole($id,$admin_id,$role_id){
+        $res = self::where('id', $id)->where('admin_id',$admin_id)->update(['role_id' => (int)$role_id]);
         return $res?true:false;
     }
 
@@ -57,8 +57,8 @@ class UserRoles extends Model{
         
     }
 
-    public function checkUserRole($user_id,$role_id){
-        $res = self::where('user_id', $user_id)->where('role_id',$role_id)->count();
+    public function checkUserRole($admin_id,$role_id){
+        $res = self::where('admin_id', $admin_id)->where('role_id',$role_id)->count();
         return $res > 0?true:false;
     }
 
