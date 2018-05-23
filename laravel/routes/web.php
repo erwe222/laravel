@@ -30,6 +30,7 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     
     //Admin 控制器路由配置
     Route::get('/admin/profile', 'AdminController@profile')->name('b_admin_profile');
+    Route::get('/admin/changepwd', 'AdminController@changepwd')->name('b_admin_changepwd');
     
     
     //Auth    控制器路由配置

@@ -38,6 +38,17 @@ class CController extends Controller{
     public function queryDatatableParams(){
         
     }
+    
+    /**
+     * 格式化返回数据
+     */
+    public function returnData($data,$msg,$code=200,$httpstatus=200){
+        return response()->json([
+            'code'=>$code,
+            'message'=>$msg,
+            'data'=>$data
+        ], $httpstatus);
+    }
 
 
 }

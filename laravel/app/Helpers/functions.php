@@ -21,3 +21,14 @@ function getPagingInfo($total,$pageindex=1,$pagesize=20){
         'limit'=>" limit {$offset},{$pagesize}"
     ];
 }
+
+/**
+ * 获取处理结果
+ */
+function handleResult($result=true,$code=200,$msg=''){
+    return [
+        'result'=>$result,
+        'code'=>$code,
+        'message'=>$msg
+    ];
+}
