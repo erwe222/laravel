@@ -161,6 +161,7 @@ class UploadFiles {
         return pathinfo($file_name, PATHINFO_EXTENSION);
     }
     
+    
     public function getSuccessFile(){
         return $this->success_file;
     }
