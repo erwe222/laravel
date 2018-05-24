@@ -44,7 +44,10 @@
             }},
             {title: '使用数',data: 'total'},
             {title: '添加时间',data: 'created_at'},
-            {title: '修改时间',data: 'updated_at'}
+            {title: '修改时间',data: 'updated_at'},
+            {title: '操 作',data: 'id',orderable:false,render: function ( data, type, row, meta ) {
+                    return '<a href="#" class="blue"><i class="ace-icon fa fa-pencil bigger-130"></i></a>&nbsp;&nbsp;<a href="#" class="red"><i class="ace-icon fa fa-trash-o bigger-130"></i></a>';
+            }},
         ]
     };
     
