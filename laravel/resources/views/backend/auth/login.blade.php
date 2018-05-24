@@ -297,7 +297,7 @@
                     var pwd = $.trim($('#cus-password-input').val());
                     var code = $.trim($('#cus-code-input').val());
                     $.ajax({
-                        url:'/Backend/auth/ptlogin',
+                        url:"{{route('b_auth_ptlogin')}}",
                         type:'post',
                         data:{email:username,password:pwd,remember:rememberme,code:code},
                         dataType:'json',
