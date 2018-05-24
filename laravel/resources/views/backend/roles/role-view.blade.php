@@ -29,11 +29,29 @@
 <script src="/ace-asstes/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/js/myTable.js"></script>
 <script>
-    var myTable = new MyTable('#dynamic-table',{});
+    var obj = {
+        columns: [
+            {data:null,title:'<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',width:50,orderable:false,class:'table-checkbox',
+                render:function(data){
+                    return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
+                }
+            },
+            {title: '角色名',data: 'name',name:'name',orderable:false},
+            {title: '状态',data: 'status',name:'status',orderable:false},
+            {title: '使用数',data: 'total'},
+            {title: '添加时间',data: 'created_at'},
+            {title: '修改时间',data: 'updated_at'}
+        ]
+    };
+    
+    var myTable = new MyTable('#dynamic-table',obj,"{{route('b_role_getroleslist')}}");
     myTable.init();
+    
     $('#grid-search-form').on('click',function(){
-       myTable.refresh();
-       return false;
+        var data = {status:'11111111111',sex:'222222222'};
+        myTable.setSearchParams(data);
+        myTable.refresh();
+        return false;
    });
 </script>
 @endpush

@@ -81,7 +81,7 @@ $(function(){
             pagerSelector:'#grid-pager',
         },
         myGrid:{
-            url:"/backend/menus/getmenuviewtest",
+            url:"{{route('b_test_jqgridtableslist')}}",
 //            height: 400,
             subGrid : false,//设置为true，可使用子表格。启用子表格，将在基本表的左边将添加一列，并包含一个“+”图像，用户可以点击扩展行。
             rowNum:10,

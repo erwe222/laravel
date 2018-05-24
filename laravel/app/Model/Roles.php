@@ -124,7 +124,7 @@ class Roles extends Model{
      */
     public function findRolesList($params = [],$all = ''){
         $count_sql = 'select count(1) as total from lar_roles r where 1=1 ';
-        $sql = 'select r.*,(SELECT count(1) from lar_user_roles ur where ur.role_id = r.id) as total  from lar_roles r where 1=1 ';
+        $sql = 'select r.*,(SELECT count(1) from lar_admin_roles ur where ur.role_id = r.id) as total  from lar_roles r where 1=1 ';
         if(isset($params['name']) && !empty($params['name'])){
              $sql .= " and r.name like '%{$params['name']}%'";
              $count_sql .= " and r.name like '%{$params['name']}%'";
@@ -139,7 +139,7 @@ class Roles extends Model{
         
         $pageindex = isset($params['pageindex'])?$params['pageindex']:1;
         $pagesize  = isset($params['pagesize'])?$params['pagesize']:10;
-        $page_info = $this->getPagingInfo($count_info[0]->total,$pageindex,$pagesize);
+        $page_info = getPagingInfo($count_info[0]->total,$pageindex,$pagesize);
         
         if(isset($params['orderBy']) && isset($params['sort'])){
             $sql .= " order by created_at {$params['sort']}";
@@ -150,7 +150,9 @@ class Roles extends Model{
             $list[$_k] = (array)$_v;
         }
         
+        $page_info['filteredTotal'] = count($list);
         $page_info['data'] = $list;
+        
         return $page_info;
     }
     

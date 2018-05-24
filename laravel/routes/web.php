@@ -43,20 +43,14 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     
     //Menus 控制器路由配置 导航栏目
     Route::get('/menus/menuview', 'MenusController@menuview')->name('b_menus_menuview');
-    Route::get('/menus/menuviewtest', 'MenusController@menuviewtest')->name('b_menus_menuviewtest');
     Route::get('/menus/getmenutreelist', 'MenusController@getmenutreelist')->name('b_menus_getmenutreelist');
-    Route::get('/menus/getmenuviewtest', 'MenusController@getmenuviewtest')->name('b_menus_getmenuviewtest');
-    Route::get('/menus/menuviewtest2', 'MenusController@menuviewtest2')->name('b_menus_menuviewtest2');
-    Route::get('/menus/getmenuviewtest2', 'MenusController@getmenuviewtest2')->name('b_menus_getmenuviewtest2');
-    
     Route::get('/menus/getmenulist', 'MenusController@getmenulist')->name('b_menus_getmenulist');
     Route::post('/menus/addmenu', 'MenusController@addmenu')->name('b_menus_addmenu');
     Route::post('/menus/updatemenu', 'MenusController@updatemenu')->name('b_menus_updatemenu');
     
-    
     //Roles 控制器路由配置 角色管理
     Route::get('/roles/roleview', 'RolesController@roleview')->name('b_role_menuview');
-    Route::get('/roles/getrolelist', 'RolesController@search')->name('b_role_getrolelist');
+    Route::get('/roles/getroleslist', 'RolesController@getroleslist')->name('b_role_getroleslist');
     Route::post('/roles/addrole', 'RolesController@create')->name('b_role_addrole');
     Route::post('/roles/updaterole', 'RolesController@update')->name('b_role_updaterole');
     Route::post('/roles/deleterole', 'RolesController@delete')->name('b_role_deleterole');
@@ -72,4 +66,13 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     
     //调试控制器路由
     Route::get('/test/index', 'TestController@index')->name('b_test_index');
+    Route::get('/test/easyuitable', 'TestController@easyuitable')->name('b_test_easyuitable');
+    Route::get('/test/easyuitablelist', 'TestController@easyuitablelist')->name('b_test_easyuitablelist');
+    
+    Route::get('/test/datatables', 'TestController@datatables')->name('b_test_datatables');
+    Route::get('/test/datatableslist', 'TestController@datatableslist')->name('b_test_datatableslist');
+    
+    Route::get('/test/jqgridtables', 'TestController@jqgridtables')->name('b_test_jqgridtables');
+    Route::get('/test/jqgridtableslist', 'TestController@jqgridtableslist')->name('b_test_jqgridtableslist');
+    
 });

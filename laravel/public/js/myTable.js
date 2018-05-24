@@ -1,11 +1,13 @@
 (function(window, $){
     $.fn.dataTable.ext.errMode = 'throw';
-    function MyTable(selector,options){
+    function MyTable(selector,options,url){
         var _this = this;
         
         this.table = null;
         
         this.Selector = selector;
+        
+        this.searchParams = {};
         
         this.defaultOption = {
             processing: true,
@@ -32,33 +34,19 @@
             },
             serverSide : true,
             ajax : {
-                url:'/backend/menus/getmenuviewtest2',
+                url:url,
                 mothod:'get',
                 data: function ( d ) {
+                    console.log(_this.searchParams);
                     d.orderBy = [];
                     $.each(d.order,function(key,obj){
                         d.orderBy.push({orderByname:d.columns[obj.column].data,sort:obj.dir});
                     });
                     d.search = d.order = d.columns = undefined;
+                    d.search = _this.searchParams;
                     console.log(d);
                 }
-            },
-            columns: [
-                {data:null,title:'<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',width:50,orderable:false,class:'table-checkbox',
-                    render:function(data){
-                        return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
-                    }
-                },
-                {title: 'ID',data: 'id',"render": function ( data, type, row, meta ) {
-                    return '<a href="'+data+'">Download</a>';
-                }},
-                {title: '栏目',data: 'name',name:'testname'},
-                {title: '路由',data: 'note'},
-                {title: '图标',data: 'stock'},
-                {title: '图标2',data: 'ship'},
-                {title: '图标3',data: 'sdate'},
-                {title: '图标4',data: 'sdate'},
-            ],
+            }
         }
         
         
@@ -74,6 +62,19 @@
         this.table = $(this.Selector).DataTable(this.options);
         
         this.select();
+    }
+    
+    /**
+     * 设置搜索参数
+     * @param {object} params
+     * @returns {undefined}
+     */
+    MyTable.prototype.setSearchParams = function (params){
+        var data = [];
+        $.each(params,function(key,val){
+            data.push({name: key, value:val});
+        });
+        this.searchParams = data;
     }
     
     /**
