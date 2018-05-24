@@ -7,7 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content="User login page" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <link rel="stylesheet" href="http://www.lar.test.com/ace-asstes/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
+        <link rel="stylesheet" href="/ace-asstes/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
         <link rel="stylesheet" href="{{asset('ace-asstes/css/bootstrap.min.css')}}" />
         <link rel="stylesheet" href="{{asset('ace-asstes/font-awesome/css/font-awesome.min.css')}}" />
         <link rel="stylesheet" href="{{asset('ace-asstes/googlefonts/fonts.googleapis.com.css')}}" />

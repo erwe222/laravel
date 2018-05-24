@@ -7,6 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content="Common form elements and layouts" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <link rel="stylesheet" href="/ace-asstes/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
         <link rel="stylesheet" href="/ace-asstes/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/jquery-ui.min.css" />
         <link rel="stylesheet" href="/ace-asstes/font-awesome/css/font-awesome.min.css" />
@@ -58,6 +59,7 @@
             easyloader.theme = 'metro';          // 设置 easyui 默认主题
             //easyloader.locale = 'zh_CN';         // 设置 easyui 默认语言
         </script>
+        <script src="{{url('ace-asstes/layer/layer.js')}}"></script>
         <script>
             $('[data-rel=tooltip]').tooltip();
             

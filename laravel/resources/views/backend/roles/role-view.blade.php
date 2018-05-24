@@ -5,12 +5,10 @@
         <div class="alert alert-info">
             <form class="form-inline" role="form" id="grid-search-form" onsubmit="return false;">
                 <div class="form-group">
-                    <label for="search-iframe-10" class="sr-only">ID</label>                
-                    <input type="text" id="search-id" name="params[id]" class="form-control" title="ID" placeholder="请输入ID">
+                    <input type="text" id="search-role-name" name="params[id]" class="form-control" title="ID" placeholder="角色名">
                 </div>
                 <div class="form-group">
-                    <label for="search-iframe-10" class="sr-only">名称</label>                
-                    <input type="text" id="search-name" name="params[name]" class="form-control" title="名称" placeholder="请输入名称">             
+                    <input type="text" id="search-role-status" name="params[name]" class="form-control" title="名称" placeholder="请输入名称">             
                 </div> 
                 <button class="btn btn-info btn-sm"><i class="ace-icon fa fa-search"></i>搜索</button>
             </form>
@@ -37,7 +35,13 @@
                 }
             },
             {title: '角色名',data: 'name',name:'name',orderable:false},
-            {title: '状态',data: 'status',name:'status',orderable:false},
+            {title: '状态',data: 'status',name:'status',orderable:false,render: function ( data, type, row, meta ) {
+                if(data == 1){
+                    return '<span class="label label-success arrowed-in arrowed-in-right">启用</span>';
+                }else{
+                    return '<span class="label label-danger arrowed">禁用</span>';
+                }
+            }},
             {title: '使用数',data: 'total'},
             {title: '添加时间',data: 'created_at'},
             {title: '修改时间',data: 'updated_at'}
@@ -47,8 +51,11 @@
     var myTable = new MyTable('#dynamic-table',obj,"{{route('b_role_getroleslist')}}");
     myTable.init();
     
-    $('#grid-search-form').on('click',function(){
-        var data = {status:'11111111111',sex:'222222222'};
+    $('#grid-search-form').on('submit',function(){
+        var data = {
+            role_name:$.trim($('#search-role-name').val()),
+            status:$('#search-role-status').val()
+        };
         myTable.setSearchParams(data);
         myTable.refresh();
         return false;

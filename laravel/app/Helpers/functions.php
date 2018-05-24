@@ -7,9 +7,9 @@
  * @param type $pagesize
  * @return type
  */
-function getPagingInfo($total,$pageindex=1,$pagesize=20){
+function getPagingInfo($total,$pageindex=1,$pagesize=20,$is_page = true){
+    
     $pagesize = ((int)$pagesize == 0?1:(int)$pagesize);
-
     $offset = (intval($pageindex) - 1) * intval($pagesize);
 
     return [

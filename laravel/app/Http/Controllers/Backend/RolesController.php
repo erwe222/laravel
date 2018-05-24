@@ -29,22 +29,22 @@ class RolesController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function getRolesList(Request $request){
+        $params = $this->queryDatatableParams($request);
         $data = [];
-        $draw = $request->input('draw',1);
-        $role_name = $request->input('role_name','');
-        $role_status = $request->input('role_status','');
-        if(!empty($role_name)){
-            $data['name'] = addslashes($role_name);
-        }
-        if(!empty($role_status)){
-            $data['status'] = $role_status;
+        if(isset($params['search']['role_name']) && !empty($params['search']['role_name'])){
+            $data['name'] = addslashes($params['search']['role_name']);
         }
         
-        $data['pageindex'] = 1;
-        $data['pagesize'] = 20;
+        if(isset($params['search']['status'])){
+            $data['status'] = $params['search']['status'];
+        }
+        
+        $data['offset']     = $params['offset'];
+        $data['pagesize']   = $params['pagesize'];
         $lists = $this->rolesModel->findRolesList($data);
         return response()->json([
-            'draw'=>$draw,
+            'code'=>200,
+            'draw'=>$params['draw'],
             'recordsTotal'=>$lists['total'],
             'recordsFiltered'=>$lists['filteredTotal'],
             'data'=>$lists['data']

@@ -29,27 +29,36 @@
                     sLast: "尾页"
                 }
             },
-            fnDrawCallback:function(){
-                //加载完成触发方法
+            fnDrawCallback:function(e){
+                if(e.json.code != undefined && e.json.code != 200){
+                    layer.msg('加载失败...'+e.json.code);
+                }
+                if(e.json.recordsFiltered == 0){
+                    $('.dataTables_empty').css('color','red');
+                }
+//                console.log();
+//                    
+
             },
             serverSide : true,
             ajax : {
                 url:url,
                 mothod:'get',
                 data: function ( d ) {
-                    console.log(_this.searchParams);
                     d.orderBy = [];
                     $.each(d.order,function(key,obj){
                         d.orderBy.push({orderByname:d.columns[obj.column].data,sort:obj.dir});
                     });
                     d.search = d.order = d.columns = undefined;
                     d.search = _this.searchParams;
-                    console.log(d);
+                },
+                error:function(e){
+                    $(_this.Selector).parent().find('.dataTables_processing').css('display','none');
+                    layer.msg('加载失败...'+e.status + '----' +e.statusText);
                 }
             }
         }
-        
-        
+
         this.options = $.extend(this.defaultOption, options);
     }
 

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 /**
  * 后台基类控制器
@@ -35,8 +36,28 @@ class CController extends Controller{
     /**
      * 获取 dataTables 表格请求数据
      */
-    public function queryDatatableParams(){
+    public function queryDatatableParams(Request $request){
+        $params = [];
+        $params['draw']     = $request->input('draw',1);
+        $params['search']   = [];
+        $params['orderBy']  = '';
+        $params['sort']     = '';
+        $orderBy            = $request->input('orderBy',[]);
+        $search             = $request->input('search',[]);
+        $params['offset']  = $request->input('start',[]);
+        $params['pagesize']  = $request->input('length',[]);
+
+        if(count($orderBy) > 0){
+            $params['orderBy'] = $orderBy[0]['orderByname'];
+            $params['sort']    = $orderBy[0]['sort'];
+        }
         
+        if (count($search) > 0){
+            foreach ($search as $v) {
+                $params['search'][$v['name']] = $v['value'];
+            }
+        }
+        return $params;
     }
     
     /**
@@ -49,6 +70,8 @@ class CController extends Controller{
             'data'=>$data
         ], $httpstatus);
     }
+    
+    
 
 
 }
