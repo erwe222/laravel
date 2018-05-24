@@ -305,7 +305,7 @@
                             if(res.result){
                                 layer.msg('登录成功');
                                 setTimeout(function(){
-                                    window.location.href = '/Backend';
+                                    window.location.href = "{{route('b_index_main')}}";
                                 },1000);
                                 return false;
                             }else if(res.code == 302){
