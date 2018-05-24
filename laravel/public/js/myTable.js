@@ -36,9 +36,6 @@
                 if(e.json.recordsFiltered == 0){
                     $('.dataTables_empty').css('color','red');
                 }
-//                console.log();
-//                    
-
             },
             serverSide : true,
             ajax : {
