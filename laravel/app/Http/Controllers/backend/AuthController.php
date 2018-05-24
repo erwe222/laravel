@@ -29,7 +29,7 @@ class AuthController extends CController{
      * @return type
      */
     public function login(Request $request){
-        return view('Backend.auth.login');
+        return view('backend.auth.login');
     }
 
     /**
