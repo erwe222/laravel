@@ -328,7 +328,7 @@
                 $('.cus-label-img img').on('click',function(){
                     var _that = $(this);
                     $.ajax({
-                        url:'/Backend/auth/code',
+                        url:"{{route('b_auth_code')}}",
                         type:'get',
                         dataType:'json',
                         success:function(res){
