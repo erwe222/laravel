@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App;
 use App\Contracts\TestContract;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\backend;
 
 class WachatController extends CController{
     

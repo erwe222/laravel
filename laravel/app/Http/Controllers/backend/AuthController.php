@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\backend;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
