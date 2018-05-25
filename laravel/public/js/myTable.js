@@ -1,58 +1,68 @@
 (function(window, $){
+	var oLanguage = {
+	        sProcessing: "努力加载数据中...",
+	        sLengthMenu: "每页显示 _MENU_ 条记录",
+	        sZeroRecords: "抱歉， 没有找到",
+	        sInfo: "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+	        sInfoEmpty: "没有数据",
+	        sInfoFiltered: " (共 _MAX_ 条数据)",
+	        oPaginate: {
+	            sFirst: "首页",
+	            sPrevious: "上一页",
+	            sNext: "下一页",
+	            sLast: "尾页"
+	        }
+    }
+
     $.fn.dataTable.ext.errMode = 'throw';
+
     function MyTable(selector,options,url){
         var _this = this;
         
+        //table 实例化对象
         this.table = null;
         
+        //table Id选择器
         this.Selector = selector;
         
-        this.searchParams = {};
+        //查询参数
+        this.searchParams = [];
         
+        //table 初始化默认参数
         this.defaultOption = {
             processing: true,
             searching : false,
             autoWidth: true,
             aaSorting: [],
             select: {style: 'multi'},
-            oLanguage:{
-                sProcessing: "努力加载数据中...",
-                sLengthMenu: "每页显示 _MENU_ 条记录",
-                sZeroRecords: "抱歉， 没有找到",
-                sInfo: "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-                sInfoEmpty: "没有数据",
-                sInfoFiltered: " (共 _MAX_ 条数据)",
-                oPaginate: {
-                    sFirst: "首页",
-                    sPrevious: "上一页",
-                    sNext: "下一页",
-                    sLast: "尾页"
-                }
-            },
+            oLanguage:oLanguage,
             fnDrawCallback:function(e){
+            	//数据加载成功放回回调方法
                 if(e.json.code != undefined && e.json.code != 200){
                     layer.msg('加载失败...'+e.json.code);
                 }
+
                 if(e.json.recordsFiltered == 0){
                     $('.dataTables_empty').css('color','red');
                 }
-//                console.log();
-//                    
-
             },
             serverSide : true,
             ajax : {
                 url:url,
                 mothod:'get',
-                data: function ( d ) {
+                data: function (d) {
                     d.orderBy = [];
                     $.each(d.order,function(key,obj){
                         d.orderBy.push({orderByname:d.columns[obj.column].data,sort:obj.dir});
                     });
-                    d.search = d.order = d.columns = undefined;
+
                     d.search = _this.searchParams;
+
+					delete d.order;
+                    delete d.columns;
                 },
                 error:function(e){
+                	//加载失败回调方法
                     $(_this.Selector).parent().find('.dataTables_processing').css('display','none');
                     layer.msg('加载失败...'+e.status + '----' +e.statusText);
                 }
@@ -72,7 +82,7 @@
         
         this.select();
     }
-    
+
     /**
      * 设置搜索参数
      * @param {object} params
@@ -80,9 +90,11 @@
      */
     MyTable.prototype.setSearchParams = function (params){
         var data = [];
+
         $.each(params,function(key,val){
             data.push({name: key, value:val});
         });
+
         this.searchParams = data;
     }
     
@@ -94,7 +106,10 @@
         this.table.draw();
     }
 
-    
+    /**
+     * 多选框设置
+     * @returns {undefined}
+     */
     MyTable.prototype.select = function(){
         var _this = this;
         $(_this.Selector +' thead >tr th label input:checkbox').on('click',function(){
@@ -141,19 +156,34 @@
             $('.select-info').css('display','none');
         });
     }
-
+    
+    /**
+     * 获取指定行数据
+     * @returns {undefined}
+     */
     MyTable.prototype.getRowData = function(rowIndex){
-        return this.table.rows(rowIndex).data()[0];
+        return this.table.rows(rowIndex).data();
     }
 
-    /*获取多选框选中的行*/
+    /**
+     * 获取多选框选中的行
+     * @returns {undefined}
+     */
     MyTable.prototype.getCheckBoxSelect = function(){
         var data = [], self = this;
-        $(this.Selector + " tbody input:checkbox:checked").each(function(){data.push($(this).val());});
+        $(this.Selector + " tbody input:checkbox:checked").each(function(){
+        	data.push($(this).val());
+        });
         return data;
     }
 
-
+    /**
+     * 获取选择中的多行数据
+     * @returns {undefined}
+     */
+    MyTable.prototype.getCheckRowsData = function(){
+        return this.table.rows('.selected').data();
+    }
 
     window.MyTable = MyTable;
 })(window, jQuery);

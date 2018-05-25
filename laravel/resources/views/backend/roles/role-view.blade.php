@@ -13,6 +13,22 @@
                 <button class="btn btn-info btn-sm"><i class="ace-icon fa fa-search"></i>搜索</button>
             </form>
         </div>
+        <p class="pull-right" id="btns-type-one" >
+            <button class="btn btn-white btn-info btn-bold" data-type="add" >
+                <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>添加
+            </button>
+            <button class="btn btn-white btn-info btn-bold" data-type="download">
+                <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>下载
+            </button>
+            <button class="btn btn-white btn-warning btn-bold" data-type="delete">
+                <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>删除
+            </button>
+            <button class="btn btn-white btn-success btn-bold" data-type="refresh" >
+                <i class="ace-icon fa fa-undo bigger-120" ></i>刷新
+            </button>
+        </p>
+    </div>
+    <div class="col-xs-12">
         <div class="clearfix"><div class="pull-right tableTools-container"></div></div>
         <div class="table-header">数据表标题</div>
         <div>
@@ -36,10 +52,11 @@
             },
             {title: '角色名',data: 'name',name:'name',orderable:false},
             {title: '状态',data: 'status',name:'status',orderable:false,render: function ( data, type, row, meta ) {
+                console.log(meta.row);
                 if(data == 1){
-                    return '<span class="label label-success arrowed-in arrowed-in-right">启用</span>';
+                    return '<span class="label label-success arrowed-in arrowed-in-right" data-rowindex="'+meta.row+'">启用</span>';
                 }else{
-                    return '<span class="label label-danger arrowed">禁用</span>';
+                    return '<span class="label label-danger arrowed" data-rowindex="'+meta.row+'">禁用</span>';
                 }
             }},
             {title: '使用数',data: 'total'},
@@ -52,13 +69,34 @@
     myTable.init();
     
     $('#grid-search-form').on('submit',function(){
-        var data = {
-            role_name:$.trim($('#search-role-name').val()),
-            status:$('#search-role-status').val()
-        };
-        myTable.setSearchParams(data);
-        myTable.refresh();
-        return false;
-   });
+        objClass.refresh();
+    });
+
+
+    var objClass = {
+        add:function(){
+            var data = myTable.getCheckRowsData();
+            console.log(data);
+        },
+        download:function(){
+            alert('download');
+        },
+        delete:function(){
+            alert('delete');
+        },
+        refresh:function(){
+            var data = {
+                role_name:$.trim($('#search-role-name').val()),
+                status:$('#search-role-status').val()
+            };
+            myTable.setSearchParams(data);
+            myTable.refresh();
+        }
+    };
+
+    $('#btns-type-one > button').on('click',function(){
+        objClass[$(this).data('type')]();
+    });
+
 </script>
 @endpush
