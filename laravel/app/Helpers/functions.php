@@ -7,16 +7,20 @@
  * @param type $pagesize
  * @return type
  */
-function getPagingInfo($total,$pageindex=1,$pagesize=20,$is_page = true){
-    
-    $pagesize = ((int)$pagesize == 0?1:(int)$pagesize);
-    $offset = (intval($pageindex) - 1) * intval($pagesize);
+function getPagingInfo($total,$pageindex=1,$pagesize=20,$offset = false){
+
+    if($offset === false){
+        $pagesize = ((int)$pagesize == 0?1:(int)$pagesize);
+        $offset = (intval($pageindex) - 1) * intval($pagesize);
+    }else{
+        $page_index = ((int) $offset / (int)$pagesize) + 1;
+    }
 
     return [
         'offset'=>$offset,
         'pagesize'=>$pagesize,
         'total'=>$total,
-        'page_index'=>$pageindex,
+        'page_index'=>$page_index,
         'page_total'=>ceil((int)$total/(int)$pagesize),
         'limit'=>" limit {$offset},{$pagesize}"
     ];

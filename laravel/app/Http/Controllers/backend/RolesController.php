@@ -38,7 +38,12 @@ class RolesController extends CController{
         if(isset($params['search']['status'])){
             $data['status'] = $params['search']['status'];
         }
-        
+
+        if(!empty($params['orderBy']) && !empty($params['sort'])){
+            $data['orderBy']    = $params['orderBy'];
+            $data['sort']       = $params['sort'];
+        }
+
         $data['offset']     = $params['offset'];
         $data['pagesize']   = $params['pagesize'];
         $lists = $this->rolesModel->findRolesList($data);
@@ -46,8 +51,9 @@ class RolesController extends CController{
             'code'=>200,
             'draw'=>$params['draw'],
             'recordsTotal'=>$lists['total'],
-            'recordsFiltered'=>$lists['filteredTotal'],
-            'data'=>$lists['data']
+            'recordsFiltered'=>$lists['total'],
+            'data'=>$lists['data'],
+            'page_index'=>$lists['page_index']
         ]);
     }
     

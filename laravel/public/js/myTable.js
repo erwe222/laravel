@@ -30,6 +30,8 @@
         
         //table 初始化默认参数
         this.defaultOption = {
+        	serverSide : true,
+        	paging:true,
             processing: true,
             searching : false,
             autoWidth: true,
@@ -46,17 +48,19 @@
                     $('.dataTables_empty').css('color','red');
                 }
             },
-            serverSide : true,
             ajax : {
                 url:url,
                 mothod:'get',
+                dataType : "json",
                 data: function (d) {
                     d.orderBy = [];
                     $.each(d.order,function(key,obj){
                         d.orderBy.push({orderByname:d.columns[obj.column].data,sort:obj.dir});
                     });
 
+                    //附加查询参数
                     d.search = _this.searchParams;
+					//$.extend(d,_this.searchParams); //给d扩展参数
 
 					delete d.order;
                     delete d.columns;

@@ -29,7 +29,26 @@
 <script src="/ace-asstes/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/js/myTable.js"></script>
 <script>
-    var myTable = new MyTable('#dynamic-table',{},"{{route('b_test_datatableslist')}}");
+
+    var obj = {
+        columns: [
+                {data:null,title:'<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',width:50,orderable:false,class:'table-checkbox',
+                    render:function(data){
+                        return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
+                    }
+                },
+                {title: 'ID',data: 'id',"render": function ( data, type, row, meta ) {
+                    return '<a href="'+data+'">Download</a>';
+                }},
+                {title: '栏目',data: 'name',name:'testname'},
+                {title: '路由',data: 'note'},
+                {title: '图标',data: 'stock'},
+                {title: '图标2',data: 'ship'},
+                {title: '图标3',data: 'sdate'},
+                {title: '图标4',data: 'sdate'},
+            ],
+    };
+    var myTable = new MyTable('#dynamic-table',obj,"{{route('b_test_datatableslist')}}");
     myTable.init();
     $('#grid-search-form').on('click',function(){
        myTable.refresh();

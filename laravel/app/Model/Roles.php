@@ -134,15 +134,21 @@ class Roles extends Model{
             $sql .= " and r.status = {$params['status']}";
             $count_sql .= " and r.status = {$params['status']}";
         }
-        
+
         $count_info = DB::select($count_sql);
-        
+        $offset = isset($params['offset'])?$params['offset']:0;
         $pageindex = isset($params['pageindex'])?$params['pageindex']:1;
         $pagesize  = isset($params['pagesize'])?$params['pagesize']:10;
-        $page_info = getPagingInfo($count_info[0]->total,$pageindex,$pagesize);
-        
+        $page_info = getPagingInfo($count_info[0]->total,$pageindex,$pagesize,$offset);
+
         if(isset($params['orderBy']) && isset($params['sort'])){
-            $sql .= " order by created_at {$params['sort']}";
+            if($params['orderBy'] == 'created_at'){
+                $orderBy = 'created_at';
+                $sql .= " order by {$orderBy} {$params['sort']}";
+            }else if($params['orderBy'] == 'updated_at'){
+                $orderBy = 'updated_at';
+                $sql .= " order by {$orderBy} {$params['sort']}";
+            }
         }
 
         $list = DB::select($sql.$page_info['limit']);
@@ -155,7 +161,4 @@ class Roles extends Model{
         
         return $page_info;
     }
-    
-    
-    
 }
