@@ -17,7 +17,19 @@
         <link rel="stylesheet" href="/ace-asstes/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-skins.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-rtl.min.css" />
-        
+        <style>
+            .datagrid-header ,.datagrid-htable{height:40px !important;line-height:40px !important;}
+            .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{height:40px !important;line-height:40px !important;}
+            .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{
+                color: #707070;
+                font-weight:400;
+                background: repeat-x #F2F2F2;
+                font-size:20px !important;
+            }
+            .datagrid-body .datagrid-btable tr{height:40px !important;}
+
+            .datagrid-header-check {height:30px !important;}
+        </style>
         @stack('css')
         <script src="/ace-asstes/js/ace-extra.min.js"></script>
     </head>

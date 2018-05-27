@@ -2,18 +2,7 @@
 @push('css')
 <link rel="stylesheet" href="/jquery-easyui/themes/material/easyui.css" />
 <link rel="stylesheet" href="/css/easycss-edit.css" />
-<style>
-    .datagrid-header ,.datagrid-htable{height:40px !important;line-height:40px !important;}
-    .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{height:40px !important;line-height:40px !important;}
-    .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{
-        color: #707070;
-        font-weight:400;
-        background: repeat-x #F2F2F2;
-        font-size:20px !important;
-    }
-        
-    .datagrid-header-check {height:30px !important;}
-</style>
+
 @endpush
 @section('content')
 <div class="row" >
@@ -131,25 +120,36 @@
 easyloader.load('datagrid', function(){ // 加载指定模块 
     $("#orderinfo").datagrid({
         url: "{{route('b_menus_getmenulist')}}",
+        method:'get',
         loadMsg: '正在载入数据,请耐心等待...',
         columns: [[//表头标题栏
             {field: 'id', title: 'ID', width: 10, align: 'center',checkbox:true},
-            {field: 'parent_id', title: '父ID', align: 'center',width: 50},
-            {field: 'name', title: '菜单名', align: 'center',width: 100},
-            {field: 'url', title: '菜单地址', align: 'center',width: 120},
-            {field: 'type', title: '菜单类型', align: 'center'},
-            {field: 'icon', title: '菜单图标', width: 100,align: 'center'},
-            {field: 'status', title: '菜单状态', align: 'center',width: 100},
-            {field: 'created_at', title: '菜单添加时间', align: 'center',width: 120,sortable:true},
-            {field: 'updated_at', title: '菜单修改时间', align: 'center',sortable:true}
+            {field: 'parent_id', title: '父级菜单', align: 'center'},
+            {field: 'name', title: '菜单名', align: 'center'},
+            {field: 'url', title: '菜单地址', align: 'center'},
+            {field: 'icon', title: '图标',align: 'center'},
+            {field: 'type', title: '类型', align: 'center',formatter: function (value, row, index) {
+                if(value == 1){
+                    return '<span  class="btn btn-white btn-yellow btn-sm">目录菜单</span>';
+                }else{
+                    return '<span  class="btn btn-white btn-pink btn-sm">地址菜单</span>';
+                }
+            }},
+            
+            {field: 'status', title: '当前状态', align: 'center',formatter: function (value, row, index) {
+                if(value == 1){
+                    return '<span class="label label-success" >启用</span>';
+                }else{
+                    return '<span class="label label-danger" >禁用</span>';
+                }
+            }},
+            {field: 'created_at', title: '创建时间', align: 'center',sortable:true}
         ]],
-        fit: false,
+        
         pagination: true,
         pageSize: 10,
         pageList: [10, 20, 30, 50],
-        rownumbers : false,//行号
         singleSelect: false,
-        method:'get',
         onLoadSuccess: function (data) {
             if (data.rows.length === 0) {
                 var body = $(this).data().datagrid.dc.body2;
