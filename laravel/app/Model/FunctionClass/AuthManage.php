@@ -3,20 +3,20 @@ namespace App\Model\FunctionClass;
 
 class AuthManage {
 
-    public  $user_id;
+    public  $admin_id;
     private $rolesModel;
-    private $userRolesModel;
+    private $adminRolesModel;
     private $rolePermissionsModel;
     private $rermissionsModel;
 
-    public function __construct($user_id) {
-        $this->user_id               = $user_id;
+    public function __construct($admin_id) {
+        $this->admin_id               = $admin_id;
         $this->rolesModel            = new \App\Model\Roles();
-        $this->userRolesModel        = new  \App\Model\UserRoles();
+        $this->adminRolesModel        = new  \App\Model\AdminRoles();
         $this->rolePermissionsModel  = new  \App\Model\RolePermissions();
         $this->prermissionsModel     = new  \App\Model\Permissions();
     }
-    
+
     public function verify($path){
         return $this->checkPermissions($path);
     }
@@ -30,13 +30,16 @@ class AuthManage {
         }
         
         $roles = $this->getUserRole();
-        if($roles){
-            $getRolePrermissions = $this->getRolePrermissions($roles);
-            if(count($getRolePrermissions) == 0){
-                return false;
-            }
+        if(!$roles){
+            return false;
         }
+
+        $getRolePrermissions = $this->getRolePrermissions($roles);
         
+        if(count($getRolePrermissions) == 0){
+            return false;
+        }
+
         $getPrermissionsList = $this->getPrermissionsList($getRolePrermissions);
         if(count($getPrermissionsList) == 0){
             return false;
@@ -47,7 +50,7 @@ class AuthManage {
     
     public function getUserRole(){
         $arr = [];
-        $res = $this->userRolesModel->where('user_id',$this->user_id)->select('role_id')->get();
+        $res = $this->adminRolesModel->where('admin_id',$this->admin_id)->select('role_id')->get();
         if($res){
             $list = $res->toArray();
             foreach($list as $k=>$v){
@@ -92,9 +95,9 @@ class AuthManage {
      */
     public function isJumpCheckUrl($path){
         $array = [
-            'backend/menus/menuview'
+            '/backend'
         ];
-        
+
         return in_array($path, $array);
     }
 }

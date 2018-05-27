@@ -18,18 +18,15 @@ class AuthManageMiddleware
     public function handle($request, Closure $next)
     {
         if(config('app.config.authverify')){
-            $path   = $request->path();
+            $path   = '/'.$request->path();
             $method = $request->method();
-            $authManage = new AuthManage(3);
+            $authManage = new AuthManage($request->user()->id);
             $auth_result = $authManage->verify($path);
             if(!$auth_result){
                 if($request->ajax()){
-                    //return response()->json(['message'=>'请求未授权...','code'=>403,'data'=>[],'method'=>"[{$method}]ajax"]);
-                    
-                    abort(403);
+                    abort(401,'请求未授权');
                 }
-
-                return response()->view('errors.403', [],403);
+                return response()->view('errors.401', [],401);
             }
         }
 

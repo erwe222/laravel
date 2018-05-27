@@ -44,8 +44,8 @@ class CController extends Controller{
         $params['sort']     = '';
         $orderBy            = $request->input('orderBy',[]);
         $search             = $request->input('search',[]);
-        $params['offset']  = $request->input('start',[]);
-        $params['pagesize']  = $request->input('length',[]);
+        $params['offset']  = $request->input('start','');
+        $params['pagesize']  = $request->input('length','20');
 
         if(count($orderBy) > 0){
             $params['orderBy'] = $orderBy[0]['orderByname'];
@@ -63,7 +63,7 @@ class CController extends Controller{
     /**
      * 格式化返回数据
      */
-    public function returnData($data,$msg,$code=200,$httpstatus=200){
+    public function returnData($data,$msg='',$code=200,$httpstatus=200){
         return response()->json([
             'code'=>$code,
             'message'=>$msg,

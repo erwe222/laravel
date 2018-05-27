@@ -11,10 +11,14 @@ use App\Model\Roles;
 class RolesController extends CController{
     
     private $rolesModel = null;
-    
+    private $rolePermissionsModel = null;
+
+
     public function __construct() {
         parent::__construct();
         $this->rolesModel = new Roles();
+        $this->permissionsModel = new \App\Model\Permissions();
+        $this->rolePermissionsModel = new \App\Model\RolePermissions();
     }
     
     /**
@@ -36,7 +40,7 @@ class RolesController extends CController{
         }
         
         if(isset($params['search']['status'])){
-            $data['status'] = $params['search']['status'];
+            $data['status'] = (int)$params['search']['status'];
         }
 
         if(!empty($params['orderBy']) && !empty($params['sort'])){
@@ -62,22 +66,60 @@ class RolesController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function addRole(Request $request){
-        
+        $role_name = $request->input('name');
+        $role_status = $request->input('status');
+        $result = $this->rolesModel->addRole($role_name,$role_status);
+        return $this->returnData([], $result['message'], $result['code']);
     }
-    
+
     /**
      * 更新角色信息
      * @param \Illuminate\Http\Request $request
      */
     public function updateRole(Request $request){
-        
+        $role_id = $request->input('id');
+        $role_name = $request->input('name');
+        $role_status = $request->input('status');
+        $result = $this->rolesModel->updateRole($role_id,['name'=>$role_name,'status'=>$role_status]);
+        return $this->returnData([], $result['message'], $result['code']);
     }
-    
+
     /**
      * 删除角色信息
      * @param \Illuminate\Http\Request $request
      */
     public function deleteRole(Request $request){
+        $role_id = $request->input('id');
+        $result = $this->rolesModel->deleteRole($role_id);
+        return $this->returnData([], $result['message'], $result['code']);
+    }
+    
+    /**
+     * 查看角色权限页面
+     * @param \Illuminate\Http\Request $request
+     * @return type
+     */
+    public function rolePermissionsView(Request $request){
+        $role_id = $request->input('id',0);
+        $list = $this->permissionsModel->getAllPermissions();
+        $list = $this->permissionsModel->getTree($list,0);
         
+        $rolePermissionsList = $this->rolePermissionsModel->getRolePermissionsIds($role_id);
+
+        return view('backend.roles.role-permissions')
+                ->with('role_id', $role_id)
+                ->with('lists', $list)
+                ->with('rolePermissionsList', $rolePermissionsList);
+    }
+    
+    /**
+     * 更新角色权限
+     * @param \Illuminate\Http\Request $request
+     */
+    public function updateRolePermissions(Request $request){
+        $role_id = $request->input('role_id',0);
+        $permissions_ids = $request->input('permissions_ids',[]);
+        $rolePermissionsList = $this->rolePermissionsModel->updatePermissions($role_id,$permissions_ids);
+        return $this->returnData([], $rolePermissionsList['message'], $rolePermissionsList['code']);
     }
 }

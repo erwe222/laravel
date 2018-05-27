@@ -28,6 +28,10 @@ function getPagingInfo($total,$pageindex=1,$pagesize=20,$offset = false){
 
 /**
  * 获取处理结果
+ * @param type $result
+ * @param type $code      301:参数错误, ,305:处理失败
+ * @param type $msg
+ * @return type
  */
 function handleResult($result=true,$code=200,$msg=''){
     return [

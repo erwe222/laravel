@@ -13,11 +13,6 @@
         <link rel="stylesheet" href="/ace-asstes/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/jquery-ui.custom.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/chosen.min.css" />
-        <link rel="stylesheet" href="/ace-asstes/css/bootstrap-datepicker3.min.css" />
-        <link rel="stylesheet" href="/ace-asstes/css/bootstrap-timepicker.min.css" />
-        <link rel="stylesheet" href="/ace-asstes/css/daterangepicker.min.css" />
-        <link rel="stylesheet" href="/ace-asstes/css/bootstrap-datetimepicker.min.css" />
-        <link rel="stylesheet" href="/ace-asstes/css/bootstrap-colorpicker.min.css" />
         <link rel="stylesheet" href="/ace-asstes/googlefonts/fonts.googleapis.com.css" />
         <link rel="stylesheet" href="/ace-asstes/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-skins.min.css" />
@@ -60,9 +55,16 @@
             //easyloader.locale = 'zh_CN';         // 设置 easyui 默认语言
         </script>
         <script src="{{url('ace-asstes/layer/layer.js')}}"></script>
+        <script src="/js/functions.js"></script>
         <script>
             $('[data-rel=tooltip]').tooltip();
-            
+            jQuery(function($) {
+                $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                });
+            });
             
             $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
                 _title: function(title) {

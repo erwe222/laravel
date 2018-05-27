@@ -46,10 +46,11 @@ class Roles extends Model{
                 'created_at'=>date('Y-m-d H:i:s')
             ]);
             if($insterRes){
-                return true;
+                return handleResult(true,200,'角色添加成功...');
             }
+            return handleResult(false,305,'角色添加失败...');
         }
-        return false;
+        return handleResult(false,302,'角色名已存在');
     }
     
     /**
@@ -58,8 +59,9 @@ class Roles extends Model{
     public function updateRole($id,$params){
         $array = [];
         if(isset($params['name'])){
-            if($this->findRoleName($params['name'])){
-                return false;
+            $arr = $this->findRoleName($params['name']);
+            if($arr && $arr['id'] != $id){
+                return handleResult(false,302,'角色名已存在');
             }
             $array['name'] = $params['name'];
         }
@@ -69,8 +71,11 @@ class Roles extends Model{
         }
 
         $res = self::where('id', $id)->update($array);
-
-        return $res > 0 ?true:false;
+        if($res != false){
+            return handleResult(true,200,'角色修改成功...');
+        }
+        
+        return handleResult(false,305,'角色修改失败...');
     }
 
     /**
@@ -83,18 +88,20 @@ class Roles extends Model{
             $res = self::destroy($id);
             if(!$res){
                 DB::rollBack();
-                return false;
+                return handleResult(false,305,'角色删除失败...');
             }
-
-            $res2 = RolePermissions::WhereIn('role_id', $id)->delete();
-            if(!$res2){
-                DB::rollBack();
-                return false;
+            $count = RolePermissions::where('role_id', $id)->count();
+            if($count > 0){
+                $res2 = RolePermissions::where('role_id', $id)->delete();
+                if($res2 === false){
+                    DB::rollBack();
+                    return handleResult(false,305,'角色删除失败...');
+                }
             }
         DB::commit();
-        return true;
+        return handleResult(true,200,'角色删除成功...');
     }
-    
+
     /**
      * 根据角色名查询单条数据
      */

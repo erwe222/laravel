@@ -1,6 +1,6 @@
 (function(window, $){
 	var oLanguage = {
-	        sProcessing: "努力加载数据中...",
+	        sProcessing: "加载数据中...",
 	        sLengthMenu: "每页显示 _MENU_ 条记录",
 	        sZeroRecords: "抱歉， 没有找到",
 	        sInfo: "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
@@ -47,6 +47,8 @@
                 if(e.json.recordsFiltered == 0){
                     $('.dataTables_empty').css('color','red');
                 }
+                
+                $(_this.Selector +  ' thead >tr th label input:checkbox').attr('checked',false);
             },
             ajax : {
                 url:url,
@@ -60,15 +62,18 @@
 
                     //附加查询参数
                     d.search = _this.searchParams;
-					//$.extend(d,_this.searchParams); //给d扩展参数
+                    //$.extend(d,_this.searchParams); //给d扩展参数
 
-					delete d.order;
+                    delete d.order;
                     delete d.columns;
+                    
+                    $(_this.Selector).parent().find('.dataTables_processing').css('zIndex',999999999);
                 },
-                error:function(e){
-                	//加载失败回调方法
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    //加载失败回调方法
                     $(_this.Selector).parent().find('.dataTables_processing').css('display','none');
-                    layer.msg('加载失败...'+e.status + '----' +e.statusText);
+
+                    throwError(XMLHttpRequest, textStatus, errorThrown);
                 }
             }
         }
@@ -166,7 +171,8 @@
      * @returns {undefined}
      */
     MyTable.prototype.getRowData = function(rowIndex){
-        return this.table.rows(rowIndex).data();
+        var data = this.table.rows(rowIndex).data();
+        return data[0];
     }
 
     /**

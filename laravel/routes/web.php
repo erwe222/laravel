@@ -51,17 +51,20 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     //Roles 控制器路由配置 角色管理
     Route::get('/roles/roleview', 'RolesController@roleview')->name('b_role_menuview');
     Route::get('/roles/getroleslist', 'RolesController@getroleslist')->name('b_role_getroleslist');
-    Route::post('/roles/addrole', 'RolesController@create')->name('b_role_addrole');
-    Route::post('/roles/updaterole', 'RolesController@update')->name('b_role_updaterole');
-    Route::post('/roles/deleterole', 'RolesController@delete')->name('b_role_deleterole');
-
+    Route::post('/roles/addrole', 'RolesController@addrole')->name('b_role_addrole');
+    Route::post('/roles/updaterole', 'RolesController@updaterole')->name('b_role_updaterole');
+    Route::post('/roles/deleterole', 'RolesController@deleterole')->name('b_role_deleterole');
+    Route::get('/roles/rolepermissionsview', 'RolesController@rolepermissionsview')->name('b_role_rolepermissionsview');
+    Route::post('/roles/updaterolepermissions', 'RolesController@updaterolepermissions')->name('b_role_updaterolepermissions');
     
     //Permissions 控制器路由配置 权限管理
-    Route::get('/permissions/permissionsview', 'PermissionsController@index')->name('b_permissions_permissionsview');
-    Route::get('/permissions/getpermissionslist', 'PermissionsController@search')->name('b_permissions_permissionsview');
-    Route::post('/permissions/addpermissions', 'PermissionsController@create')->name('b_permissions_addpermissions');
-    Route::post('/permissions/updatepermissions', 'PermissionsController@update')->name('b_permissions_updatepermissions');
-    Route::post('/permissions/deletepermissions', 'PermissionsController@delete')->name('b_permissions_deletepermissions');
+    Route::get('/permissions/permissionsview', 'PermissionsController@permissionsview')->name('b_permissions_permissionsview');
+    Route::get('/permissions/getpermissionslist', 'PermissionsController@getpermissionslist')->name('b_permissions_getpermissionslist');
+    Route::post('/permissions/addpermissions', 'PermissionsController@addpermissions')->name('b_permissions_addpermissions');
+    Route::post('/permissions/updatepermissions', 'PermissionsController@updatepermissions')->name('b_permissions_updatepermissions');
+    Route::post('/permissions/deletepermissions', 'PermissionsController@deletepermissions')->name('b_permissions_deletepermissions');
+    Route::get('/permissions/getmodulename', 'PermissionsController@getmodulename')->name('b_permissions_getmodulename');
+    
     
     
     //调试控制器路由

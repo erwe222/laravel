@@ -322,15 +322,6 @@
                     </div>
                 </div>
             </div>
-<!--            <div class="footer" id="cus-footer">
-                <div class="footer-inner">
-                    <div class="footer-content">
-                        <span class="bigger-120">
-                            后台管理系统 &copy; 2016-2018
-                        </span>
-                    </div>
-                </div>
-            </div>-->
             <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
@@ -375,12 +366,10 @@
                     var iframename = o.parent().parent().data('id');
                     o.parent().parent().remove();
                     $('#'+iframename).remove();
-                    if(iframename == this.currentPageIndex){
-                        if(this.tabExists(this.currentPageIndex)){
-                            this.tabChange(this.currentPageIndex);
-                        }else{
-                            this.tabChange(this.defaultPageIndex);
-                        }
+                    if(this.tabExists(this.previousPageIndex)){
+                        this.tabChange(this.previousPageIndex);
+                    }else{
+                        this.tabChange(this.defaultPageIndex);
                     }
                     event.stopPropagation();
                 },
@@ -388,7 +377,6 @@
                     $('.cus-tab-panel').each(function(){
                         $(this).removeClass('cus-tab-show').addClass('cus-tab-hide');
                     });
-                    
                     $('#my-tab-breadcrumb > li').each(function(){
                         if($(this).data('id') == index){
                             $(this).addClass('my-tab-breadcrumb-show');
@@ -398,12 +386,11 @@
                     });
 
                     $('#'+index).removeClass('cus-tab-hide').addClass('cus-tab-show');
-                    
+
                     if(index != this.currentPageIndex){
                         this.previousPageIndex = this.currentPageIndex;
                         this.currentPageIndex  = index;
                     }
-//                    console.log('当前页：'+this.currentPageIndex+'--上一页'+this.previousPageIndex);
                 },
                 tabAdd: function(data) {
                     if(!this.tabExists(data.index)){
@@ -440,7 +427,6 @@
 
                         $('#'+iframename_rand).on("load",function() {
                             nprogress.done();
-                            
                             var mainheight,pre_height;
                             var frame_content = $(this);
                             var timer = setInterval(function(){
@@ -449,9 +435,7 @@
                                     mainheight = w_height;
                                 }
                                 if (mainheight != pre_height){
-                                    //console.log('iframe高度改变:原高度-'+pre_height+'===本次改变后高度'+mainheight);
                                     pre_height = mainheight;
-                                    console.log(pre_height);
                                     frame_content.height(mainheight);
                                 }
                             },250);//每0.25秒检查一次
@@ -494,7 +478,7 @@
                 });
                 $(this).parent().addClass('active');
                 var obj = $(this).data('options');
-                var data = {url:obj.url,title:obj.title,icon:obj.icon,index:obj.index};
+                var data = {url:obj.url,title:obj.title,icon:obj.icon,index:obj.index+'_index'};
                 objTab.tabAdd(data);
             });
                 
