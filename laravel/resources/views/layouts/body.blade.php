@@ -17,11 +17,7 @@
         <link rel="stylesheet" href="/ace-asstes/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-skins.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-rtl.min.css" />
-        <link rel="stylesheet" href="/jquery-easyui/themes/material/easyui.css" />
-        <link rel="stylesheet" href="/css/easycss-edit.css" />
-        <style>
-            .datagrid-header-row{height:35px !important;font-size:28px !important;}
-        </style>
+        
         @stack('css')
         <script src="/ace-asstes/js/ace-extra.min.js"></script>
     </head>
@@ -40,7 +36,7 @@
             </div>
         </div>
         <script src="/ace-asstes/js/jquery-2.1.4.min.js"></script>
-        <script src="/jquery-easyui/easyloader.js"></script>
+        
         <script type="text/javascript">
             if('ontouchstart' in document.documentElement) document.write("<script src='/ace-asstes/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
         </script>
@@ -49,11 +45,6 @@
         <script src="/ace-asstes/js/jquery.ui.touch-punch.min.js"></script>
         <script src="/ace-asstes/js/ace-elements.min.js"></script>
         <script src="/ace-asstes/js/ace.min.js"></script>
-        <script>
-            easyloader.base = '/jquery-easyui/'; // 设置 easyui 基础目录 
-            easyloader.theme = 'metro';          // 设置 easyui 默认主题
-            //easyloader.locale = 'zh_CN';         // 设置 easyui 默认语言
-        </script>
         <script src="{{url('ace-asstes/layer/layer.js')}}"></script>
         <script src="/js/functions.js"></script>
         <script>

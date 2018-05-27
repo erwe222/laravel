@@ -59,7 +59,7 @@ class AuthController extends CController{
 
         $request->session()->invalidate();
 
-        return redirect(route('f_auth_tologin'));
+        return redirect(route('b_auth_tologin'));
     }
 
     /**

@@ -10,6 +10,7 @@
 function getPagingInfo($total,$pageindex=1,$pagesize=20,$offset = false){
 
     if($offset === false){
+        $page_index = $pageindex;
         $pagesize = ((int)$pagesize == 0?1:(int)$pagesize);
         $offset = (intval($pageindex) - 1) * intval($pagesize);
     }else{

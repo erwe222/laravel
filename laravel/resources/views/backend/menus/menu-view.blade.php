@@ -1,7 +1,21 @@
 @extends('layouts.body')
+@push('css')
+<link rel="stylesheet" href="/jquery-easyui/themes/material/easyui.css" />
+<link rel="stylesheet" href="/css/easycss-edit.css" />
+<style>
+    .datagrid-header ,.datagrid-htable{height:40px !important;line-height:40px !important;}
+    .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{height:40px !important;line-height:40px !important;}
+    .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{
+        color: #707070;
+        font-weight:400;
+        background: repeat-x #F2F2F2;
+        font-size:20px !important;
+    }
+        
+    .datagrid-header-check {height:30px !important;}
+</style>
+@endpush
 @section('content')
-
-
 <div class="row" >
     <div class="col-xs-12">
         <div class="alert alert-info" >
@@ -23,20 +37,18 @@
             <button class="btn btn-white btn-info btn-bold" data-type="showFrom" >
                 <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>添加
             </button>
-            <button class="btn btn-white btn-info btn-bold" data-type="download">
-                <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>下载
-            </button>
-            <button class="btn btn-white btn-warning btn-bold" data-type="delete">
-                <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>删除
-            </button>
             <button class="btn btn-white btn-success btn-bold" data-type="refresh">
                 <i class="ace-icon fa fa-undo bigger-120" ></i>刷新
             </button>
         </p>
     </div>
 </div>
-
-<div id="orderinfo" style="width: 100%;"></div>
+<div class="widget-box widget-color-blue2">
+    <div class="widget-header"><h4 class="widget-title lighter smaller">菜单列表</h4></div>
+    <div class="widget-body">
+        <div id="orderinfo" style="width: 100%;"></div>
+    </div>
+</div>
 
 <div id="dialog-message" class="hide" >
     <form class="form-horizontal" role="form" id="menu-form">
@@ -114,6 +126,7 @@
 
 @push('scripts')
 <script src="/ace-asstes/js/tree.min.js"></script>
+<script src="/jquery-easyui/easyloader.js"></script>
 <script>
 easyloader.load('datagrid', function(){ // 加载指定模块 
     $("#orderinfo").datagrid({
@@ -125,7 +138,7 @@ easyloader.load('datagrid', function(){ // 加载指定模块
             {field: 'name', title: '菜单名', align: 'center',width: 100},
             {field: 'url', title: '菜单地址', align: 'center',width: 120},
             {field: 'type', title: '菜单类型', align: 'center'},
-            {field: 'icon', title: '菜单图标', width: 100},
+            {field: 'icon', title: '菜单图标', width: 100,align: 'center'},
             {field: 'status', title: '菜单状态', align: 'center',width: 100},
             {field: 'created_at', title: '菜单添加时间', align: 'center',width: 120,sortable:true},
             {field: 'updated_at', title: '菜单修改时间', align: 'center',sortable:true}
@@ -137,10 +150,6 @@ easyloader.load('datagrid', function(){ // 加载指定模块
         rownumbers : false,//行号
         singleSelect: false,
         method:'get',
-        onDblClickRow: function (index, row) {
-
-        },
-        queryParams:{testname:1111111111},
         onLoadSuccess: function (data) {
             if (data.rows.length === 0) {
                 var body = $(this).data().datagrid.dc.body2;
@@ -152,7 +161,7 @@ easyloader.load('datagrid', function(){ // 加载指定模块
     $('#grid-search-form').on('submit',function(){
         objClass.refresh();
     });
-    
+
     var objClass = {
         add:function(){
             var parent = $('#menu-parent').text();
