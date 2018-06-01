@@ -212,8 +212,9 @@
             var data = myTable.getRowData(row_id);
             var url = "{{route('b_role_rolepermissionsview')}}"+'?id='+data.id;
             var title = "【"+data.name+"】角色权限";
-            var data = {url:url,title:title,icon:'fa fa-pencil',index:'cat_role_pre'+data.id};
-            window.parent.objTab.tabAdd(data);
+            var data = {href:url,title:title,icon:'fa fa-pencil',index:data.id,lock:false};
+//            window.parent.objTab.tabAdd(data);
+            window.parent.mytab.addTab(data);
         }
     };
 

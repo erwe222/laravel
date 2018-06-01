@@ -25,7 +25,7 @@ class IndexController extends CController{
             return redirect(route('b_auth_tologin'));
         }
 
-        return view('backend.index.main', ['menus' => $menus,'user_info'=>$user_info]);
+        return view('backend.index.main2', ['menus' => $menus,'user_info'=>$user_info]);
     }
     
 }

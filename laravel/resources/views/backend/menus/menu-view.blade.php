@@ -35,7 +35,7 @@
 <div class="widget-box widget-color-blue2">
     <div class="widget-header"><h4 class="widget-title lighter smaller">菜单列表</h4></div>
     <div class="widget-body">
-        <div id="orderinfo" style="width: 100%;"></div>
+        <div id="orderinfo" ></div>
     </div>
 </div>
 

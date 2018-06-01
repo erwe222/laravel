@@ -276,7 +276,9 @@ class Menus extends Model
                     'url'=>$t['url'],
                     'icon'=>$t['icon'],
                     'title'=>$t['name'],
-                    'index'=>$t['id']
+                    'index'=>$t['id'],
+                    'href'=>$t['url'],
+                    'lock'=>false,
                 ]);
                     $html .="<a  class='dropdown-toggle cus-click-url' data-options='{$options}'>";
                 }else{

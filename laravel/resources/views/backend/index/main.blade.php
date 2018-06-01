@@ -130,7 +130,6 @@
                                 <li class="dropdown-footer"><a href="#">查看所有通知<i class="ace-icon fa fa-arrow-right"></i></a></li>
                             </ul>
                         </li>
-
                         <li class="green dropdown-modal">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
