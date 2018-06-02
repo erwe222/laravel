@@ -89,16 +89,12 @@ class TestController extends CController{
     }
     
     public function test(){
-        return view('test.viewtest');
+        return view('backend.test.viewtest');
     }
 
     public function test2(){
         $name = isset($_GET['name'])?$_GET['name']:'hhh';
-//        event(new TestBroadcastingEvent($name));
-        
-        $users = Users::find(2);
-        
-        event(new LoginBroadcastingEvent($users));
+        event(new TestBroadcastingEvent($name));
     }
     
     

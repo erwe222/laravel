@@ -78,4 +78,7 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     Route::get('/test/jqgridtables', 'TestController@jqgridtables')->name('b_test_jqgridtables');
     Route::get('/test/jqgridtableslist', 'TestController@jqgridtableslist')->name('b_test_jqgridtableslist');
     
+    
+    Route::get('/test/test2', 'TestController@test2')->name('b_test_test2');
+    Route::get('/test/test', 'TestController@test')->name('b_test_test');
 });
