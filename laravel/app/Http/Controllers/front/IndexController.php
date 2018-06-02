@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\front;
 
 class IndexController extends CController{
     
