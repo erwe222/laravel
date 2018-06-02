@@ -3,6 +3,7 @@ namespace App\Http\Controllers\backend;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\CreateActionLogEvent;
 
 /**
  * Description of AuthController
@@ -43,6 +44,12 @@ class AuthController extends CController{
                 'email' => $request->input('email'),
                 'password' => $request->input('password')
             ], (bool)$request->input('remember'));
+            if($result){
+                $this->createActionLog([
+                    'type'=>5,
+                    'content'=>'['.$user->name.']登录了后台'
+                ]);
+            }
             return response()->json(['result'=>$result,'code'=>303]);
         }
         return response()->json(['result'=>false,'code'=>403]);
@@ -55,6 +62,12 @@ class AuthController extends CController{
      */
     public function logout(Request $request)
     {
+
+        $this->createActionLog([
+            'type'=>6,
+            'content'=>'['.$user->name.']退出了后台',
+        ]);
+        
         $this->guard()->logout();
 
         $request->session()->invalidate();
@@ -71,6 +84,4 @@ class AuthController extends CController{
     {
         return Auth::guard('admin');
     }
-    
-    
 }

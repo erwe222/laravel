@@ -13,6 +13,7 @@ use App\Events\TestBroadcastingEvent;
 use App\Events\LoginBroadcastingEvent;
 
 use App\Model\Users;
+use App\Events\CreateActionLogEvent;
 
 /**
  * Description of TestController
@@ -93,10 +94,15 @@ class TestController extends CController{
     }
 
     public function test2(){
-        $name = isset($_GET['name'])?$_GET['name']:'hhh';
-        event(new TestBroadcastingEvent($name));
+//        $name = isset($_GET['name'])?$_GET['name']:'hhh';
+//        event(new TestBroadcastingEvent($name));
+        event(new CreateActionLogEvent([
+            'admin_id'=>1,
+            'type'=>'2',
+            'content'=>'taskdnfaksndfkasnd',
+            'created_at'=>  date('Y-m-d H:i:s'),
+        ]));
     }
-    
     
     public function jqGridTables(){
         return view('backend.test.jqgridtables');

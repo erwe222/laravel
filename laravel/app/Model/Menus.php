@@ -4,6 +4,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+
 class Menus extends Model
 {
     #菜单启用
@@ -113,6 +114,7 @@ class Menus extends Model
 
         $insterRes = self::create($array);
         if($insterRes){
+            
             return true;
         }
         return false;
