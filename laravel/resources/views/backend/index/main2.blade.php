@@ -399,14 +399,20 @@
                     mytab.init();
                     
                     $('.cus-click-url').on('click',function(){
-                        alert('asdf');
                         $('.cus-click-url').each(function(){
                             $(this).parent().removeClass('active');
                         });
                         $(this).parent().addClass('active');
                         var obj = $(this).data('options');
                         mytab.addTab(obj);
-                    });
+                    }).on('tap',function(){
+                        $('.cus-click-url').each(function(){
+                            $(this).parent().removeClass('active');
+                        });
+                        $(this).parent().addClass('active');
+                        var obj = $(this).data('options');
+                        mytab.addTab(obj);
+                    })
                     
                     /**
                         * 主框架操作类
