@@ -82,62 +82,56 @@
 	<body class="no-skin">
 		<div id="navbar" class="navbar navbar-default ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
-				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-					<span class="sr-only">切换栏</span>
-
-					<span class="icon-bar"></span>
-
-					<span class="icon-bar"></span>
-
-					<span class="icon-bar"></span>
-				</button>
-
+                            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+                                <span class="sr-only">切换栏</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
 				<div class="navbar-header pull-left">
-					<a href="index.html" class="navbar-brand">
-						<small>
-							<i class="fa fa-leaf"></i>
-							后台管理系统
-						</small>
-					</a>
+                                    <a href="index.html" class="navbar-brand">
+                                        <small><i class="fa fa-leaf"></i>
+                                            后台管理系统
+                                        </small>
+                                    </a>
 				</div>
 
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
 						<li class="grey dropdown-modal">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="ace-icon fa fa-tasks"></i>
-								<span class="badge badge-grey">4</span>
-							</a>
+                                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                                        <i class="ace-icon fa fa-tasks"></i>
+                                                        <span class="badge badge-grey">4</span>
+                                                    </a>
 
 							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="ace-icon fa fa-check"></i>
-									4项任务
-								</li>
+                                                            <li class="dropdown-header">
+                                                                <i class="ace-icon fa fa-check"></i>
+                                                                4项任务
+                                                            </li>
 
-								<li class="dropdown-content">
-									<ul class="dropdown-menu dropdown-navbar">
-										<li>
-											<a href="#">
-												<div class="clearfix">
-													<span class="pull-left">软件更新</span>
-													<span class="pull-right">65%</span>
-												</div>
+                                                            <li class="dropdown-content">
+                                                                <ul class="dropdown-menu dropdown-navbar">
+                                                                    <li>
+                                                                        <a href="#">
+                                                                            <div class="clearfix">
+                                                                                <span class="pull-left">软件更新</span>
+                                                                                <span class="pull-right">65%</span>
+                                                                            </div>
 
-												<div class="progress progress-mini">
-													<div style="width:65%" class="progress-bar"></div>
-												</div>
-											</a>
-										</li>
-									</ul>
-								</li>
-
-								<li class="dropdown-footer">
-									<a href="#">
-										查看任务详情
-										<i class="ace-icon fa fa-arrow-right"></i>
-									</a>
-								</li>
+                                                                            <div class="progress progress-mini">
+                                                                                    <div style="width:65%" class="progress-bar"></div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li class="dropdown-footer">
+                                                                <a href="#">
+                                                                    查看任务详情
+                                                                    <i class="ace-icon fa fa-arrow-right"></i>
+                                                                </a>
+                                                            </li>
 							</ul>
 						</li>
 
@@ -371,8 +365,6 @@
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 			</a>
 		</div>
-
-
 		<script src="/ace-asstes/js/jquery-2.1.4.min.js"></script>
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='/ace-asstes/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
@@ -391,7 +383,6 @@
                 <script src="{{asset('ace-asstes/js/jquery.gritter.min.js')}}"></script>
                 <script src="{{asset('js/nprogress.js')}}"></script>
 		<script src="/ace-asstes/js/my-tab.js"></script>
-                
 		<script>
                     nprogress.start();
                     $(function(){
@@ -408,6 +399,7 @@
                     mytab.init();
                     
                     $('.cus-click-url').on('click',function(){
+                        alert('asdf');
                         $('.cus-click-url').each(function(){
                             $(this).parent().removeClass('active');
                         });
