@@ -66,6 +66,16 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     Route::get('/permissions/getmodulename', 'PermissionsController@getmodulename')->name('b_permissions_getmodulename');
     
     
+    //FileManage 控制器路由配置 文件管理
+    Route::get('/filemanage/index', 'FileManageController@index')->name('b_filemanage_index');
+    Route::get('/filemanage/getlogfilelist', 'FileManageController@getlogfilelist')->name('b_filemanage_getlogfilelist');
+    Route::get('/filemanage/readlogfile', 'FileManageController@readlogfile')->name('b_filemanage_readlogfile');
+    Route::get('/filemanage/deletelogfile', 'FileManageController@deletelogfile')->name('b_filemanage_deletelogfile');
+
+
+
+
+
     
     //调试控制器路由
     Route::get('/test/index', 'TestController@index')->name('b_test_index');

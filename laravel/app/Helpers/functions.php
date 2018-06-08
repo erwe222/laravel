@@ -41,3 +41,21 @@ function handleResult($result=true,$code=200,$msg=''){
         'message'=>$msg
     ];
 }
+
+/**
+ * 判断字符串编码是否为 UTF-8
+ * @param type $string
+ * @return blooean
+ */
+function mb_is_utf8($string){
+    return mb_detect_encoding($string, 'UTF-8') === 'UTF-8';
+}
+
+/**
+ * 获取字符串编码类型
+ * @param type $string
+ * @return blooean
+ */
+function mb_str_encoding($string){
+    return  mb_detect_encoding($string, ["ASCII","UTF-8","GB2312","GBK","BIG5"]);
+}

@@ -27,6 +27,8 @@
         
         //查询参数
         this.searchParams = [];
+
+        delete options.fnDrawCallback;
         
         //table 初始化默认参数
         this.defaultOption = {
@@ -50,6 +52,11 @@
                 }
                 
                 $(_this.Selector +  ' thead >tr th label input:checkbox').attr('checked',false);
+
+                if(options.customCallback != undefined){
+                    //自定义回调函数
+                    options.customCallback(e);
+                }
             },
             ajax : {
                 url:url,
@@ -69,6 +76,22 @@
                     delete d.columns;
                     
                     $(_this.Selector).parent().find('.dataTables_processing').css('zIndex',999999999);
+
+
+                    // var obj = {
+                    //     orderBy:null,
+                    //     sort:null,
+                    //     start:d.start,
+                    //     length:d.length,
+                    //     draw:d.draw
+                    // };
+
+                    // if(d.order.length > 0){
+                    //     obj.orderBy = d.columns[d.order["0"].column].data;
+                    //     obj.sort = d.order["0"].dir;
+                    // }
+
+                    // return $.extend(obj, _this.searchParams);
                 },
                 error:function(XMLHttpRequest, textStatus, errorThrown){
                     //加载失败回调方法
