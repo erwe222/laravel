@@ -69,6 +69,12 @@ class PermissionsController extends CController{
         $data['modulename'] = $request->input('modulename','');
         
         $result = $this->permissionsModel->createPermissions($data);
+        if($result['result']){
+            $this->createActionLog([
+                'type'=>1,
+                'content'=>"新增了[{$data['title']}]的权限信息",
+            ]);
+        }
         return $this->returnData([], $result['message'], $result['code']);
     }
     
@@ -87,6 +93,13 @@ class PermissionsController extends CController{
         $data['modulename'] = $request->input('modulename','');
         
         $result = $this->permissionsModel->edit($data);
+        if($result['result']){
+            $title = ($data['title'] == '')?$data['modulename']:$data['title'];
+            $this->createActionLog([
+                'type'=>2,
+                'content'=>"更新了[{$title}]的权限信息",
+            ]);
+        }
         return $this->returnData([], $result['message'], $result['code']);
     }
     
@@ -96,7 +109,14 @@ class PermissionsController extends CController{
      */
     public function deletePermissions(Request $request){
         $id = $request->input('id',0);
+        $info = $this->permissionsModel->findById($id);
         $result = $this->permissionsModel->delPermissions($id);
+        if($result['result']){
+            $this->createActionLog([
+                'type'=>3,
+                'content'=>"删除了[{$info['title']}]的权限信息",
+            ]);
+        }
         if($result){
             return $this->returnData([], '权限删除成功...', 200);
         }else{

@@ -3,6 +3,7 @@ namespace App\Http\Controllers\backend;
 use Illuminate\Http\Request;
 use App\Model\Roles;
 
+
 /**
  * Description of RolesController
  *
@@ -69,6 +70,12 @@ class RolesController extends CController{
         $role_name = $request->input('name');
         $role_status = $request->input('status');
         $result = $this->rolesModel->addRole($role_name,$role_status);
+        if($result['result']){
+            $this->createActionLog([
+                'type'=>1,
+                'content'=>"添加了新的角色【{$role_name}】信息"
+            ]);
+        }
         return $this->returnData([], $result['message'], $result['code']);
     }
 
@@ -81,6 +88,12 @@ class RolesController extends CController{
         $role_name = $request->input('name');
         $role_status = $request->input('status');
         $result = $this->rolesModel->updateRole($role_id,['name'=>$role_name,'status'=>$role_status]);
+        if($result['result']){
+            $this->createActionLog([
+                'type'=>2,
+                'content'=>"更新了角色名【{$role_name}】的信息",
+            ]);
+        }
         return $this->returnData([], $result['message'], $result['code']);
     }
 
@@ -90,7 +103,14 @@ class RolesController extends CController{
      */
     public function deleteRole(Request $request){
         $role_id = $request->input('id');
+        $arr = $this->rolesModel->findById($role_id);
         $result = $this->rolesModel->deleteRole($role_id);
+        if($result['result'] && $arr){
+            $this->createActionLog([
+                'type'=>3,
+                'content'=>"删除了【{$arr['name']}】角色相关信息",
+            ]);
+        }
         return $this->returnData([], $result['message'], $result['code']);
     }
     
@@ -120,6 +140,13 @@ class RolesController extends CController{
         $role_id = $request->input('role_id',0);
         $permissions_ids = $request->input('permissions_ids',[]);
         $rolePermissionsList = $this->rolePermissionsModel->updatePermissions($role_id,$permissions_ids);
+        if($rolePermissionsList['result']){
+            $arr = $this->rolesModel->findById($role_id);
+            $this->createActionLog([
+                'type'=>2,
+                'content'=>"更新了【{$arr['name']}】角色的权限信息"
+            ]);
+        }
         return $this->returnData([], $rolePermissionsList['message'], $rolePermissionsList['code']);
     }
 }

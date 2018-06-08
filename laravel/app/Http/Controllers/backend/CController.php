@@ -3,6 +3,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Events\CreateActionLogEvent;
 
 /**
  * 后台基类控制器
@@ -69,6 +70,18 @@ class CController extends Controller{
             'message'=>$msg,
             'data'=>$data
         ], $httpstatus);
+    }
+    
+    /**
+     * 添加操作日志
+     */
+    public function createActionLog($data){
+        $user = $this->getUserInfo();
+        event(new CreateActionLogEvent([
+            'admin_id'=>$user->id,
+            'type'=>$data['type'],
+            'content'=>$data['content']
+        ]));
     }
     
     
