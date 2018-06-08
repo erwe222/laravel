@@ -18,6 +18,9 @@
         <link rel="stylesheet" href="/ace-asstes/css/ace-skins.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-rtl.min.css" />
         <style>
+            th, td { white-space: nowrap; }
+
+
             .datagrid-header ,.datagrid-htable{height:40px !important;line-height:40px !important;}
             .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{height:40px !important;line-height:40px !important;}
             .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{

@@ -30,6 +30,7 @@
         
         //table 初始化默认参数
         this.defaultOption = {
+            scrollX: true,
         	serverSide : true,
         	paging:true,
             processing: true,

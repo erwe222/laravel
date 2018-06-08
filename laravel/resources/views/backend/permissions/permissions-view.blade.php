@@ -104,6 +104,7 @@
 <script src="/js/myTable.js"></script>
 <script>
     var obj = {
+        scrollX: true,
         columns: [
             {data:null,title:'<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',width:50,orderable:false,class:'table-checkbox',
                 render:function(data){

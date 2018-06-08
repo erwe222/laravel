@@ -174,10 +174,11 @@
         var iframe_top = $('#my-iframe-box').position().top;
         var nav_box    = $('#breadcrumbs').offset().top;
         if(window.innerWidth > 992){
-//            $('#my-iframe-box').css('top', '40px');
+           $('#my-iframe-box').css('top', '40px');
         }else{
             $('#my-iframe-box').css('top', '0px');
         }
+        $('#my-iframe-box').css('top', '40px');
         console.log(window.innerWidth);
         if(window.innerWidth < 300){
             alert('屏幕别再小了再小就看不见了');

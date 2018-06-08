@@ -1,6 +1,5 @@
 @extends('layouts.body')
 @section('content')
-</style>
 <div class="row">
     <div class="col-xs-12">
         <div class="alert alert-info">
@@ -71,13 +70,14 @@
 <script src="/js/myTable.js"></script>
 <script>
     var obj = {
+        scrollX: true,
         columns: [
             {data:null,title:'<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',width:50,orderable:false,class:'table-checkbox',
                 render:function(data){
                     return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
-            {title: '角色名',data: 'name',name:'name',orderable:false},
+            {title: '角色名',data: 'name',name:'name',orderable:false,width: 100},
             {title: '状态',data: 'status',name:'status',orderable:false,width: 100,render: function ( data, type, row, meta ) {
                 if(data == 1){
                     return '<span class="label label-success arrowed-in arrowed-in-right" data-rowindex="'+meta.row+'">启用</span>';
