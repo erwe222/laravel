@@ -71,11 +71,12 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     Route::get('/filemanage/getlogfilelist', 'FileManageController@getlogfilelist')->name('b_filemanage_getlogfilelist');
     Route::get('/filemanage/readlogfile', 'FileManageController@readlogfile')->name('b_filemanage_readlogfile');
     Route::get('/filemanage/deletelogfile', 'FileManageController@deletelogfile')->name('b_filemanage_deletelogfile');
-
-
-
-
-
+    Route::get('/filemanage/downloadlogfile', 'FileManageController@downloadlogfile')->name('b_filemanage_downloadlogfile');
+    
+    //System 控制器路由配置 系统设置
+    Route::get('/system/index', 'SystemController@index')->name('b_system_index');
+    Route::get('/system/clearviewcache', 'SystemController@clearviewcache')->name('b_system_clearviewcache');
+    
     
     //调试控制器路由
     Route::get('/test/index', 'TestController@index')->name('b_test_index');
@@ -87,7 +88,6 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     
     Route::get('/test/jqgridtables', 'TestController@jqgridtables')->name('b_test_jqgridtables');
     Route::get('/test/jqgridtableslist', 'TestController@jqgridtableslist')->name('b_test_jqgridtableslist');
-    
     
     Route::get('/test/test2', 'TestController@test2')->name('b_test_test2');
     Route::get('/test/test', 'TestController@test')->name('b_test_test');

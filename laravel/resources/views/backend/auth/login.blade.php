@@ -15,9 +15,12 @@
         <link rel="stylesheet" href="{{asset('ace-asstes/css/ace-rtl.min.css')}}" />
         <style>
             .cus-label-img img {float:right;margin-left:2px;height: 34px;cursor: pointer;}
+            .light-login {
+                background: url(/ace-asstes/images/bg-img.jpg) #DFE0E2;
+            }
         </style>
     </head>
-    <body class="login-layout">
+    <body class="login-layout light-login">
         <div class="main-container">
             <div class="main-content">
                 <div class="row">
@@ -27,7 +30,7 @@
                                 <h1>
                                     <i class="ace-icon fa fa-leaf green"></i>
                                     <span class="red">Ace</span>
-                                    <span class="white" id="id-text2">后台管理系统</span>
+                                    <span class="red" id="id-text2">CMS管理系统</span>
                                 </h1>
                                 <h4>  </h4>
                             </div>
@@ -234,15 +237,7 @@
                                 </div><!-- /.signup-box -->
                             </div><!-- /.position-relative -->
 
-                            <div class="navbar-fixed-top align-right">
-                                <br />&nbsp;
-                                <a id="btn-login-dark" href="#">黑色</a>
-                                &nbsp;<span class="blue">/</span>&nbsp;
-                                <a id="btn-login-blur" href="#">滤镜</a>
-                                &nbsp;<span class="blue">/</span>&nbsp;
-                                <a id="btn-login-light" href="#">亮色</a>
-                                &nbsp; &nbsp; &nbsp;
-                            </div>
+                        
                         </div>
                     </div><!-- /.col -->
                 </div><!-- /.row -->

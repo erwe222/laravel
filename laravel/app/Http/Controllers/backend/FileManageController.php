@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\backend;
 use Illuminate\Http\Request;
 use Validator;
-
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Description of AdminControllor
@@ -33,8 +33,6 @@ class FileManageController extends CController{
 
     /**
      * 获取文件列表
-     *
-     *
      */
     public function getLogFilelist(Request $request){
         $params = $this->queryDatatableParams($request);
@@ -49,8 +47,8 @@ class FileManageController extends CController{
             {
                 $path_file_dir = $path.'/'.$filename;
                 $dataFiles[] = [
-                    'filename'=> (!mb_is_utf8($filename)) ? iconv("gb2312", "utf-8", $filename) :$filename,
-                    'filesize'=>$this->getsize(filesize($path_file_dir),'kb').' KB',
+                    'filename'=> iconv(mb_str_encoding($filename), "utf-8", $filename),
+                    'filesize'=>getsize(filesize($path_file_dir),'kb').' KB',
                     'filectime'=>date("Y-m-d H:i:s",filectime($path_file_dir)),
                     'file_code'=>mb_str_encoding($filename),
                 ];
@@ -68,38 +66,64 @@ class FileManageController extends CController{
             'page_index'=>1
         ]);
     }
+    
+    /**
+     * 读取日志文件
+     * @return type
+     */
+    public function readLogfile(Request $request){
+        $filename   = $request->input('filename','laravel - 副本.log');
+        $code   = $request->input('code','EUC-CN');
+        $path       = base_path('storage/logs');
+        $filename   = iconv(mb_str_encoding($filename), $code, $filename);
+        $file_path = $path."/".$filename;
+        $str = false;
+        if(file_exists($file_path)){
+            $fp = fopen($file_path,"r");
+            $str = fread($fp,filesize($file_path));
+            $str = str_replace("\r\n","<br />",$str);
+        }
 
-
+        return view('backend.filemanage.filelogs-info-view',['fileinfo'=>$str]);
+    }
 
     /*
      * 删除日志文件
      *
      */
     public function deleteLogFile(Request $request){
-        $filename   = $request->input('filename','');
+        $oldname = $filename   = $request->input('filename','');
         $code   = $request->input('code','');
         $path       = base_path('storage/logs');
         $filename   = iconv(mb_str_encoding($filename), $code, $filename);
         $res        = \File::delete($path.'/'.$filename);
         if($res){
+            $this->createActionLog([
+                'type'=>5,
+                'content'=>"删除【{$oldname}】日志文件",
+            ]);
             return $this->returnData([],'删除成功',200);
         }else{
             return $this->returnData([],'删除失败',305);
         }
     }
-
-    public function getsize($size, $format = 'kb'){
-        $p = 0;
-        if ($format == 'kb') {
-            $p = 1;
-        } elseif ($format == 'mb') {
-            $p = 2;
-        } elseif ($format == 'gb') {
-            $p = 3;
+    
+    /**
+     * 下载日志文件
+     * @return type
+     */
+    public function downloadLogFile(Request $request){
+        $oldname = $filename   = $request->input('filename','');
+        $code   = $request->input('code','');
+        if(!empty($filename) && !empty($code)){
+            $path       = base_path('storage/logs');
+            $filename   = iconv(mb_str_encoding($filename), $code, $filename);
+            $file_path = $path."/".$filename;
+            $this->createActionLog([
+                'type'=>6,
+                'content'=>"下载了【{$oldname}】日志文件",
+            ]);
+            forceDownloadFile($file_path,$filename);
         }
-
-        $size /= pow(1024, $p);
-        return number_format($size, 2);
     }
-
 }

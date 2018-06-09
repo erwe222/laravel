@@ -45,6 +45,7 @@ class AuthController extends CController{
                 'password' => $request->input('password')
             ], (bool)$request->input('remember'));
             if($result){
+                $user = $this->getUserInfo();
                 $this->createActionLog([
                     'type'=>5,
                     'content'=>'['.$user->name.']登录了后台'
@@ -62,7 +63,7 @@ class AuthController extends CController{
      */
     public function logout(Request $request)
     {
-
+        $user = $this->getUserInfo();
         $this->createActionLog([
             'type'=>6,
             'content'=>'['.$user->name.']退出了后台',
