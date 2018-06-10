@@ -74,18 +74,18 @@ class Menus extends Model
     public function addMenu($params){
         $array = [];
         if(!isset($params['name']) || empty($params['name'])){
-            return false;
+            return handleResult(false,301,'菜单名不能为空...');
         }else{
             if($this->findName($params['name'])){
-                return false;
+                return handleResult(false,301,'菜单名已存在...');
             }
             $array['name'] = $params['name'];
         }
 
-        if(isset($params['parent_name']) && !empty($params['parent_name'])){
+        if(isset($params['parent_name']) && !empty($params['parent_name']) && $params['parent_name'] != '添加一级菜单'){
             $menu_info = $this->findName($params['parent_name']);
             if(!$menu_info){
-                return false;
+                return handleResult(false,301,'父级菜单不存在...');
             }
             $array['parent_id'] = $menu_info['id'];
         }
@@ -100,7 +100,7 @@ class Menus extends Model
             if(isset($params['url']) && !empty($params['url'])){
                 $array['url'] = $params['url'];
             }else{
-                return false;
+                return handleResult(false,301,'地址链接不能为空...');
             }
         }
 
@@ -113,11 +113,10 @@ class Menus extends Model
         }
 
         $insterRes = self::create($array);
-        if($insterRes){
-            
-            return true;
+        if($insterRes !== false){
+            return handleResult(true,200,'菜单添加成功...');
         }
-        return false;
+        return handleResult(false,305,'菜单添加失败...');
     }
 
     /**
@@ -128,15 +127,15 @@ class Menus extends Model
         if(isset($params['name']) || !empty($params['name'])){
             $info = $this->findName($params['name']);
             if($info && $info['id'] != (int)$menu_id){
-                return false;
+                return handleResult(false,301,'菜单名不能为空...');
             }
             $array['name'] = $params['name'];
         }
 
-        if(isset($params['parent_name']) && !empty($params['parent_name'])){
+        if(isset($params['parent_name']) && !empty($params['parent_name']) && $params['parent_name'] != '添加一级菜单'){
             $menu_info = $this->findName($params['parent_name']);
             if(!$menu_info){
-                return false;
+                return handleResult(false,301,'父级菜单不存在...');
             }
             $array['parent_id'] = $menu_info['id'];
         }
@@ -151,7 +150,7 @@ class Menus extends Model
             if(isset($params['url']) && !empty($params['url'])){
                 $array['url'] = $params['url'];
             }else{
-                return false;
+                return handleResult(false,301,'地址链接不能为空...');
             }
         }
 
@@ -164,10 +163,10 @@ class Menus extends Model
         }
 
         $res = self::where('id', $menu_id)->update($array);
-        if($res){
-            return true;
+        if($res !== false){
+            return handleResult(true,200,'菜单修改成功...');
         }
-        return false;
+        return handleResult(false,305,'菜单修改失败...');
     }
 
     /**
@@ -214,9 +213,10 @@ class Menus extends Model
         
         $count_info = DB::select($count_sql);
         
+        $offset = isset($params['offset'])?$params['offset']:0;
         $pageindex = isset($params['pageindex'])?$params['pageindex']:1;
         $pagesize  = isset($params['pagesize'])?$params['pagesize']:10;
-        $page_info = getPagingInfo($count_info[0]->total,$pageindex,$pagesize);
+        $page_info = getPagingInfo($count_info[0]->total,$pageindex,$pagesize,$offset);
         
         if(isset($params['orderBy']) && isset($params['sort'])){
             $sql .= " order by {$params['orderBy']} {$params['sort']}";
@@ -227,6 +227,7 @@ class Menus extends Model
             $list[$_k] = (array)$_v;
         }
 
+        $page_info['filteredTotal'] = count($list);
         $page_info['data'] = $list;
         return $page_info;
     }
@@ -310,9 +311,22 @@ class Menus extends Model
     
     public function getMenuSelect(){
         $menus_arr = self::where('status', self::STATUS_ENABLE)->where('type',0)->select('id','parent_id', 'name as text',"type",'icon as icon-class')->orderBy('updated_at', 'asc')->get()->toArray();
+        
+        
         foreach($menus_arr as $key=>$v){
             $menus_arr[$key]['type'] = $v['type'] == 0?'folder':'item';
         }
+
+        $menus_arr[] = [
+            'id' => 2,
+            'parent_id' =>  0,
+            'text' => '添加一级菜单' ,
+            'type' =>  'folder',
+            'icon-class' => 'fa fa-tachometer',
+        ];
+        
+
+        
         return $handle_res = $this->getTree2($menus_arr,0);
     }
 
