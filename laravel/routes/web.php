@@ -40,6 +40,10 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     Route::get('auth/code', function(){
         return json_encode(['img_url'=>Captcha::src()]);
     })->name('b_auth_code');
+    Route::get('auth/sendemail', 'AuthController@sendemail')->name('b_auth_sendemail');
+    Route::get('auth/checkemail', 'AuthController@checkemail')->name('b_auth_checkemail');
+    
+    
     
     //Menus 控制器路由配置 导航栏目
     Route::get('/menus/menuview', 'MenusController@menuview')->name('b_menus_menuview');
