@@ -132,12 +132,14 @@ class Menus extends Model
             $array['name'] = $params['name'];
         }
 
-        if(isset($params['parent_name']) && !empty($params['parent_name']) && $params['parent_name'] != '添加一级菜单'){
+        if(isset($params['parent_name']) && !empty($params['parent_name']) && $params['parent_name'] != '添加一级菜单' && $params['parent_name'] != '顶级菜单'){
             $menu_info = $this->findName($params['parent_name']);
             if(!$menu_info){
                 return handleResult(false,301,'父级菜单不存在...');
             }
             $array['parent_id'] = $menu_info['id'];
+        }else{
+            $array['parent_id'] = 0;
         }
 
         if(isset($params['type']) && !empty($params['type'])){

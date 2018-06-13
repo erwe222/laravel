@@ -12,6 +12,8 @@ use App\Events\CreateActionLogEvent;
  */
 class AuthController extends CController{
 
+    public $adminModel;
+
     /**
      * Create a new controller instance.
      *
@@ -20,8 +22,11 @@ class AuthController extends CController{
     public function __construct()
     {
         parent::__construct();
-        
-        $this->middleware('guest:admin')->except('logout');
+
+        #http://118.24.1.228:8080/backend/auth/checkforgotpwd?e=837215079%40qq.com&token=fNncgjU6c1RowEuI8fHtqqu45A85stX3ZeCRgA9giLhJRleqIjnkEQwVFwgV
+        $this->middleware('guest:admin')->except('logout')->except('checkforgotpwd');
+
+        $this->adminModel = new \App\Model\Admin();
     }
     
     /**
@@ -84,5 +89,31 @@ class AuthController extends CController{
     protected function guard()
     {
         return Auth::guard('admin');
+    }
+
+
+
+    /**
+     * 用户找回密码邮件验证
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function checkForgotPwd(Request $request){
+        $email = $request->input('e','');
+        $token = $request->input('token');
+
+
+        $result = 0;
+        $admin_info = null;
+
+        if(empty($email)){
+            $result = '1';
+        }else if($admin_info = $this->adminModel->findEmail($email)){
+            if($admin_info->password_reset_token != $token){
+                $result = '2';
+            }
+        }
+
+        dd($token);
     }
 }

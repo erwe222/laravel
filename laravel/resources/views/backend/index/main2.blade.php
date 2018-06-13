@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
-        <title>后台管理系统</title>
+        <title>CMS管理系统</title>
         <meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <link rel="stylesheet" href="/ace-asstes/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
@@ -91,7 +91,7 @@
                 <div class="navbar-header pull-left">
                     <a href="index.html" class="navbar-brand">
                         <small><i class="fa fa-leaf"></i>
-                            后台管理系统
+                            CMS管理系统
                         </small>
                     </a>
                 </div>

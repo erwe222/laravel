@@ -8,7 +8,7 @@ use App\User;
 use App\Jobs\TestJob;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
-use App\Mail\OrderShipped;
+use App\Mail\SendForgotPassword;
 use App\Events\TestBroadcastingEvent;
 use App\Events\LoginBroadcastingEvent;
 
@@ -65,7 +65,15 @@ class TestController extends CController{
         #key: 883ed12036373acfa9c9f3b3c5fbc625
 
     	//模板发送
-    	Mail::send(new OrderShipped());
+        $adminModel = new \App\Model\Admin();
+        $admin = $adminModel->findEmail('837215079@qq.com');
+    	$flag = Mail::send(new SendForgotPassword($admin));
+        if(!$flag){
+            echo '邮件发送成功';
+        }else{
+            echo '邮件发送失败';
+        }
+        exit;
 
     	//队列模板发送
         //$message = (new OrderShipped())->onConnection('database')->onQueue('emails');

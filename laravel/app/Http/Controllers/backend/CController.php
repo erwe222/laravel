@@ -15,6 +15,7 @@ class CController extends Controller{
     
     
     public function __construct() {
+        
         Auth::shouldUse('admin');
     }
 
@@ -45,7 +46,7 @@ class CController extends Controller{
         $params['sort']     = '';
         $orderBy            = $request->input('orderBy',[]);
         $search             = $request->input('search',[]);
-        $params['offset']  = $request->input('start','');
+        $params['offset']  = $request->input('start',0);
         $params['pagesize']  = $request->input('length','20');
 
         if(count($orderBy) > 0){

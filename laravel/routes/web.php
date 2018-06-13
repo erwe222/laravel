@@ -40,6 +40,9 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     Route::get('auth/code', function(){
         return json_encode(['img_url'=>Captcha::src()]);
     })->name('b_auth_code');
+
+    Route::get('auth/checkforgotpwd', 'AuthController@checkforgotpwd')->name('b_auth_checkforgotpwd');
+
     
     //Menus 控制器路由配置 导航栏目
     Route::get('/menus/menuview', 'MenusController@menuview')->name('b_menus_menuview');
@@ -76,6 +79,10 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     //System 控制器路由配置 系统设置
     Route::get('/system/index', 'SystemController@index')->name('b_system_index');
     Route::get('/system/clearviewcache', 'SystemController@clearviewcache')->name('b_system_clearviewcache');
+
+    
+    Route::get('/system/record', 'SystemController@record')->name('b_system_record');
+    Route::get('/system/getrecordlist', 'SystemController@getrecordlist')->name('b_system_getrecordlist');
     
     
     //调试控制器路由

@@ -114,6 +114,19 @@ class Admin extends \Illuminate\Foundation\Auth\User{
 
         return handleResult(false,305,'上传头像失败...');
     }
+
+    /**
+     * 通过Email查询记录
+     * @param type $name 菜单名
+     * @return boolean
+     */
+    public function findEmail($email){
+        $res = self::where('email', $email)->first();
+        if($res){
+            return $res;
+        }
+        return false;
+    }
     
     
 }
