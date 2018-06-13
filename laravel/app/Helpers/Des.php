@@ -8,10 +8,12 @@ namespace App\Helpers;
  * Time: 13:36
  */
 class Des {
-    var $key;
-    function    Des($key) {
+    public $key;
+
+    public function __construct($key) {
         $this->key = $key;
     }
+    
     function encrypt($input) {
         $size = mcrypt_get_block_size('des', 'ecb');
         $input = $this->pkcs5_pad($input, $size);

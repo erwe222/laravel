@@ -4,6 +4,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\CreateActionLogEvent;
+use Illuminate\Support\Facades\Mail;
+use App\Helpers\Des;
 
 /**
  * Description of AuthController
@@ -91,7 +93,26 @@ class AuthController extends CController{
         return Auth::guard('admin');
     }
 
+    /**
+     * 发送找回密码邮件
+     */
+    public function sendEmail(Request $request){
+        $desSecret  =  config('app.config.desSecret');
+        $des = new Des($desSecret);
+        $email = $request->input('email','1427905139@qq.com');
+        $token = "{$email}|".date('Y-m-d H:i:s');
+        $token = $des->encrypt($token);
+        $link = route('b_auth_checkemail', ['token'=>$token]);
+        $flag = Mail::send('emails.ForgotPassword',['name'=>'CMS系统22','email'=>$email,'link'=>$link],function($message){
+            $message ->to($email)->subject('CMS找回密码');
+        });
 
+        if(!$flag){
+            echo '发送邮件成功，请查收！';
+        }else{
+            echo '发送邮件失败，请重试！';
+        }
+    }
 
     /**
      * 用户找回密码邮件验证
@@ -106,6 +127,14 @@ class AuthController extends CController{
         $result = 0;
         $admin_info = null;
 
+
+        phpinfo();
+        exit;
+        $desSecret  =  config('app.config.desSecret');
+        $des = new Des($desSecret);
+        $token = $des->encrypt('2018-06-12 10:23:23');
+        dd($token);
+
         if(empty($email)){
             $result = '1';
         }else if($admin_info = $this->adminModel->findEmail($email)){
@@ -116,4 +145,6 @@ class AuthController extends CController{
 
         dd($token);
     }
+    
+
 }

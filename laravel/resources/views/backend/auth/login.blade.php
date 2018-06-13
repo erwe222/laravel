@@ -138,7 +138,7 @@
                                                 <fieldset>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="email" class="form-control" placeholder="电子邮箱" />
+                                                            <input type="email" class="form-control" placeholder="电子邮箱" id="send-email-text"/>
                                                             <i class="ace-icon fa fa-envelope"></i>
                                                         </span>
                                                     </label>
@@ -146,7 +146,7 @@
                                                     <div class="clearfix">
                                                         <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
                                                             <i class="ace-icon fa fa-lightbulb-o"></i>
-                                                            <span class="bigger-110">发送</span>
+                                                            <span class="bigger-110" id="send-email">发送</span>
                                                         </button>
                                                     </div>
                                                 </fieldset>
@@ -316,10 +316,6 @@
                     });
                 });
                 
-                $('#cus-register-but').on('click',function(){
-                    
-                });
-                
                 $('.cus-label-img img').on('click',function(){
                     var _that = $(this);
                     $.ajax({
@@ -330,6 +326,19 @@
                             _that.attr('src',res.img_url); 
                         }
                     });
+                });
+                
+                $('#send-email').on('click',function(){
+                    var _that = $(this);
+                    alert($('#send-email-text').val());
+//                    $.ajax({
+//                        url:"{{route('b_auth_code')}}",
+//                        type:'get',
+//                        dataType:'json',
+//                        success:function(res){
+//                            _that.attr('src',res.img_url); 
+//                        }
+//                    });
                 });
             });
         </script>

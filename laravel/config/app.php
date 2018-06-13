@@ -236,6 +236,7 @@ return [
     'config'=>[
         //是否开启页面授权验证（默认开启）
         'authverify'=>false,
+        'desSecret' =>'xjyryd',
     ],
 
 ];
