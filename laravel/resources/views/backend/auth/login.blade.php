@@ -44,14 +44,12 @@
                                             <h4 class="header blue lighter bigger">
                                                 <i class="ace-icon fa fa-coffee green"></i>请输入您的信息
                                             </h4>
-
                                             <div class="space-6"></div>
-
                                             <form>
                                                 <fieldset>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="email" class="form-control" placeholder="用户名" name="username" id="cus-username-input"/>
+                                                            <input type="email" class="form-control" placeholder="登录名" name="username" id="cus-username-input"/>
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
                                                     </label>
@@ -62,7 +60,6 @@
                                                             <i class="ace-icon fa fa-lock"></i>
                                                         </span>
                                                     </label>
-                                                    
                                                     
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right cus-label-img">
@@ -85,26 +82,6 @@
                                                     <div class="space-4"></div>
                                                 </fieldset>
                                             </form>
-
-                                            <div class="social-or-login center">
-                                                <span class="bigger-110">其他登录方式</span>
-                                            </div>
-
-                                            <div class="space-6"></div>
-
-                                            <div class="social-login center">
-                                                <a class="btn btn-primary">
-                                                    <i class="ace-icon fa fa-qq"></i>
-                                                </a>
-
-                                                <a class="btn btn-success">
-                                                    <i class="ace-icon fa fa-weixin"></i>
-                                                </a>
-
-                                                <a class="btn btn-danger">
-                                                    <i class="ace-icon fa fa-weibo"></i>
-                                                </a>
-                                            </div>
                                         </div>
 
                                         <div class="toolbar clearfix">
@@ -112,13 +89,6 @@
                                                 <a href="#" data-target="#forgot-box" class="forgot-password-link">
                                                     <i class="ace-icon fa fa-arrow-left"></i>
                                                     忘记密码？
-                                                </a>
-                                            </div>
-
-                                            <div>
-                                                <a href="#" data-target="#signup-box" class="user-signup-link">
-                                                    注册帐号
-                                                    <i class="ace-icon fa fa-arrow-right"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -160,84 +130,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div id="signup-box" class="signup-box widget-box no-border">
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <h4 class="header green lighter bigger">
-                                                <i class="ace-icon fa fa-users blue"></i>
-                                                新用户注册
-                                            </h4>
-
-                                            <div class="space-6"></div>
-                                            <p> 输入您的详细信息： </p>
-
-                                            <form>
-                                                <fieldset>
-                                                    <label class="block clearfix">
-                                                        <span class="block input-icon input-icon-right">
-                                                                <input type="email" class="form-control" placeholder="邮箱" />
-                                                                <i class="ace-icon fa fa-envelope"></i>
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="block clearfix">
-                                                        <span class="block input-icon input-icon-right">
-                                                                <input type="text" class="form-control" placeholder="用户名" />
-                                                                <i class="ace-icon fa fa-user"></i>
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="block clearfix">
-                                                        <span class="block input-icon input-icon-right">
-                                                            <input type="password" class="form-control" placeholder="密码" />
-                                                            <i class="ace-icon fa fa-lock"></i>
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="block clearfix">
-                                                        <span class="block input-icon input-icon-right">
-                                                            <input type="password" class="form-control" placeholder="再次输入密码" />
-                                                            <i class="ace-icon fa fa-retweet"></i>
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="block">
-                                                        <input type="checkbox" class="ace" />
-                                                        <span class="lbl">
-                                                            我接受
-                                                            <a href="#">用户注册协议</a>
-                                                        </span>
-                                                    </label>
-
-                                                    <div class="space-24"></div>
-
-                                                    <div class="clearfix">
-                                                        <button type="reset" class="width-30 pull-left btn btn-sm">
-                                                            <i class="ace-icon fa fa-refresh"></i>
-                                                            <span class="bigger-110">重置</span>
-                                                        </button>
-
-                                                        <button type="button" class="width-65 pull-right btn btn-sm btn-success">
-                                                            <span class="bigger-110">注册</span>
-                                                            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-                                                        </button>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-
-                                        <div class="toolbar center">
-                                            <a href="#" data-target="#login-box" class="back-to-login-link">
-                                                <i class="ace-icon fa fa-arrow-left"></i>
-                                                返回登录
-                                            </a>
-                                        </div>
-                                    </div><!-- /.widget-body -->
-                                </div><!-- /.signup-box -->
                             </div><!-- /.position-relative -->
-
-                        
                         </div>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -248,22 +141,26 @@
         <script src="{{url('ace-asstes/layer/layer.js')}}"></script>
         <script src="{{url('ace-asstes/js/spin.js')}}"></script>
         <script type="text/javascript">
-            jQuery(function($) {
-                $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
+                $(function($) {
+                    $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                    });
+                    
+                    $(document).on('click', '.toolbar a[data-target]', function(e) {
+                        e.preventDefault();
+                        var target = $(this).data('target');
+                        $('.widget-box.visible').removeClass('visible');//hide others
+                        $(target).addClass('visible');//show target
+                    });
                 });
-                
-                $(document).on('click', '.toolbar a[data-target]', function(e) {
-                    e.preventDefault();
-                    var target = $(this).data('target');
-                    $('.widget-box.visible').removeClass('visible');//hide others
-                    $(target).addClass('visible');//show target
-                });
-            });
 
-            jQuery(function($) {
+                var Obj = {
+                    sendEmailProgress:false,
+                    loginProgress:false,
+                };
+
                  $('#btn-login-dark').on('click', function(e) {
                         $('body').attr('class', 'login-layout');
                         $('#id-text2').attr('class', 'white');
@@ -291,6 +188,26 @@
                     var username = $.trim($('#cus-username-input').val());
                     var pwd = $.trim($('#cus-password-input').val());
                     var code = $.trim($('#cus-code-input').val());
+
+                    if(username == ''){
+                        layer.msg('请输入登录名');
+                        return false;
+                    }
+
+                    if(pwd == ''){
+                        layer.msg('请输入登录密码');
+                        return false;
+                    }
+
+                    if(pwd == ''){
+                        layer.msg('请输入验证码');
+                        return false;
+                    }
+
+                    if(Obj.loginProgress == true){
+                        return false;
+                    }
+                    Obj.loginProgress == true;
                     $.ajax({
                         url:"{{route('b_auth_ptlogin')}}",
                         type:'post',
@@ -312,6 +229,11 @@
                             }else if(res.code == 403){
                                 layer.msg('验证码输入错误');
                             }
+
+                            Obj.loginProgress == false;
+                        },
+                        error:function(){
+                            Obj.loginProgress == false;
                         }
                     });
                 });
@@ -330,17 +252,31 @@
                 
                 $('#send-email').on('click',function(){
                     var _that = $(this);
-                    alert($('#send-email-text').val());
-//                    $.ajax({
-//                        url:"{{route('b_auth_code')}}",
-//                        type:'get',
-//                        dataType:'json',
-//                        success:function(res){
-//                            _that.attr('src',res.img_url); 
-//                        }
-//                    });
+                    var email = $.trim($('#send-email-text').val());
+
+                    if(email == ''){
+                        layer.msg('请填写正确的邮箱地址');return false;
+                    }
+
+                    if(Obj.sendEmailProgress == true){
+                        return false;
+                    }
+
+                    Obj.sendEmailProgress = true;
+                    $.ajax({
+                        url:"{{route('b_auth_sendemail')}}",
+                        type:'post',
+                        data:{email:email},
+                        dataType:'json',
+                        success:function(res){
+                            layer.msg(res.message);
+                            Obj.sendEmailProgress = false;
+                        },
+                        error:function(){
+                            Obj.sendEmailProgress = false;
+                        }
+                    });
                 });
-            });
         </script>
     </body>
 </html>

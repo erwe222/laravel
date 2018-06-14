@@ -48,6 +48,7 @@
                         @yield('content')
                     </div>
                 </div>
+            
             </div>
         </div>
         <script src="/ace-asstes/js/jquery-2.1.4.min.js"></script>

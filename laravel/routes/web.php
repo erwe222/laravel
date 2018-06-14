@@ -31,6 +31,7 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     //Admin 控制器路由配置
     Route::get('/admin/profile', 'AdminController@profile')->name('b_admin_profile');
     Route::get('/admin/changepwd', 'AdminController@changepwd')->name('b_admin_changepwd');
+
     
     
     //Auth    控制器路由配置
@@ -41,8 +42,9 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
         return json_encode(['img_url'=>Captcha::src()]);
     })->name('b_auth_code');
     
-    Route::get('auth/sendemail', 'AuthController@sendemail')->name('b_auth_sendemail');
+    Route::post('auth/sendemail', 'AuthController@sendemail')->name('b_auth_sendemail');
     Route::get('auth/checkforgotpwd', 'AuthController@checkforgotpwd')->name('b_auth_checkforgotpwd');
+    Route::post('/auth/resetpwd', 'AuthController@resetpwd')->name('b_auth_resetpwd');
     
     //Menus 控制器路由配置 导航栏目
     Route::get('/menus/menuview', 'MenusController@menuview')->name('b_menus_menuview');

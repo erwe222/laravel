@@ -15,6 +15,8 @@ class SendForgotPassword extends Mailable
 
     public $admin = null;
 
+    public $encryptEmail = '';
+
     /**
      * Create a new message instance.
      *
@@ -23,7 +25,11 @@ class SendForgotPassword extends Mailable
     public function __construct(Admin $admin)
     {
         $this->admin = $admin->toarray();
-        
+
+        $desSecret  =  config('app.config.desSecret');
+        $des = new Des($desSecret);
+        $this->encryptEmail = $des->encrypt($this->admin['email']);
+
     }
 
     /**
@@ -33,10 +39,12 @@ class SendForgotPassword extends Mailable
      */
     public function build()
     {
+        
+
         return $this->to($this->admin['email'])->subject('找回密码邮件')
         ->view('emails.send-forgot-password')
         ->with([
-            'link' => route('b_auth_checkforgotpwd',['e'=>$this->admin['email'],'token'=>$this->admin['password_reset_token']])
+            'link' => route('b_auth_checkforgotpwd',['e'=>$this->encryptEmail,'token'=>$this->admin['password_reset_token']])
         ]);
     }
 }

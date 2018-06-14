@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Events\CreateActionLogEvent;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\Des;
+use App\Mail\SendForgotPassword;
 
 /**
  * Description of AuthController
@@ -25,8 +26,7 @@ class AuthController extends CController{
     {
         parent::__construct();
 
-        #http://118.24.1.228:8080/backend/auth/checkforgotpwd?e=837215079%40qq.com&token=fNncgjU6c1RowEuI8fHtqqu45A85stX3ZeCRgA9giLhJRleqIjnkEQwVFwgV
-        $this->middleware('guest:admin')->except('logout')->except('checkforgotpwd');
+        $this->middleware('guest:admin')->except('logout');
 
         $this->adminModel = new \App\Model\Admin();
     }
@@ -97,21 +97,32 @@ class AuthController extends CController{
      * 发送找回密码邮件
      */
     public function sendEmail(Request $request){
-        $desSecret  =  config('app.config.desSecret');
-        $des = new Des($desSecret);
-        $email = $request->input('email','1427905139@qq.com');
-        $token = "{$email}|".date('Y-m-d H:i:s');
-        $token = $des->encrypt($token);
-        $link = route('b_auth_checkemail', ['token'=>$token]);
-        $flag = Mail::send('emails.ForgotPassword',['name'=>'CMS系统22','email'=>$email,'link'=>$link],function($message){
-            $message ->to($email)->subject('CMS找回密码');
-        });
+    	$result = 0;
+        $email = $request->input('email','837215079@qq.com');
+        $admin = $this->adminModel->findEmail($email);
 
-        if(!$flag){
-            echo '发送邮件成功，请查收！';
-        }else{
-            echo '发送邮件失败，请重试！';
+
+        if(!$admin){
+        	return $this->returnData([],'用户不存在',301);
         }
+
+    	$desSecret  =  config('app.config.desSecret');
+    	$des = new Des($desSecret);
+    	$token = $des->encrypt(date('Y-m-d H:i:s'));
+		$update_res = $this->adminModel->setResetToken($admin->id,$token);
+
+		if(!$update_res){
+			return $this->returnData([],'邮件发送失败',303);
+		}
+
+
+		$admin->password_reset_token = $token;
+		$flag = Mail::send(new SendForgotPassword($admin));
+		if(!$flag){
+            return $this->returnData([],'邮件发送成功',200);
+        }
+
+        return $this->returnData([],'邮件发送失败',303);
     }
 
     /**
@@ -122,29 +133,57 @@ class AuthController extends CController{
     public function checkForgotPwd(Request $request){
         $email = $request->input('e','');
         $token = $request->input('token');
-
-
-        $result = 0;
         $admin_info = null;
+        $result = 1;
 
-
-        phpinfo();
-        exit;
-        $desSecret  =  config('app.config.desSecret');
-        $des = new Des($desSecret);
-        $token = $des->encrypt('2018-06-12 10:23:23');
-        dd($token);
-
-        if(empty($email)){
-            $result = '1';
-        }else if($admin_info = $this->adminModel->findEmail($email)){
-            if($admin_info->password_reset_token != $token){
-                $result = '2';
-            }
+        if($email && $token){
+        	$desSecret  =  config('app.config.desSecret');
+	        $des = new Des($desSecret);
+	        $email2 = $des->decrypt($email);
+	        $token2 = $des->decrypt($token);
+	        if($email2 &&  $token2 && $admin_info = $this->adminModel->findEmail($email2)){
+	        	//验证token是否正确
+	        	if($admin_info->password_reset_token == $token){
+	        		$time1 = strtotime($token2);
+	        		$time2 = time();
+	        		if(($time2 - $time1) <= 60*60*2){
+						$result = 3;
+	        		}else{
+	        			$result = 4;
+	        		}
+	        	}else{
+	        		$result = 2;
+	        	}
+	        }
         }
 
-        dd($token);
+        return view('backend.auth.reset-password-view',['result'=>$result,'admin_info'=>$admin_info]);
     }
-    
 
+    /**
+     * 用户找回密码邮件验证
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resetPwd(Request $request){
+    	$id = $request->input('id','');
+        $password = $request->input('password','');
+        $password2 = $request->input('password2','');
+        $token = $request->input('retoken','');
+
+        if(empty($id) || empty($password) || empty($password2) || empty($token)){
+			return $this->returnData([],'参数错误',301);
+        }
+
+        if($password !== $password2){
+			return $this->returnData([],'填写的密码不一致',302);
+        }
+
+        $result = $this->adminModel->resetPassword($id,$password,$token);
+        if($result['result']){
+			return $this->returnData([],'密码重置成功',200);
+        }
+
+        return $this->returnData([],$result['message'],$result['code']);
+    }
 }

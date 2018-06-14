@@ -89,8 +89,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
-                        <small><i class="fa fa-leaf"></i>
+                    <a href="javasceipt:void(0)" class="navbar-brand">
+                        <small>
+                            <!-- <i class="fa fa-leaf"></i> -->
                             CMS管理系统
                         </small>
                     </a>

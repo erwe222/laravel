@@ -31,7 +31,7 @@
     </div>
     <div class="col-xs-12">
         <p class="pull-right" id="btns-type-one" >
-            <button class="btn btn-white btn-info btn-bold" data-type="showFrom" >
+            <button class="btn btn-white btn-info btn-bold" data-type="addShowFrom" >
                 <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>添加
             </button>
             <button class="btn btn-white btn-success btn-bold" data-type="refresh">
@@ -86,6 +86,12 @@
         <label class="col-sm-2 control-label no-padding-right" for="menu-icon"> 菜单图标 </label>
         <div class="col-sm-9">
             <input type="text" id="menu-icon" placeholder="请填写菜单图标..." class="form-control" name="menu-icon"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label no-padding-right" for="menu-url"> 排序 </label>
+        <div class="col-sm-9">
+            <input type="text" id="menu-sort" name="menu-sort" placeholder="请填写排序位置...." class="form-control" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" />
         </div>
     </div>
     <input type="hidden" id="menu-id"  name="menu-id" value="0"  />
@@ -156,6 +162,7 @@
                     return '<span class="label label-danger" >禁用</span>';
                 }
             }},
+            {title: '排序',data: 'sort',width: 30,orderable:false},
             {title: '添加时间',data: 'created_at',width: 150},
             {title: '操 作',data: 'id',orderable:false,width: 240,render: function ( data, type, row, meta ) {
                 var str = '<button class="btn btn-minier btn-purple" onclick="objClass.edit(\''+meta.row+'\')"><i class="ace-icon fa fa-pencil bigger-130"></i> 编辑</button>&nbsp;';
@@ -173,6 +180,11 @@
     });
 
     var objClass = {
+        addSubmit:false,
+        addShowFrom:function(){
+            this.clrarFrom();
+            this.showFrom();
+        },
         edit:function(row_id){
             var data = myTable.getRowData(row_id);
             $('#menu-parent').text(data.parent_name);
@@ -180,6 +192,7 @@
             $("input[name='menu-name']").val(data.name);
             $("input[name='menu-url']").val(data.url);
             $("input[name='menu-icon']").val(data.icon);
+            $("input[name='menu-sort']").val(data.sort);
             $(":radio[name='menu-type'][value='" + data.type + "']").prop("checked", "checked");
             $(":radio[name='menu-status'][value='" + data.status + "']").prop("checked", "checked");
             this.showFrom();
@@ -190,6 +203,7 @@
             $("input[name='menu-name']").val('');
             $("input[name='menu-url']").val('');
             $("input[name='menu-icon']").val('');
+            $("input[name='menu-sort']").val('');
             $("input[name='menu-type']:checked").val('');
             $("input[name='menu-status']:checked").val('');
         },
@@ -224,25 +238,36 @@
                             var name   = $("input[name='menu-name']").val();
                             var url    = $("input[name='menu-url']").val();
                             var icon   = $("input[name='menu-icon']").val();
+                            var sort   = $("input[name='menu-sort']").val();
                             var type   = $("input[name='menu-type']:checked").val();
                             var status = $("input[name='menu-status']:checked").val();
                             
                             if(id == 0){
-                                var url = "{{route('b_menus_addmenu')}}";
+                                var url1 = "{{route('b_menus_addmenu')}}";
                             }else{
-                                var url = "{{route('b_menus_updatemenu')}}";
+                                var url1 = "{{route('b_menus_updatemenu')}}";
                             }
                             
+                            if(objClass.addSubmit == true){
+                                return false;
+                            }else{
+                                objClass.addSubmit = true;
+                            }
+
                             $.ajax({
-                                url:url,
+                                url:url1,
                                 type:'post',
-                                data:{id:id,parent:parent,name:name,url:url,icon:icon,type:type,status:status},
+                                data:{id:id,parent:parent,name:name,url:url,icon:icon,type:type,status:status,sort:sort},
                                 dataType:'json',
+                                complete:function(){
+                                    objClass.addSubmit = false;
+                                },
                                 success:function(res){
                                     if(res.code == 200){
                                         layer.msg(res.message, {icon: 1});
                                         $( "#dialog-message" ).dialog( "close" );
-                                        objClass.refresh();
+                                        // objClass.refresh();
+                                        window.location.reload();
                                         $( this ).dialog( "close" );
                                     }else{
                                         layer.msg(res.message, {icon: 5});
@@ -269,7 +294,7 @@
     $(function(){
 	var sampleData = initiateDemoData();
 	$('#tree2').ace_tree({  
-		dataSource: sampleData['dataSource2'] ,
+		dataSource: initiateDemoData()['dataSource2'] ,
 		loadingHTML:'<div class="tree-loading"><i class="ace-icon fa fa-refresh fa-spin blue"></i></div>',
 		'open-icon' : 'ace-icon fa fa-folder-open',
 		'close-icon' : 'ace-icon fa fa-folder',

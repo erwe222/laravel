@@ -81,6 +81,7 @@ class MenusController extends CController{
         $data['name']       = $request->input('name','');
         $data['url']     = $request->input('url','');
         $data['icon']      = $request->input('icon','');
+        $data['sort']      = $request->input('sort','');
         $data['type']        = $request->input('type','');
         $data['status'] = $request->input('status','');
 
@@ -105,6 +106,7 @@ class MenusController extends CController{
         $data['name']       = $request->input('name','');
         $data['url']     = $request->input('url','');
         $data['icon']      = $request->input('icon','');
+        $data['sort']      = $request->input('sort','');
         $data['type']        = $request->input('type','');
         $data['status'] = $request->input('status','');
         

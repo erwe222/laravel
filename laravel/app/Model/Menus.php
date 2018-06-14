@@ -108,6 +108,10 @@ class Menus extends Model
             $array['icon'] = $params['icon'];
         }
 
+        if(isset($params['sort']) && !empty($params['sort'])){
+            $array['sort'] = $params['sort'];
+        }
+
         if(isset($params['status']) && !empty($params['status'])){
             $array['status'] = $this->filterStatus((int)$params['status']);
         }
@@ -158,6 +162,10 @@ class Menus extends Model
 
         if(isset($params['icon']) && !empty($params['icon'])){
             $array['icon'] = $params['icon'];
+        }
+
+        if(isset($params['sort']) && !empty($params['sort'])){
+            $array['sort'] = $params['sort'];
         }
 
         if(isset($params['status']) && !empty($params['status'])){
@@ -266,6 +274,11 @@ class Menus extends Model
                 $tree[] = $v;
             }
         }
+
+        $tree = array_values(array_sort($tree, function ($value) {
+            return $value['sort'];
+        }));
+
         return $tree;
     }
     
@@ -342,6 +355,8 @@ class Menus extends Model
                 $tree[] = $v;
             }
         }
+
+        
         return $tree;
     }  
 }

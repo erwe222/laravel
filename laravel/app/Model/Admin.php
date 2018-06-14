@@ -127,6 +127,32 @@ class Admin extends \Illuminate\Foundation\Auth\User{
         }
         return false;
     }
-    
-    
+
+    /**
+     * 更新管理员重置密码token
+     * @param type $name 菜单名
+     * @return boolean
+     */
+    public function setResetToken($admin_id,$toekn){
+        return  self::where('id', $admin_id)->update(['password_reset_token'=>$toekn]);
+    }
+
+    /**
+     * 管理员重置密码
+     * @param type $id 
+     * @return boolean
+     */
+    public function resetPassword($admin_id,$new_pwd,$token){
+        $admin_info = self::find($admin_id);
+        if(!$admin_info){
+            return handleResult(false,303,'用户不存在');
+        }
+
+        $res = self::where('id', $admin_id)->where('password_reset_token', $token)->update(['password'=>bcrypt($new_pwd),'password_reset_token'=>'']);
+        if($res){
+            return handleResult(true,200,'密码重置成功...');
+        }
+
+        return handleResult(false,305,'密码重置失败...');
+    }
 }
