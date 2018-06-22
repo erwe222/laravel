@@ -12,9 +12,9 @@ class WeChatApi
     /**用户网页授权信息的cookie标记*/
     const AuthAccessTokenCacheFlag = 'userAuthAccessToken';
 
-    public $appId = 'wx5aea46e7d5f0b5bc';
-    public $appsecret = 'a5031e8bde0ac632c7d87956039b4b04';
-    public $token = 'rao123';
+    public $appId;
+    public $appsecret;
+    public $token;
 
     use WxTrait;
 
@@ -22,6 +22,11 @@ class WeChatApi
     protected $wxTokenModel;
 
     public function __construct(){
+        $config = config('app.config.wechat');
+        $this->appId        = $config['appId'];
+        $this->appsecret    = $config['appsecret'];
+        $this->token        = $config['token'];
+        
         $this->wxTokenModel = new WxToken();
     }
 
@@ -30,9 +35,9 @@ class WeChatApi
      */
     public function checkSignature()
     {
-        $signature = $_GET["signature"];
-        $timestamp = $_GET["timestamp"];
-        $nonce = $_GET["nonce"];
+        $signature      = isset($_GET["signature"])?$_GET["signature"]:'';
+        $timestamp      = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
+        $nonce          = isset($_GET["nonce"])?$_GET["nonce"]:'';
 
         $tmpArr = array($this->token, $timestamp, $nonce);
 
@@ -48,7 +53,7 @@ class WeChatApi
      */
     public function valid()
     {
-        $echoStr = $_GET["echostr"];
+        $echoStr = isset($_GET["echostr"])?$_GET["echostr"]:'';
 
         if($this->checkSignature()){
             echo $echoStr;

@@ -21,6 +21,12 @@ Route::group(['prefix' => 'front','namespace' => 'front'], function()
     Route::get('index/test', 'IndexController@test')->name('f_index_test');
 });
 
+//微信路由配置
+Route::group(['prefix' => 'weixin','namespace' => 'weixin'], function()
+{
+    Route::get('/', 'WeixinController@index')->name('w_weixin_index');
+});
+
 //后台路由配置
 Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['authmanage']], function()
 {

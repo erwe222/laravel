@@ -237,6 +237,11 @@ return [
         //是否开启页面授权验证（默认开启）
         'authverify'=>false,
         'desSecret' =>'xjyryd',
+        'wechat'=>[
+            'appId'     =>'wxc8ea0012a334a359',
+            'appsecret' =>'0509a9d6df6492632fe7c934e96056e0',
+            'token'     =>'rao123',
+        ],
     ],
 
 ];
