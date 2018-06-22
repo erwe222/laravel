@@ -316,3 +316,20 @@ function string_format() {
 function isSecureConnection() {
     return isset($_SERVER['HTTPS']) && (strcasecmp($_SERVER['HTTPS'], 'on') === 0 || $_SERVER['HTTPS'] == 1) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') === 0;
 }
+
+
+/**
+ * 随机生成任意长度的字符串
+ * @param String $length 字符串长度
+ * @return string
+ */
+function rand_string($length = 8){
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $password = ''; 
+    for($i = 0; $i < $length; $i++ )
+    {
+        $password .= $chars[ mt_rand(0, strlen($chars) - 1) ];
+    }
+
+    return $password; 
+}

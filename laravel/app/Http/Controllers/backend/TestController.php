@@ -65,15 +65,15 @@ class TestController extends CController{
         #key: 883ed12036373acfa9c9f3b3c5fbc625
 
     	//模板发送
-        $adminModel = new \App\Model\Admin();
-        $admin = $adminModel->findEmail('837215079@qq.com');
-    	$flag = Mail::send(new SendForgotPassword($admin));
-        if(!$flag){
-            echo '邮件发送成功';
-        }else{
-            echo '邮件发送失败';
-        }
-        exit;
+     //    $adminModel = new \App\Model\Admin();
+     //    $admin = $adminModel->findEmail('837215079@qq.com');
+    	// $flag = Mail::send(new SendForgotPassword($admin));
+     //    if(!$flag){
+     //        echo '邮件发送成功';
+     //    }else{
+     //        echo '邮件发送失败';
+     //    }
+     //    exit;
 
     	//队列模板发送
         //$message = (new OrderShipped())->onConnection('database')->onQueue('emails');
@@ -95,6 +95,16 @@ class TestController extends CController{
 //        }else{
 //            echo '发送邮件失败，请重试！';
 //        }
+
+
+        $weixin_api = new \App\Model\FunctionClass\WeChatApi();
+
+        dd($weixin_api->getAccessToken());
+
+
+
+
+
     }
     
     public function test(){

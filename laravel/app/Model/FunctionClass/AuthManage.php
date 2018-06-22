@@ -95,7 +95,8 @@ class AuthManage {
      */
     public function isJumpCheckUrl($path){
         $array = [
-            '/backend'
+            '/backend',
+            '/backend/wechat/createmenubox',
         ];
 
         return in_array($path, $array);

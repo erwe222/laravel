@@ -21,7 +21,20 @@ class AdminController extends CController{
         parent::__construct();
         
         $this->adminModel = new \App\Model\Admin();
+        $this->rolesModel = new \App\Model\Roles();
+        $this->adminRolesMdel = new \App\Model\AdminRoles();
     }
+
+
+    /**
+     * 管理员简介
+     * @param \Illuminate\Http\Request $request
+     */
+    public function index(Request $request){
+        return view('backend.admin.index');
+    }
+
+
     
     /**
      * 管理员简介
@@ -86,6 +99,118 @@ class AdminController extends CController{
 
         $img_info = $upload_model->success_file[0];
         $res = $this->adminModel->updateProfilePic($this->getUserInfo()->id,$img_info['save_dir']);
+        return $this->returnData([], $res['message'], $res['code']);
+    }
+
+    /**
+     * 获取管理员列表数据
+     * @param \Illuminate\Http\Request $request
+     */
+    public function getAdminListData(Request $request){
+        $params = $this->queryDatatableParams($request);
+        $data = [];
+        if(isset($params['search']['name']) && !empty($params['search']['name'])){
+            $data['name'] = addslashes($params['search']['name']);
+        }
+        
+        if(isset($params['search']['email'])){
+            $data['email'] = $params['search']['email'];
+        }
+
+        if(isset($params['search']['status'])){
+            $data['status'] = $params['search']['status'];
+        }
+
+        if(!empty($params['orderBy']) && !empty($params['sort'])){
+            $data['orderBy']    = $params['orderBy'];
+            $data['sort']       = $params['sort'];
+        }
+
+        $data['offset']     = $params['offset'];
+        $data['pagesize']   = $params['pagesize'];
+        $lists = $this->adminModel->findAdminsList($data);
+        return response()->json([
+            'code'=>200,
+            'draw'=>$params['draw'],
+            'recordsTotal'=>$lists['total'],
+            'recordsFiltered'=>$lists['total'],
+            'data'=>$lists['data'],
+            'page_index'=>$lists['page_index']
+        ]);
+    }
+
+
+    /**
+     * 查看管理员权限页面
+     * @param \Illuminate\Http\Request $request
+     */
+    public function adminPermissionsView(Request $request){
+        $id = $request->input('id',0);
+
+        //角色列表
+        $roleData = $this->rolesModel->getRoleAll();
+
+        //管理员的角色信息
+        $admonRoleData = $this->adminRolesMdel->getAdminRoles($id);
+        return view('backend.admin.adminpermissionsview',[
+            'adminid'=>$id,
+            'roleData'=>$roleData,
+            'admonRoleData'=>$admonRoleData,
+        ]);
+    }
+
+    /**
+     * 更新管理员角色信息
+     * @param \Illuminate\Http\Request $request
+     */
+    public function updateAdminRole(Request $request){
+        $id = $request->input('id');
+        $roleid = $request->input('roleid');
+
+        $adminRole = $this->adminRolesMdel->findAdminId($id);
+        if($adminRole){
+            $res = $this->adminRolesMdel->updateAdminRole($adminRole['id'],$id,$roleid);
+        }else{
+            $res = $this->adminRolesMdel->addUserRole($id,$roleid);
+        }
+
+        if($res){
+            return $this->returnData([], '角色分配成功', 200);
+        }
+
+        return $this->returnData([], '角色分配失败', 305);
+    }
+
+    /**
+     * 添加管理员
+     * @param \Illuminate\Http\Request $request
+     */
+    public function createAdmin(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'name' => 'required',
+            'pwd' => 'required',
+        ],['required'=>':attribute 字段不能为空.']);
+
+        if ($validator->fails()) {
+            $error = $validator->errors()->all();
+            return $this->returnData([],$error[0],301);
+        }
+
+        $data = [
+            'email'     =>$request->input('email'),
+            'name'      =>$request->input('name'),
+            'status'    =>$request->input('status'),
+            'password'  =>$request->input('pwd'),
+        ];
+
+        $res = $this->adminModel->addAdmin($data);
+        if($res['result']){
+            $this->createActionLog([
+                'type'=>1,
+                'content'=>"添加了新的管理人员【{$data['name']}】信息"
+            ]);
+        }
         return $this->returnData([], $res['message'], $res['code']);
     }
 

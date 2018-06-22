@@ -168,4 +168,16 @@ class Roles extends Model{
         
         return $page_info;
     }
+
+    /**
+     * 获取所有角色信息
+     */
+    public function getRoleAll(){
+    	$res = self::all();
+    	if($res){
+    		return $res->toArray();
+    	}
+
+    	return [];
+    }
 }

@@ -29,10 +29,14 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     Route::get('index/index', 'IndexController@index')->name('b_index_index');
     
     //Admin 控制器路由配置
+    Route::get('/admin/index', 'AdminController@index')->name('b_admin_index');
     Route::get('/admin/profile', 'AdminController@profile')->name('b_admin_profile');
     Route::get('/admin/changepwd', 'AdminController@changepwd')->name('b_admin_changepwd');
+    Route::get('/admin/adminpermissionsview', 'AdminController@adminpermissionsview')->name('b_admin_adminpermissionsview');
+    Route::get('/admin/getadminListdata', 'AdminController@getadminListdata')->name('b_admin_getadminListdata');
+    Route::post('/admin/updateadminrole', 'AdminController@updateadminrole')->name('b_admin_updateadminrole');
+    Route::post('/admin/createadmin', 'AdminController@createadmin')->name('b_admin_createadmin');
 
-    
     
     //Auth    控制器路由配置
     Route::get('auth/login', 'AuthController@login')->name('b_auth_tologin');
@@ -85,6 +89,20 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['a
     
     Route::get('/system/record', 'SystemController@record')->name('b_system_record');
     Route::get('/system/getrecordlist', 'SystemController@getrecordlist')->name('b_system_getrecordlist');
+
+
+
+    //wechat
+    Route::get('/wechat/wexitokenview', 'WechatController@wexitokenview')->name('b_wechat_wexitokenview');
+    Route::get('/wechat/wexitokendata', 'WechatController@wexitokendata')->name('b_wechat_wexitokendata');
+    Route::get('/wechat/wechatmenu', 'WechatController@wechatmenu')->name('b_wechat_wechatmenu');
+    Route::get('/wechat/createmenubox', 'WechatController@createmenubox')->name('b_wechat_createmenubox');
+    Route::post('/wechat/createmenu', 'WechatController@createmenu')->name('b_wechat_createmenu');
+    Route::get('/wechat/updatemenu', 'WechatController@updatemenu')->name('b_wechat_updatemenu');
+    Route::get('/wechat/wechatmenudata', 'WechatController@wechatmenudata')->name('b_wechat_wechatmenudata');
+    
+
+
     
     
     //调试控制器路由

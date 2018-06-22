@@ -13,6 +13,12 @@
     <div class="col-xs-12">
         <div class="alert alert-info" >
             <form class="form-inline" role="form" id="grid-search-form" onsubmit="return false;">
+                <!-- <div class="form-group">
+                    <label >模块：</label>
+                    <select class="form-control" id="search-menu-id" style="width: 100px;">
+                            <option value="">全 部</option>
+                    </select>
+                </div>  -->
                 <div class="form-group">
                     <label >状态：</label>
                     <select class="form-control" id="search-menu-status" style="width: 100px;">
@@ -26,6 +32,7 @@
                     <input type="text" id="search-name" name="name" class="form-control" title="名称" placeholder="请输入名称">             
                 </div> 
                 <button class="btn btn-info btn-sm"><i class="ace-icon fa fa-search"></i>搜索</button>
+                <button class="btn btn-info btn-sm" type='reset'><i class="ace-icon fa fa-search"></i>重置</button>
             </form>
         </div>
     </div>
@@ -325,7 +332,10 @@
                     }
                 });
 
-		var dataSource2 = function(options, callback){
+
+
+
+		    var dataSource2 = function(options, callback){
 			var $data = null
 			if(!("text" in options) && !("type" in options)){
 				$data = tree_data;
@@ -334,13 +344,51 @@
 			}else if("type" in options && options.type == "folder") {
 				if("additionalParameters" in options && "children" in options.additionalParameters)
 					$data = options.additionalParameters.children || {};
-				else $data = {}//no data
+				else $data = {}
 			}
-			if($data != null)
-                        setTimeout(function(){callback({ data: $data });} , parseInt(Math.random() * 500) + 200);
+			if($data != null){
+                setTimeout(function(){callback({ data: $data });} , parseInt(Math.random() * 500) + 200);
+            }
 		}
 		return { 'dataSource2' : dataSource2}
 	}
+
+    function diGuiFun(data,flag){
+        var html = '';
+        flag++;
+        for (var i = 0; i < data.length;i++) {
+
+            var ll = '';
+            for (var j = 0; j < flag;j++) {
+                ll += '-';
+            }
+
+            html += "<option value='"+data[i].id+"'>"+ll+data[i].text+"</option>";
+            if(data[i].additionalParameters.children.length > 0){
+                console.log(data[i].additionalParameters.children);
+                html += diGuiFun(data[i].additionalParameters.children,flag);
+            }
+        }
+
+        return html;
+    }
+
+
+    function testfun(){
+        $.ajax({
+            url:"{{route('b_menus_getmenutreelist')}}",
+            type:'get',
+            data:{},
+            dataType:'json',
+            success:function(res){
+                var html = diGuiFun(res,0);
+                $('#search-menu-id').append(html);
+            }
+        });
+    }
+
+    testfun();
+
 });
 </script>
 @endpush

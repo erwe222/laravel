@@ -1,5 +1,6 @@
 <?php
 namespace App\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Description of Admin
@@ -38,7 +39,11 @@ class Admin extends \Illuminate\Foundation\Auth\User{
     /**
      * 添加管理员方法
      */
-    public function addUser($data){
+    public function addAdmin($data){
+        if($this->findEmail($data['email'])){
+            return handleResult(false,302,'邮箱地址已存在...');
+        }
+
         $res = self::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -154,5 +159,54 @@ class Admin extends \Illuminate\Foundation\Auth\User{
         }
 
         return handleResult(false,305,'密码重置失败...');
+    }
+
+    /**
+     * 获取管理员列表信息
+     */
+    public function findAdminsList($params){
+        $count_sql = 'select count(1) as total from lar_admins admin where 1=1 ';
+        $sql = 'select admin.*,role.name as role_name  from lar_admins admin  LEFT JOIN lar_admin_roles a_role on admin.id = a_role.admin_id LEFT JOIN lar_roles role on a_role.role_id = role.id where 1=1 ';
+        if(isset($params['name']) && !empty($params['name'])){
+             $sql .= " and admin.name like '%{$params['name']}%'";
+             $count_sql .= " and admin.name like '%{$params['name']}%'";
+        }
+
+        if(isset($params['email'])){
+            $sql .= " and admin.email = '{$params['email']}'";
+            $count_sql .= " and admin.email = '{$params['email']}'";
+        }
+
+        if(isset($params['status'])){
+            $sql .= " and admin.status = {$params['status']}";
+            $count_sql .= " and admin.status = {$params['status']}";
+        }
+
+
+        $count_info = DB::select($count_sql);
+        $offset = isset($params['offset'])?$params['offset']:0;
+        $pageindex = isset($params['pageindex'])?$params['pageindex']:1;
+        $pagesize  = isset($params['pagesize'])?$params['pagesize']:10;
+        $page_info = getPagingInfo($count_info[0]->total,$pageindex,$pagesize,$offset);
+
+        if(isset($params['orderBy']) && isset($params['sort'])){
+            if($params['orderBy'] == 'created_at'){
+                $orderBy = 'created_at';
+                $sql .= " order by {$orderBy} {$params['sort']}";
+            }else if($params['orderBy'] == 'updated_at'){
+                $orderBy = 'updated_at';
+                $sql .= " order by {$orderBy} {$params['sort']}";
+            }
+        }
+
+        $list = DB::select($sql.$page_info['limit']);
+        foreach($list as $_k=>$_v){
+            $list[$_k] = (array)$_v;
+        }
+        
+        $page_info['filteredTotal'] = count($list);
+        $page_info['data'] = $list;
+
+        return $page_info;
     }
 }

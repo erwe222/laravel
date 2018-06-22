@@ -30,3 +30,17 @@ function throwError(XMLHttpRequest, textStatus, errorThrown){
         return false;
     }
 }
+
+/**
+ * js验证电子邮箱的正则表达式
+ * @param {string} mail
+ * @returns {string}
+ */
+function isEmail(mail) {
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;  
+    if (filter.test(mail)) {  
+        return true;   
+    } else {  
+        return false;  
+    }
+}
