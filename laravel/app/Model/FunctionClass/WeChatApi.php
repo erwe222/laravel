@@ -335,8 +335,6 @@ class WeChatApi
                 }
             }
 
-            addLog($tip.' 信息对象'.json_encode($obj));
-
             $function = 'send'.ucfirst($msgType);
 
             $rs = $weiChatNews_model->$function($obj);
