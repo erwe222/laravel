@@ -20,9 +20,9 @@ class WeixinController extends CController{
      * 前台主页
      */
     public function index(){
-        if(isset($_GET["echostr"])){
-            $this->weChatApiClass->valid();
-        }
+//        if(isset($_GET["echostr"])){
+//            $this->weChatApiClass->valid();
+//        }
         
 //        $messageXml = isset($GLOBALS ["HTTP_RAW_POST_DATA"]) ? $GLOBALS ["HTTP_RAW_POST_DATA"] : file_get_contents("php://input");
 //        $message = var_export($GLOBALS,true);
