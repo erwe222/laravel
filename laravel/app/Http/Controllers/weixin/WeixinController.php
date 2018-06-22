@@ -24,14 +24,14 @@ class WeixinController extends CController{
             $this->weChatApiClass->valid();
         }
         
-        $messageXml = isset($GLOBALS ["HTTP_RAW_POST_DATA"]) ? $GLOBALS ["HTTP_RAW_POST_DATA"] : file_get_contents("php://input");
-        $message = var_export($GLOBALS,true);
-        Log::info($message);
+//        $messageXml = isset($GLOBALS ["HTTP_RAW_POST_DATA"]) ? $GLOBALS ["HTTP_RAW_POST_DATA"] : file_get_contents("php://input");
+//        $message = var_export($GLOBALS,true);
+        \Log::info('fasd');
         if($this->weChatApiClass->checkSignature()){
-            Log::info('消息验证成功');
+            \Log::info('消息验证成功');
             $this->weChatApiClass->responseMsg();
         }else{
-            Log::info('消息验证失败');
+            \Log::info('消息验证失败');
         }
     }
 }
