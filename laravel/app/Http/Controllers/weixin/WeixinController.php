@@ -21,12 +21,14 @@ class WeixinController extends CController{
      */
     public function index(){
         if(isset($_GET["echostr"])){
+            \Log::info('echostr');
             $this->weChatApiClass->valid();
         }
 
 //        $messageXml = isset($GLOBALS ["HTTP_RAW_POST_DATA"]) ? $GLOBALS ["HTTP_RAW_POST_DATA"] : file_get_contents("php://input");
 //        $message = var_export($GLOBALS,true);
-        echo 'asd';
+        \Log::info('2222222222222');
+        echo '';
         exit;
         \Log::info('fasd');
         if($this->weChatApiClass->checkSignature()){
