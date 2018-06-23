@@ -106,10 +106,9 @@ class WeChatApi
     public function getWeChatAuthCode($redir, $state = null, $snsapi_userinfo = true){
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize";
         $scope = $snsapi_userinfo ? 'snsapi_userinfo' : 'snsapi_base';
-        $redier = 'http://59.110.168.230?redir='.special_base64_encode('');
         $paramArr = array(
             'appid' => $this->appId,
-            'redirect_uri' => url_domain_wrapper( $redier),
+            'redirect_uri' => urlencode( $redir),
             'response_type' => 'code',
             'scope' => $scope,
             'state' => isset($state) ? $state : '',

@@ -3,13 +3,20 @@ namespace App\Http\Controllers\front;
 
 class IndexController extends CController{
     
+    public function __construct() {
+        parent::__construct();
+        
+        $this->WeChatApiClass 	= new \App\Model\FunctionClass\WeChatApi();
+    }
+    
     /**
      * 前台主页
      */
     public function index(){
+          $url = route('f_wx_auth2');
+          $this->WeChatApiClass->getWeChatAuthCode($url);
         
-        
-        return view('frontend.index.index');
+//        return view('frontend.index.index');
     }
     
     /**

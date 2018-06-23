@@ -19,6 +19,8 @@ Route::group(['prefix' => 'front','namespace' => 'front'], function()
 {
     Route::get('/', 'IndexController@index')->name('f_index_index');
     Route::get('index/test', 'IndexController@test')->name('f_index_test');
+    
+     Route::get('wx/auth2', 'WxController@auth2')->name('f_wx_auth2');
 });
 
 //微信路由配置
