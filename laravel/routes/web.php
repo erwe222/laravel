@@ -11,7 +11,20 @@
 |
 */
 Route::get('/',function(){
-    return redirect(route('f_index_index'));
+//    return redirect(route('f_index_index'));
+    $this->weChatApiClass 	= new \App\Model\FunctionClass\WeChatApi();
+    
+    if(isset($_GET["echostr"])){
+        $this->weChatApiClass->valid();
+    }
+
+    \Log::info('fasd');
+    if($this->weChatApiClass->checkSignature()){
+        \Log::info('消息验证成功');
+        $this->weChatApiClass->responseMsg();
+    }else{
+        \Log::info('消息验证失败');
+    }
 })->name('f_web_index');
 
 //前台路由配置
