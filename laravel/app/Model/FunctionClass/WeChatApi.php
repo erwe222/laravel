@@ -38,7 +38,11 @@ class WeChatApi
         $signature      = isset($_GET["signature"])?$_GET["signature"]:'';
         $timestamp      = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
         $nonce          = isset($_GET["nonce"])?$_GET["nonce"]:'';
-
+        
+        \Log::info('signature：'.$signature);
+        \Log::info('timestamp：'.$timestamp);
+        \Log::info('nonce：'.$nonce);
+        \Log::info('token：'.$this->token);
         $tmpArr = array($this->token, $timestamp, $nonce);
 
         sort($tmpArr, SORT_STRING);
