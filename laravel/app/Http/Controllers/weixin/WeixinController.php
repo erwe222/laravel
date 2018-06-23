@@ -29,6 +29,8 @@ class WeixinController extends CController{
         $message = var_export($messageXml,true);
 
         \Log::info('message:'.$message);
+        echo '';
+        exit;
         if($this->weChatApiClass->checkSignature()){
             \Log::info('消息验证成功');
             $this->weChatApiClass->responseMsg();
