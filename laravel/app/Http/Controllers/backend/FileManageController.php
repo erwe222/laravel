@@ -81,8 +81,8 @@ class FileManageController extends CController{
         if(file_exists($file_path)){
             $fp = fopen($file_path,"r");
             $str = fread($fp,filesize($file_path));
-            $str = str_replace("\r\n","<br />",$str);
-            $str = str_replace("\n","<br />",$str);
+            $str = str_replace("\r\n",PHP_EOL,$str);
+            $str = str_replace("\n",PHP_EOL,$str);
         }
 
         return view('backend.filemanage.filelogs-info-view',['fileinfo'=>$str]);
