@@ -21,30 +21,27 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> Json 数据 </label>
-
-			<div class="col-sm-9">
-				<textarea id="form-field-11" class="autosize-transition form-control"  style='height: 200px;resize: none;'>
-					{{$json_data}}
-
-				</textarea>
-			</div>
+                    <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> Json 数据 </label>
+                    <div class="col-sm-9">
+                        <textarea id="form-field-11" class="autosize-transition form-control"  style='min-height: 200px;resize: vertical;'>
+                            {{$json_data}}
+                        </textarea>
+                    </div>
 		</div>
 		
-
 		<div class="clearfix form-actions">
-			<div class="col-md-offset-3 col-md-9" style='text-align:center;'>
-				<button class="btn btn-xs btn-info" type="button" id='fr-submit-btn'>
-					<i class="ace-icon fa fa-check bigger-110"></i>
-					提交
-				</button>
+                    <div class="col-md-offset-3 col-md-9" style='text-align:center;'>
+                        <button class="btn btn-xs btn-info" type="button" id='fr-submit-btn'>
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            提交
+                        </button>
 
-				&nbsp; &nbsp; &nbsp;
-				<button class="btn btn-xs"  id='fr-reset-btn'>
-					<i class="ace-icon fa fa-undo bigger-110"></i>
-					重置
-				</button>
-			</div>
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn btn-xs"  id='fr-reset-btn'>
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            重置
+                        </button>
+                    </div>
 		</div>
 
 	</form>

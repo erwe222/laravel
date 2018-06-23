@@ -5,7 +5,7 @@
         <div class="alert alert-info">
             <form class="form-inline" role="form" id="grid-search-form" onsubmit="return false;">
                 <div class="form-group">
-                    <input type="text" id="search-token-name"  class="form-control" placeholder="公众号AppId">
+                    <input type="text" id="search-token-name"  class="form-control" placeholder="预留查询功能。。。">
                 </div>
                 <button class="btn btn-info btn-sm"><i class="ace-icon fa fa-search"></i>搜索</button>
             </form>
@@ -21,7 +21,7 @@
     </div>
     <div class="col-xs-12">
         <div class="clearfix"><div class="pull-right tableTools-container"></div></div>
-        <div class="table-header">微信 Access Token 授权列表</div>
+        <div class="table-header">微信菜单发布列表</div>
         <div>
             <table id="dynamic-table" class="table table-striped table-bordered table-hover" style="width:100%;"></table>
         </div>

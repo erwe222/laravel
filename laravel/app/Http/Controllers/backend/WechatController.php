@@ -31,7 +31,7 @@ class WechatController extends CController{
      */
 	public function wexiTokenData(Request $request){
 
-		$params = $this->queryDatatableParams($request);
+        $params = $this->queryDatatableParams($request);
         $data = [];
         if(isset($params['search']['appid'])){
             $data['app_id'] = $params['search']['appid'];
@@ -73,7 +73,7 @@ class WechatController extends CController{
     	$menu_josn = $this->WeChatApiClass->getMenu();
     	$res= json_decode($menu_josn,true);
     	if(isset($res['menu'])){
-    		$json = json_encode($res['menu']);
+            $json = json_encode($res['menu']);
     	}
 
     	return view('backend.wechat.createmenubox-view',['json_data'=>$json]);
@@ -88,40 +88,45 @@ class WechatController extends CController{
     	$json = $request->input('jsondata','');
 
 
-		$json11 = json_encode(json_decode($json,true));
-		$menu_josn = $this->WeChatApiClass->getMenu();
+        $json11 = json_encode(json_decode($json,true));
+        $menu_josn = $this->WeChatApiClass->getMenu();
     	$res= json_decode($menu_josn,true);
     	if(isset($res['menu'])){
-    		$json22 = json_encode($res['menu']);
-			if($json11 == $json22){
-				return $this->returnData([], '该菜单与现有的公众号菜单一致无需重复发布', 305);
-			}
+            $json22 = json_encode($res['menu']);
+            if($json11 == $json22){
+                return $this->returnData([], '该菜单与现有的公众号菜单一致无需重复发布', 305);
+            }
     	}
 
     	$user_info = $this->getUserInfo();
+        $updated_at  = '';
+        if($status == 1){
+            $updated_at = date('Y-m-d H:i:s');
+        }
+        
     	$data = [
-    		'menu_json'=>$json11,
-    		'admin_id' =>$user_info['id'],
-    		'created_at'=>date('Y-m-d H:i:s'),
-    		'status'=>$status
+            'menu_json'=>$json11,
+            'admin_id' =>$user_info['id'],
+            'created_at'=>date('Y-m-d H:i:s'),
+            'status'=>$status,
+            'updated_at'=>$updated_at,
     	];
 
     	$res = $this->wxMenuPulishModel->addMenu($data);
     	if(!$res){
-			return $this->returnData([], '菜单保存失败', 305);
+            return $this->returnData([], '菜单保存失败', 305);
     	}
 
     	if($status == 1){
-			$update_res = $this->WeChatApiClass->updateMenu($json);
-	    	if($update_res['errcode'] == 0){
-				return $this->returnData([], '菜单发布成功', 200);
-	    	}else{
-	    		return $this->returnData([], '菜单发布失败', $update_res['errcode']);
-	    	}
+            $update_res = $this->WeChatApiClass->updateMenu($json);
+            if($update_res['errcode'] == 0){
+                return $this->returnData([], '菜单发布成功', 200);
+            }else{
+                return $this->returnData([], '菜单发布失败', $update_res['errcode']);
+            }
     	}else{
-    		return $this->returnData([], '菜单保存成功', 200);
+            return $this->returnData([], '菜单保存成功', 200);
     	}
-    	
     }
 
 
