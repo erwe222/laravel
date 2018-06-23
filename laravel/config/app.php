@@ -238,9 +238,9 @@ return [
         'authverify'=>false,
         'desSecret' =>'xjyryd',
         'wechat'=>[
-            'appId'     =>'wxc8ea0012a334a359',
-            'appsecret' =>'0509a9d6df6492632fe7c934e96056e0',
-            'token'     =>'rao123',
+            'appId'     =>'wx9a868d2478eefeac',
+            'appsecret' =>'f3f230f615bca3443581cfb96dbf2895',
+            'token'     =>'xiaoxiaorao',
         ],
     ],
 
