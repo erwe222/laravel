@@ -11,20 +11,7 @@
 |
 */
 Route::get('/',function(){
-//    return redirect(route('f_index_index'));
-    $this->weChatApiClass 	= new \App\Model\FunctionClass\WeChatApi();
-    
-    if(isset($_GET["echostr"])){
-        $this->weChatApiClass->valid();
-    }
-
-    \Log::info('fasd');
-    if($this->weChatApiClass->checkSignature()){
-        \Log::info('消息验证成功');
-        $this->weChatApiClass->responseMsg();
-    }else{
-        \Log::info('消息验证失败');
-    }
+    return redirect(route('f_index_index'));
 })->name('f_web_index');
 
 //前台路由配置
@@ -37,7 +24,7 @@ Route::group(['prefix' => 'front','namespace' => 'front'], function()
 //微信路由配置
 Route::group(['prefix' => 'weixin','namespace' => 'weixin'], function()
 {
-    Route::get('/', 'WeixinController@index')->name('w_weixin_index');
+    Route::post('/', 'WeixinController@index')->name('w_weixin_index');
 });
 
 //后台路由配置
