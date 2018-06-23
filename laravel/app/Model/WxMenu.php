@@ -91,4 +91,24 @@ class WxMenu extends Model
         $page_info['data'] = $list;
         return $page_info;
     }
+    
+    public function findId($id){
+        $res = self::find($id);
+        if($res){
+            return $res->toarray();
+        }
+        return [];
+    }
+    
+    /**
+     * 更新菜单的发布时间
+     */
+    public function updateMenu($id,$data){
+        $res = self::where('id', $id)->update($data);
+        if($res){
+            return handleResult(true,200,'上传头像成功...');
+        }
+
+        return handleResult(false,305,'上传头像失败...');
+    }
 }

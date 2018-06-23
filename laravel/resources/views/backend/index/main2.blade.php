@@ -76,6 +76,11 @@
             .tab-nav-select-li:hover span,.tab-nav-select-li:hover span i{color: #fff;}
             .tab-nav-select-active span,.tab-nav-select-active span i{color: #fff !important;}
             .cus-click-url{cursor: pointer}
+            
+            div.dataTables_processing{
+                z-index: 99999999 !important;
+                background: red;
+            }
         </style>
     </head>
 

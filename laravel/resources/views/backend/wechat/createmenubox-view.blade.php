@@ -61,29 +61,36 @@
     	var json_str = $.trim($('#form-field-11').val());
     	var status   = $("input[name='fr-wxmenu-status']:checked").val();
     	if(!isJSON(json_str)){
-			layer.msg('请填写正确的json数据', {icon: 5});
+            layer.msg('请填写正确的json数据', {icon: 5});
     	}
-    	var parent_index = parent.layer.getFrameIndex(window.name);
-    	$.ajax({
-	        url:"{{route('b_wechat_createmenu')}}",
-	        type:'post',
-	        data:{jsondata:json_str,status:status},
-	        dataType:'json',
-	        complete:function(){
-	            objClass.isSubmitLoading = false;
-	        },
-	        success:function(res){
-	            if(res.code == 200){
-	                layer.msg(res.message, {icon: 1});
-	                setTimeout(function(){
-	                    parent.layer.close(parent_index);
+        
+        if(objClass.isSubmitLoading == false){
+            var upload_index = layer.msg('菜单发布中, 请稍等...', {icon: 16,shade: 0.01,time:0});
+            objClass.isSubmitLoading = true;
+            var parent_index = parent.layer.getFrameIndex(window.name);
+            $.ajax({
+                url:"{{route('b_wechat_createmenu')}}",
+                type:'post',
+                data:{jsondata:json_str,status:status},
+                dataType:'json',
+                complete:function(){
+                    objClass.isSubmitLoading = false;
+                    layer.close(upload_index);
+                },
+                success:function(res){
+                    if(res.code == 200){
+                        layer.msg(res.message, {icon: 1});
+                        setTimeout(function(){
+                            parent.layer.close(parent_index);
                     },2000);
-	            }else{
-	                layer.msg(res.message, {icon: 5});
-	            }
-	        },
-	        error: throwError,
-	    });
+                    }else{
+                        layer.msg(res.message, {icon: 5});
+                    }
+                },
+                error: throwError,
+            });
+        }
+    	
     });
 
     $('#fr-reset-btn').on('click',function(){

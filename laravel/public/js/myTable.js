@@ -70,13 +70,10 @@
 
                     //附加查询参数
                     d.search = _this.searchParams;
-                    //$.extend(d,_this.searchParams); //给d扩展参数
-
                     delete d.order;
                     delete d.columns;
                     
-                    $(_this.Selector).parent().find('.dataTables_processing').css('zIndex',999999999);
-
+                    $(_this.Selector+'_processing').css('zIndex',999999999).html('<i class="ace-icon fa fa-spinner fa-spin orange bigger-120"></i>&nbsp;加载数据中...');
 
                     // var obj = {
                     //     orderBy:null,
@@ -113,6 +110,8 @@
         
         this.table = $(this.Selector).DataTable(this.options);
         
+        
+//        $('.dataTables_processing').css('zIndex',999999999);
         this.select();
     }
 

@@ -4,14 +4,14 @@ use Illuminate\Http\Request;
 
 class WechatController extends CController{
 
-	protected $wxTokenModel;
+    protected $wxTokenModel;
 
     public function __construct(){
     	parent::__construct();
 
         $this->wxTokenModel 	= new \App\Model\WxToken();
 
-        $this->wxMenuPulishModel= new \App\Model\WxMenu();
+        $this->wxMenuModel= new \App\Model\WxMenu();
 
         $this->WeChatApiClass 	= new \App\Model\FunctionClass\WeChatApi();
     }
@@ -110,7 +110,7 @@ class WechatController extends CController{
             $data['updated_at'] = date('Y-m-d H:i:s');
         }
 
-    	$res = $this->wxMenuPulishModel->addMenu($data);
+    	$res = $this->wxMenuModel->addMenu($data);
     	if(!$res){
             return $this->returnData([], '菜单保存失败', 305);
     	}
@@ -146,7 +146,7 @@ class WechatController extends CController{
 
         $data['offset']     = $params['offset'];
         $data['pagesize']   = $params['pagesize'];
-        $lists = $this->wxMenuPulishModel->findWxMenuList($data);
+        $lists = $this->wxMenuModel->findWxMenuList($data);
 
         return response()->json([
             'code'=>200,
@@ -163,10 +163,27 @@ class WechatController extends CController{
      * 微信公众号发布新的菜单
      * @param \Illuminate\Http\Request $request
      */
-    public function updateMenu(){
-		$update_res = $this->WeChatApiClass->updateMenu($json);
+    public function updateMenu(Request $request){
+        $id = $request->input('id',34);
+        if(empty($id)){
+            return $this->returnData([], '参数错误', 301);
+        }
+        
+        $lists = $this->wxMenuModel->findId($id);
+        
+        if(!$lists){
+            return $this->returnData([], '菜单查询失败', 302);
+        }
+        
+        $update_res = $this->WeChatApiClass->updateMenu($lists['menu_json']);
+        
+        if(!$update_res){
+            return $this->returnData([], '菜单发布失败', 303);
+        }
+        
+        $this->wxMenuModel->updateMenu($id,['status'=>1,'updated_at'=>date('Y-m-d H:i:s')]);
 
-		var_dump($update_res);
+        return $this->returnData([], '菜单发布成功', 200);
     }
 
 }
