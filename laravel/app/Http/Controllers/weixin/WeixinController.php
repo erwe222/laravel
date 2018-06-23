@@ -28,7 +28,9 @@ class WeixinController extends CController{
 
         if($this->weChatApiClass->checkSignature()){
             \Log::info('消息验证成功');
-            return $this->weChatApiClass->responseMsg();
+            $string = $this->weChatApiClass->responseMsg();
+            \Log::info($string);
+            return $string;
         }else{
             \Log::info('消息验证失败');
         }
