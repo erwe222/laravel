@@ -241,6 +241,7 @@ return [
             'appId'     =>'wx9a868d2478eefeac',
             'appsecret' =>'f3f230f615bca3443581cfb96dbf2895',
             'token'     =>'xiaoxiaorao',
+            'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
         ],
     ],
 
