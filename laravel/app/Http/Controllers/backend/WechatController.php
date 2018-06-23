@@ -99,18 +99,16 @@ class WechatController extends CController{
     	}
 
     	$user_info = $this->getUserInfo();
-        $updated_at  = '';
-        if($status == 1){
-            $updated_at = date('Y-m-d H:i:s');
-        }
         
     	$data = [
             'menu_json'=>$json11,
             'admin_id' =>$user_info['id'],
             'created_at'=>date('Y-m-d H:i:s'),
-            'status'=>$status,
-            'updated_at'=>$updated_at,
+            'status'=>$status
     	];
+        if($status == 1){
+            $data['updated_at'] = date('Y-m-d H:i:s');
+        }
 
     	$res = $this->wxMenuPulishModel->addMenu($data);
     	if(!$res){
