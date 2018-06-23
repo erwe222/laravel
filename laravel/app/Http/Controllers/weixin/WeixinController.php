@@ -27,8 +27,9 @@ class WeixinController extends CController{
 
 
         if($this->weChatApiClass->checkSignature()){
+            $content = \Request::getContent();
             $postStr = isset($GLOBALS["HTTP_RAW_POST_DATA"]) ? $GLOBALS["HTTP_RAW_POST_DATA"] : '';
-            $postStr = var_export($postStr,true);
+            $postStr = var_export($content,true);
             \Log::info('接收微信信息:'.$postStr);
             
             \Log::info('消息验证成功');
