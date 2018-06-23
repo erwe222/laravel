@@ -342,7 +342,8 @@ class WeChatApi
 
             $rs = $weiChatNews_model->$function($obj);
         }
-
+        
+        return $rs;
         $weiChatNews_model->printContent($rs);
     }
 
