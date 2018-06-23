@@ -171,8 +171,8 @@ class WeChatNews{
      */
     public function getXmlMsg(){
         #获取微信平台传过来的POST数据
-        $postStr = isset($GLOBALS["HTTP_RAW_POST_DATA"]) ? $GLOBALS["HTTP_RAW_POST_DATA"] : '';
-
+        //$postStr = isset($GLOBALS["HTTP_RAW_POST_DATA"]) ? $GLOBALS["HTTP_RAW_POST_DATA"] : '';
+        $postStr = \Request::getContent();
         if (!empty($postStr)) {
             #用SimpleXML解析POST过来的XML数据
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
