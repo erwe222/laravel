@@ -13,7 +13,7 @@ class IndexController extends CController{
      * 前台主页
      */
     public function index(){
-          $url = 'https://repair.sh-jinger.com/front';
+          $url = 'https://repair.sh-jinger.com/front/wx/auth2';
           $this->WeChatApiClass->getWeChatAuthCode($url,123,false);
         
 //        return view('frontend.index.index');
