@@ -24,7 +24,7 @@ Route::group(['prefix' => 'front','namespace' => 'front'], function()
 //微信路由配置
 Route::group(['prefix' => 'weixin','namespace' => 'weixin'], function()
 {
-    Route::post('/', 'WeixinController@index')->name('w_weixin_index');
+    Route::match(['get', 'post'],'/', 'WeixinController@index')->name('w_weixin_index');
 });
 
 //后台路由配置
