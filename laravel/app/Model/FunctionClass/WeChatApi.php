@@ -35,9 +35,9 @@ class WeChatApi
      */
     public function checkSignature()
     {
-        $signature      = isset($_GET["signature"])?$_GET["signature"]:'';
-        $timestamp      = isset($_GET["timestamp"])?$_GET["timestamp"]:'';
-        $nonce          = isset($_GET["nonce"])?$_GET["nonce"]:'';
+        $signature      = isset($_REQUEST["signature"])?$_REQUEST["signature"]:'';
+        $timestamp      = isset($_REQUEST["timestamp"])?$_REQUEST["timestamp"]:'';
+        $nonce          = isset($_REQUEST["nonce"])?$_REQUEST["nonce"]:'';
         
         \Log::info('signature：'.$signature);
         \Log::info('timestamp：'.$timestamp);
