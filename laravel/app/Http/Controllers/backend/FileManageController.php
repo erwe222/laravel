@@ -72,8 +72,8 @@ class FileManageController extends CController{
      * @return type
      */
     public function readLogfile(Request $request){
-        $filename   = $request->input('filename','laravel - 副本.log');
-        $code   = $request->input('code','EUC-CN');
+        $filename   = $request->input('filename','');
+        $code   = $request->input('code','');
         $path       = base_path('storage/logs');
         $filename   = iconv(mb_str_encoding($filename), $code, $filename);
         $file_path = $path."/".$filename;
