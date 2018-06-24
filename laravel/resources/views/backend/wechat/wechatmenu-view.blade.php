@@ -74,10 +74,11 @@
                 }
             },
             {title: '发布人',data: 'name',name:'name',orderable:false,width: 50},
+            {title: 'AppId',data: 'appid',name:'appid',orderable:false,width: 150},
             {title: '菜单数据',data: 'menu_json',name:'menu_json',orderable:false,width: 200,render: function ( data, type, row, meta ) {
                 var data = JSON.stringify(JSON.parse(data), null, 2);
-                if(data.length > 150 ){
-                    return "<a title='" + data+ "'>"+ data.slice(0,150) + "</a>";
+                if(data.length > 100 ){
+                    return "<a title='" + data+ "'>"+ data.slice(0,100) + "</a>";
                 }else{
                     return data;
                 }

@@ -101,10 +101,11 @@ class WechatController extends CController{
     	$user_info = $this->getUserInfo();
         
     	$data = [
-            'menu_json'=>$json11,
-            'admin_id' =>$user_info['id'],
-            'created_at'=>date('Y-m-d H:i:s'),
-            'status'=>$status
+            'appid'         =>$this->WeChatApiClass->appId,
+            'menu_json'     =>$json11,
+            'admin_id'      =>$user_info['id'],
+            'created_at'    =>date('Y-m-d H:i:s'),
+            'status'        =>$status
     	];
         if($status == 1){
             $data['updated_at'] = date('Y-m-d H:i:s');
