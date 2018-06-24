@@ -52,6 +52,7 @@
             },
             {title: '操作人员',data: 'name',name:'name',orderable:false,width: 20},
             {title: '操作类型',data: 'type',name:'type',orderable:false,width: 20},
+            {title: '操作IP',data: 'ip',name:'ip',orderable:false,width: 50},
             {title: '详情',data: 'content',name:'content',orderable:false,width: 500},
             {title: '操作时间',data: 'created_at',width: 10}
         ],

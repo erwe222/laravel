@@ -77,10 +77,13 @@ class CController extends Controller{
      */
     public function createActionLog($data){
         $user = $this->getUserInfo();
+        $request = request();
+        $request->setTrustedProxies(array('10.32.0.1/16'));
         event(new CreateActionLogEvent([
             'admin_id'=>$user->id,
             'type'=>$data['type'],
-            'content'=>$data['content']
+            'content'=>$data['content'],
+            'ip'=>$request->getClientIp(),
         ]));
     }
     

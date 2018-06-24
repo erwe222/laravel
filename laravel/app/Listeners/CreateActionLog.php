@@ -21,6 +21,7 @@ class CreateActionLog
         $data['admin_id'] = isset($array['admin_id'])?$array['admin_id']:0;
         $data['type'] = isset($array['type'])?$array['type']:0;
         $data['content'] = isset($array['content'])?$array['content']:0;
+        $data['ip'] = isset($array['ip'])?$array['ip']:'';
         $data['created_at'] = isset($array['created_at'])?$array['created_at']: date('Y-m-d H:i:s');
         (new ActionLog())->addActionLog($data);
     }

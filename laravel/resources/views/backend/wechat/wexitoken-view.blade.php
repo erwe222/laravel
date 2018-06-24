@@ -81,7 +81,7 @@
             {title: '过期时间',data: 'expiry_time',name:'expiry_time',width: 100,orderable:false},
         ],
     };
-    
+
     var myTable = new MyTable('#dynamic-table',obj,"{{route('b_wechat_wexitokendata')}}");
     myTable.init();
     
