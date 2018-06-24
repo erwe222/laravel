@@ -13,9 +13,9 @@ class IndexController extends CController{
      * 前台主页
      */
     public function index(){
-          $url = 'http://repair.sh-jinger.com';
-          $this->WeChatApiClass->getWeChatAuthCode($url,123,false);
-        
+        $url = 'http://repair.sh-jinger.com';
+        $redirect = $this->WeChatApiClass->getWeChatAuthCode($url,123,false);
+        return redirect()->to($redirect);
 //        return view('frontend.index.index');
     }
     

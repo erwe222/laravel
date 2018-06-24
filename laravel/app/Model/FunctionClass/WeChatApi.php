@@ -118,6 +118,7 @@ class WeChatApi
 
         $fullURL = "$url?$param#wechat_redirect";
 //        var_dump($fullURL);exit;
+        return $fullURL;
         $this->redirect($fullURL);
     }
 
