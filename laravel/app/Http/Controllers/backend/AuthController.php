@@ -54,7 +54,7 @@ class AuthController extends CController{
             if($result){
                 $user = $this->getUserInfo();
                 $this->createActionLog([
-                    'type'=>5,
+                    'type'=>7,
                     'content'=>'['.$user->name.']登录了后台'
                 ]);
             }
@@ -72,7 +72,7 @@ class AuthController extends CController{
     {
         $user = $this->getUserInfo();
         $this->createActionLog([
-            'type'=>6,
+            'type'=>8,
             'content'=>'['.$user->name.']退出了后台',
         ]);
         

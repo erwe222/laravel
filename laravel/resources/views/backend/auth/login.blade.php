@@ -203,39 +203,41 @@
                         layer.msg('请输入验证码');
                         return false;
                     }
-
-                    if(Obj.loginProgress == true){
-                        return false;
-                    }
-                    Obj.loginProgress == true;
-                    $.ajax({
-                        url:"{{route('b_auth_ptlogin')}}",
-                        type:'post',
-                        data:{email:username,password:pwd,remember:rememberme,code:code},
-                        dataType:'json',
-                        success:function(res){
-                            if(res.result){
-                                layer.msg('登录成功');
-                                setTimeout(function(){
-                                    window.location.href = "{{route('b_index_main')}}";
-                                },1000);
-                                return false;
-                            }else if(res.code == 302){
-                                layer.msg('用户不存在');
-                            }else if(res.code == 303){
-                                layer.msg('密码输入错误');
-                            }else if(res.code == 304){
-                                layer.msg('用户已被锁定...');
-                            }else if(res.code == 403){
-                                layer.msg('验证码输入错误');
+                    
+                    if(Obj.loginProgress == false){
+                        var loading_index = layer.msg('登录中, 请稍等...', {icon: 16,shade: 0.01,time:0});
+                        Obj.loginProgress == true;
+                        $.ajax({
+                            url:"{{route('b_auth_ptlogin')}}",
+                            type:'post',
+                            data:{email:username,password:pwd,remember:rememberme,code:code},
+                            dataType:'json',
+                            complete:function(){
+                                Obj.loginProgress = false;
+                                layer.close(loading_index);
+                            },
+                            success:function(res){
+                                if(res.result){
+                                    layer.msg('登录成功');
+                                    setTimeout(function(){
+                                        window.location.href = "{{route('b_index_main')}}";
+                                    },1000);
+                                    return false;
+                                }else if(res.code == 302){
+                                    layer.msg('用户不存在');
+                                }else if(res.code == 303){
+                                    layer.msg('密码输入错误');
+                                }else if(res.code == 304){
+                                    layer.msg('用户已被锁定...');
+                                }else if(res.code == 403){
+                                    layer.msg('验证码输入错误');
+                                }
+                            },
+                            error:function(){
+                                layer.msg('网络异常，请稍后重试...', {icon: 5,time:6000});
                             }
-
-                            Obj.loginProgress == false;
-                        },
-                        error:function(){
-                            Obj.loginProgress == false;
-                        }
-                    });
+                        });
+                    }
                 });
                 
                 $('.cus-label-img img').on('click',function(){
@@ -258,24 +260,27 @@
                         layer.msg('请填写正确的邮箱地址');return false;
                     }
 
-                    if(Obj.sendEmailProgress == true){
-                        return false;
+                    if(Obj.sendEmailProgress == false){
+                        Obj.sendEmailProgress = true;
+                        var loading_index = layer.msg('登录中, 请稍等...', {icon: 16,shade: 0.01,time:0});
+                        $.ajax({
+                            url:"{{route('b_auth_sendemail')}}",
+                            type:'post',
+                            data:{email:email},
+                            dataType:'json',
+                            complete:function(){
+                                Obj.sendEmailProgress = false;
+                                layer.close(loading_index);
+                            },
+                            success:function(res){
+                                layer.msg(res.message);
+                                Obj.sendEmailProgress = false;
+                            },
+                            error:function(){
+                                Obj.sendEmailProgress = false;
+                            }
+                        });
                     }
-
-                    Obj.sendEmailProgress = true;
-                    $.ajax({
-                        url:"{{route('b_auth_sendemail')}}",
-                        type:'post',
-                        data:{email:email},
-                        dataType:'json',
-                        success:function(res){
-                            layer.msg(res.message);
-                            Obj.sendEmailProgress = false;
-                        },
-                        error:function(){
-                            Obj.sendEmailProgress = false;
-                        }
-                    });
                 });
         </script>
     </body>
