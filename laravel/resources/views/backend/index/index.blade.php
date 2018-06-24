@@ -132,19 +132,18 @@
                                     <button class="btn btn-minier btn-primary">
                                         本周<i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
                                     </button>
-
                                     <ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
                                         <li class="active">
-                                            <a href="#" class="blue"><i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i>本周</a>
+                                            <a  class="blue"><i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i>本周</a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>上周</a>
+                                            <a ><i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>上周</a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>本月</a>
+                                            <a ><i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>本月</a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>上月</a>
+                                            <a ><i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>上月</a>
                                         </li>
                                     </ul>
                                 </div>
