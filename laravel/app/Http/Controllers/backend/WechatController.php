@@ -45,6 +45,20 @@ class WechatController extends CController{
         $data['offset']     = $params['offset'];
         $data['pagesize']   = $params['pagesize'];
         $lists = $this->wxTokenModel->findTokenList($data);
+        $config = config('');
+        if(count($lists['data'])){
+            foreach ($lists['data'] as $key => $value) {
+                $t  = strtotime($value['expiry_time']);
+                $t2 = time(); 
+                if($t > $t2 && $value['app_id'] == $this->WeChatApiClass->appId){
+                    $lists['data'][$key]['status'] = 1;
+                }else if($t > $t2){
+                    $lists['data'][$key]['status'] = 2;
+                }else{
+                    $lists['data'][$key]['status'] = 3;
+                }
+            }
+        }
 
         return response()->json([
             'code'=>200,
