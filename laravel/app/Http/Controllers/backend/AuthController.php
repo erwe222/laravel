@@ -47,6 +47,19 @@ class AuthController extends CController{
      */
     public function ptLogin(Request $request){
         if(captcha_check($request->input('code'))){
+            $admin = $this->adminModel->findEmail($request->input('email'));
+            if(!$admin){
+                return $this->returnData([],'账号不存在',301);
+            }
+            
+            if (!\Hash::check($request->input('password'), $admin->password)) {
+                return $this->returnData([],'账号密码输入错误',302);
+            }
+            
+            if ($admin->status != 10) {
+                return $this->returnData([],'该账号已禁止登录',303);
+            }
+            
             $result = $this->guard()->attempt([
                 'email' => $request->input('email'),
                 'password' => $request->input('password')
@@ -57,12 +70,15 @@ class AuthController extends CController{
                 $ip = $request->getClientIp();
                 $this->createActionLog([
                     'type'=>7,
-                    'content'=>'['.$user->name.']登录了后台，登录IP:'.$ip
+                    'content'=>'登录后台，登录IP:'.$ip
                 ]);
+                
+                return $this->returnData([],'登录成功',200);
             }
-            return response()->json(['result'=>$result,'code'=>303]);
+            return $this->returnData([],'登录失败',305);
         }
-        return response()->json(['result'=>false,'code'=>403]);
+        
+        return $this->returnData([],'验证码输入错误',304);
     }
     
     /**
@@ -75,7 +91,7 @@ class AuthController extends CController{
         $user = $this->getUserInfo();
         $this->createActionLog([
             'type'=>8,
-            'content'=>'['.$user->name.']退出了后台',
+            'content'=>'退出后台',
         ]);
         
         $this->guard()->logout();

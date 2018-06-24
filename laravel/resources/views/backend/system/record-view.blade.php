@@ -20,9 +20,6 @@
             </form>
         </div>
         <p class="pull-right" id="btns-type-one" >
-            <button class="btn btn-white btn-info btn-bold" data-type="add" >
-                <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>添加
-            </button>
             <button class="btn btn-white btn-success btn-bold" data-type="refresh" >
                 <i class="ace-icon fa fa-undo bigger-120" ></i>刷新
             </button>

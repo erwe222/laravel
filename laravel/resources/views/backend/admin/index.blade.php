@@ -97,8 +97,7 @@
 <script src="/ace-asstes/js/jquery.dataTables.min.js"></script>
 <script src="/ace-asstes/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/js/myTable.js"></script>
-<script>
-
+<script >
     var obj = {
         scrollX: true,
         columns: [
@@ -110,12 +109,9 @@
             {title: '昵称',data: 'name',name:'name',orderable:false,width: 100},
             {title: '登录邮箱',data: 'email',name:'email',orderable:false,width: 100},
             {title: '所属角色',data: 'role_name',name:'role_name',orderable:false,width: 100},
-            {title: '状态',data: 'status',name:'status',orderable:false,width: 100,render: function ( data, type, row, meta ) {
-                if(data == 10){
-                    return '<span class="label label-success arrowed-in arrowed-in-right" data-rowindex="'+meta.row+'">启用</span>';
-                }else{
-                    return '<span class="label label-danger arrowed" data-rowindex="'+meta.row+'">禁用</span>';
-                }
+            {title: '状态',data: 'status',name:'status',orderable:false,width: 30,render: function ( data, type, row, meta ) {
+                var checked = (data == 10) ? 'checked':'';
+                return '<label><input  class="ace ace-switch ace-switch-2 editStatus" type="checkbox" '+checked+' data-id="'+row.id+'" data-status="'+data+'"><span class="lbl"></span></label>';
             }},
             {title: '注册时间',data: 'created_at',width: 80},
             {title: '操 作',data: 'id',orderable:false,width: 20,render: function ( data, type, row, meta ) {
@@ -131,11 +127,12 @@
     myTable.init();
     
     $('#grid-search-form').on('submit',function(){
-        objClass.refresh();
+        objClass.refresh(true);
     });
 
     var objClass = {
         isAddLoading:false,
+        isUpdateStatusLoading:false,
         add:function(){
             this.showFrom();
         },
@@ -200,14 +197,19 @@
                 });
             }
         },
-        refresh:function(){
+        refresh:function(flag){
+            var t = true;
+            if(flag != undefined){
+                t = flag;
+            }
             var data = {
                 name:$.trim($('#search-admin-nickname').val()),
                 email:$.trim($('#search-admin-email').val()),
                 status:$('#search-role-status').val()
             };
+
             myTable.setSearchParams(data);
-            myTable.refresh();
+            myTable.refresh(t);
         },
         showFrom:function(){
             var _this = this;
@@ -270,7 +272,36 @@
     $('#btns-type-one > button').on('click',function(){
         objClass[$(this).data('type')]();
     });
-    
+    $(document).on('click','.editStatus', function(){
+        var _this = $(this);
+        var id = $(this).data('id');
+        var status = $(this).data('status');
+        layer.confirm('您确定要修改该用户的用户状态吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            status = (status == 0)?10:0;
+            var upload_index = layer.msg('修改中, 请稍等...', {icon: 16,shade: 0.01,time:0});
+            $.ajax({
+                url:"{{route('b_admin_updateadminstatus')}}",
+                type:'post',
+                data:{id:id,status},
+                dataType:'json',
+                complete:function(){
+                    layer.close(upload_index);
+                },
+                success:function(res){
+                    if(res.code == 200){
+                        layer.msg(res.message, {icon: 1});
+                        objClass.refresh(false);
+                    }else{
+                        layer.msg(res.message, {icon: 5});
+                    }
+                },
+                error: throwError,
+            });
+        });
+        return false;
+    });
     
 </script>
 @endpush

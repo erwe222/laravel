@@ -100,7 +100,7 @@
                 },
                 error:function(XMLHttpRequest, textStatus, errorThrown){
                     //加载失败回调方法
-                    $(_this.Selector).parent().find('.dataTables_processing').css('display','none');
+                    $(_this.Selector+'_processing').css('display','none');
 
                     throwError(XMLHttpRequest, textStatus, errorThrown);
                 }
@@ -141,8 +141,12 @@
      * 表格刷新
      * @returns {undefined}
      */
-    MyTable.prototype.refresh = function(){
-        this.table.draw();
+    MyTable.prototype.refresh = function(flag){
+        var t = true;
+        if(flag != undefined){
+            t = flag;
+        }
+        this.table.draw(t);
     }
 
     /**

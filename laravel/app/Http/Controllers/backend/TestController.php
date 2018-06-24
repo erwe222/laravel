@@ -106,9 +106,9 @@ class TestController extends CController{
 //        $weixin_api ->setRequestUrl('http://www.lar.test.com/weixin');
 //        $weixin_api->request();
 //        var_dump($weixin_api);exit;
-        $request->setTrustedProxies(array('10.32.0.1/16'));  
-$ip = $request->getClientIp();
-        dd($ip);
+        
+        $ss = $this->checkLogin();
+        dd($this->getUserInfo()->status);
 
 
     }

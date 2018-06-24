@@ -25,10 +25,7 @@ class AuthManage {
      * 验证管理员是否有权限
      */
     public function checkPermissions($path){
-        if($this->isJumpCheckUrl($path)){
-            return true;
-        }
-        
+
         $roles = $this->getUserRole();
         if(!$roles){
             return false;
@@ -90,15 +87,4 @@ class AuthManage {
         return $arr;
     }
 
-    /**
-     * 不需要授权验证的url
-     */
-    public function isJumpCheckUrl($path){
-        $array = [
-            '/backend',
-            '/backend/wechat/createmenubox',
-        ];
-
-        return in_array($path, $array);
-    }
 }

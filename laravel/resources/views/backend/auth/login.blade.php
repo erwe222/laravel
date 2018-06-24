@@ -217,21 +217,14 @@
                                 layer.close(loading_index);
                             },
                             success:function(res){
-                                if(res.result){
+                                if(res.code == 200){
                                     layer.msg('登录成功');
                                     setTimeout(function(){
                                         window.location.href = "{{route('b_index_main')}}";
                                     },1000);
                                     return false;
-                                }else if(res.code == 302){
-                                    layer.msg('用户不存在');
-                                }else if(res.code == 303){
-                                    layer.msg('密码输入错误');
-                                }else if(res.code == 304){
-                                    layer.msg('用户已被锁定...');
-                                }else if(res.code == 403){
-                                    layer.msg('验证码输入错误');
                                 }
+                                layer.msg(res.message);
                             },
                             error:function(){
                                 layer.msg('网络异常，请稍后重试...', {icon: 5,time:6000});

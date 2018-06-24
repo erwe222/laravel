@@ -15,7 +15,6 @@ class CController extends Controller{
     
     
     public function __construct() {
-        
         Auth::shouldUse('admin');
     }
 
@@ -24,7 +23,6 @@ class CController extends Controller{
      * @return type
      */
     public function checkLogin(){
-        Auth::shouldUse('admin');
         return Auth::check();
     }
     
@@ -33,7 +31,6 @@ class CController extends Controller{
      * @return type
      */
     public function getUserInfo(){
-        Auth::shouldUse('admin');
         return Auth::user();
     }
     

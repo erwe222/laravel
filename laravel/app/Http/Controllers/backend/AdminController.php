@@ -213,5 +213,32 @@ class AdminController extends CController{
         }
         return $this->returnData([], $res['message'], $res['code']);
     }
+    
+    /**
+     * 更新管理状态
+     */
+    public function updateAdminStatus(Request $request){
+        $admin_id = (int)$request->input('id',0);
+        $status = (int)$request->input('status',0);
+        if($admin_id == 0){
+            return $this->returnData([],'参数错误',301);
+        }
+        
+        if($admin_id == $this->getUserInfo()->id){
+            return $this->returnData([],'管理员不能修改自己的状态',302);
+        }
+        
+        $res = $this->adminModel->editDetail($admin_id,['status'=>$status]);
+        if($res['result']){
+            $name = $this->getUserInfo()->name;
+            $s = ($status ==10)?'启用':'禁止登录';
+            $this->createActionLog([
+                'type'=>2,
+                'content'=>"管理员[{$name}]状态被修改为【{$s}】 状态"
+            ]);
+            return $this->returnData([], '管理员状态修改成功', 200);
+        }
+        return $this->returnData([], '管理员状态修改失败', 305);
+    }
 
 }
