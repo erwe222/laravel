@@ -53,9 +53,11 @@ class AuthController extends CController{
             ], (bool)$request->input('remember'));
             if($result){
                 $user = $this->getUserInfo();
+                $request->setTrustedProxies(array('10.32.0.1/16'));  
+                $ip = $request->getClientIp();
                 $this->createActionLog([
                     'type'=>7,
-                    'content'=>'['.$user->name.']登录了后台'
+                    'content'=>'['.$user->name.']登录了后台，登录IP:'.$ip
                 ]);
             }
             return response()->json(['result'=>$result,'code'=>303]);

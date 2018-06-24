@@ -101,12 +101,14 @@ class TestController extends CController{
 //
 //        dd($weixin_api->getAccessToken());
 
-        $weixin_api = new \App\Helpers\CurlRequest();
-        $weixin_api ->setPost(['asd'=>'asdf']);
-        $weixin_api ->setRequestUrl('http://www.lar.test.com/weixin');
-        $weixin_api->request();
-        var_dump($weixin_api);exit;
-
+//        $weixin_api = new \App\Helpers\CurlRequest();
+//        $weixin_api ->setPost(['asd'=>'asdf']);
+//        $weixin_api ->setRequestUrl('http://www.lar.test.com/weixin');
+//        $weixin_api->request();
+//        var_dump($weixin_api);exit;
+        $request->setTrustedProxies(array('10.32.0.1/16'));  
+$ip = $request->getClientIp();
+        dd($ip);
 
 
     }
