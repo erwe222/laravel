@@ -15,7 +15,6 @@ class IndexController extends CController{
     public function index(){
         $url = 'http://repair.sh-jinger.com';
         $redirect = $this->WeChatApiClass->getWeChatAuthCode($url,123,false);
-        var_dump($redirect);exit;
         return redirect()->to($redirect);
     }
     
