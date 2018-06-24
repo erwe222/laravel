@@ -24,7 +24,7 @@ class WxMenu extends Model
      *
      * @var array
      */
-    protected $fillable = ['admin_id','status','menu_json','created_at','updated_at'];
+    protected $fillable = ['admin_id','status','menu_json','appid','created_at','updated_at'];
 
     /**
      * 不能被批量赋值的属性
