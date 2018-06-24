@@ -98,10 +98,11 @@
 <script src="/ace-asstes/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/js/myTable.js"></script>
 <script>
+
     var obj = {
         scrollX: true,
         columns: [
-            {data:null,title:'<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',width:10,orderable:false,class:'table-checkbox',
+            {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
                     return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
