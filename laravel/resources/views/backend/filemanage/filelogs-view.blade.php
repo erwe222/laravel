@@ -34,7 +34,11 @@
             {title: '操 作',data: 'id',orderable:false,width: 240,render: function ( data, type, row, meta ) {
                 var str = '<button class="btn btn-minier btn-purple" onclick="objClass.catInfo(\''+row.filename+'\',\''+row.file_code+'\')"><i class="ace-icon fa fa-eye bigger-130"></i> 查看日志</button>&nbsp;';
                 str += '<button class="btn btn-minier btn-danger" onclick="objClass.delete(\''+row.filename+'\',\''+row.file_code+'\')"><i class="ace-icon fa fa-trash-o bigger-130"></i> 删除</button>&nbsp;';
-                str += '<button class="btn btn-minier btn-info" onclick="objClass.download(\''+row.filename+'\',\''+row.file_code+'\')"><i class="ace-icon fa fa-download bigger-130"></i> 下载文件</button>&nbsp;';
+
+                if(row.file_type == 1){
+                    str += '<button class="btn btn-minier btn-info" onclick="objClass.download(\''+row.filename+'\',\''+row.file_code+'\')"><i class="ace-icon fa fa-download bigger-130"></i> 下载文件</button>&nbsp;';
+                }
+                
                 return str;
             }}
         ],
