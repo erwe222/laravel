@@ -23,6 +23,13 @@
             {title:'文件名',data: 'filename',name:'filename',orderable:false,width: 100},
             {title: '文件大小',data: 'filesize',orderable:false,width: 150},
             {title: '文件名编码类型',data: 'file_code',orderable:false,width: 150},
+            {title: '类型',data: 'file_type',orderable:false,width: 50,render: function ( data, type, row, meta ) {
+                if(data == 1){
+                    return '<span class="label label-success arrowed-in arrowed-in-right">文件</span>';
+                }else{
+                    return '<span class="label label-warning arrowed arrowed-right">文件夹</span>';
+                }
+            }},
             {title: '创建时间',data: 'filectime',orderable:false,width: 150},
             {title: '操 作',data: 'id',orderable:false,width: 240,render: function ( data, type, row, meta ) {
                 var str = '<button class="btn btn-minier btn-purple" onclick="objClass.catInfo(\''+row.filename+'\',\''+row.file_code+'\')"><i class="ace-icon fa fa-eye bigger-130"></i> 查看日志</button>&nbsp;';

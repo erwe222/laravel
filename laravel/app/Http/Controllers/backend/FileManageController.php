@@ -51,6 +51,7 @@ class FileManageController extends CController{
                     'filesize'=>getsize(filesize($path_file_dir),'kb').' KB',
                     'filectime'=>date("Y-m-d H:i:s",filectime($path_file_dir)),
                     'file_code'=>mb_str_encoding($filename),
+                    'file_type'=>is_file($path_file_dir) ?1:2,
                 ];
             }
         }
