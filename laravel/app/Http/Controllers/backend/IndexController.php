@@ -24,8 +24,15 @@ class IndexController extends CController{
         if(!$user_info){
             return redirect(route('b_auth_tologin'));
         }
+        
+        $time1 = strtotime('+2 day');
+        $time2 = strtotime($user_info->expiry_time);
+        $is_expiry_time = false;
+        if($time1 >= $time2){
+            $is_expiry_time = true;
+        }
 
-        return view('backend.index.main2', ['menus' => $menus,'user_info'=>$user_info]);
+        return view('backend.index.main2', ['menus' => $menus,'user_info'=>$user_info,'is_expiry_time'=>$is_expiry_time]);
     }
     
 }

@@ -309,6 +309,22 @@
             nprogress.start();
             $(function(){
                 nprogress.done();
+                
+                //边缘弹出
+                @if($is_expiry_time)
+                    var expiry_time = '{{$user_info->expiry_time}}';
+                    var editpwd_index = layer.open({
+                        type: 1
+                        ,btn: '立即修改'
+                        ,title:'密码提示'
+                        ,offset: 'rb' //具体配置参考：offset参数项
+                        ,content: '<div style="padding:10px 10px 10px 10px">...，管理员您的密码于 <font color="red">'+expiry_time+'</font> 过期，为了不影响您的后续操作，请立即修改密码......</div>'
+                        ,shade: 0 //不显示遮罩
+                        ,yes: function(){
+                            layer.close(editpwd_index);
+                        }
+                    });
+                @endif
             });
 
             var mytab = new MyTab({
