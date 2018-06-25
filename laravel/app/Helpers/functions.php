@@ -350,7 +350,7 @@ function recordLog($type,$content,$params = []){
     switch ($type) {
         case 1:
             //记录微信访问日志
-            $path = storage_path('logs/wechat/Visit-'.$time.'.log');
+            $path = storage_path('logs/wechat-log/Visit-'.$time.'.log');
         break;
     }
 
