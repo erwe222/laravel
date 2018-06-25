@@ -17,7 +17,7 @@ class IndexController extends CController{
             $url = 'http://59.110.168.230/weixin';
             $redirect = $this->weChatApiClass->getWeChatAuthCode($url,123,false);
             
-            var_dump($redirect);exit;
+//            var_dump($redirect);exit;
             return redirect()->to($redirect);
 //        }
         
