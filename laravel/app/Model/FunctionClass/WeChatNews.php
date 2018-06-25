@@ -15,7 +15,7 @@ class WeChatNews{
         $event = trim($obj->MsgType);
         $content = '';
         if(strcasecmp($event, 'event') == 0){
-            switch (strtolower($event)) {
+            switch (strtolower($obj->Event)) {
                 case "subscribe":
                     $content = "已关注微信";
                     break;
