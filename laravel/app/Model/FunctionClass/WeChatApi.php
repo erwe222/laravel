@@ -264,6 +264,7 @@ class WeChatApi
         $rs = $this->httpGet($url);
         return json_decode($rs, true);
     }
+    
     /**
      * 自定义菜单查询接口
      * @return type

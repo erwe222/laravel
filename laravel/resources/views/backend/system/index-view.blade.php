@@ -7,6 +7,14 @@
     <div class="col-sm-offset-1 col-sm-10">
         <div class="space"></div>
         <form class="form-horizontal">
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+                <strong>注意!</strong>
+                以下配置若有疑问请联系管理员...
+                <br>
+            </div>
             <div class="tabbable">
                 <ul class="nav nav-tabs padding-16">
                     <li class="active">
@@ -22,6 +30,12 @@
                     </li>
 
                     <li class="">
+                        <a data-toggle="tab" href="#wechat-info" aria-expanded="false">
+                            <i class="purple ace-icon fa fa-cog bigger-125"></i>微信公众号设置
+                        </a>
+                    </li>
+
+                    <li class="">
                         <a data-toggle="tab" href="#edit-password" aria-expanded="false">
                             <i class="purple ace-icon fa fa-cog bigger-125"></i>预留设置
                         </a>
@@ -32,10 +46,10 @@
                         <div id="edit-basic" class="tab-pane active">
                             <h4 class="header blue bolder smaller">权限管理设置</h4>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="line-height:13px;font-size:16px;color:#616161;" > 是否开启后台权限验证 ：</label>
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="line-height:13px;font-size:16px;color:#616161;" > 后台权限验证是否开启 ：</label>
                                 <div class="col-sm-9">
                                     <label>
-                                        <input name="switch-field-1" class="ace ace-switch ace-switch-7" type="checkbox">
+                                        <input name="switch-field-1" class="ace ace-switch ace-switch-7" type="checkbox" disabled  @if(config('app.config.authverify'))  checked=''  @endif   />
                                         <span class="lbl"></span>
                                     </label>
                                 </div>
@@ -51,6 +65,43 @@
                                 </div>
                             </div>
                                 <div class="space-8"></div>
+                        </div>
+
+                        <div id="wechat-info" class="tab-pane">
+
+                            <div class="profile-user-info profile-user-info-striped">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> AppId </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" >{{config('app.config.wechat.appId')}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Appsecret </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="username">{{config('app.config.wechat.appsecret')}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Token </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="username">{{config('app.config.wechat.token')}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> 消息秘钥 </div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable editable-click" id="username">{{config('app.config.wechat.EncodingAESKey')}}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div id="edit-password" class="tab-pane">
                                 
