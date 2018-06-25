@@ -120,6 +120,8 @@ class FileManageController extends CController{
             $fp = fopen($file_path,"r");
             if(filesize($file_path) > 0 ){
                 $str = fread($fp,filesize($file_path));
+
+                $str = htmlspecialchars($str);
                 $str = str_replace("\r\n","<br/>",$str);
                 $str = str_replace("\n","<br/>",$str);
             }else{
