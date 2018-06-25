@@ -11,7 +11,7 @@
 |
 */
 Route::get('/',function(){
-    return redirect(route('f_index_index'));
+//    return redirect(route('f_index_index'));
 })->name('f_web_index');
 
 //前台路由配置
