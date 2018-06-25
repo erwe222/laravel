@@ -28,7 +28,29 @@ class FileManageController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function index(Request $request){
-        return view('backend.filemanage.filelogs-view');
+        $dir = [
+            ['dir'=>'logs'],
+        ];
+
+        $path = storage_path('logs');
+        $dataFiles = [];
+        if(file_exists($path)){
+            $handler = opendir($path);
+            while( ($filename = readdir($handler)) !== false ) 
+            {
+                if($filename != '.' && $filename != '..' && $filename != '.gitignore')
+                {
+                    $path_file_dir = $path.'/'.$filename;
+
+                    if(is_dir($path_file_dir)){
+                        $dir[] = ['dir'=>'logs/'.$filename];
+                    }
+                }
+            }
+            closedir($handler);
+        }
+
+        return view('backend.filemanage.filelogs-view',['dirdata'=>$dir]);
     }
 
     /**
@@ -37,27 +59,34 @@ class FileManageController extends CController{
     public function getLogFilelist(Request $request){
         $params = $this->queryDatatableParams($request);
 
-        $path = base_path('storage/logs');
-        $dataFiles = [];
-
-        $handler = opendir($path);
-        while( ($filename = readdir($handler)) !== false ) 
-        {
-            if($filename != '.' && $filename != '..' && $filename != '.gitignore')
-            {
-                $path_file_dir = $path.'/'.$filename;
-                $dataFiles[] = [
-                    'filename'=> iconv(mb_str_encoding($filename), "utf-8", $filename),
-                    'filesize'=>getsize(filesize($path_file_dir),'kb').' KB',
-                    'filectime'=>date("Y-m-d H:i:s",filectime($path_file_dir)),
-                    'file_code'=>mb_str_encoding($filename),
-                    'file_type'=>is_file($path_file_dir) ?1:2,
-                    'file_dir_url'=>is_dir($path_file_dir) ?$path_file_dir:'',
-                ];
-            }
+        $url = 'logs';
+        if(isset($params['search']['dir']) && !empty($params['search']['dir'])){
+            $url = $params['search']['dir'];
         }
 
-        closedir($handler);
+        $path = storage_path($url);
+        $dataFiles = [];
+        if(file_exists($path)){
+            $handler = opendir($path);
+            while( ($filename = readdir($handler)) !== false ) 
+            {
+                if($filename != '.' && $filename != '..' && $filename != '.gitignore')
+                {
+                    $path_file_dir = $path.'/'.$filename;
+                    $dataFiles[] = [
+                        'filename'=> iconv(mb_str_encoding($filename), "utf-8", $filename),
+                        'filesize'=>getsize(filesize($path_file_dir),'kb').' KB',
+                        'filectime'=>date("Y-m-d H:i:s",filectime($path_file_dir)),
+                        'file_code'=>mb_str_encoding($filename),
+                        'file_type'=>is_file($path_file_dir) ?1:2,
+                        'file_dir_url'=>is_dir($path_file_dir) ?$url.'/'.$filename:$url,
+                    ];
+                }
+            }
+
+            closedir($handler);
+        }
+        
 
         return response()->json([
             'code'=>200,
@@ -74,17 +103,28 @@ class FileManageController extends CController{
      * @return type
      */
     public function readLogfile(Request $request){
+        error_reporting(7);
         $filename   = $request->input('filename','');
         $code   = $request->input('code','');
-        $path       = base_path('storage/logs');
+        $url   = $request->input('url','logs');
+
+        $path   = storage_path($url);
+
+
         $filename   = iconv(mb_str_encoding($filename), $code, $filename);
         $file_path = $path."/".$filename;
+
+        
         $str = false;
         if(file_exists($file_path)){
             $fp = fopen($file_path,"r");
-            $str = fread($fp,filesize($file_path));
-            $str = str_replace("\r\n",PHP_EOL,$str);
-            $str = str_replace("\n",PHP_EOL,$str);
+            if(filesize($file_path) > 0 ){
+                $str = fread($fp,filesize($file_path));
+                $str = str_replace("\r\n",PHP_EOL,$str);
+                $str = str_replace("\n",PHP_EOL,$str);
+            }else{
+                $str = '文件为空';
+            }
         }
 
         return view('backend.filemanage.filelogs-info-view',['fileinfo'=>$str]);
@@ -97,7 +137,9 @@ class FileManageController extends CController{
     public function deleteLogFile(Request $request){
         $oldname = $filename   = $request->input('filename','');
         $code   = $request->input('code','');
-        $path       = base_path('storage/logs');
+        $url   = $request->input('url','logs');
+        $path   = storage_path($url);
+
         $filename   = iconv(mb_str_encoding($filename), $code, $filename);
         $res        = \File::delete($path.'/'.$filename);
         if($res){
@@ -118,8 +160,9 @@ class FileManageController extends CController{
     public function downloadLogFile(Request $request){
         $oldname = $filename   = $request->input('filename','');
         $code   = $request->input('code','');
+        $url   = $request->input('url','logs');
+        $path   = storage_path($url);
         if(!empty($filename) && !empty($code)){
-            $path       = base_path('storage/logs');
             $filename   = iconv(mb_str_encoding($filename), $code, $filename);
             $file_path = $path."/".$filename;
             $this->createActionLog([
