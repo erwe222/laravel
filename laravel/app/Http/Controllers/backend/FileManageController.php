@@ -52,6 +52,7 @@ class FileManageController extends CController{
                     'filectime'=>date("Y-m-d H:i:s",filectime($path_file_dir)),
                     'file_code'=>mb_str_encoding($filename),
                     'file_type'=>is_file($path_file_dir) ?1:2,
+                    'file_dir_url'=>is_dir($path_file_dir) ?$path_file_dir:'',
                 ];
             }
         }
