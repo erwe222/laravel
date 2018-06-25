@@ -333,3 +333,31 @@ function rand_string($length = 8){
 
     return $password; 
 }
+
+
+
+/**
+ * 记录日志文件
+ * @return boolean
+ */
+function recordLog($type,$content,$params = []){
+    $log = new \Monolog\Logger('Log');
+
+    $time = date('Y-m-d');
+
+    $path = storage_path('logs/laravel-'.$time.'.log');
+
+    switch ($type) {
+        case 1:
+            //记录微信访问日志
+            $path = storage_path('logs/wechat/Visit-'.$time.'.log');
+        break;
+    }
+
+
+    $log->pushHandler(new \Monolog\Handler\StreamHandler($path,\Monolog\Logger::INFO));
+    $log->addInfo($content,$params);
+
+    unset($log);
+    return true;
+}
