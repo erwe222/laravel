@@ -15,8 +15,6 @@ class WeChatNews{
         $event = trim($obj->MsgType);
         $content = '';
         if(strcasecmp($event, 'event') == 0){
-
-            recordLog(1,'------------'.strtolower($obj->Event));
             switch (strtolower($obj->Event)) {
                 case "subscribe":
                     $content = "已关注微信";
@@ -74,7 +72,10 @@ class WeChatNews{
                     $content = "获取一个事件消息类型: " . $obj->Event;
                     break;
             }
+        }else if(strcasecmp($event, 'location') == 0){
+            $content = "用户发送地址位置信息: 纬度 " . $obj->Latitude . ";经度 " . $obj->Longitude;
         }
+
         return $content;
     }
 
