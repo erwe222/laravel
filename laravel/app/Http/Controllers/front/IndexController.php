@@ -13,13 +13,11 @@ class IndexController extends CController{
      * 前台主页
      */
     public function index(){
-//        if(isWeiXin()){
+        if(isWeiXin()){
             $url = 'https://repair.sh-jinger.com/weixin';
             $redirect = $this->weChatApiClass->getWeChatAuthCode($url,123,false);
-            
-//            var_dump($redirect);exit;
             return redirect()->to($redirect);
-//        }
+        }
         
         return view('frontend.index.index');
     }
