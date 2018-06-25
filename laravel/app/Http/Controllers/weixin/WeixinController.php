@@ -34,12 +34,11 @@ class WeixinController extends CController{
 
             $weiChatNews_model = new \App\Model\FunctionClass\WeChatNews();
             $obj = $weiChatNews_model->getXmlMsg();
-            recordLog(1,'接收微信信息:',(array)$obj);
+            recordLog(1,'接收微信信息:',$obj);
 
 
             $string = $this->weChatApiClass->responseMsg();
 
-            recordLog(1,'回调微信信息：'.$string);
             return $string;
         }else{
             recordLog(1,'消息验证失败');
