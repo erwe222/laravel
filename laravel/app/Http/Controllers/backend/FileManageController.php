@@ -72,8 +72,8 @@ class FileManageController extends CController{
      * @return type
      */
     public function readLogfile(Request $request){
-        $filename   = $request->input('filename','laravel - 副本.log');
-        $code   = $request->input('code','EUC-CN');
+        $filename   = $request->input('filename','');
+        $code   = $request->input('code','');
         $path       = base_path('storage/logs');
         $filename   = iconv(mb_str_encoding($filename), $code, $filename);
         $file_path = $path."/".$filename;
@@ -81,7 +81,8 @@ class FileManageController extends CController{
         if(file_exists($file_path)){
             $fp = fopen($file_path,"r");
             $str = fread($fp,filesize($file_path));
-            $str = str_replace("\r\n","<br />",$str);
+            $str = str_replace("\r\n",PHP_EOL,$str);
+            $str = str_replace("\n",PHP_EOL,$str);
         }
 
         return view('backend.filemanage.filelogs-info-view',['fileinfo'=>$str]);

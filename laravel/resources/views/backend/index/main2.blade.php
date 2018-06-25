@@ -76,6 +76,11 @@
             .tab-nav-select-li:hover span,.tab-nav-select-li:hover span i{color: #fff;}
             .tab-nav-select-active span,.tab-nav-select-active span i{color: #fff !important;}
             .cus-click-url{cursor: pointer}
+            
+            div.dataTables_processing{
+                z-index: 99999999 !important;
+                background: red;
+            }
         </style>
     </head>
 
@@ -90,10 +95,7 @@
                 </button>
                 <div class="navbar-header pull-left">
                     <a href="javasceipt:void(0)" class="navbar-brand">
-                        <small>
-                            <!-- <i class="fa fa-leaf"></i> -->
-                            CMS管理系统
-                        </small>
+                        <small>CMS管理系统</small>
                     </a>
                 </div>
 
@@ -182,7 +184,6 @@
                                 </li>
                             </ul>
                         </li>
-
                         <li class="light-blue dropdown-modal">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                                 <img class="nav-user-photo" src="/ace-asstes/images/avatars/user.jpg" alt="Jason's Photo" />
@@ -193,16 +194,14 @@
                             </a>
                             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                                 <li>
-                                    <a href="#"><i class="ace-icon fa fa-cog"></i>设置</a>
+                                    <a href="javascript:voi(0)"><i class="ace-icon fa fa-cog"></i>设置</a>
                                 </li>
                                 <li>
-                                    <a class="cus-open-tab" data-options='{"url":"{{route('b_admin_profile')}}","icon":"icon-desktop","title":"个人信息","index":"admin-profile"}'><i class="ace-icon fa fa-user"></i>个人信息</a>
+                                    <a class="cus-open-tab" href="javascript:voi(0)"><i class="ace-icon fa fa-user"></i>个人信息</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <li>
-                                        <a href="{{route('b_auth_logout')}}"><i class="ace-icon fa fa-power-off"></i>退出</a>
-                                    </li>
+                                    <a href="javascript:voi(0)" onclick="mainObj.signOut('{{route('b_auth_logout')}}')"><i class="ace-icon fa fa-power-off"></i>退出</a>
                                 </li>
                             </ul>
                         </li>
@@ -342,9 +341,17 @@
                 * @type type 
                 */
                var mainObj = {
-                   gritterAdd:function(data){
-                       $.gritter.add(data);
-                   }
+                    gritterAdd:function(data){
+                        $.gritter.add(data);
+                    },
+                    signOut:function(href){
+                        layer.confirm('您确定要退出后台操作吗？', {
+                            btn: ['确定','取消'] //按钮
+                        }, function(){
+                           layer.msg('退出中, 请稍等...', {icon: 16,shade: 0.01,time:0});
+                           window.location.href = href;
+                        });
+                    }
                };
         </script>
     </body>

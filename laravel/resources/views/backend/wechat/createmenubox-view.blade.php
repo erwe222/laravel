@@ -21,30 +21,27 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> Json 数据 </label>
-
-			<div class="col-sm-9">
-				<textarea id="form-field-11" class="autosize-transition form-control"  style='height: 200px;resize: none;'>
-					{{$json_data}}
-
-				</textarea>
-			</div>
+                    <label class="col-sm-2 control-label no-padding-right" for="form-field-1"> Json 数据 </label>
+                    <div class="col-sm-9">
+                        <textarea id="form-field-11" class="autosize-transition form-control"  style='min-height: 200px;resize: vertical;'>
+                            {{$json_data}}
+                        </textarea>
+                    </div>
 		</div>
 		
-
 		<div class="clearfix form-actions">
-			<div class="col-md-offset-3 col-md-9" style='text-align:center;'>
-				<button class="btn btn-xs btn-info" type="button" id='fr-submit-btn'>
-					<i class="ace-icon fa fa-check bigger-110"></i>
-					提交
-				</button>
+                    <div class="col-md-offset-3 col-md-9" style='text-align:center;'>
+                        <button class="btn btn-xs btn-info" type="button" id='fr-submit-btn'>
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            提交
+                        </button>
 
-				&nbsp; &nbsp; &nbsp;
-				<button class="btn btn-xs"  id='fr-reset-btn'>
-					<i class="ace-icon fa fa-undo bigger-110"></i>
-					重置
-				</button>
-			</div>
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn btn-xs"  id='fr-reset-btn'>
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            重置
+                        </button>
+                    </div>
 		</div>
 
 	</form>
@@ -64,29 +61,36 @@
     	var json_str = $.trim($('#form-field-11').val());
     	var status   = $("input[name='fr-wxmenu-status']:checked").val();
     	if(!isJSON(json_str)){
-			layer.msg('请填写正确的json数据', {icon: 5});
+            layer.msg('请填写正确的json数据', {icon: 5});
     	}
-    	var parent_index = parent.layer.getFrameIndex(window.name);
-    	$.ajax({
-	        url:"{{route('b_wechat_createmenu')}}",
-	        type:'post',
-	        data:{jsondata:json_str,status:status},
-	        dataType:'json',
-	        complete:function(){
-	            objClass.isSubmitLoading = false;
-	        },
-	        success:function(res){
-	            if(res.code == 200){
-	                layer.msg(res.message, {icon: 1});
-	                setTimeout(function(){
-	                    parent.layer.close(parent_index);
+        
+        if(objClass.isSubmitLoading == false){
+            var upload_index = layer.msg('菜单发布中, 请稍等...', {icon: 16,shade: 0.01,time:0});
+            objClass.isSubmitLoading = true;
+            var parent_index = parent.layer.getFrameIndex(window.name);
+            $.ajax({
+                url:"{{route('b_wechat_createmenu')}}",
+                type:'post',
+                data:{jsondata:json_str,status:status},
+                dataType:'json',
+                complete:function(){
+                    objClass.isSubmitLoading = false;
+                    layer.close(upload_index);
+                },
+                success:function(res){
+                    if(res.code == 200){
+                        layer.msg(res.message, {icon: 1});
+                        setTimeout(function(){
+                            parent.layer.close(parent_index);
                     },2000);
-	            }else{
-	                layer.msg(res.message, {icon: 5});
-	            }
-	        },
-	        error: throwError,
-	    });
+                    }else{
+                        layer.msg(res.message, {icon: 5});
+                    }
+                },
+                error: throwError,
+            });
+        }
+    	
     });
 
     $('#fr-reset-btn').on('click',function(){

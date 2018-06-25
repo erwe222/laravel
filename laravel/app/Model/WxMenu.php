@@ -24,7 +24,7 @@ class WxMenu extends Model
      *
      * @var array
      */
-    protected $fillable = ['admin_id','status','menu_json','created_at','updated_at'];
+    protected $fillable = ['admin_id','status','menu_json','appid','created_at','updated_at'];
 
     /**
      * 不能被批量赋值的属性
@@ -90,5 +90,25 @@ class WxMenu extends Model
         $page_info['filteredTotal'] = count($list);
         $page_info['data'] = $list;
         return $page_info;
+    }
+    
+    public function findId($id){
+        $res = self::find($id);
+        if($res){
+            return $res->toarray();
+        }
+        return [];
+    }
+    
+    /**
+     * 更新菜单的发布时间
+     */
+    public function updateMenu($id,$data){
+        $res = self::where('id', $id)->update($data);
+        if($res){
+            return handleResult(true,200,'上传头像成功...');
+        }
+
+        return handleResult(false,305,'上传头像失败...');
     }
 }

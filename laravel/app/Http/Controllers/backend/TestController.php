@@ -97,12 +97,18 @@ class TestController extends CController{
 //        }
 
 
-        $weixin_api = new \App\Model\FunctionClass\WeChatApi();
+//        $weixin_api = new \App\Model\FunctionClass\WeChatApi();
+//
+//        dd($weixin_api->getAccessToken());
 
-        dd($weixin_api->getAccessToken());
-
-
-
+//        $weixin_api = new \App\Helpers\CurlRequest();
+//        $weixin_api ->setPost(['asd'=>'asdf']);
+//        $weixin_api ->setRequestUrl('http://www.lar.test.com/weixin');
+//        $weixin_api->request();
+//        var_dump($weixin_api);exit;
+        
+        $ss = $this->checkLogin();
+        dd($this->getUserInfo()->status);
 
 
     }

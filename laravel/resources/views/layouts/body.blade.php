@@ -19,8 +19,6 @@
         <link rel="stylesheet" href="/ace-asstes/css/ace-rtl.min.css" />
         <style>
             th, td { white-space: nowrap; }
-
-
             .datagrid-header ,.datagrid-htable{height:40px !important;line-height:40px !important;}
             .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{height:40px !important;line-height:40px !important;}
             .datagrid-header .datagrid-htable .datagrid-htable .datagrid-header-row{
@@ -30,7 +28,6 @@
                 font-size:20px !important;
             }
             .datagrid-body .datagrid-btable tr{height:40px !important;}
-
             .datagrid-header-check {height:30px !important;}
         </style>
         @stack('css')
@@ -38,21 +35,15 @@
     </head>
     <body class="no-skin">
         <div class="main-container ace-save-state" id="main-container">
-            <script type="text/javascript">
-                    try{ace.settings.loadState('main-container')}catch(e){}
-            </script>
             <div class="main-content">
                 <div class="main-content-inner">
                     <div class="page-content" >
-                        
                         @yield('content')
                     </div>
                 </div>
-            
             </div>
         </div>
         <script src="/ace-asstes/js/jquery-2.1.4.min.js"></script>
-        
         <script type="text/javascript">
             if('ontouchstart' in document.documentElement) document.write("<script src='/ace-asstes/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
         </script>
@@ -63,7 +54,7 @@
         <script src="/ace-asstes/js/ace.min.js"></script>
         <script src="{{url('ace-asstes/layer/layer.js')}}"></script>
         <script src="/js/functions.js"></script>
-        <script>
+        <script type="text/javascript">
             $('[data-rel=tooltip]').tooltip();
             jQuery(function($) {
                 $.ajaxSetup({
@@ -75,10 +66,10 @@
             
             $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
                 _title: function(title) {
-                        var $title = this.options.title || '&nbsp;'
-                        if( ("title_html" in this.options) && this.options.title_html == true )
-                                title.html($title);
-                        else title.text($title);
+                    var $title = this.options.title || '&nbsp;'
+                    if( ("title_html" in this.options) && this.options.title_html == true )
+                            title.html($title);
+                    else title.text($title);
                 }
             }));
         </script>

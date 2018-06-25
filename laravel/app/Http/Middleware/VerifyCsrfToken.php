@@ -13,5 +13,8 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         //
+        'weixin/*',
+        'weixin',
+        'front/wx/auth2'
     ];
 }

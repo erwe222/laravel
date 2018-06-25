@@ -83,7 +83,7 @@ class Admin extends \Illuminate\Foundation\Auth\User{
      * 编辑管理员信息
      */
     public function editDetail($admin_id,$params){
-        $arr = ['name','sex','birthday','telephone','facebook','twitter','google'];
+        $arr = ['name','sex','birthday','telephone','facebook','twitter','google','status'];
         $data = [];
         foreach($params as $k=>$v){
             if(in_array($k, $arr)){
@@ -122,7 +122,7 @@ class Admin extends \Illuminate\Foundation\Auth\User{
 
     /**
      * 通过Email查询记录
-     * @param type $name 菜单名
+     * @param type $email 邮件地址
      * @return boolean
      */
     public function findEmail($email){

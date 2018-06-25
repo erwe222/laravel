@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'errorlog'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -237,6 +237,25 @@ return [
         //是否开启页面授权验证（默认开启）
         'authverify'=>false,
         'desSecret' =>'xjyryd',
+        'wechat'=>[
+//            小小饶公众号
+//            'appId'     =>'wx9a868d2478eefeac',
+//            'appsecret' =>'f3f230f615bca3443581cfb96dbf2895',
+//            'token'     =>'xiaoxiaorao',
+//            'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
+            
+            //联通手机号申请的
+            'appId'     =>'wxc8ea0012a334a359',
+            'appsecret' =>'0509a9d6df6492632fe7c934e96056e0',
+            'token'     =>'xiaoxiaorao',
+            'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
+            
+//            'appId'     =>'wx5aea46e7d5f0b5bc',
+//            'appsecret' =>'a5031e8bde0ac632c7d87956039b4b04',
+//            'token'     =>'xiaoxiaorao',
+//            'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
+            
+        ],
     ],
 
 ];

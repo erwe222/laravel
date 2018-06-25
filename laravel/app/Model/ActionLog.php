@@ -24,7 +24,7 @@ class ActionLog extends Model
      *
      * @var array
      */
-    protected $fillable = ['admin_id','type','content','created_at'];
+    protected $fillable = ['admin_id','ip','type','content','created_at'];
 
     /**
      * 不能被批量赋值的属性

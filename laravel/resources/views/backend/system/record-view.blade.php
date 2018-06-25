@@ -20,9 +20,6 @@
             </form>
         </div>
         <p class="pull-right" id="btns-type-one" >
-            <button class="btn btn-white btn-info btn-bold" data-type="add" >
-                <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>添加
-            </button>
             <button class="btn btn-white btn-success btn-bold" data-type="refresh" >
                 <i class="ace-icon fa fa-undo bigger-120" ></i>刷新
             </button>
@@ -48,13 +45,14 @@
     var obj = {
         scrollX: true,
         columns: [
-            {data:null,title:'<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',width:10,orderable:false,class:'table-checkbox',
+            {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
                     return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
             {title: '操作人员',data: 'name',name:'name',orderable:false,width: 20},
             {title: '操作类型',data: 'type',name:'type',orderable:false,width: 20},
+            {title: '操作IP',data: 'ip',name:'ip',orderable:false,width: 50},
             {title: '详情',data: 'content',name:'content',orderable:false,width: 500},
             {title: '操作时间',data: 'created_at',width: 10}
         ],

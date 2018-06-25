@@ -3,6 +3,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Model\FunctionClass\AuthManage;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * 用户授权判断中间件
@@ -17,16 +18,14 @@ class AuthManageMiddleware
      */
     public function handle($request, Closure $next)
     {
+        Auth::shouldUse('admin');
+
         if(config('app.config.authverify')){
             $path   = '/'.$request->path();
-            $method = $request->method();
             $authManage = new AuthManage($request->user()->id);
             $auth_result = $authManage->verify($path);
             if(!$auth_result){
-                if($request->ajax()){
-                    abort(401,'请求未授权');
-                }
-                return response()->view('errors.401', [],401);
+                abort(401,'请求未授权');
             }
         }
 

@@ -61,18 +61,27 @@
     var obj = {
         scrollX: true,
         columns: [
-            {data:null,title:'<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',width:50,orderable:false,class:'table-checkbox',
+            {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
                     return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
             {title: '公众号AppId',data: 'app_id',name:'app_id',orderable:false,width: 200},
             {title: '授权 Access Token ',data: 'access_token',name:'access_token',orderable:false,width: 200},
+            {title: '使用状态',data: 'status',name:'status',orderable:false,width: 50,render: function ( data, type, row, meta ) {
+                if(data == 1){
+                    return '<span class="label label-success arrowed-in arrowed-in-right">使用中</span>';
+                }else if(data == 2){
+                    return '<span class="label label-info arrowed-right arrowed-in">未过期</span>';
+                }else{
+                    return '<span class="label label-warning arrowed arrowed-right">已过期</span>';
+                }
+            }},
             {title: '添加时间',data: 'created_at',width: 150},
             {title: '过期时间',data: 'expiry_time',name:'expiry_time',width: 100,orderable:false},
         ],
     };
-    
+
     var myTable = new MyTable('#dynamic-table',obj,"{{route('b_wechat_wexitokendata')}}");
     myTable.init();
     

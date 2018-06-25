@@ -1,17 +1,17 @@
 (function(window, $){
-	var oLanguage = {
-	        sProcessing: "加载数据中...",
-	        sLengthMenu: "每页显示 _MENU_ 条记录",
-	        sZeroRecords: "抱歉， 没有找到",
-	        sInfo: "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-	        sInfoEmpty: "没有数据",
-	        sInfoFiltered: " (共 _MAX_ 条数据)",
-	        oPaginate: {
-	            sFirst: "首页",
-	            sPrevious: "上一页",
-	            sNext: "下一页",
-	            sLast: "尾页"
-	        }
+    var oLanguage = {
+        sProcessing: "加载数据中...",
+        sLengthMenu: "每页显示 _MENU_ 条记录",
+        sZeroRecords: "抱歉， 没有找到",
+        sInfo: "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+        sInfoEmpty: "没有数据",
+        sInfoFiltered: " (共 _MAX_ 条数据)",
+        oPaginate: {
+            sFirst: "首页",
+            sPrevious: "上一页",
+            sNext: "下一页",
+            sLast: "尾页"
+        }
     }
 
     $.fn.dataTable.ext.errMode = 'throw';
@@ -29,6 +29,14 @@
         this.searchParams = [];
 
         delete options.fnDrawCallback;
+        
+        //处理多选框
+        this.checkBoxAll = _this.Selector.substring(1,_this.Selector.length)+'-checkbox';
+        $.each(options.columns,function(key,obj){
+            if(obj.checkbox){
+                options.columns[key].title = '<label class="pos-rel"><input type="checkbox" class="ace" id="'+_this.checkBoxAll+'" /><span class="lbl"></span></label>';
+            }
+        });
         
         //table 初始化默认参数
         this.defaultOption = {
@@ -51,7 +59,7 @@
                     $('.dataTables_empty').css('color','red');
                 }
                 
-                $(_this.Selector +  ' thead >tr th label input:checkbox').attr('checked',false);
+                $('#'+_this.checkBoxAll).attr('checked',false);
 
                 if(options.customCallback != undefined){
                     //自定义回调函数
@@ -70,13 +78,10 @@
 
                     //附加查询参数
                     d.search = _this.searchParams;
-                    //$.extend(d,_this.searchParams); //给d扩展参数
-
                     delete d.order;
                     delete d.columns;
                     
-                    $(_this.Selector).parent().find('.dataTables_processing').css('zIndex',999999999);
-
+                    $(_this.Selector+'_processing').css('zIndex',999999999).html('<i class="ace-icon fa fa-spinner fa-spin orange bigger-120"></i>&nbsp;加载数据中...');
 
                     // var obj = {
                     //     orderBy:null,
@@ -95,7 +100,7 @@
                 },
                 error:function(XMLHttpRequest, textStatus, errorThrown){
                     //加载失败回调方法
-                    $(_this.Selector).parent().find('.dataTables_processing').css('display','none');
+                    $(_this.Selector+'_processing').css('display','none');
 
                     throwError(XMLHttpRequest, textStatus, errorThrown);
                 }
@@ -111,8 +116,9 @@
      */
     MyTable.prototype.init = function (){
         
-        this.table = $(this.Selector).DataTable(this.options);
         
+        this.table = $(this.Selector).DataTable(this.options);
+
         this.select();
     }
 
@@ -135,8 +141,12 @@
      * 表格刷新
      * @returns {undefined}
      */
-    MyTable.prototype.refresh = function(){
-        this.table.draw();
+    MyTable.prototype.refresh = function(flag){
+        var t = true;
+        if(flag != undefined){
+            t = flag;
+        }
+        this.table.draw(t);
     }
 
     /**
@@ -145,9 +155,17 @@
      */
     MyTable.prototype.select = function(){
         var _this = this;
-        $(_this.Selector +' thead >tr th label input:checkbox').on('click',function(){
+        $(document).on('click','#' + this.checkBoxAll, function(){
             var istrue = $(this).is(':checked');
-
+            $(_this.Selector + ' td input:checkbox').each(function(){
+                this.checked = istrue;
+                var row = $(this).closest('tr');
+                (this.checked == true)? row.addClass('selected'): row.removeClass('selected') ;
+            });
+        });
+        
+        $(document).on('click',this.Selector +  ' thead >tr th label input:checkbox' , function(){
+            var istrue = $(this).is(':checked');
             $(_this.Selector + ' td input:checkbox').each(function(){
                 this.checked = istrue;
                 var row = $(this).closest('tr');
@@ -155,12 +173,12 @@
             });
         });
 
-        $(document).on('click',_this.Selector +  ' td input:checkbox' , function(){
+        $(document).on('click',this.Selector +  ' td input:checkbox' , function(){
             var row = $(this).closest('tr');
             (this.checked == true)? row.addClass('selected'): row.removeClass('selected') ;
             var checked_num = $(_this.Selector +  ' td input:checkbox:checked').length;
             var checkbox_num = $(_this.Selector +  '  td input:checkbox').length;
-            var th_checkbox = $(_this.Selector +  ' thead >tr th label input:checkbox');
+            var th_checkbox = $('#'+_this.checkBoxAll);
             if(checked_num < checkbox_num){
                 th_checkbox.attr('checked',false);
             }else if(checked_num == checkbox_num){

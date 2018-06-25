@@ -12,9 +12,9 @@ class WeChatApi
     /**用户网页授权信息的cookie标记*/
     const AuthAccessTokenCacheFlag = 'userAuthAccessToken';
 
-    public $appId = 'wx5aea46e7d5f0b5bc';
-    public $appsecret = 'a5031e8bde0ac632c7d87956039b4b04';
-    public $token = 'rao123';
+    public $appId;
+    public $appsecret;
+    public $token;
 
     use WxTrait;
 
@@ -22,6 +22,11 @@ class WeChatApi
     protected $wxTokenModel;
 
     public function __construct(){
+        $config = config('app.config.wechat');
+        $this->appId        = $config['appId'];
+        $this->appsecret    = $config['appsecret'];
+        $this->token        = $config['token'];
+        
         $this->wxTokenModel = new WxToken();
     }
 
@@ -30,10 +35,14 @@ class WeChatApi
      */
     public function checkSignature()
     {
-        $signature = $_GET["signature"];
-        $timestamp = $_GET["timestamp"];
-        $nonce = $_GET["nonce"];
-
+        $signature      = isset($_REQUEST["signature"])?$_REQUEST["signature"]:'';
+        $timestamp      = isset($_REQUEST["timestamp"])?$_REQUEST["timestamp"]:'';
+        $nonce          = isset($_REQUEST["nonce"])?$_REQUEST["nonce"]:'';
+        
+        \Log::info('signature：'.$signature);
+        \Log::info('timestamp：'.$timestamp);
+        \Log::info('nonce：'.$nonce);
+        \Log::info('token：'.$this->token);
         $tmpArr = array($this->token, $timestamp, $nonce);
 
         sort($tmpArr, SORT_STRING);
@@ -48,7 +57,7 @@ class WeChatApi
      */
     public function valid()
     {
-        $echoStr = $_GET["echostr"];
+        $echoStr = isset($_GET["echostr"])?$_GET["echostr"]:'';
 
         if($this->checkSignature()){
             echo $echoStr;
@@ -97,10 +106,9 @@ class WeChatApi
     public function getWeChatAuthCode($redir, $state = null, $snsapi_userinfo = true){
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize";
         $scope = $snsapi_userinfo ? 'snsapi_userinfo' : 'snsapi_base';
-        $redier = 'http://59.110.168.230?redir='.special_base64_encode('');
         $paramArr = array(
             'appid' => $this->appId,
-            'redirect_uri' => url_domain_wrapper( $redier),
+            'redirect_uri' => urlencode( $redir),
             'response_type' => 'code',
             'scope' => $scope,
             'state' => isset($state) ? $state : '',
@@ -109,7 +117,8 @@ class WeChatApi
         $param = http_build_query($paramArr);
 
         $fullURL = "$url?$param#wechat_redirect";
-
+//        var_dump($fullURL);exit;
+        return $fullURL;
         $this->redirect($fullURL);
     }
 
@@ -330,13 +339,12 @@ class WeChatApi
                 }
             }
 
-            addLog($tip.' 信息对象'.json_encode($obj));
-
             $function = 'send'.ucfirst($msgType);
 
             $rs = $weiChatNews_model->$function($obj);
         }
-
+        
+        return $rs;
         $weiChatNews_model->printContent($rs);
     }
 
