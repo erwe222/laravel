@@ -356,7 +356,7 @@ function recordLog($type,$content,$params = []){
 
 
     $log->pushHandler(new \Monolog\Handler\StreamHandler($path,\Monolog\Logger::INFO));
-    $log->addInfo($content,$params);
+    $log->addInfo($content.PHP_EOL,$params);
 
     unset($log);
     return true;
