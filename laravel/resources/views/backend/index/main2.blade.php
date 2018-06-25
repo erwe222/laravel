@@ -214,7 +214,7 @@
             <div id="sidebar" class="sidebar responsive ace-save-state">
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                        <button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
+                        <button class="btn btn-success"  data-rel="tooltip"  title="下方信息"><i class="ace-icon fa fa-key"></i></button>
                         <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
                         <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
                         <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
@@ -313,13 +313,14 @@
                 //边缘弹出
                 @if($is_expiry_time)
                     var expiry_time = '{{$user_info->expiry_time}}';
+                    var admin_name = '{{$user_info->name}}';
                     var editpwd_index = layer.open({
                         type: 1
                         ,btn: '立即修改'
-                        ,title:'密码提示'
+                        ,title:'<span class="blue"><i class="ace-icon fa fa-envelope-o"></i> 密码提示</span>'
                         ,offset: 'rb' //具体配置参考：offset参数项
-                        ,content: '<div style="padding:10px 10px 10px 10px">...，管理员您的密码于 <font color="red">'+expiry_time+'</font> 过期，为了不影响您的后续操作，请立即修改密码......</div>'
-                        ,shade: 0 //不显示遮罩
+                        ,content: '<div style="padding:10px 10px 10px 10px">'+admin_name+'，您的密码于 <span class="blue" style="font-size:16px;">'+expiry_time+'</span> 分过期，为了不影响您的后续操作，请立即修改密码......</div>'
+                        ,shade: 0
                         ,yes: function(){
                             layer.close(editpwd_index);
                         }

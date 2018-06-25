@@ -57,9 +57,13 @@ class AuthController extends CController{
             }
             
             if ($admin->status != 10) {
-                return $this->returnData([],'该账号已禁止登录',303);
+                return $this->returnData([],'该账号已禁止登录，请联系管理员',303);
             }
             
+            if (strtotime($admin->expiry_time) < time()) {
+                return $this->returnData([],'密码已过期，请联系管理员进行重置...',303);
+            }
+
             $result = $this->guard()->attempt([
                 'email' => $request->input('email'),
                 'password' => $request->input('password')
