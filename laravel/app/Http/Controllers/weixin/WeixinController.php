@@ -29,11 +29,12 @@ class WeixinController extends CController{
         if($this->weChatApiClass->checkSignature()){
             $content = \Request::getContent();
             $content = var_export($content,true);
-            \Log::info('接收微信信息:'.$content);
+
+            recordLog(1,'接收微信信息:'.$content);
             
-            \Log::info('消息验证成功');
             $string = $this->weChatApiClass->responseMsg();
-            \Log::info('回调微信信息：'.$string);
+
+            recordLog(1,'回调微信信息：'.$string);
             return $string;
         }else{
             \Log::info('消息验证失败');
