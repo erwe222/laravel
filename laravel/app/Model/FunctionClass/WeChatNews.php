@@ -13,6 +13,8 @@ class WeChatNews{
     public function sendEvent($obj){
         # event:事件[包括 subscribe:订阅,unsubscribe:取消订阅,click:点击事件,view:跳转网址],location:地理位置,
         $event = trim($obj->MsgType);
+
+        recordLog(1,'事件类型------'.$event);
         $content = '';
         if(strcasecmp($event, 'event') == 0){
             switch (strtolower($obj->Event)) {
