@@ -165,11 +165,19 @@ class WeChatNews{
     }
 
     /**
+     * 处理Location消息
+     */
+    public function sendLocation ($obj){
+        return $this->transmitText($obj,'谢谢您的上传了位置信息');
+    }
+
+    /**
      * 处理图文消息
      */
     public function sendPicurl($obj){
         return $this->transmitPicurl($obj,$newsArray=[]);
     }
+
 
     /**
      * 获取微信端的XML信息
@@ -256,21 +264,21 @@ class WeChatNews{
             return "";
         }
         $itemTpl = "<Music>
-        <Title><![CDATA[%s]]></Title>
-        <Description><![CDATA[%s]]></Description>
-        <MusicUrl><![CDATA[%s]]></MusicUrl>
-        <HQMusicUrl><![CDATA[%s]]></HQMusicUrl>
-    </Music>";
+            <Title><![CDATA[%s]]></Title>
+            <Description><![CDATA[%s]]></Description>
+            <MusicUrl><![CDATA[%s]]></MusicUrl>
+            <HQMusicUrl><![CDATA[%s]]></HQMusicUrl>
+        </Music>";
 
         $item_str = sprintf($itemTpl, $musicArray['Title'], $musicArray['Description'], $musicArray['MusicUrl'], $musicArray['HQMusicUrl']);
 
         $xmlTpl = "<xml>
-    <ToUserName><![CDATA[%s]]></ToUserName>
-    <FromUserName><![CDATA[%s]]></FromUserName>
-    <CreateTime>%s</CreateTime>
-    <MsgType><![CDATA[music]]></MsgType>
-    $item_str
-</xml>";
+            <ToUserName><![CDATA[%s]]></ToUserName>
+            <FromUserName><![CDATA[%s]]></FromUserName>
+            <CreateTime>%s</CreateTime>
+            <MsgType><![CDATA[music]]></MsgType>
+            $item_str
+        </xml>";
 
         $result = sprintf($xmlTpl, $object->FromUserName, $object->ToUserName, time());
         return $result;
@@ -284,18 +292,18 @@ class WeChatNews{
      */
     private function transmitImage($object, $imageArray) {
         $itemTpl = "<Image>
-        <MediaId><![CDATA[%s]]></MediaId>
-    </Image>";
+            <MediaId><![CDATA[%s]]></MediaId>
+        </Image>";
 
         $item_str = sprintf($itemTpl, $imageArray['MediaId']);
 
         $xmlTpl = "<xml>
-    <ToUserName><![CDATA[%s]]></ToUserName>
-    <FromUserName><![CDATA[%s]]></FromUserName>
-    <CreateTime>%s</CreateTime>
-    <MsgType><![CDATA[image]]></MsgType>
-    $item_str
-</xml>";
+            <ToUserName><![CDATA[%s]]></ToUserName>
+            <FromUserName><![CDATA[%s]]></FromUserName>
+            <CreateTime>%s</CreateTime>
+            <MsgType><![CDATA[image]]></MsgType>
+            $item_str
+        </xml>";
 
         $result = sprintf($xmlTpl, $object->FromUserName, $object->ToUserName, time());
         return $result;
@@ -309,17 +317,17 @@ class WeChatNews{
      */
     private function transmitVoice($object, $voiceArray) {
         $itemTpl = "<Voice>
-        <MediaId><![CDATA[%s]]></MediaId>
-    </Voice>";
+            <MediaId><![CDATA[%s]]></MediaId>
+        </Voice>";
 
         $item_str = sprintf($itemTpl, $voiceArray['MediaId']);
         $xmlTpl = "<xml>
-    <ToUserName><![CDATA[%s]]></ToUserName>
-    <FromUserName><![CDATA[%s]]></FromUserName>
-    <CreateTime>%s</CreateTime>
-    <MsgType><![CDATA[voice]]></MsgType>
-    $item_str
-</xml>";
+            <ToUserName><![CDATA[%s]]></ToUserName>
+            <FromUserName><![CDATA[%s]]></FromUserName>
+            <CreateTime>%s</CreateTime>
+            <MsgType><![CDATA[voice]]></MsgType>
+            $item_str
+        </xml>";
 
         $result = sprintf($xmlTpl, $object->FromUserName, $object->ToUserName, time());
         return $result;
