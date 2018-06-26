@@ -214,10 +214,10 @@
             <div id="sidebar" class="sidebar responsive ace-save-state">
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                        <button class="btn btn-success"  data-rel="tooltip"  title="下方信息"><i class="ace-icon fa fa-key"></i></button>
-                        <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
-                        <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
-                        <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
+                        <button class="btn btn-success openTab" title=" 修改密码" data-options='{"href":"{{route('b_admin_changepwdview')}}","icon":"ace-icon fa fa-key","title":"修改密码","index":"admin-change-pwd","lock":false}' ><i class="ace-icon fa fa-key"></i></button>
+                        <button class="btn btn-info openTab" title="编辑个人信息" ><i class="ace-icon fa fa-pencil-square-o"></i></button>
+                        <button class="btn btn-warning openTab" title="查看我的信息"><i class="ace-icon fa fa-users"></i></button>
+                        <button class="btn btn-danger openTab" title="个人设置"><i class="ace-icon fa fa-cogs"></i></button>
                     </div>
                     <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
                         <span class="btn btn-success"></span>
@@ -322,6 +322,7 @@
                         ,content: '<div style="padding:10px 10px 10px 10px">'+admin_name+'，您的密码于 <span class="blue" style="font-size:16px;">'+expiry_time+'</span> 分过期，为了不影响您的后续操作，请立即修改密码......</div>'
                         ,shade: 0
                         ,yes: function(){
+							mytab.addTab({"href":"{{route('b_admin_changepwdview')}}","icon":"ace-icon fa fa-key","title":"修改密码","index":"admin-change-pwd","lock":false});
                             layer.close(editpwd_index);
                         }
                     });
@@ -353,23 +354,29 @@
                 mytab.addTab(obj);
             })
 
-            /**
-                * 主框架操作类
-                * @type type 
-                */
-               var mainObj = {
-                    gritterAdd:function(data){
-                        $.gritter.add(data);
-                    },
-                    signOut:function(href){
-                        layer.confirm('您确定要退出后台操作吗？', {
-                            btn: ['确定','取消'] //按钮
-                        }, function(){
-                           layer.msg('退出中, 请稍等...', {icon: 16,shade: 0.01,time:0});
-                           window.location.href = href;
-                        });
-                    }
-               };
+        	/**
+            * 主框架操作类
+            * @type type 
+            */
+            var mainObj = {
+                gritterAdd:function(data){
+                    $.gritter.add(data);
+                },
+                signOut:function(href){
+                    layer.confirm('您确定要退出后台操作吗？', {
+                        btn: ['确定','取消'] //按钮
+                    }, function(){
+                       layer.msg('退出中, 请稍等...', {icon: 16,shade: 0.01,time:0});
+                       window.location.href = href;
+                    });
+                }
+            };
+
+
+            $('.openTab').on('click',function(){
+            	var obj = $(this).data('options');
+            	mytab.addTab(obj);
+            });
         </script>
     </body>
 </html>

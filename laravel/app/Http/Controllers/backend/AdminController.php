@@ -43,6 +43,17 @@ class AdminController extends CController{
     public function profile(Request $request){
         return view('backend.admin.profile-view');
     }
+
+
+    /**
+     * 修改管理员密码
+     * @param \Illuminate\Http\Request $request
+     */
+    public function changePwdView(Request $request){
+        $admin_info   = $this->getUserInfo();
+        return view('backend.admin.changepwd-view',['admin_email'=>$admin_info->email]);
+    }
+
     
     /**
      * 修改管理员密码

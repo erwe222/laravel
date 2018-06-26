@@ -38,13 +38,21 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
     
     //Admin 控制器路由配置
     Route::get('/admin/index', 'AdminController@index')->name('b_admin_index')->middleware('authority');
-    Route::get('/admin/profile', 'AdminController@profile')->name('b_admin_profile')->middleware('authority');
-    Route::get('/admin/changepwd', 'AdminController@changepwd')->name('b_admin_changepwd')->middleware('authority');
     Route::get('/admin/adminpermissionsview', 'AdminController@adminpermissionsview')->name('b_admin_adminpermissionsview')->middleware('authority');
     Route::get('/admin/getadminListdata', 'AdminController@getadminListdata')->name('b_admin_getadminListdata')->middleware('authority');
     Route::post('/admin/updateadminrole', 'AdminController@updateadminrole')->name('b_admin_updateadminrole')->middleware('authority');
     Route::post('/admin/createadmin', 'AdminController@createadmin')->name('b_admin_createadmin')->middleware('authority');
     Route::post('/admin/updateadminstatus', 'AdminController@updateadminstatus')->name('b_admin_updateadminstatus')->middleware('authority');
+
+
+    //用户个人信息操作(不需要权限控制)
+    Route::get('/admin/profile', 'AdminController@profile')->name('b_admin_profile');
+    Route::get('/admin/changepwdview', 'AdminController@changepwdview')->name('b_admin_changepwdview');
+    Route::post('/admin/changepwd', 'AdminController@changepwd')->name('b_admin_changepwd');
+
+
+
+
     
     
     

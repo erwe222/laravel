@@ -64,14 +64,14 @@ class Admin extends \Illuminate\Foundation\Auth\User{
     public function editPwd($admin_id,$old_pwd,$new_pwd){
         $admin_info = self::find($admin_id);
         if(!$admin_info){
-            return handleResult(false,303,'用户不存在');
+            return handleResult(false,301,'用户不存在');
         }
 
         if (!\Hash::check($old_pwd, $admin_info->password)) {
-            return handleResult(false,304,'原始密码输入错误');
+            return handleResult(false,302,'原始密码输入错误');
         }
-
-        $res = self::where('id', $admin_id)->update(['password'=>bcrypt($new_pwd)]);
+        $expiry_time = $this->getExpiryTime();
+        $res = self::where('id', $admin_id)->update(['password'=>bcrypt($new_pwd),'expiry_time'=>$expiry_time]);
         if($res){
             return handleResult(true,200,'密码修改成功...');
         }
@@ -153,7 +153,7 @@ class Admin extends \Illuminate\Foundation\Auth\User{
             return handleResult(false,303,'用户不存在');
         }
 
-        $res = self::where('id', $admin_id)->where('password_reset_token', $token)->update(['password'=>bcrypt($new_pwd),'password_reset_token'=>'']);
+        $res = self::where('id', $admin_id)->where('password_reset_token', $token)->update(['password'=>bcrypt($new_pwd),'password_reset_token'=>'','expiry_time'=>$expiry_time]);
         if($res){
             return handleResult(true,200,'密码重置成功...');
         }
@@ -208,5 +208,12 @@ class Admin extends \Illuminate\Foundation\Auth\User{
         $page_info['data'] = $list;
 
         return $page_info;
+    }
+
+    /**
+     * 获取管理员登录的过期时间
+     */
+    public function getExpiryTime(){
+        return date('Y-m-d H:i:s',strtotime('+30 day'));
     }
 }
