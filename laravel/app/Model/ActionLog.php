@@ -106,4 +106,26 @@ class ActionLog extends Model
         $page_info['data'] = $list;
         return $page_info;
     }
+
+    /**
+     * 获取菜单列表信息
+     * @return type
+     */
+    public function findAdminActionList($admin_id){
+        
+
+        $sql = "SELECT action.*,lar_admins.name,lar_admins.profile_pic FROM `lar_actions_log` action LEFT JOIN lar_admins ON action.admin_id = lar_admins.id where action.admin_id = {$admin_id}  order by created_at desc limit 0,30";
+
+        $list = DB::select($sql);
+
+        if(count($list) == 0){
+            return [];
+        }
+
+        foreach($list as $_k=>$_v){
+            $list[$_k] = (array)$_v;
+        }
+
+        return $list;
+    }
 }

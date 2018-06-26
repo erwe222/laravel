@@ -20,10 +20,11 @@ class AdminController extends CController{
     {
         parent::__construct();
         
-        $this->adminModel = new \App\Model\Admin();
-        $this->rolesModel = new \App\Model\Roles();
-        $this->adminRolesMdel = new \App\Model\AdminRoles();
-        $this->actionLogModel = new \App\Model\ActionLog();
+        $this->adminModel       = new \App\Model\Admin();
+        $this->rolesModel       = new \App\Model\Roles();
+        $this->adminRolesMdel   = new \App\Model\AdminRoles();
+
+        $this->actionLogModel   = new \App\Model\ActionLog();
     }
 
 
@@ -42,9 +43,9 @@ class AdminController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function profile(Request $request){
-        $admin_info = $this->getUserInfo();
-        $res = $this->actionLogModel->findAdminActionList($admin_info->id);
-        return view('backend.admin.profile-view',['actionLogList'=>$res,'admin_info'=>$admin_info]);
+        $res = $this->actionLogModel->findAdminActionList($this->getUserInfo()->id);
+        var_dump($res);exit;
+        return view('backend.admin.profile-view');
     }
 
 

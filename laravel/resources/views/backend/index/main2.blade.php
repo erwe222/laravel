@@ -215,8 +215,8 @@
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                         <button class="btn btn-success openTab" title=" 修改密码" data-options='{"href":"{{route('b_admin_changepwdview')}}","icon":"ace-icon fa fa-key","title":"修改密码","index":"admin-change-pwd","lock":false}' ><i class="ace-icon fa fa-key"></i></button>
-                        <button class="btn btn-info openTab" title="编辑个人信息" ><i class="ace-icon fa fa-pencil-square-o"></i></button>
-                        <button class="btn btn-warning openTab" title="查看我的信息"><i class="ace-icon fa fa-users"></i></button>
+                        <button class="btn btn-info openTab" title="编辑个人信息" data-options=''><i class="ace-icon fa fa-pencil-square-o"></i></button>
+                        <button class="btn btn-warning openTab" title="查看我的信息" data-options='{"href":"{{route('b_admin_profile')}}","icon":"ace-icon fa fa-key","title":"查看我的信息","index":"admin-cat-profile","lock":false}'><i class="ace-icon fa fa-users"></i></button>
                         <button class="btn btn-danger openTab" title="个人设置"><i class="ace-icon fa fa-cogs"></i></button>
                     </div>
                     <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
