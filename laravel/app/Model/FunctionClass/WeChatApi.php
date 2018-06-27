@@ -128,7 +128,7 @@ class WeChatApi
 
             $paramArr = array(
                 'appid' => $this->appId,
-                'secret' => $this->appSecret,
+                'secret' => $this->appsecret,
                 'code' => $code,
                 'grant_type' => 'authorization_code',
             );
