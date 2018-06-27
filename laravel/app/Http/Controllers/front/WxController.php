@@ -16,6 +16,6 @@ class WxController extends CController{
      * 微信授权地址
      */
     public function auth2(){
-        
+        var_dump($_REQUEST);
     }
 }
