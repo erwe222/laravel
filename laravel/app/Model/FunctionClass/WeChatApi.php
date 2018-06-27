@@ -104,7 +104,7 @@ class WeChatApi
         $scope = $snsapi_userinfo ? 'snsapi_userinfo' : 'snsapi_base';
         $paramArr = array(
             'appid' => $this->appId,
-            'redirect_uri' => urlencode( $redir),
+            'redirect_uri' => $redir,
             'response_type' => 'code',
             'scope' => $scope,
             'state' => isset($state) ? $state : '',
