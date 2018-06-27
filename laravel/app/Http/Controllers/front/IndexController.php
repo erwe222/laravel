@@ -12,20 +12,18 @@ class IndexController extends CController{
     /**
      * 前台主页
      */
-    public function index(){
+    public function index(){\
+        $is_wx = false;
+        $wx_info = [];
         if(isWeiXin()){
+            $is_wx = true;
             $this->wxAuthorize(false);
+            $wxAuthorize = request()->session()->get('wxAuthorize');
+            $res = $this->weChatApiClass->getUserAuthorizedUserInfo($wxAuthorize['access_token'],$wxAuthorize['openid']);
+            $wx_info = $res;
         }
-
-        $wxAuthorize = request()->session()->get('wxAuthorize');
-
-        var_dump($wxAuthorize);
-
         
-        $res = $this->weChatApiClass->getUserAuthorizedUserInfo($wxAuthorize['access_token'],$wxAuthorize['openid']);
-        dd($res);
-        
-        return view('frontend.index.index');
+        return view('frontend.index.index',['wx_info'=>$wx_info);
     }
     
     /**
