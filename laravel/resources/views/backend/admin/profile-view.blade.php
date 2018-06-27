@@ -58,7 +58,7 @@
 									<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
 										<i class="ace-icon fa fa-circle light-green"></i>
 										&nbsp;
-										<span class="white">小饶</span>
+										<span class="white">{{$admin_info->name}}</span>
 									</a>
 
 									
@@ -77,28 +77,12 @@
 
 								<a href="#" class="btn btn-link">
 									<i class="ace-icon fa fa-envelope bigger-120 pink"></i>
-									发送消息
+									我的消息
 								</a>
 
 								<a href="#" class="btn btn-link">
 									<i class="ace-icon fa fa-globe bigger-125 blue"></i>
 									118.24.1.228
-								</a>
-							</div>
-
-							<div class="space-6"></div>
-
-							<div class="profile-social-links align-center">
-								<a href="#" class="tooltip-info" title="" data-original-title="访问我的Facebook">
-									<i class="middle ace-icon fa fa-facebook-square fa-2x blue"></i>
-								</a>
-
-								<a href="#" class="tooltip-info" title="" data-original-title="访问我的Twitter">
-									<i class="middle ace-icon fa fa-twitter-square fa-2x light-blue"></i>
-								</a>
-
-								<a href="#" class="tooltip-error" title="" data-original-title="访问我的Pinterest">
-									<i class="middle ace-icon fa fa-pinterest-square fa-2x red"></i>
 								</a>
 							</div>
 						</div>
@@ -351,13 +335,6 @@
 											设置
 										</a>
 									</li>
-
-									<li>
-										<a data-toggle="tab" href="#edit-password">
-											<i class="blue ace-icon fa fa-key bigger-125"></i>
-											密码
-										</a>
-									</li>
 								</ul>
 
 								<div class="tab-content profile-edit-tab-content">
@@ -383,50 +360,25 @@
 												<div class="space-4"></div>
 
 												<div class="form-group">
-													<label class="col-sm-4 control-label no-padding-right" for="form-field-first">姓名</label>
+													<label class="col-sm-4 control-label no-padding-right" for="form-field-first">性别</label>
 
-													<div class="col-sm-8">
-														<input class="input-small" type="text" id="form-field-first" placeholder="名" value="东云" />
-														<input class="input-small" type="text" id="form-field-last" placeholder="姓" value="庞" />
+													<div class="col-sm-8" style='margin-top: 7px;'>
+														<label class="inline">
+															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 1) 男 checked='' @endif />
+															<span class="lbl middle"> 男</span>
+														</label>
+
+														&nbsp; &nbsp; &nbsp;
+														<label class="inline">
+															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 1) 男 checked='' @endif />
+															<span class="lbl middle"> 女</span>
+														</label>
 													</div>
 												</div>
 											</div>
 										</div>
 
-										<hr />
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-date">出生日期</label>
-
-											<div class="col-sm-9">
-												<div class="input-medium">
-													<div class="input-group">
-														<input class="input-medium date-picker" id="form-field-date" type="text" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" />
-														<span class="input-group-addon">
-															<i class="ace-icon fa fa-calendar"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="space-4"></div>
-
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right">性别</label>
-
-											<div class="col-sm-9">
-												<label class="inline">
-													<input name="form-field-radio" type="radio" class="ace" />
-													<span class="lbl middle"> 男</span>
-												</label>
-
-												&nbsp; &nbsp; &nbsp;
-												<label class="inline">
-													<input name="form-field-radio" type="radio" class="ace" />
-													<span class="lbl middle"> 女</span>
-												</label>
-											</div>
-										</div>
+						
 
 										<div class="space-4"></div>
 
@@ -439,7 +391,7 @@
 
 											<div class="col-sm-9">
 												<span class="input-icon input-icon-right">
-													<input type="email" id="form-field-email" value="example@pydyun.com" />
+													<input type="email" id="form-field-email" value="{{$admin_info->email}}" readonly />
 													<i class="ace-icon fa fa-envelope"></i>
 												</span>
 											</div>
@@ -452,7 +404,7 @@
 
 											<div class="col-sm-9">
 												<span class="input-icon input-icon-right">
-													<input class="input-medium input-mask-phone" type="text" id="form-field-phone" />
+													<input class="input-medium input-mask-phone" type="text" id="form-field-phone" value="{{$admin_info->telephone}}" />
 													<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 												</span>
 											</div>
@@ -520,41 +472,6 @@
 
 									</div>
 
-									<div id="edit-password" class="tab-pane">
-										<div class="space-10"></div>
-
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">新密码</label>
-
-											<div class="col-sm-9">
-												<input type="password" id="form-field-pass1" />
-											</div>
-										</div>
-
-										<div class="space-4"></div>
-
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">确认密码</label>
-
-											<div class="col-sm-9">
-												<input type="password" id="form-field-pass2" />
-											</div>
-										</div>
-
-                                        <div class="col-md-offset-3 col-md-9" >
-                                                <button class="btn btn-info" type="button">
-                                                        <i class="ace-icon fa fa-check bigger-110"></i>
-                                                        保存
-                                                </button>
-
-                                                &nbsp; &nbsp;
-                                                <button class="btn" type="reset">
-                                                        <i class="ace-icon fa fa-undo bigger-110"></i>
-                                                        重置
-                                                </button>
-                                        </div>
-                                        <br/><br/><br/>
-									</div>
 								</div>
 							</div>
 

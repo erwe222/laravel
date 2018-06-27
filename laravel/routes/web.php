@@ -119,7 +119,7 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
     Route::get('/wechat/wechatmenudata', 'WechatController@wechatmenudata')->name('b_wechat_wechatmenudata')->middleware('authority');
     
 
-
+    
     
     
     //调试控制器路由
