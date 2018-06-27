@@ -23,7 +23,7 @@ class IndexController extends CController{
             $wx_info = $res;
         }
         
-        return view('frontend.index.index',['wx_info'=>$wx_info);
+        return view('frontend.index.index',['wx_info'=>$wx_info]);
     }
     
     /**
