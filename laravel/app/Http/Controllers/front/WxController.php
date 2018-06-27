@@ -24,6 +24,7 @@ class WxController extends CController{
 
 		$res = $this->weChatApiClass->getUserAuthorizeAccessToken($code);
         if(!isset($res['errcode'])){
+            $res['expires_time'] = time() + $res['expires_in'];
             $res['userinfo'] = [];
             $request->session()->put('wxAuthorize', $res);
             return redirect()->to($state);

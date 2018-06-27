@@ -48,11 +48,23 @@ class CController extends Controller{
             if($snsapi_userinfo === true && $wxAuthorize['scope'] != 'snsapi_userinfo'){
                 $redirect = $this->weChatApiClass->getWeChatAuthCode($url,$redirect,$snsapi_userinfo);
                 $this->weChatApiClass->redirect($redirect);exit;
+            }else{
+                #1.检验用户网页授权凭证（access_token）是否有效
+                $valid_result = $this->weChatApiClass->getUserAuthorizeAccessTokenValid($wxAuthorize['access_token'],$wxAuthorize['openid']);
+                if($valid_result && isset($valid_result['errcode']) && $valid_result['errcode'] != 0){
+
+                    #2.刷新user access token  ||　refresh user access token还失效 重新获取授权
+                    $res = $this->weChatApiClass->refreshUserAuthorizeAccessToken($wxAuthorize['refresh_token']);
+                    if(!isset($res['errcode'])){
+                        $res['expires_time'] = time() + $res['expires_in'];
+                        $res['userinfo'] = [];
+                        request()->session()->put('wxAuthorize', $res);
+                    }
+                }
             }
 
             return true;
         }else{
-
             $redirect = $this->weChatApiClass->getWeChatAuthCode($url,$redirect,$snsapi_userinfo);
             $this->weChatApiClass->redirect($redirect);exit;
         }

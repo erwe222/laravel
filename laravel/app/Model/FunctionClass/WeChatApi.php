@@ -9,9 +9,6 @@ use App\Model\WxToken;
 class WeChatApi
 {
 
-    /**用户网页授权信息的cookie标记*/
-    const AuthAccessTokenCacheFlag = 'userAuthAccessToken';
-
     public $appId;
     public $appsecret;
     public $token;
@@ -94,7 +91,7 @@ class WeChatApi
     }
 
     /**
-    *  重定向到用户的授权路径获取code
+    *  重定向到用户的授权路径获取code 地址
     * @param $redir                 授权url
     * @param null $state
     * @param bool $snsapi_userinfo  授权方式（true:用户点击的方式授权，false:静默授权不需要用户的同意）
@@ -155,58 +152,7 @@ class WeChatApi
         $result = $this->httpGet($url);
         $resultJSON = json_decode($result, true);
 
-        if($resultJSON && empty($resultJSON['errcode']) && $resultJSON['access_token']) {
-            $this->setAuthAccessTokenCache($result);
-            return $resultJSON;
-        }
-        return false;
-    }
-
-    /**
-     * 设置用户网页授权json缓存数据
-     */
-    public function setAuthAccessTokenCache($json){
-        cookie(AuthAccessTokenCacheFlag,$json);
-    }
-
-    /**
-     * 获取用户网页授权缓存的json数据
-     */
-    public function getAuthAccessTokenCache(){
-        $rs = cookie(AuthAccessTokenCacheFlag);
-        return json_decode($rs,true);
-    }
-
-    /**
-     * 获取用户网页授权信息
-     * @param bool $snsapi_userinfo
-     * @return bool|mixed|void
-     */
-    public function getAuthAccessToken($snsapi_userinfo = true){
-        $rsArr = $this->getAuthAccessTokenCache();
-
-        $weChat_model = new WeChatApi();
-        if($rsArr && $weChat_model->getUserAuthorizeAccessTokenValid($rsArr['access_token'],$rsArr['openid'])){
-            return $rsArr;
-        }else if($rsArr){
-            //刷新user access token  ||　refresh user access token还失效 重新获取授权
-            $userAccessTokenInfo = $weChat_model->refreshUserAuthorizeAccessToken($rsArr['refresh_token']);
-
-            //refresh user access token还失效 重新获取授权
-            if($userAccessTokenInfo) {
-                return $userAccessTokenInfo;
-            }
-        }
-
-        #重新获取授权
-        if($snsapi_userinfo){
-
-            $weChat_model->getWeChatAuthCode();
-        }else{
-
-            #静默授权不需要用户的同意
-            $weChat_model->getWeChatAuthCode();
-        }
+        return $resultJSON;
     }
 
     /**
@@ -299,14 +245,6 @@ class WeChatApi
         $url = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='.$access_token;
         $rs = $this->httpGet($url);
         return json_decode($rs, true);
-    }
-
-    /**
-     * 微信 自定义菜单事件推送
-     * @param array $xmlArr 微信返回xml解析后的数组信息
-     */
-    public function getEventPushMsg($xmlArr){
-
     }
 
     /**
