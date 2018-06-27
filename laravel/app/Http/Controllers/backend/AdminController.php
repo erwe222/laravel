@@ -104,16 +104,26 @@ class AdminController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function uploadPortrait(Request $request){
-        $files = $_FILES;
-        $upload_model = new UploadFiles($files);
-        $upload_result = $upload_model->upload();
-        if(!$upload_result && (count($files) != count($upload_model->success_file))){
-            return $this->returnData([],$upload_model->getErrorMsg(),305);
+        $base_path = public_path('upload/head-portrait/');
+        $img = $_POST['image'];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $img = str_replace(' ', '+', $img);
+        $data = base64_decode($img);
+        $name = rand_string() . uniqid() . date('His') . '.png';
+        $file = $base_path .$name;
+        $file_res = file_put_contents($file, $data);
+        if(!$file_res){
+            return $this->returnData([], '图片上传失败', 302);
         }
-
-        $img_info = $upload_model->success_file[0];
-        $res = $this->adminModel->updateProfilePic($this->getUserInfo()->id,$img_info['save_dir']);
-        return $this->returnData([], $res['message'], $res['code']);
+        $admin_id   = $this->getUserInfo()->id;
+        $url = 'upload/head-portrait/'.$name;
+        $res = $this->adminModel->updateProfilePic($admin_id,$url);
+        $file_url = asset($url);
+        if($res['result']){
+            return $this->returnData(['file_url'=>$file_url], '图片上传成功', 200);
+        }else{
+            return $this->returnData([], '图片上传失败', 305);
+        }
     }
 
     /**

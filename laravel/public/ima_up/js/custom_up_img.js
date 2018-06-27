@@ -76,22 +76,22 @@ $(function() {
                 type: "POST",  
                 data: {"image":data.toString()},  
                 success: function(data, textStatus){
-                	$modal_loading.modal('close');
-                	set_alert_info(data.result);
-                	$modal_alert.modal();
-                	if(data.result=="ok"){
-                		$("#up-img-touch img").attr("src",data.file);
-                		var img_name=data.file.split('/')[2];
-                		//console.log(img_name);
-                		$(".up-img-txt a").text(img_name);
-                		$("#up-modal-frame").modal('close');
-                	}
+                    $modal_loading.modal('close');
+                    $modal_alert.modal();
+                    if(data.code == 200){
+                        set_alert_info(data.result);
+                        $("#up-img-touch img").attr("src",data.data.file_url);
+                        var img_name=data.data.file_url.split('/')[2];
+                        $(".up-img-txt a").text(img_name);
+                        $("#up-modal-frame").modal('close');
+                    }else{
+                        set_alert_info('上传文件失败了！');
+                    }
                 },
                 error: function(){
-                	$modal_loading.modal('close');
-                	set_alert_info("上传文件失败了！");
-                	$modal_alert.modal();
-                	//console.log('Upload error');  
+                    $modal_loading.modal('close');
+                    set_alert_info("上传文件失败了！");
+                    $modal_alert.modal();
                 }  
          });  
     	

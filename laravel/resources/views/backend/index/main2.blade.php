@@ -186,7 +186,7 @@
                         </li>
                         <li class="light-blue dropdown-modal">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                <img class="nav-user-photo" src="/ace-asstes/images/avatars/user.jpg" alt="Jason's Photo" />
+                                <img class="nav-user-photo" src="{{asset($user_info->profile_pic)}}" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>欢迎,</small><?php echo $user_info->name?>
                                 </span>

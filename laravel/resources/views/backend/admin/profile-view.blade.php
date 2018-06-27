@@ -54,51 +54,42 @@
 			<div>
 				<div id="user-profile-1" class="user-profile row">
 					<div class="col-xs-12 col-sm-3 center">
-						<div>
-							<span class="profile-picture">
-								<img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="/ace-asstes/images/avatars/profile-pic.jpg" />
-							</span>
-
-							<div class="space-4"></div>
-
-							<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
-								<div class="inline position-relative">
-									<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
-										<i class="ace-icon fa fa-circle light-green"></i>
-										&nbsp;
-										<span class="white">{{$admin_info->name}}</span>
-									</a>
-
-									
-								</div>
-							</div>
-						</div>
-
-						<div class="space-6"></div>
-
-						<div class="profile-contact-info">
-							<div class="profile-contact-links align-left">
-								<a href="#" class="btn btn-link">
-									<i class="ace-icon fa fa-plus-circle bigger-120 green"></i>
-									添加朋友
-								</a>
-
-								<a href="#" class="btn btn-link">
-									<i class="ace-icon fa fa-envelope bigger-120 pink"></i>
-									我的消息
-								</a>
-
-								<a href="#" class="btn btn-link">
-									<i class="ace-icon fa fa-globe bigger-125 blue"></i>
-									118.24.1.228
-								</a>
-							</div>
-						</div>
+                                            <div>
+                                                <span class="profile-picture">
+                                                        <img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="{{asset($admin_info->profile_pic)}}" />
+                                                </span>
+                                                <div class="space-4"></div>
+                                                <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                                                    <div class="inline position-relative">
+                                                        <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                                            <i class="ace-icon fa fa-circle light-green"></i>
+                                                            &nbsp;
+                                                            <span class="white">{{$admin_info->name}}</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="space-6"></div>
+                                            <div class="profile-contact-info">
+                                                <div class="profile-contact-links align-left">
+                                                    <a href="#" class="btn btn-link">
+                                                        <i class="ace-icon fa fa-plus-circle bigger-120 green"></i>
+                                                        添加朋友
+                                                    </a>
+                                                    <a href="#" class="btn btn-link">
+                                                        <i class="ace-icon fa fa-envelope bigger-120 pink"></i>
+                                                        我的消息
+                                                    </a>
+                                                    <a href="#" class="btn btn-link">
+                                                        <i class="ace-icon fa fa-globe bigger-125 blue"></i>
+                                                        118.24.1.228
+                                                    </a>
+                                                </div>
+                                            </div>
 					</div>
 
 					<div class="col-xs-12 col-sm-9">
 						<div class="space-12"></div>
-
 						<div class="profile-user-info profile-user-info-striped">
 							<div class="profile-info-row">
 								<div class="profile-info-name"> 邮箱地址 </div>
@@ -348,11 +339,10 @@
 								<div class="tab-content profile-edit-tab-content">
 									<div id="edit-basic" class="tab-pane in active">
 										<h4 class="header blue bolder smaller">通用</h4>
-
 										<div class="row">
 											<div class="col-xs-12 col-sm-4">
-												<div class="up-img-cover"  id="up-img-touch" >
-										    		<img class="am-circle" alt="点击图片上传" src="/ima_up/img/hu.jpg" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" >
+                                                                                        <div class="up-img-cover"  id="up-img-touch" >
+                                                                                            <img class="am-circle" alt="点击图片上传" src="{{asset($admin_info->profile_pic)}}" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" >
 										    	</div>
 											</div>
 
@@ -485,7 +475,7 @@
    				<div class="up-control-btns">
     				<span class="am-icon-rotate-left"   id="up-btn-left"></span>
     				<span class="am-icon-rotate-right"  id="up-btn-right"></span>
-    				<span class="am-icon-check up-btn-ok" url="/admin/user/upload.action"
+    				<span class="am-icon-check up-btn-ok" url="{{route('b_admin_uploadportrait')}}"
     					parameter="{width:'100',height:'100'}">
     				</span>
    				</div>
