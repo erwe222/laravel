@@ -13,9 +13,8 @@ class IndexController extends CController{
      * 前台主页
      */
     public function index(){
-        $this->wxAuthorize(true);
         if(isWeiXin()){
-            $this->wxAuthorize();
+            $this->wxAuthorize(true);
         }
         
         return view('frontend.index.index');
