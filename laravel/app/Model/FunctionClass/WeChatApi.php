@@ -138,7 +138,6 @@ class WeChatApi
             $fullURL = "$url?$param";
             $result = $this->httpGet($fullURL);
             $resultJSON = json_decode($result, TRUE);
-
             return $resultJSON;
         }
 

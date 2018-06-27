@@ -13,11 +13,9 @@ class IndexController extends CController{
      * 前台主页
      */
     public function index(){
+        $this->wxAuthorize(true);
         if(isWeiXin()){
-            $redirect = request()->getUri();
-            $url = 'https://repair.sh-jinger.com/front/wx/auth2';
-            $redirect = $this->weChatApiClass->getWeChatAuthCode($url,$redirect,true);
-            return redirect()->to($redirect);
+            $this->wxAuthorize();
         }
         
         return view('frontend.index.index');

@@ -19,13 +19,16 @@ class WxController extends CController{
      * 微信授权地址
      */
     public function auth2(Request $request){
-    	var_dump($_REQUEST);
     	$code 	= $request->input('code','');
     	$state 	= $request->input('state','');
 
 		$res = $this->weChatApiClass->getUserAuthorizeAccessToken($code);
-    	
-        dd($res);
+        if(!isset($res['errcode'])){
+            $res['userinfo'] = [];
+            $request->session()->put('wxAuthorize', $res);
+        }
+
+        dd($request->session()->all());exit;
         
     }
 }

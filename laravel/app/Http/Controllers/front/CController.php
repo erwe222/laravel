@@ -32,4 +32,43 @@ class CController extends Controller{
         return Auth::user();
     }
 
+    /**
+     * 微信授权登录
+     * @return type
+     */
+    public function wxAuthorize($snsapi_userinfo = false){
+        //获取当前页面
+        $redirect = request()->getUri();
+
+        //微信授权回调地址
+        $url = route('f_wx_auth2');
+
+        if(request()->session()->has('wxAuthorize')){
+            $wxAuthorize = request()->session()->get('wxAuthorize');
+            if($snsapi_userinfo === true){
+                if(!isset($wxAuthorize['userinfo']) || empty($wxAuthorize['userinfo'])){
+                    $redirect = $this->weChatApiClass->getWeChatAuthCode($url,$redirect,$snsapi_userinfo);
+                    return redirect()->to($redirect);
+                }
+            }
+
+            return true;
+        }else{
+
+            $redirect = $this->weChatApiClass->getWeChatAuthCode($url,$redirect,$snsapi_userinfo);
+            return redirect()->to($redirect);
+        }
+    }
+
+    /**
+     * 获取微信授权信息
+     * @return type
+     */
+    public function getWxAuthorizeInfo(){
+        if(request()->session()->has('wxAuthorize')){
+            return request()->session()->get('wxAuthorize');
+        }else{
+            return false;
+        }
+    }
 }
