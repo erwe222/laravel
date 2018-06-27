@@ -43,7 +43,7 @@ class CController extends Controller{
         //微信授权回调地址
         $url = route('f_wx_auth2');
 
-        dd(request()->session()->has('wxAuthorize'));
+        // dd(request()->session()->has('wxAuthorize'));
         if(request()->session()->has('wxAuthorize')){
             $wxAuthorize = request()->session()->get('wxAuthorize');
             if($snsapi_userinfo === true){
