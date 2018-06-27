@@ -45,11 +45,9 @@ class CController extends Controller{
 
         if(request()->session()->has('wxAuthorize')){
             $wxAuthorize = request()->session()->get('wxAuthorize');
-            if($snsapi_userinfo === true){
-                if(!isset($wxAuthorize['userinfo']) || empty($wxAuthorize['userinfo'])){
-                    $redirect = $this->weChatApiClass->getWeChatAuthCode($url,$redirect,$snsapi_userinfo);
-                    $this->weChatApiClass->redirect($redirect);exit;
-                }
+            if($snsapi_userinfo === true && $wxAuthorize['scope'] != 'snsapi_userinfo'){
+                $redirect = $this->weChatApiClass->getWeChatAuthCode($url,$redirect,$snsapi_userinfo);
+                $this->weChatApiClass->redirect($redirect);exit;
             }
 
             return true;
