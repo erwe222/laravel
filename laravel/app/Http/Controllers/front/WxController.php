@@ -26,9 +26,7 @@ class WxController extends CController{
         if(!isset($res['errcode'])){
             $res['userinfo'] = [];
             $request->session()->put('wxAuthorize', $res);
+            return redirect()->to($state);
         }
-
-        dd($request->session()->all());exit;
-        
     }
 }

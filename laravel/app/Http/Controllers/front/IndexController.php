@@ -14,16 +14,12 @@ class IndexController extends CController{
      */
     public function index(){
         if(isWeiXin()){
-
-            $redirect = request()->getUri();
-
-            //微信授权回调地址
-            $url = route('f_wx_auth2');
-            $redirect = $this->weChatApiClass->getWeChatAuthCode($url,$redirect,false);
-            return redirect()->to($redirect);
-
-            // $this->wxAuthorize(true);
+            $this->wxAuthorize(false);
         }
+
+        $wxAuthorize = request()->session()->get('wxAuthorize');
+
+        dd($wxAuthorize);
         
         return view('frontend.index.index');
     }
