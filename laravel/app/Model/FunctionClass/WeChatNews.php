@@ -101,7 +101,7 @@ class WeChatNews{
 
         }else if (strstr($keyword, "我的网站") || strstr($keyword, "我的网址") || strstr($keyword, "网址")) {
 
-            $content = '欢迎来到“远东购物” <a href="http://59.110.168.230/mobletlp/index.html">http://59.110.168.230/mobletlp/index.html</a>';
+            $content = '欢迎来到“我的网址” <a href="https://repair.sh-jinger.com">https://repair.sh-jinger.com</a>';
         }
          else if (strstr($keyword, "表情")) {
 
@@ -119,7 +119,7 @@ class WeChatNews{
             $content = array("Title" => "最炫民族风", "Description" => "歌手：凤凰传奇", "MusicUrl" => "http://mascot-music.stor.sinaapp.com/zxmzf.mp3", "HQMusicUrl" => "http://mascot-music.stor.sinaapp.com/zxmzf.mp3");
         } else {
 
-            $content = date("Y-m-d H:i:s") . "\n" . '技术支持:<a href="http://59.110.168.230/mobletlp/index.html">哈哈哈</a>';
+            $content =  "您好, \n         我们的客服系统正处于研发阶段当中，若对您带来不便敬请谅解，谢谢合作/::)/::)/::)";
 
         }
 
