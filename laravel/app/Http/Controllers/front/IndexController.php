@@ -12,7 +12,7 @@ class IndexController extends CController{
     /**
      * 前台主页
      */
-    public function index(){\
+    public function index(){
         $is_wx = false;
         $wx_info = [];
         if(isWeiXin()){
