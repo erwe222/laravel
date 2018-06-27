@@ -165,7 +165,7 @@
 											@foreach($actionLogList as $v)
 												<div class="profile-activity clearfix">
 													<div>
-														<img class="pull-left" alt="{{$v['name']}}的头像" @if($v['profile_pic'] != '') src="{{$v['profile_pic']}}"  @else src="/ace-asstes/images/avatars/avatar5.png" @endif />
+														<img class="pull-left" alt="{{$v['name']}}的头像" @if($v['profile_pic'] != '') src="{{asset($v['profile_pic'])}}"  @else src="/ace-asstes/images/avatars/avatar5.png" @endif />
 														<a class="user" href="#"> {{$v['name']}} </a>
 														{{$v['content']}}
 														<div class="time">
@@ -309,33 +309,29 @@
 				<div id="user-profile-3" class="user-profile row">
 					<div class="col-sm-offset-1 col-sm-10">
 						<div class="well well-sm">
-							<div class="inline middle blue bigger-110"> 你的个人资料已完成70％ </div>
-							&nbsp; &nbsp; &nbsp;
-							<div style="width:200px;" data-percent="70%" class="inline middle no-margin progress progress-striped active pos-rel">
-								<div class="progress-bar progress-bar-success" style="width:70%"></div>
-							</div>
+                                                    <div class="inline middle blue bigger-110"> 你的个人资料已完成70％ </div>
+                                                    &nbsp; &nbsp; &nbsp;
+                                                    <div style="width:200px;" data-percent="70%" class="inline middle no-margin progress progress-striped active pos-rel">
+                                                        <div class="progress-bar progress-bar-success" style="width:70%"></div>
+                                                    </div>
 						</div><!-- /.well -->
-
 						<div class="space"></div>
-
 						<form class="form-horizontal" onsubmit='return false;'>
 							<div class="tabbable">
 								<ul class="nav nav-tabs padding-16">
-									<li class="active">
-										<a data-toggle="tab" href="#edit-basic">
-											<i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
-											基本信息
-										</a>
-									</li>
-
-									<li>
-										<a data-toggle="tab" href="#edit-settings">
-											<i class="purple ace-icon fa fa-cog bigger-125"></i>
-											我的设置(预留)
-										</a>
-									</li>
+                                                                    <li class="active">
+                                                                        <a data-toggle="tab" href="#edit-basic">
+                                                                            <i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
+                                                                            基本信息
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a data-toggle="tab" href="#edit-settings">
+                                                                            <i class="purple ace-icon fa fa-cog bigger-125"></i>
+                                                                            我的设置(预留)
+                                                                        </a>
+                                                                    </li>
 								</ul>
-
 								<div class="tab-content profile-edit-tab-content">
 									<div id="edit-basic" class="tab-pane in active">
 										<h4 class="header blue bolder smaller">通用</h4>
@@ -345,29 +341,22 @@
                                                                                             <img class="am-circle" alt="点击图片上传" src="{{asset($admin_info->profile_pic)}}" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" >
 										    	</div>
 											</div>
-
 											<div class="vspace-12-sm"></div>
-
 											<div class="col-xs-12 col-sm-8">
 												<div class="form-group">
-													<label class="col-sm-4 control-label no-padding-right" for="form-field-username">昵称</label>
-
-													<div class="col-sm-8">
-														<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="昵称" value="{{$admin_info->name}}" />
-													</div>
+                                                                                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-username">昵称</label>
+                                                                                                    <div class="col-sm-8">
+                                                                                                        <input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="昵称" value="{{$admin_info->name}}" />
+                                                                                                    </div>
 												</div>
-
 												<div class="space-4"></div>
-
 												<div class="form-group">
 													<label class="col-sm-4 control-label no-padding-right" for="form-field-first">性别</label>
-
 													<div class="col-sm-8" style='margin-top: 7px;'>
 														<label class="inline">
 															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 1) checked @endif  value='1' />
 															<span class="lbl middle"> 男</span>
 														</label>
-
 														&nbsp; &nbsp; &nbsp;
 														<label class="inline">
 															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 2) checked @endif value='2' />
@@ -377,18 +366,11 @@
 												</div>
 											</div>
 										</div>
-
-						
-
 										<div class="space-4"></div>
-
-
 										<div class="space"></div>
 										<h4 class="header blue bolder smaller">联系</h4>
-
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="form-field-email">电子邮箱</label>
-
 											<div class="col-sm-9">
 												<span class="input-icon input-icon-right">
 													<input type="email" id="form-field-email" value="{{$admin_info->email}}" readonly />
@@ -396,12 +378,9 @@
 												</span>
 											</div>
 										</div>
-
 										<div class="space-4"></div>
-
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">电话</label>
-
 											<div class="col-sm-9">
 												<span class="input-icon input-icon-right">
 													<input class="input-medium input-mask-phone" type="text" id="form-field-phone" value="{{$admin_info->telephone}}" />
@@ -417,23 +396,19 @@
 
 									<div id="edit-settings" class="tab-pane">
 										<div class="space-10"></div>
-
 										<div>
-											<label class="inline">
-												<input type="checkbox" name="form-field-checkbox" class="ace" />
-												<span class="lbl">公开我的个人资料</span>
-											</label>
+                                                                                    <label class="inline">
+                                                                                        <input type="checkbox" name="form-field-checkbox" class="ace" />
+                                                                                        <span class="lbl">公开我的个人资料</span>
+                                                                                    </label>
 										</div>
-
 										<div class="space-8"></div>
-
 										<div>
-											<label class="inline">
-												<input type="checkbox" name="form-field-checkbox" class="ace" />
-												<span class="lbl">给我发送更新</span>
-											</label>
+                                                                                    <label class="inline">
+                                                                                        <input type="checkbox" name="form-field-checkbox" class="ace" />
+                                                                                        <span class="lbl">给我发送更新</span>
+                                                                                    </label>
 										</div>
-
 									</div>
 								</div>
 							</div>
