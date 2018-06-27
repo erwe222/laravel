@@ -51,7 +51,7 @@ class CController extends Controller{
             }else{
                 #1.检验用户网页授权凭证（access_token）是否有效
                 $valid_result = $this->weChatApiClass->getUserAuthorizeAccessTokenValid($wxAuthorize['access_token'],$wxAuthorize['openid']);
-                if($valid_result && isset($valid_result['errcode']) && $valid_result['errcode'] != 0){
+                if(!$valid_result){
 
                     #2.刷新user access token  ||　refresh user access token还失效 重新获取授权
                     $res = $this->weChatApiClass->refreshUserAuthorizeAccessToken($wxAuthorize['refresh_token']);
