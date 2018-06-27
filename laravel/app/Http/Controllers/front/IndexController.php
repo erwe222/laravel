@@ -14,8 +14,9 @@ class IndexController extends CController{
      */
     public function index(){
         if(isWeiXin()){
+            $redirect = request()->getUri();
             $url = 'https://repair.sh-jinger.com/front/wx/auth2';
-            $redirect = $this->weChatApiClass->getWeChatAuthCode($url,123,false);
+            $redirect = $this->weChatApiClass->getWeChatAuthCode($url,$redirect,false);
             return redirect()->to($redirect);
         }
         
