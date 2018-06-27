@@ -234,6 +234,8 @@ return [
     
     //附加配置文件
     'config'=>[
+        //后台系统名称
+        'backstage_name'=>'我的后台管理',
         //是否开启页面授权验证（默认开启）
         'authverify'=>false,
         'desSecret' =>'xjyryd',

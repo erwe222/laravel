@@ -1,5 +1,13 @@
 @extends('layouts.body')
 @section('content')
+	<link rel="stylesheet" href="/ima_up/css/amazeui.min.css">
+    <link rel="stylesheet" href="/ima_up/css/amazeui.cropper.css">
+    <link rel="stylesheet" href="/ima_up/css/custom_up_img.css">
+	<style type="text/css">
+ 		.up-img-cover {width: 100px;height: 100px;}
+ 		.up-img-cover img{width: 100%;}
+ 		.up-img-txt label{font-weight: 100;margin-top: 50px;}
+    </style>
 	<div class="page-header">
 		<h1>
 		个人中心
@@ -319,7 +327,7 @@
 
 						<div class="space"></div>
 
-						<form class="form-horizontal">
+						<form class="form-horizontal" onsubmit='return false;'>
 							<div class="tabbable">
 								<ul class="nav nav-tabs padding-16">
 									<li class="active">
@@ -332,7 +340,7 @@
 									<li>
 										<a data-toggle="tab" href="#edit-settings">
 											<i class="purple ace-icon fa fa-cog bigger-125"></i>
-											设置
+											我的设置(预留)
 										</a>
 									</li>
 								</ul>
@@ -343,7 +351,9 @@
 
 										<div class="row">
 											<div class="col-xs-12 col-sm-4">
-												<input type="file" />
+												<div class="up-img-cover"  id="up-img-touch" >
+										    		<img class="am-circle" alt="点击图片上传" src="/ima_up/img/hu.jpg" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" >
+										    	</div>
 											</div>
 
 											<div class="vspace-12-sm"></div>
@@ -353,7 +363,7 @@
 													<label class="col-sm-4 control-label no-padding-right" for="form-field-username">昵称</label>
 
 													<div class="col-sm-8">
-														<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="昵称" value="dongyun" />
+														<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="昵称" value="{{$admin_info->name}}" />
 													</div>
 												</div>
 
@@ -364,13 +374,13 @@
 
 													<div class="col-sm-8" style='margin-top: 7px;'>
 														<label class="inline">
-															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 1) 男 checked='' @endif />
+															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 1) checked @endif  value='1' />
 															<span class="lbl middle"> 男</span>
 														</label>
 
 														&nbsp; &nbsp; &nbsp;
 														<label class="inline">
-															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 1) 男 checked='' @endif />
+															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 2) checked @endif value='2' />
 															<span class="lbl middle"> 女</span>
 														</label>
 													</div>
@@ -411,44 +421,8 @@
 										</div>
 
 										<div class="space"></div>
-										<h4 class="header blue bolder smaller">社交</h4>
-
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
-
-											<div class="col-sm-9">
-												<span class="input-icon">
-													<input type="text" value="facebook_alexdoe" id="form-field-facebook" />
-													<i class="ace-icon fa fa-facebook blue"></i>
-												</span>
-											</div>
-										</div>
-
-										<div class="space-4"></div>
-
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-twitter">Twitter</label>
-
-											<div class="col-sm-9">
-												<span class="input-icon">
-													<input type="text" value="twitter_alexdoe" id="form-field-twitter" />
-													<i class="ace-icon fa fa-twitter light-blue"></i>
-												</span>
-											</div>
-										</div>
-
-										<div class="space-4"></div>
-
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">Google+</label>
-
-											<div class="col-sm-9">
-												<span class="input-icon">
-													<input type="text" value="google_alexdoe" id="form-field-gplus" />
-													<i class="ace-icon fa fa-google-plus red"></i>
-												</span>
-											</div>
-										</div>
+										<h4 class="header bolder "></h4>
+										<h4 ><button class="btn btn-sm btn-primary"><i class="ace-icon fa fa-check"></i> 保存</button></h4>
 									</div>
 
 									<div id="edit-settings" class="tab-pane">
@@ -471,11 +445,8 @@
 										</div>
 
 									</div>
-
 								</div>
 							</div>
-
-
 						</form>
 					</div><!-- /.span -->
 				</div><!-- /.user-profile -->
@@ -484,26 +455,90 @@
 			<!-- PAGE CONTENT ENDS -->
 		</div><!-- /.col -->
 	</div><!-- /.row -->
+
+	<!--图片上传框-->
+    	<div class="am-modal am-modal-no-btn up-modal-frame" tabindex="-1" id="up-modal-frame">
+		  <div class="am-modal-dialog up-frame-parent up-frame-radius">
+		    <div class="am-modal-hd up-frame-header">
+		       <label>修改头像</label>
+		      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+		    </div>
+		    <div class="am-modal-bd  up-frame-body">
+		      <div class="am-g am-fl">
+		      	
+		      	<div class="am-form-group am-form-file">
+			      <div class="am-fl">
+			        <button type="button" class="am-btn am-btn-default am-btn-sm">
+			          <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+			      </div>
+			      <input type="file" class="up-img-file">
+			   	</div>
+		      </div>
+		      <div class="am-g am-fl">
+		      	<div class="up-pre-before up-frame-radius">
+		      		<img alt="" src="" class="up-img-show" id="up-img-show" >
+		      	</div>
+		      	<div class="up-pre-after up-frame-radius">
+		      	</div>
+		      </div>
+		      <div class="am-g am-fl">
+   				<div class="up-control-btns">
+    				<span class="am-icon-rotate-left"   id="up-btn-left"></span>
+    				<span class="am-icon-rotate-right"  id="up-btn-right"></span>
+    				<span class="am-icon-check up-btn-ok" url="/admin/user/upload.action"
+    					parameter="{width:'100',height:'100'}">
+    				</span>
+   				</div>
+	    	  </div>
+		      
+		    </div>
+		  </div>
+		</div>
+    	
+    	<!--加载框-->
+    	<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="up-modal-loading">
+		  <div class="am-modal-dialog">
+		    <div class="am-modal-hd">正在上传...</div>
+		    <div class="am-modal-bd">
+		      <span class="am-icon-spinner am-icon-spin"></span>
+		    </div>
+		  </div>
+		</div>
+		
+		<!--警告框-->
+		<div class="am-modal am-modal-alert" tabindex="-1" id="up-modal-alert">
+		  <div class="am-modal-dialog">
+		    <div class="am-modal-hd">信息</div>
+		    <div class="am-modal-bd"  id="alert_content">
+		              成功了
+		    </div>
+		    <div class="am-modal-footer">
+		      <span class="am-modal-btn">确定</span>
+		    </div>
+		  </div>
+		</div>
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js" charset="utf-8"></script>
+    <script src="/ima_up/js/cropper.min.js" charset="utf-8"></script>
+    <script src="/ima_up/js/custom_up_img.js" charset="utf-8"></script>
 
+	<script type="text/javascript">
+		$(function($) {
 
-		<script type="text/javascript">
-			$(function($) {
-
-				$('#profile-feed-1').ace_scroll({
-					height: '350px',
-					mouseWheelLock: true,
-					alwaysVisible : true
-				});
-			
-				$('[data-toggle="buttons"] .btn').on('click', function(e){
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					$('.user-profile').parent().addClass('hide');
-					$('#user-profile-'+which).parent().removeClass('hide');
-				});
+			$('#profile-feed-1').ace_scroll({
+				height: '350px',
+				mouseWheelLock: true,
+				alwaysVisible : true
 			});
-		</script>
+		
+			$('[data-toggle="buttons"] .btn').on('click', function(e){
+				var target = $(this).find('input[type=radio]');
+				var which = parseInt(target.val());
+				$('.user-profile').parent().addClass('hide');
+				$('#user-profile-'+which).parent().removeClass('hide');
+			});
+		});
+	</script>
 @endpush

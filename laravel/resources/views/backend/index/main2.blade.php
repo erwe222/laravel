@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
-        <title>CMS管理系统</title>
+        <title>{{config('app.config.backstage_name')}}</title>
         <meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <link rel="stylesheet" href="/ace-asstes/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
@@ -95,7 +95,7 @@
                 </button>
                 <div class="navbar-header pull-left">
                     <a href="javasceipt:void(0)" class="navbar-brand">
-                        <small>CMS管理系统</small>
+                        <small>{{config('app.config.backstage_name')}}</small>
                     </a>
                 </div>
 
@@ -194,10 +194,10 @@
                             </a>
                             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                                 <li>
-                                    <a href="javascript:voi(0)"><i class="ace-icon fa fa-cog"></i>设置</a>
+                                    <a href="javascript:voi(0)" class='openTab' data-options='{"href":"{{route('b_admin_profile')}}","icon":"ace-icon fa fa-key","title":"查看我的信息","index":"admin-cat-profile","lock":false}'><i class="ace-icon fa fa-user"></i>  我的信息</a>
                                 </li>
                                 <li>
-                                    <a class="cus-open-tab" href="javascript:voi(0)"><i class="ace-icon fa fa-user"></i>个人信息</a>
+                                    <a href="javascript:voi(0)" class='openTab' data-options='{"href":"{{route('b_admin_changepwdview')}}","icon":"ace-icon fa fa-key","title":"修改密码","index":"admin-change-pwd","lock":false}'><i class="ace-icon fa fa-key"></i>修改密码</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
