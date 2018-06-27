@@ -19,7 +19,11 @@ class IndexController extends CController{
 
         $wxAuthorize = request()->session()->get('wxAuthorize');
 
-        dd($wxAuthorize);
+        var_dump($wxAuthorize);
+
+        
+        $res = $this->weChatApiClass->getUserAuthorizedUserInfo($wxAuthorize['access_token'],$wxAuthorize['openid']);
+        dd($res);
         
         return view('frontend.index.index');
     }
