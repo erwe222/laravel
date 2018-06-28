@@ -422,7 +422,7 @@
 
 										<div class="space"></div>
 										<h4 class="header bolder "></h4>
-										<h4 ><button class="btn btn-sm btn-primary"><i class="ace-icon fa fa-check"></i> 保存</button></h4>
+										<h4 ><button class="btn btn-sm btn-primary"><i class="ace-icon fa fa-check" onclick="objClass.saveInfo()"></i> 保存</button></h4>
 									</div>
 
 									<div id="edit-settings" class="tab-pane">
@@ -525,20 +525,26 @@
     <script src="/ima_up/js/custom_up_img.js" charset="utf-8"></script>
 
 	<script type="text/javascript">
-		$(function($) {
-
-			$('#profile-feed-1').ace_scroll({
-				height: '350px',
-				mouseWheelLock: true,
-				alwaysVisible : true
-			});
-		
-			$('[data-toggle="buttons"] .btn').on('click', function(e){
-				var target = $(this).find('input[type=radio]');
-				var which = parseInt(target.val());
-				$('.user-profile').parent().addClass('hide');
-				$('#user-profile-'+which).parent().removeClass('hide');
-			});
+		$('#profile-feed-1').ace_scroll({
+			height: '350px',
+			mouseWheelLock: true,
+			alwaysVisible : true
 		});
+	
+		$('[data-toggle="buttons"] .btn').on('click', function(e){
+			var target = $(this).find('input[type=radio]');
+			var which = parseInt(target.val());
+			$('.user-profile').parent().addClass('hide');
+			$('#user-profile-'+which).parent().removeClass('hide');
+		});
+
+	    var objClass = {
+	    	//保存用户个人信息
+	    	saveInfo:function(){
+	    		alert('asdf');
+	    	},
+	    };
+
+
 	</script>
 @endpush
