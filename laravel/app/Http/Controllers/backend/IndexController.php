@@ -31,6 +31,7 @@ class IndexController extends CController{
         if($time1 >= $time2){
             $is_expiry_time = true;
         }
+        
 
         return view('backend.index.main2', ['menus' => $menus,'user_info'=>$user_info,'is_expiry_time'=>$is_expiry_time]);
     }
