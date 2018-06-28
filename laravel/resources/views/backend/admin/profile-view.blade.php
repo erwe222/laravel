@@ -56,7 +56,7 @@
 					<div class="col-xs-12 col-sm-3 center">
 						<div>
 							<span class="profile-picture">
-								<img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="/ace-asstes/images/avatars/profile-pic.jpg" />
+								<img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="{{asset($admin_info->profile_pic)}}" />
 							</span>
 
 							<div class="space-4"></div>
@@ -174,7 +174,7 @@
 											@foreach($actionLogList as $v)
 												<div class="profile-activity clearfix">
 													<div>
-														<img class="pull-left" alt="{{$v['name']}}的头像" @if($v['profile_pic'] != '') src="{{$v['profile_pic']}}"  @else src="/ace-asstes/images/avatars/avatar5.png" @endif />
+														<img class="pull-left" alt="{{$v['name']}}的头像" @if($v['profile_pic'] != '') src="{{asset($v['profile_pic'])}}"  @else src="/ace-asstes/images/avatars/avatar5.png" @endif />
 														<a class="user" href="#"> {{$v['name']}} </a>
 														{{$v['content']}}
 														<div class="time">
@@ -485,7 +485,7 @@
    				<div class="up-control-btns">
     				<span class="am-icon-rotate-left"   id="up-btn-left"></span>
     				<span class="am-icon-rotate-right"  id="up-btn-right"></span>
-    				<span class="am-icon-check up-btn-ok" url="/admin/user/upload.action"
+    				<span class="am-icon-check up-btn-ok" url="{{route('b_admin_uploadportrait')}}"
     					parameter="{width:'100',height:'100'}">
     				</span>
    				</div>
@@ -520,7 +520,7 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js" charset="utf-8"></script>
+    <script src="/ima_up/js/amazeui.min.js" charset="utf-8"></script>
     <script src="/ima_up/js/cropper.min.js" charset="utf-8"></script>
     <script src="/ima_up/js/custom_up_img.js" charset="utf-8"></script>
 
@@ -541,7 +541,7 @@
 	    var objClass = {
 	    	//保存用户个人信息
 	    	saveInfo:function(){
-	    		alert('asdf');
+	    		alert('');
 	    	},
 	    };
 
