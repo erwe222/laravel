@@ -352,7 +352,7 @@
 										<div class="row">
 											<div class="col-xs-12 col-sm-4">
 												<div class="up-img-cover"  id="up-img-touch" >
-										    		<img class="am-circle" alt="点击图片上传" src="/ima_up/img/hu.jpg" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" >
+										    		<img class="am-circle" alt="点击图片上传" src="{{asset($admin_info->profile_pic)}}" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" >
 										    	</div>
 											</div>
 
@@ -360,10 +360,10 @@
 
 											<div class="col-xs-12 col-sm-8">
 												<div class="form-group">
-													<label class="col-sm-4 control-label no-padding-right" for="form-field-username">昵称</label>
+													<label class="col-sm-4 control-label no-padding-right" for="fr-field-nickname">昵称</label>
 
 													<div class="col-sm-8">
-														<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="昵称" value="{{$admin_info->name}}" />
+														<input class="col-xs-12 col-sm-10" type="text" id="fr-field-nickname" placeholder="昵称" value="{{$admin_info->name}}" />
 													</div>
 												</div>
 
@@ -374,13 +374,13 @@
 
 													<div class="col-sm-8" style='margin-top: 7px;'>
 														<label class="inline">
-															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 1) checked @endif  value='1' />
+															<input name="fr-field-sex" type="radio" class="ace" @if($admin_info->sex == 1) checked @endif  value='1' />
 															<span class="lbl middle"> 男</span>
 														</label>
 
 														&nbsp; &nbsp; &nbsp;
 														<label class="inline">
-															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 2) checked @endif value='2' />
+															<input name="fr-field-sex" type="radio" class="ace" @if($admin_info->sex == 2) checked @endif value='2' />
 															<span class="lbl middle"> 女</span>
 														</label>
 													</div>
@@ -401,7 +401,7 @@
 
 											<div class="col-sm-9">
 												<span class="input-icon input-icon-right">
-													<input type="email" id="form-field-email" value="{{$admin_info->email}}" readonly />
+													<input type="email" id="fr-field-email" value="{{$admin_info->email}}" readonly />
 													<i class="ace-icon fa fa-envelope"></i>
 												</span>
 											</div>
@@ -414,7 +414,7 @@
 
 											<div class="col-sm-9">
 												<span class="input-icon input-icon-right">
-													<input class="input-medium input-mask-phone" type="text" id="form-field-phone" value="{{$admin_info->telephone}}" />
+													<input class="input-medium input-mask-phone" type="text" id="fr-field-phone" value="{{$admin_info->telephone}}" />
 													<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 												</span>
 											</div>
@@ -539,9 +539,44 @@
 		});
 
 	    var objClass = {
+	    	isSaveloading:false,
 	    	//保存用户个人信息
 	    	saveInfo:function(){
-	    		alert('');
+	    		var nickname = $.trim($('#fr-field-nickname').val());
+	    		var phone = $.trim($('#fr-field-phone').val());
+	    		var sex = $("input[name='fr-field-sex']:checked").val();
+
+	    		if(nickname == ''){
+	    			layer.msg('昵称不能为空');
+	    			return false;
+	    		}
+
+	    		if(phone != '' && !checkMobile($('#fr-field-phone').val())){
+					layer.msg('手机号格式错误');
+	    			return false;
+	    		}
+
+	    		if(this.isSaveloading == false){
+	    			this.isSaveloading = true;
+					$.ajax({
+	                    url:"{{route('b_admin_changeprofile')}}",
+	                    type:'post',
+	                    data:{nickname:nickname,phone:phone,sex:sex},
+	                    dataType:'json',
+	                    complete:function(){
+	                        objClass.isSaveloading = false;
+	                    },
+	                    success:function(res){
+	                        if(res.code == 200){
+	                            layer.msg(res.message, {icon: 1});
+	                        }else{
+	                            layer.msg(res.message, {icon: 5});
+	                        }
+	                    },
+	                    error: throwError,
+	                });
+	    		}
+	    		
 	    	},
 	    };
 

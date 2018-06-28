@@ -50,6 +50,7 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
     Route::get('/admin/changepwdview', 'AdminController@changepwdview')->name('b_admin_changepwdview');
     Route::post('/admin/changepwd', 'AdminController@changepwd')->name('b_admin_changepwd');
     Route::post('/admin/uploadportrait', 'AdminController@uploadportrait')->name('b_admin_uploadportrait');
+    Route::post('/admin/changeprofile', 'AdminController@changeprofile')->name('b_admin_changeprofile');
 
 
 
