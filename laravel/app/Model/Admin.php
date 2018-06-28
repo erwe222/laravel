@@ -49,6 +49,7 @@ class Admin extends \Illuminate\Foundation\Auth\User{
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'remember_token' => str_random(10),
+            'expiry_time'=>$this->getExpiryTime()
         ]);
 
         if($res){
