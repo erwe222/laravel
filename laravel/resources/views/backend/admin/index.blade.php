@@ -59,13 +59,13 @@
         <div class="form-group">
             <label class="col-sm-2 control-label no-padding-right " for="menu-name"> 登录密码 </label>
             <div class="col-sm-9">
-                <input type="text" id="fr-admin-pwd"  placeholder="请填写登录密码..." class="form-control "  />
+                <input type="password" id="fr-admin-pwd"  placeholder="请填写登录密码..." class="form-control "  />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label no-padding-right " for="menu-name"> 重复密码 </label>
             <div class="col-sm-9">
-                <input type="text" id="fr-admin-pwd2"  placeholder="请重复填写登录密码..." class="form-control "  />
+                <input type="password" id="fr-admin-pwd2"  placeholder="请重复填写登录密码..." class="form-control "  />
             </div>
         </div>
         <div class="form-group">
@@ -106,17 +106,20 @@
                     return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
-            {title: '昵称',data: 'name',name:'name',orderable:false,width: 100},
             {title: '登录邮箱',data: 'email',name:'email',orderable:false,width: 100},
-            {title: '所属角色',data: 'role_name',name:'role_name',orderable:false,width: 100},
+            {title: '昵称',data: 'name',name:'name',orderable:false,width: 100},
+            {title: '联系方式',data: 'telephone',name:'telephone',orderable:false,width: 100},
+            {title: '性别',data: 'sex',name:'sex',orderable:false,width: 10,render: function ( data, type, row, meta ) {
+                return (data == 1) ? '男': '女';
+            }},
             {title: '状态',data: 'status',name:'status',orderable:false,width: 30,render: function ( data, type, row, meta ) {
                 var checked = (data == 10) ? 'checked':'';
                 return '<label><input  class="ace ace-switch ace-switch-2 editStatus" type="checkbox" '+checked+' data-id="'+row.id+'" data-status="'+data+'"><span class="lbl"></span></label>';
             }},
+            {title: '所属角色',data: 'role_name',name:'role_name',orderable:false,width: 100},
             {title: '注册时间',data: 'created_at',width: 80},
             {title: '操 作',data: 'id',orderable:false,width: 20,render: function ( data, type, row, meta ) {
                 var str ='';
-                // str = '<button class="btn btn-minier btn-purple" onclick="objClass.edit(\''+meta.row+'\')"><i class="ace-icon fa fa-pencil bigger-130"></i> 编辑</button>&nbsp;';
                 str += '<button class="btn btn-minier btn-success" onclick="objClass.change(\''+meta.row+'\')"><i class="ace-icon fa fa-pencil bigger-130"></i> 查看||分配角色</button>';
                 return str;
             }}

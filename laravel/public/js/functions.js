@@ -65,3 +65,11 @@ function checkPassWord(password) {
         return false;
     }
 };
+
+/**
+ * 验证手机号格式
+ */
+function checkMobile(val){
+    var myreg = /^1(3|4|5|7|8)\d{9}$/; 
+    return myreg.test(val);
+}

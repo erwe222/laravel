@@ -54,42 +54,51 @@
 			<div>
 				<div id="user-profile-1" class="user-profile row">
 					<div class="col-xs-12 col-sm-3 center">
-                                            <div>
-                                                <span class="profile-picture">
-                                                        <img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="{{asset($admin_info->profile_pic)}}" />
-                                                </span>
-                                                <div class="space-4"></div>
-                                                <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
-                                                    <div class="inline position-relative">
-                                                        <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
-                                                            <i class="ace-icon fa fa-circle light-green"></i>
-                                                            &nbsp;
-                                                            <span class="white">{{$admin_info->name}}</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="space-6"></div>
-                                            <div class="profile-contact-info">
-                                                <div class="profile-contact-links align-left">
-                                                    <a href="#" class="btn btn-link">
-                                                        <i class="ace-icon fa fa-plus-circle bigger-120 green"></i>
-                                                        添加朋友
-                                                    </a>
-                                                    <a href="#" class="btn btn-link">
-                                                        <i class="ace-icon fa fa-envelope bigger-120 pink"></i>
-                                                        我的消息
-                                                    </a>
-                                                    <a href="#" class="btn btn-link">
-                                                        <i class="ace-icon fa fa-globe bigger-125 blue"></i>
-                                                        118.24.1.228
-                                                    </a>
-                                                </div>
-                                            </div>
+						<div>
+							<span class="profile-picture">
+								<img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="{{asset($admin_info->profile_pic)}}" />
+							</span>
+
+							<div class="space-4"></div>
+
+							<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+								<div class="inline position-relative">
+									<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+										<i class="ace-icon fa fa-circle light-green"></i>
+										&nbsp;
+										<span class="white">{{$admin_info->name}}</span>
+									</a>
+
+									
+								</div>
+							</div>
+						</div>
+
+						<div class="space-6"></div>
+
+						<div class="profile-contact-info">
+							<div class="profile-contact-links align-left">
+								<a href="#" class="btn btn-link">
+									<i class="ace-icon fa fa-plus-circle bigger-120 green"></i>
+									添加朋友
+								</a>
+
+								<a href="#" class="btn btn-link">
+									<i class="ace-icon fa fa-envelope bigger-120 pink"></i>
+									我的消息
+								</a>
+
+								<a href="#" class="btn btn-link">
+									<i class="ace-icon fa fa-globe bigger-125 blue"></i>
+									118.24.1.228
+								</a>
+							</div>
+						</div>
 					</div>
 
 					<div class="col-xs-12 col-sm-9">
 						<div class="space-12"></div>
+
 						<div class="profile-user-info profile-user-info-striped">
 							<div class="profile-info-row">
 								<div class="profile-info-name"> 邮箱地址 </div>
@@ -309,81 +318,103 @@
 				<div id="user-profile-3" class="user-profile row">
 					<div class="col-sm-offset-1 col-sm-10">
 						<div class="well well-sm">
-                                                    <div class="inline middle blue bigger-110"> 你的个人资料已完成70％ </div>
-                                                    &nbsp; &nbsp; &nbsp;
-                                                    <div style="width:200px;" data-percent="70%" class="inline middle no-margin progress progress-striped active pos-rel">
-                                                        <div class="progress-bar progress-bar-success" style="width:70%"></div>
-                                                    </div>
+							<div class="inline middle blue bigger-110"> 你的个人资料已完成70％ </div>
+							&nbsp; &nbsp; &nbsp;
+							<div style="width:200px;" data-percent="70%" class="inline middle no-margin progress progress-striped active pos-rel">
+								<div class="progress-bar progress-bar-success" style="width:70%"></div>
+							</div>
 						</div><!-- /.well -->
+
 						<div class="space"></div>
+
 						<form class="form-horizontal" onsubmit='return false;'>
 							<div class="tabbable">
 								<ul class="nav nav-tabs padding-16">
-                                                                    <li class="active">
-                                                                        <a data-toggle="tab" href="#edit-basic">
-                                                                            <i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
-                                                                            基本信息
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a data-toggle="tab" href="#edit-settings">
-                                                                            <i class="purple ace-icon fa fa-cog bigger-125"></i>
-                                                                            我的设置(预留)
-                                                                        </a>
-                                                                    </li>
+									<li class="active">
+										<a data-toggle="tab" href="#edit-basic">
+											<i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
+											基本信息
+										</a>
+									</li>
+
+									<li>
+										<a data-toggle="tab" href="#edit-settings">
+											<i class="purple ace-icon fa fa-cog bigger-125"></i>
+											我的设置(预留)
+										</a>
+									</li>
 								</ul>
+
 								<div class="tab-content profile-edit-tab-content">
 									<div id="edit-basic" class="tab-pane in active">
 										<h4 class="header blue bolder smaller">通用</h4>
+
 										<div class="row">
 											<div class="col-xs-12 col-sm-4">
-                                                                                        <div class="up-img-cover"  id="up-img-touch" >
-                                                                                            <img class="am-circle" alt="点击图片上传" src="{{asset($admin_info->profile_pic)}}" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" >
+												<div class="up-img-cover"  id="up-img-touch" >
+										    		<img class="am-circle" alt="点击图片上传" src="{{asset($admin_info->profile_pic)}}" data-am-popover="{content: '点击上传', trigger: 'hover focus'}" >
 										    	</div>
 											</div>
+
 											<div class="vspace-12-sm"></div>
+
 											<div class="col-xs-12 col-sm-8">
 												<div class="form-group">
-                                                                                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-username">昵称</label>
-                                                                                                    <div class="col-sm-8">
-                                                                                                        <input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="昵称" value="{{$admin_info->name}}" />
-                                                                                                    </div>
+													<label class="col-sm-4 control-label no-padding-right" for="fr-field-nickname">昵称</label>
+
+													<div class="col-sm-8">
+														<input class="col-xs-12 col-sm-10" type="text" id="fr-field-nickname" placeholder="昵称" value="{{$admin_info->name}}" />
+													</div>
 												</div>
+
 												<div class="space-4"></div>
+
 												<div class="form-group">
 													<label class="col-sm-4 control-label no-padding-right" for="form-field-first">性别</label>
+
 													<div class="col-sm-8" style='margin-top: 7px;'>
 														<label class="inline">
-															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 1) checked @endif  value='1' />
+															<input name="fr-field-sex" type="radio" class="ace" @if($admin_info->sex == 1) checked @endif  value='1' />
 															<span class="lbl middle"> 男</span>
 														</label>
+
 														&nbsp; &nbsp; &nbsp;
 														<label class="inline">
-															<input name="form-field-radio" type="radio" class="ace" @if($admin_info->sex == 2) checked @endif value='2' />
+															<input name="fr-field-sex" type="radio" class="ace" @if($admin_info->sex == 2) checked @endif value='2' />
 															<span class="lbl middle"> 女</span>
 														</label>
 													</div>
 												</div>
 											</div>
 										</div>
+
+						
+
 										<div class="space-4"></div>
+
+
 										<div class="space"></div>
 										<h4 class="header blue bolder smaller">联系</h4>
+
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="form-field-email">电子邮箱</label>
+
 											<div class="col-sm-9">
 												<span class="input-icon input-icon-right">
-													<input type="email" id="form-field-email" value="{{$admin_info->email}}" readonly />
+													<input type="email" id="fr-field-email" value="{{$admin_info->email}}" readonly />
 													<i class="ace-icon fa fa-envelope"></i>
 												</span>
 											</div>
 										</div>
+
 										<div class="space-4"></div>
+
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">电话</label>
+
 											<div class="col-sm-9">
 												<span class="input-icon input-icon-right">
-													<input class="input-medium input-mask-phone" type="text" id="form-field-phone" value="{{$admin_info->telephone}}" />
+													<input class="input-medium input-mask-phone" type="text" id="fr-field-phone" value="{{$admin_info->telephone}}" />
 													<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 												</span>
 											</div>
@@ -391,24 +422,22 @@
 
 										<div class="space"></div>
 										<h4 class="header bolder "></h4>
-										<h4 ><button class="btn btn-sm btn-primary"><i class="ace-icon fa fa-check"></i> 保存</button></h4>
+										<h4 ><button class="btn btn-sm btn-primary" onclick="objClass.saveInfo()"><i class="ace-icon fa fa-check" ></i> 保存</button></h4>
 									</div>
 
 									<div id="edit-settings" class="tab-pane">
 										<div class="space-10"></div>
+
 										<div>
-                                                                                    <label class="inline">
-                                                                                        <input type="checkbox" name="form-field-checkbox" class="ace" />
-                                                                                        <span class="lbl">公开我的个人资料</span>
-                                                                                    </label>
+											<label class="inline">
+												<input type="checkbox" name="form-field-checkbox" class="ace" />
+												<span class="lbl blue">&nbsp;&nbsp;&nbsp;&nbsp;<i class="ace-icon fa fa-bell-o bigger-110 purple"></i>&nbsp;收到委派任务时提示通知消息</span>
+											</label>
 										</div>
+
 										<div class="space-8"></div>
-										<div>
-                                                                                    <label class="inline">
-                                                                                        <input type="checkbox" name="form-field-checkbox" class="ace" />
-                                                                                        <span class="lbl">给我发送更新</span>
-                                                                                    </label>
-										</div>
+
+
 									</div>
 								</div>
 							</div>
@@ -485,25 +514,66 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js" charset="utf-8"></script>
+    <script src="/ima_up/js/amazeui.min.js" charset="utf-8"></script>
     <script src="/ima_up/js/cropper.min.js" charset="utf-8"></script>
     <script src="/ima_up/js/custom_up_img.js" charset="utf-8"></script>
 
 	<script type="text/javascript">
-		$(function($) {
-
-			$('#profile-feed-1').ace_scroll({
-				height: '350px',
-				mouseWheelLock: true,
-				alwaysVisible : true
-			});
-		
-			$('[data-toggle="buttons"] .btn').on('click', function(e){
-				var target = $(this).find('input[type=radio]');
-				var which = parseInt(target.val());
-				$('.user-profile').parent().addClass('hide');
-				$('#user-profile-'+which).parent().removeClass('hide');
-			});
+		$('#profile-feed-1').ace_scroll({
+			height: '350px',
+			mouseWheelLock: true,
+			alwaysVisible : true
 		});
+	
+		$('[data-toggle="buttons"] .btn').on('click', function(e){
+			var target = $(this).find('input[type=radio]');
+			var which = parseInt(target.val());
+			$('.user-profile').parent().addClass('hide');
+			$('#user-profile-'+which).parent().removeClass('hide');
+		});
+
+	    var objClass = {
+	    	isSaveloading:false,
+	    	//保存用户个人信息
+	    	saveInfo:function(){
+	    		var nickname = $.trim($('#fr-field-nickname').val());
+	    		var phone = $.trim($('#fr-field-phone').val());
+	    		var sex = $("input[name='fr-field-sex']:checked").val();
+
+	    		if(nickname == ''){
+	    			layer.msg('昵称不能为空');
+	    			return false;
+	    		}
+
+	    		if(phone != '' && !checkMobile($('#fr-field-phone').val())){
+					layer.msg('手机号格式错误');
+	    			return false;
+	    		}
+
+	    		if(this.isSaveloading == false){
+	    			this.isSaveloading = true;
+					$.ajax({
+	                    url:"{{route('b_admin_changeprofile')}}",
+	                    type:'post',
+	                    data:{nickname:nickname,phone:phone,sex:sex},
+	                    dataType:'json',
+	                    complete:function(){
+	                        objClass.isSaveloading = false;
+	                    },
+	                    success:function(res){
+	                        if(res.code == 200){
+	                            layer.msg(res.message, {icon: 1});
+	                        }else{
+	                            layer.msg(res.message, {icon: 5});
+	                        }
+	                    },
+	                    error: throwError,
+	                });
+	    		}
+	    		
+	    	},
+	    };
+
+
 	</script>
 @endpush

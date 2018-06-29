@@ -86,17 +86,24 @@ class AdminController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function changeProfile(Request $request){
-        $validator = Validator::make($request->all(), [
-            'old_pwd' => 'required',
-            'new_pwd' => 'required',
-        ],['required'=>':attribute 字段不能为空.']);
-        
-        if ($validator->fails()) {
-            $error = $validator->errors()->all();
-            return $this->returnData([],$error[0],301);
+        $data = $request->all();
+
+        $dataParams = [];
+
+        if(isset($data['nickname'])){
+            $dataParams['name'] = $data['nickname'];
         }
-        
-        
+
+        if(isset($data['phone'])){
+            $dataParams['telephone'] = $data['phone'];
+        }
+
+        if(isset($data['sex'])){
+            $dataParams['sex'] = $data['sex'];
+        }
+
+        $res = $this->adminModel->editDetail($this->getUserInfo()->id,$dataParams);
+        return $this->returnData([], $res['message'], $res['code']);
     }
     
     /**
