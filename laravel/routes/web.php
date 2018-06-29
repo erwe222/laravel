@@ -52,12 +52,18 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
     Route::post('/admin/uploadportrait', 'AdminController@uploadportrait')->name('b_admin_uploadportrait');
     Route::post('/admin/changeprofile', 'AdminController@changeprofile')->name('b_admin_changeprofile');
 
+    //任务管理
+    Route::get('/task/index', 'TaskController@index')->name('b_task_index');
+    
+    Route::get('/task/createtaskbox', 'TaskController@createtaskbox')->name('b_task_createtaskbox');
+    Route::post('/task/createtask', 'TaskController@createtask')->name('b_task_createtask');
+
+    Route::get('/task/mycalendar', 'TaskController@mycalendar')->name('b_task_mycalendar');
+    Route::get('/task/mycalendardata', 'TaskController@mycalendardata')->name('b_task_mycalendardata');
+    
 
 
 
-    
-    
-    
     //Auth    控制器路由配置
     Route::get('auth/login', 'AuthController@login')->name('b_auth_tologin');
     Route::post('auth/ptlogin', 'AuthController@ptlogin')->name('b_auth_ptlogin');

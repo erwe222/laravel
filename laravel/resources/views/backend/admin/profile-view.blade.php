@@ -431,18 +431,12 @@
 										<div>
 											<label class="inline">
 												<input type="checkbox" name="form-field-checkbox" class="ace" />
-												<span class="lbl">公开我的个人资料</span>
+												<span class="lbl blue">&nbsp;&nbsp;&nbsp;&nbsp;<i class="ace-icon fa fa-bell-o bigger-110 purple"></i>&nbsp;收到委派任务时提示通知消息</span>
 											</label>
 										</div>
 
 										<div class="space-8"></div>
 
-										<div>
-											<label class="inline">
-												<input type="checkbox" name="form-field-checkbox" class="ace" />
-												<span class="lbl">给我发送更新</span>
-											</label>
-										</div>
 
 									</div>
 								</div>
