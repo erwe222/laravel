@@ -17,7 +17,7 @@ class IndexController extends CController{
         $wx_info = [];
         if(isWeiXin()){
             $is_wx = true;
-            $this->wxAuthorize(false);
+            $this->wxAuthorize(true);
             $wxAuthorize = request()->session()->get('wxAuthorize');
             $res = $this->weChatApiClass->getUserAuthorizedUserInfo($wxAuthorize['access_token'],$wxAuthorize['openid']);
             $wx_info = $res;
