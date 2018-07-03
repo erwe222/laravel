@@ -11,6 +11,8 @@
 |
 */
 Route::get('/',function(){
+    phpinfo();
+    exit;
     return redirect(route('f_index_index'));
 })->name('f_web_index');
 
