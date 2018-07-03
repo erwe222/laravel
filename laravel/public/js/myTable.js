@@ -157,27 +157,32 @@
         var _this = this;
         $(document).on('click','#' + this.checkBoxAll, function(){
             var istrue = $(this).is(':checked');
-            $(_this.Selector + ' td input:checkbox').each(function(){
+            $(_this.Selector + ' .table-checkbox-l').each(function(){
                 this.checked = istrue;
                 var row = $(this).closest('tr');
                 (this.checked == true)? row.addClass('selected'): row.removeClass('selected') ;
             });
         });
         
-        $(document).on('click',this.Selector +  ' thead >tr th label input:checkbox' , function(){
+        $(document).on('click','#' + this.checkBoxAll , function(){
             var istrue = $(this).is(':checked');
-            $(_this.Selector + ' td input:checkbox').each(function(){
+            $(_this.Selector + ' .table-checkbox-l').each(function(){
                 this.checked = istrue;
                 var row = $(this).closest('tr');
                 (this.checked == true)? row.addClass('selected'): row.removeClass('selected') ;
             });
         });
 
-        $(document).on('click',this.Selector +  ' td input:checkbox' , function(){
+        $(document).on('click',_this.Selector + ' .table-checkbox-l', function(){
             var row = $(this).closest('tr');
             (this.checked == true)? row.addClass('selected'): row.removeClass('selected') ;
-            var checked_num = $(_this.Selector +  ' td input:checkbox:checked').length;
-            var checkbox_num = $(_this.Selector +  '  td input:checkbox').length;
+
+            var checked_num = 0;
+            $(_this.Selector + ' .table-checkbox-l').each(function(){
+                if($(this).is(':checked')){checked_num++;}
+            });
+
+            var checkbox_num = $(_this.Selector + ' .table-checkbox-l').length;
             var th_checkbox = $('#'+_this.checkBoxAll);
             if(checked_num < checkbox_num){
                 th_checkbox.attr('checked',false);

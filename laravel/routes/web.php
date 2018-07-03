@@ -11,8 +11,6 @@
 |
 */
 Route::get('/',function(){
-    phpinfo();
-    exit;
     return redirect(route('f_index_index'));
 })->name('f_web_index');
 
@@ -55,13 +53,13 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
     Route::post('/admin/changeprofile', 'AdminController@changeprofile')->name('b_admin_changeprofile');
 
     //任务管理
-    Route::get('/task/index', 'TaskController@index')->name('b_task_index');
+    Route::get('/admin/task', 'AdminController@task')->name('b_admin_task');
     
-    Route::get('/task/createtaskbox', 'TaskController@createtaskbox')->name('b_task_createtaskbox');
-    Route::post('/task/createtask', 'TaskController@createtask')->name('b_task_createtask');
+    Route::get('/admin/createtaskbox', 'AdminController@createtaskbox')->name('b_admin_createtaskbox');
+    Route::post('/admin/createtask', 'AdminController@createtask')->name('b_admin_createtask');
 
-    Route::get('/task/mycalendar', 'TaskController@mycalendar')->name('b_task_mycalendar');
-    Route::get('/task/mycalendardata', 'TaskController@mycalendardata')->name('b_task_mycalendardata');
+    Route::get('/admin/mycalendar', 'AdminController@mycalendar')->name('b_admin_mycalendar');
+    Route::get('/admin/mycalendardata', 'AdminController@mycalendardata')->name('b_admin_mycalendardata');
     
 
 

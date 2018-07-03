@@ -70,7 +70,7 @@
         columns: [
             {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
-                    return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
+                    return '<label class="pos-rel"><input type="checkbox" class="ace table-checkbox-l" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
             {title: '发布人',data: 'name',name:'name',orderable:false,width: 50},

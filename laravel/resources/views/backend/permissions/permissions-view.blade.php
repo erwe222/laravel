@@ -108,7 +108,7 @@
         columns: [
             {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
-                    return '<label class="pos-rel"><input type="checkbox" class="ace" value="' + data["id"] + '" /><span class="lbl"></span></label>';
+                    return '<label class="pos-rel"><input type="checkbox" class="ace table-checkbox-l" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
             {title: '权限模块',data: 'pid_name',name:'pid_name',orderable:false,width: 200,render: function ( data, type, row, meta ) {
