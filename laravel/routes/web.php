@@ -54,14 +54,10 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
 
     //任务管理
     Route::get('/admin/task', 'AdminController@task')->name('b_admin_task');
-    
     Route::get('/admin/createtaskbox', 'AdminController@createtaskbox')->name('b_admin_createtaskbox');
     Route::post('/admin/createtask', 'AdminController@createtask')->name('b_admin_createtask');
-
-    Route::get('/admin/mycalendar', 'AdminController@mycalendar')->name('b_admin_mycalendar');
-    Route::get('/admin/mycalendardata', 'AdminController@mycalendardata')->name('b_admin_mycalendardata');
-    
-
+    Route::post('/admin/deletetask', 'AdminController@deletetask')->name('b_admin_deletetask');
+    Route::post('/admin/updatetaskstatus', 'AdminController@updatetaskstatus')->name('b_admin_updatetaskstatus');
 
 
     //Auth    控制器路由配置

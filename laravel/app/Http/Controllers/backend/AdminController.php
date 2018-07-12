@@ -271,5 +271,49 @@ class AdminController extends CController{
         }
         return $this->returnData([], '管理员状态修改失败', 305);
     }
-
+    
+    /**
+     * 我的任务管理页面
+     * @param \Illuminate\Http\Request $request
+     */
+    public function task(Request $request){
+        return view('backend.admin.task-view',[]);
+    }
+    
+    /**
+     *  添加任务窗口页面
+     * @param \Illuminate\Http\Request $request
+     * @return type
+     */
+    public function createTaskBox(Request $request){
+        return view('backend.admin.create-task-box',[]);
+    }
+    
+    /**
+     * 创建任务控制器
+     * @param \Illuminate\Http\Request $request
+     */
+    public function createTask(Request $request){
+        
+    }
+    
+    /**
+     * 删除任务控制器
+     * @param \Illuminate\Http\Request $request
+     */
+    public function deleteTask(Request $request){
+        
+    }
+    
+    /**
+     * 更新任务进度控制器
+     * @param \Illuminate\Http\Request $request
+     */
+    public function updateTaskStatus(Request $request){
+        
+    }
+    
+    
+    
+    
 }
