@@ -35,9 +35,27 @@ class TestController extends CController{
         parent::__construct();
         
         $this->menuModel = new \App\Model\Menus;
+
+        $this->usersFriendsModel = new \App\Model\UsersFriends;
+
+        $this->usersGroupModel = new \App\Model\UsersGroup();
     }
     
     public function index(Request $request){
+
+    	// $res = $this->usersGroupModel->createGroup(2,[
+    	// 	'users_id'=>2,
+    	// 	'groupname'=>'大家一起嗨嗨嗨',
+    	// 	'sort'=>1
+    	// ]);
+    	// var_dump($res);
+
+    	// $res = $this->usersFriendsModel->createFriend(2,3,1);
+    	// var_dump($res);
+
+    	$res = $this->usersGroupModel->deleteGroup(2,1);
+    	dd($res);
+    	exit;
             //echo route('test.index');
 //		echo 'aaaaaaaaa';
 //		$test = app('test');
