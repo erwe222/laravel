@@ -12,7 +12,11 @@
                             <option value="1">启 用</option>
                             <option value="0">禁 用</option>
                     </select>
-                </div> 
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="search-pre-moudelname"  class="form-control"  placeholder="权限模块名">
+                </div>
                 <div class="form-group">
                     <input type="text" id="search-pre-name"  class="form-control" title="ID" placeholder="权限名称">
                 </div>
@@ -279,7 +283,8 @@
         refresh:function(){
             var data = {
                 title:$.trim($('#search-pre-name').val()),
-                status:$('#search-pre-status').val()
+                status:$('#search-pre-status').val(),
+                moudelname:$.trim($('#search-pre-moudelname').val()),
             };
             myTable.setSearchParams(data);
             myTable.refresh();

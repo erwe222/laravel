@@ -59,10 +59,18 @@ class Permissions extends Model{
         $count_sql = 'select count(1) as total from lar_permissions p where 1=1 ';
         $sql = 'select p.*,p2.title as pid_name from lar_permissions p left join lar_permissions  p2 on p2.id = p.pid where 1 = 1';
         
-        if(isset($params['title']) && !empty($params['title'])){
+        if(isset($params['title'])){
              $sql .= " and p.title like '%{$params['title']}%'";
              $count_sql .= " and p.title like '%{$params['title']}%'";
         }
+
+        if(isset($params['moudelname'])){
+            $sql .= " and  p.pid in(select id from lar_permissions where type = 0 and title like '%{$params['moudelname']}%')";
+
+
+            $count_sql .= " and  p.pid in(select id from lar_permissions where type = 0 and title like '%{$params['moudelname']}%')";
+        }
+
 
         if(isset($params['status'])){
             $sql .= " and p.status = {$params['status']}";
@@ -77,12 +85,12 @@ class Permissions extends Model{
 
         if(isset($params['orderBy']) && isset($params['sort'])){
             if($params['orderBy'] == 'created_at'){
-                $orderBy = 'created_at';
-                $sql .= " order by {$orderBy} {$params['sort']}";
+                $sql .= " order by {$params['orderBy']} {$params['sort']}";
             }else if($params['orderBy'] == 'updated_at'){
-                $orderBy = 'updated_at';
-                $sql .= " order by {$orderBy} {$params['sort']}";
+                $sql .= " order by {$params['orderBy']} {$params['sort']}";
             }
+        }else{
+            $sql .= " order by created_at desc";
         }
 
         $list = DB::select($sql.$page_info['limit']);

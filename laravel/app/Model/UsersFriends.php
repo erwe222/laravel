@@ -76,7 +76,6 @@ class UsersFriends extends Model{
         }
     }
 
-
     /**
      * 用户删除好友
      * @param type $user_id    用户id
@@ -91,4 +90,5 @@ class UsersFriends extends Model{
 
         return false;
     }
+
 }

@@ -39,6 +39,13 @@ class TestController extends CController{
         $this->usersFriendsModel = new \App\Model\UsersFriends;
 
         $this->usersGroupModel = new \App\Model\UsersGroup();
+
+        $this->usersChatGroupModel = new \App\Model\UsersChatGroup();
+
+        $this->usersChatGroupDetailModel = new \App\Model\UsersChatGroupDetail();
+
+        
+
     }
     
     public function index(Request $request){
@@ -53,8 +60,21 @@ class TestController extends CController{
     	// $res = $this->usersFriendsModel->createFriend(2,3,1);
     	// var_dump($res);
 
-    	$res = $this->usersGroupModel->deleteGroup(2,1);
-    	dd($res);
+    	// $res = $this->usersGroupModel->deleteGroup(2,1);
+    	// dd($res);
+
+        // $res = $this->usersChatGroupModel->createChatGroup(2,[
+        //     'groupname'     =>'小兄弟',
+        //     'groupurl'      =>'',
+        //     'introduce'     =>'',
+        // ]);
+        // dd($res);
+        // $res = $this->usersChatGroupModel->deleteChatGroup(2,9);
+
+        // dd($res);
+        $res3 = $this->usersChatGroupDetailModel->createUser(10,2);
+
+        dd($res3);
     	exit;
             //echo route('test.index');
 //		echo 'aaaaaaaaa';

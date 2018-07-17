@@ -57,8 +57,9 @@ class UsersGroup extends Model{
      * 添加用户分组
      * @param type $user_id    用户id
      * @param type $params
+     * @return  array
      */
-    public function createGroup($user_id,$params = []){
+    public function createGroup($user_id,$params){
         $data = [];
         $data['users_id']   = $params['users_id'];
         $data['groupname']  = $params['groupname'];
@@ -79,6 +80,7 @@ class UsersGroup extends Model{
      * 删除用户分组
      * @param type $user_id    用户id
      * @param type $group_id   分组id
+     * @return  array
      */
     public function deleteGroup($user_id,$group_id){
 

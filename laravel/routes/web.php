@@ -34,7 +34,7 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
 {
     //Index 控制器路由配置
     Route::get('/', 'IndexController@main')->name('b_index_main');
-    Route::get('index/index', 'IndexController@index')->name('b_index_index')->middleware('authority');
+    Route::get('index/index', 'IndexController@index')->name('b_index_index');
     
     //Admin 控制器路由配置
     Route::get('/admin/index', 'AdminController@index')->name('b_admin_index')->middleware('authority');
@@ -73,7 +73,7 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
     
     //Menus 控制器路由配置 导航栏目
     Route::get('/menus/menuview', 'MenusController@menuview')->name('b_menus_menuview')->middleware('authority');
-    Route::get('/menus/getmenutreelist', 'MenusController@getmenutreelist')->name('b_menus_getmenutreelist')->middleware('authority');
+    Route::get('/menus/getmenutreelist', 'MenusController@getmenutreelist')->name('b_menus_getmenutreelist');
     Route::get('/menus/getmenulist', 'MenusController@getmenulist')->name('b_menus_getmenulist')->middleware('authority');
     Route::post('/menus/addmenu', 'MenusController@addmenu')->name('b_menus_addmenu')->middleware('authority');
     Route::post('/menus/updatemenu', 'MenusController@updatemenu')->name('b_menus_updatemenu')->middleware('authority');
@@ -93,10 +93,10 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
     Route::post('/permissions/addpermissions', 'PermissionsController@addpermissions')->name('b_permissions_addpermissions')->middleware('authority');
     Route::post('/permissions/updatepermissions', 'PermissionsController@updatepermissions')->name('b_permissions_updatepermissions')->middleware('authority');
     Route::post('/permissions/deletepermissions', 'PermissionsController@deletepermissions')->name('b_permissions_deletepermissions')->middleware('authority');
-    Route::get('/permissions/getmodulename', 'PermissionsController@getmodulename')->name('b_permissions_getmodulename')->middleware('authority');
+    Route::get('/permissions/getmodulename', 'PermissionsController@getmodulename')->name('b_permissions_getmodulename');
     
     
-    //FileManage 控制器路由配置 文件管理
+    //FileManage 控制器路由配置 文件管理  ok
     Route::get('/filemanage/index', 'FileManageController@index')->name('b_filemanage_index')->middleware('authority');
     Route::get('/filemanage/getlogfilelist', 'FileManageController@getlogfilelist')->name('b_filemanage_getlogfilelist')->middleware('authority');
     Route::get('/filemanage/readlogfile', 'FileManageController@readlogfile')->name('b_filemanage_readlogfile')->middleware('authority');
@@ -107,7 +107,7 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
     Route::get('/system/index', 'SystemController@index')->name('b_system_index')->middleware('authority');
     Route::get('/system/clearviewcache', 'SystemController@clearviewcache')->name('b_system_clearviewcache')->middleware('authority');
 
-    
+
     Route::get('/system/record', 'SystemController@record')->name('b_system_record')->middleware('authority');
     Route::get('/system/getrecordlist', 'SystemController@getrecordlist')->name('b_system_getrecordlist')->middleware('authority');
 
@@ -117,15 +117,12 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
     Route::get('/wechat/wexitokenview', 'WechatController@wexitokenview')->name('b_wechat_wexitokenview')->middleware('authority');
     Route::get('/wechat/wexitokendata', 'WechatController@wexitokendata')->name('b_wechat_wexitokendata')->middleware('authority');
     Route::get('/wechat/wechatmenu', 'WechatController@wechatmenu')->name('b_wechat_wechatmenu')->middleware('authority');
-    Route::get('/wechat/createmenubox', 'WechatController@createmenubox')->name('b_wechat_createmenubox')->middleware('authority');
+    Route::get('/wechat/createmenubox', 'WechatController@createmenubox')->name('b_wechat_createmenubox');
     Route::post('/wechat/createmenu', 'WechatController@createmenu')->name('b_wechat_createmenu')->middleware('authority');
     Route::get('/wechat/updatemenu', 'WechatController@updatemenu')->name('b_wechat_updatemenu')->middleware('authority');
     Route::get('/wechat/wechatmenudata', 'WechatController@wechatmenudata')->name('b_wechat_wechatmenudata')->middleware('authority');
     
 
-    
-    
-    
     //调试控制器路由
     Route::get('/test/index', 'TestController@index')->name('b_test_index');
     Route::get('/test/easyuitable', 'TestController@easyuitable')->name('b_test_easyuitable');

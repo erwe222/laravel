@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,3 +16,21 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+
+//接口后台路由配置
+// Route::group(['middleware' => ['Cors']], function()
+// {
+
+	Route::get('/test/test', function (Request $request) {
+
+		dd(Auth::guard('api')->validate(['api_token'=>'dfasdfasdf']));
+	    // dd(Auth::guard('api')->validate(['api_token' => '')]));
+	});
+
+	
+
+
+// });

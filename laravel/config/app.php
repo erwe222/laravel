@@ -237,7 +237,7 @@ return [
         //后台系统名称
         'backstage_name'=>'我的后台管理',
         //是否开启页面授权验证（默认开启）
-        'authverify'=>false,
+        'authverify'=>true,
         'desSecret' =>'xjyryd',
         'wechat'=>[
 //            小小饶公众号

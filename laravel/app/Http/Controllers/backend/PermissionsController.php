@@ -33,9 +33,15 @@ class PermissionsController extends CController{
             $data['title'] = addslashes($params['search']['title']);
         }
         
+        if(isset($params['search']['moudelname']) && !empty($params['search']['moudelname'])){
+            $data['moudelname'] = addslashes($params['search']['moudelname']);
+        }
+        
         if(isset($params['search']['status'])){
             $data['status'] = (int)$params['search']['status'];
         }
+
+
 
         if(!empty($params['orderBy']) && !empty($params['sort'])){
             $data['orderBy']    = $params['orderBy'];

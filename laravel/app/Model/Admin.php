@@ -153,7 +153,7 @@ class Admin extends \Illuminate\Foundation\Auth\User{
         if(!$admin_info){
             return handleResult(false,303,'用户不存在');
         }
-
+        $expiry_time = $this->getExpiryTime();
         $res = self::where('id', $admin_id)->where('password_reset_token', $token)->update(['password'=>bcrypt($new_pwd),'password_reset_token'=>'','expiry_time'=>$expiry_time]);
         if($res){
             return handleResult(true,200,'密码重置成功...');
