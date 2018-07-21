@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!--移动设备优先，让viewport等于设备宽度，初始化缩放比例为1-->
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>register</title>
+    <title>小卖铺免费注册</title>
     <!--<link rel="stylesheet" href="css/font-awesome/css/font-awesome.css" />-->
 	<link rel="stylesheet" href="/weixin/css/login.css" />	
         <style>
