@@ -58,7 +58,7 @@
                     <input type="password" placeholder="请设置登录密码" style="font-size: 18px;background-color: transparent;">				    
                   </div>
                   <div class="login-form">		
-                    <input type="password" placeholder="请填写验证码" style="font-size: 18px;background-color: transparent;width: 50%;">	
+                      <input type="number" maxlength="6" placeholder="请填写验证码" style="font-size: 18px;background-color: transparent;width: 50%;">	
                     <div style="width:90px;background:red;float:right;text-align: center;line-height:30px;border-radius:15px;color:#fff;background: #FFA366;padding-left: 5px;padding-right:5px;margin-top:-5px;">发送短信(20s)</div>
                   </div>
                   <input type="submit" class=" btn-login" value="立即注册">				 			  
