@@ -9,39 +9,62 @@
     <title>register</title>
     <!--<link rel="stylesheet" href="css/font-awesome/css/font-awesome.css" />-->
 	<link rel="stylesheet" href="/weixin/css/login.css" />	
+        <style>
+	input[placeholder], [placeholder], *[placeholder] {
+   			color:#ccc !important;font-size:14px;
+		}
+	    input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+	　　	color: #ccc;font-size:14px;
+	　　}
+	　　input:-moz-placeholder, textarea:-moz-placeholder {
+	　　	color:#ccc;font-size:14px;
+	　　}
+	　　input::-moz-placeholder, textarea::-moz-placeholder {
+	　　	color:#ccc;font-size:14px;
+	　　}
+
+	　　input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+	　　	color:#ccc;font-size:14px;
+	　　}
+	 	input::-webkit-input-placeholder{
+            color:#ccc;
+        }
+        input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+            color:#ccc;
+        }
+        input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+            color:#ccc;
+        }
+        input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+            color:#ccc;
+        }
+        
+        .btn-login:active{
+            background:#f18238;
+        }
+	</style>
 </head>
-	<body>
-		<section class="container">
-			<div class="login-logo">
-				<img src="/weixin/images/logo.png">					
-			</div>
-			<div class="login-box">					
-				<form action="javascript:;">
-				  <div class="login-form">	
-				  	<label><i class="fa fa-user-o fa-lg"></i></label>
-				    <input type="text"  placeholder="请输入用户名">
-				  </div>
-				  <div class="login-form">	
-				  	<label><i class="fa fa-envelope-o fa-lg"></i></label>
-				    <input type="email"  placeholder="请输入邮箱">
-				  </div>
-				  <div class="login-form">	
-				  	<label><i class="fa fa-mobile-phone fa-2x"></i></label>
-				    <input type="tel"  placeholder="请输入手机">
-				  </div>
-				  <div class="login-form">		
-				  	<label><i class="fa fa-key fa-lg"></i></label>
-				    <input type="password" placeholder="请输入密码">				    
-				  </div>
-				  <input type="submit" class=" btn-login" value="注册">				 			  
-				</form>
-			</div>
-			<div class="login-foot">
-				<p><span><a href="findpwd.html">忘记密码？</a></span>  
-				   <span class="fr"><a href="login.bload.php.html">立即登录</a></span>
-				</p>				
-			</div>
-			<div class="login-bg"><img src="images/bg.png" width="100%"></div>
-		</section>
-	</body>
+    <body>
+        <section class="container">
+            <div class="login-logo">
+                <img src="/weixin/images/logo.png">					
+            </div>
+            <div class="login-box">					
+                <form action="javascript:;">
+                  <div class="login-form">	
+                    <input type="tel"  placeholder="请输入手机" style="font-size: 18px;background-color: transparent;">
+                  </div>
+                  <div class="login-form">		
+                    <input type="password" placeholder="请输入密码" style="font-size: 18px;background-color: transparent;">				    
+                  </div>
+                  <input type="submit" class=" btn-login" value="注册">				 			  
+                </form>
+            </div>
+            <div class="login-foot">
+                <p><span><a href="findpwd.html">忘记密码？</a></span>  
+                   <span class="fr"><a href="login.bload.php.html">立即登录</a></span>
+                </p>				
+            </div>
+        </section>
+    </body>
 </html>
