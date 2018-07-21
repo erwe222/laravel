@@ -53,7 +53,7 @@
                       <div class="login-form">		
                         <input type="password" placeholder="请填写您的密码" style="font-size: 18px;background-color: transparent;" maxlength="16">
                       </div>
-                        <input type="submit" class="btn-login" value="登  录" style="font-size: 14px;" id="fr-btn-login">				 			  
+                        <input type="submit" class="btn-login" value="登  录" style="font-size: 14px;font-weight: blod;" id="fr-btn-login">				 			  
                     </form>
                 </div>
                 <div class="login-foot">
