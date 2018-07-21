@@ -94,15 +94,18 @@
                     dataType:'json',
                     beforeSend:function(){
                         obj.loginLoading = true;
+                        $('#fr-btn-login').val('登录中...');
                     },
                     complete:function(){
                         layer.close(loginLoadingIndex);
                         obj.loginLoading = false;
+                        $('#fr-btn-login').val('登  录');
                     },
                     success:function(res){
                         if(res.code == 200){
+                            layer.open({type: 2,content: '登录成功,页面跳转中...'});
                             setTimeout(function(){
-                                layer.open({type: 2,content: '登录成功,页面跳转中...'});
+                                
                             },2000);
                         }
                     },
