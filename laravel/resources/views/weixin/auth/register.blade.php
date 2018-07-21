@@ -12,6 +12,18 @@
         input:-moz-placeholder{color:#ccc;font-size:14px;}
         input:-ms-input-placeholder{color:#ccc;font-size:14px;}
         .btn-login:active{background:#f18238;}
+        
+        #fr-code-btn{
+            width:90px;
+            float:right;text-align: center;
+            line-height:30px;border-radius:15px;
+            color:#fff;background: #FFA366;padding-left: 5px;
+            padding-right:5px;margin-top:-5px;
+            cursor: pointer;
+        }
+        .gray{
+            background:#ccc !important;
+        }
     </style>
 </head>
 <body>
@@ -27,9 +39,9 @@
                 </div>
                 <div class="login-form">		
                     <input type="text" maxlength="6" placeholder="请填写验证码" style="font-size: 18px;background-color: transparent;width: 50%;" id="fr-input-code">	
-                    <div style="width:90px;background:red;float:right;text-align: center;line-height:30px;border-radius:15px;color:#fff;background: #FFA366;padding-left: 5px;padding-right:5px;margin-top:-5px;">发送短信(20s)</div>
+                    <div id="fr-code-btn">获取短信</div>
                 </div>
-                <input type="submit" class=" btn-login" value="立即注册" style="font-size: 14px;font-weight: blod;" id="fr-btn-login">				 			  
+                <input type="submit" class="btn-login" value="立即注册" style="font-size: 14px;font-weight: blod;" id="fr-btn-login" onclick="obj.register();">				 			  
             </form>
         </div>
         <div class="login-foot">
@@ -121,12 +133,93 @@
         }
     };
     
-    $('#fr-input-mobile').on('input',function(){
+    $('#fr-input-mobile,#fr-input-code').on('input',function(){
         $(this).val(obj.numberFormater($(this).val()))
     });
     
-    $('#fr-btn-login').on('click',function(){
-        obj.register();
+    function VerificationCode(example,className,btnName){
+        this.example    = example;
+        this.className  = className;
+        
+        this.btnName    = btnName;
+        
+        this.cacheFlag = 'register_code';
+
+        /*刷新时间为60秒*/
+        this.time = 60;
+
+        /**获取验证码缓存时间**/
+        this.getCodeTime = function(){
+            var res = localStorage.getItem(this.cacheFlag);
+            return res;
+        }
+
+        /*设置验证码刷新的时间*/
+        this.setCodeTime = function(){
+            var mydate = new Date();
+            var date = mydate.getTime();
+            localStorage.setItem(this.cacheFlag, date);
+            return true;
+        }
+
+        /**判断验证码时间是否有效*/
+        this.veriftyTime = function() {
+            var cache = localStorage.getItem(this.cacheFlag);
+            if (cache !== null || cache !== '') {
+                var mydate = new Date();
+                var minute = (mydate.getTime() - parseInt(cache)) / 1000;
+                if (minute < this.time) {
+                    return true;
+                }
+            }
+
+            localStorage.removeItem(this.cacheFlag);
+            return false;
+        }
+
+        //倒计时触发
+        this.CountDown = function(){
+            var _this = this;
+            var cache = localStorage.getItem(this.cacheFlag);
+            if(cache !== null || cache !== ''){
+                var mydate = new Date();
+                var minute = parseInt((mydate.getTime() - parseInt(cache)) / 1000);
+                var time = parseInt(this.time - minute);
+                if(time > 0){
+                    _this.example.addClass(_this.className);
+                    t2 = setInterval(function(){
+                        time--;
+                        _this.example.html('已发送('+time +"s)");
+                        if(time === 0) {
+                            _this.example.html(_this.btnName);
+                            _this.example.removeClass(_this.className);
+                            clearInterval(t2);
+                        }
+                    }, 1000);
+                }
+            }else{
+                _this.example.removeClass(_this.className);
+            }
+        }
+
+        /*刷新页面触发事件*/
+        this.start = function(){
+            if(this.veriftyTime()){
+                this.CountDown();
+            }
+        }
+    }
+    var className = 'gray';
+    var btnName = '获取短信';
+    var objCode = new VerificationCode($('#fr-code-btn'),className,btnName);
+    objCode.start();
+    $('#fr-code-btn').on('click',function(){
+        if(!objCode.veriftyTime()){
+            if(objCode.setCodeTime()){
+                objCode.CountDown();
+                layer.open({content: '发送成功',skin: 'msg',time: 2});
+            }
+        }
     });
 </script>
     </body>
