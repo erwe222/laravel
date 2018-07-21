@@ -72,13 +72,7 @@
      function mobileFormater(val){
          var value = val.replace(/[^0-9]/g,"");
          var len = value.length;
-         if(len  <= 3){
-             return value.slice(0,3);
-         }else if(len  <= 7){
-             return value.slice(0,3) + ' ' +  value.slice(3,7);
-         }else{
-             return value.slice(0,3) + ' ' +  value.slice(3,7) + ' ' + value.slice(7,11);
-         }
+         return value;
      }
 
     /**
