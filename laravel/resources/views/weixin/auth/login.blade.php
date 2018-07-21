@@ -84,7 +84,7 @@
             }
             
             if(this.loginLoading == false){
-                layer.open({type: 2,content: '登录中'});
+                layer.open({type: 2,content: '登录中,请稍等...'});
             }else{
                 layer.open({content: '登录中...',skin: 'msg',time: 2});
             }
