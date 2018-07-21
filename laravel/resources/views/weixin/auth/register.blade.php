@@ -55,14 +55,18 @@
                     <input type="tel"  placeholder="请输入手机" style="font-size: 18px;background-color: transparent;">
                   </div>
                   <div class="login-form">		
-                    <input type="password" placeholder="请输入密码" style="font-size: 18px;background-color: transparent;">				    
+                    <input type="password" placeholder="请设置登录密码" style="font-size: 18px;background-color: transparent;">				    
+                  </div>
+                  <div class="login-form">		
+                    <input type="password" placeholder="请填写验证码" style="font-size: 18px;background-color: transparent;width: 50%;">	
+                    <div style="width:80px;background:red;float:right;text-align: center;line-height:25px;border-radius:15px;color:#fff;background: #FFA366;padding-left: 5px;padding-right:5px;">发送短信</div>
                   </div>
                   <input type="submit" class=" btn-login" value="注册">				 			  
                 </form>
             </div>
             <div class="login-foot">
                 <p><span><a href="findpwd.html">忘记密码？</a></span>  
-                   <span class="fr"><a href="login.bload.php.html">立即登录</a></span>
+                   <span class="fr"><a href="{{route('w_auth_login')}}">立即登录</a></span>
                 </p>				
             </div>
         </section>
