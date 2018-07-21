@@ -42,6 +42,21 @@ function handleResult($result=true,$code=200,$msg=''){
 }
 
 /**
+ * 前端ajax数据处理
+ * @param int $code
+ * @param string $messsage
+ * @param array $data
+ * @return string
+ */
+function returnData($code=200,$messsage='',$data = []){
+    return json_encode([
+        'code'     => $code,
+        'message'  => $messsage,
+        'data'     => $data
+    ]);
+}
+
+/**
  * 判断字符串编码是否为 UTF-8
  * @param type $string
  * @return blooean

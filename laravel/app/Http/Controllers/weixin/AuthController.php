@@ -8,15 +8,43 @@ class AuthController extends CController{
     	parent::__construct();
 
     }
-    
+
     /**
-     * 
+     * 微信登陆页面
+     * @param \Illuminate\Http\Request $request
+     * @return type
      */
     public function login(Request $request){
         return view('weixin.auth.login');
     }
     
+    /**
+     * 微信登陆处理页面
+     * @param \Illuminate\Http\Request $request
+     * @return type
+     */
+    public function postLogin(Request $request){
+        
+        sleep(4);
+        return returnData(200,'登录成功',[]);
+    }
+
+
+    /**
+     * 微信注册页面
+     * @param \Illuminate\Http\Request $request
+     * @return type
+     */
     public function register(Request $request){
+        return view('weixin.auth.register');
+    }
+    
+    /**
+     * 微信注册处理页面
+     * @param \Illuminate\Http\Request $request
+     * @return type
+     */
+    public function postRegister(Request $request){
         return view('weixin.auth.register');
     }
 }

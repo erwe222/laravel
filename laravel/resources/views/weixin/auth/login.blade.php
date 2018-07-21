@@ -83,8 +83,33 @@
                 return false;
             }
             
+            
+            
             if(this.loginLoading == false){
-                layer.open({type: 2,content: '登录中...'});
+                var loginLoadingIndex = layer.open({type: 2,content: '登录中...'});
+                $.ajax({
+                    url:"{{route('w_auth_postlogin')}}",
+                    type:'post',
+                    data:{mobile:mobile,password:pwd},
+                    dataType:'json',
+                    beforeSend:function(){
+                        obj.loginLoading = true;
+                    },
+                    complete:function(){
+                        layer.close(loginLoadingIndex);
+                        obj.loginLoading = false;
+                    },
+                    success:function(res){
+                        if(res.code == 200){
+                            setTimeout(function(){
+                                layer.open({type: 2,content: '登录成功,页面跳转中...'});
+                            },2000);
+                        }
+                    },
+                    error:function(){
+                        layer.open({content: '网络繁忙，请稍后再试...',skin: 'msg',time: 2});
+                    }
+                });
             }else{
                 layer.open({content: '登录中...',skin: 'msg',time: 2});
             }
