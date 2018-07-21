@@ -2,15 +2,27 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--采用最新版本的IE文档模式渲染页面-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!--移动设备优先，让viewport等于设备宽度，初始化缩放比例为1-->
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Login</title>
+    <title>小卖铺登录</title>
 	<link rel="stylesheet" href="/weixin/css/login.css" />	
 	<style>
-	
-        input::-webkit-input-placeholder{
+	input[placeholder], [placeholder], *[placeholder] {
+   			color:#ccc !important;font-size:14px;
+		}
+	    input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+	　　	color: #ccc;font-size:14px;
+	　　}
+	　　input:-moz-placeholder, textarea:-moz-placeholder {
+	　　	color:#ccc;font-size:14px;
+	　　}
+	　　input::-moz-placeholder, textarea::-moz-placeholder {
+	　　	color:#ccc;font-size:14px;
+	　　}
+
+	　　input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+	　　	color:#ccc;font-size:14px;
+	　　}
+	 	input::-webkit-input-placeholder{
             color:#ccc;
         }
         input::-moz-placeholder{   /* Mozilla Firefox 19+ */
