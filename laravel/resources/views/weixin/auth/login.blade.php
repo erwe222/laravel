@@ -108,7 +108,7 @@
     });
     
     $('#fr-btn-login').on('click',function(){
-        $(this).val('登录中...');
+        $(this).val('登录中…');
         
         setTimeout(function(){
             $('#fr-btn-login').val('登  录');
