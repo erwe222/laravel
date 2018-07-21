@@ -46,15 +46,15 @@
                     <img src="/weixin/images/logo.png">
                 </div>
                 <div class="login-box">					
-                        <form action="javascript:;">
-                          <div class="login-form">	
-                            <input type="text"  placeholder="请输入您的手机号" style="font-size: 18px;background-color: transparent;">
-                          </div>
-                          <div class="login-form">		
-                            <input type="password" placeholder="请填写您的密码" style="font-size: 18px;background-color: transparent;">
-                          </div>
-                          <input type="submit" class="btn-login" value="登  录" style="font-size: 14px;">				 			  
-                        </form>
+                    <form action="javascript:;">
+                      <div class="login-form">	
+                          <input type="text"  placeholder="请输入您的手机号" style="font-size: 18px;background-color: transparent;" id="fr-input-mobile">
+                      </div>
+                      <div class="login-form">		
+                        <input type="password" placeholder="请填写您的密码" style="font-size: 18px;background-color: transparent;">
+                      </div>
+                      <input type="submit" class="btn-login" value="登  录" style="font-size: 14px;">				 			  
+                    </form>
                 </div>
                 <div class="login-foot">
                         <p><span><a href="findpwd.html">忘记密码？</a></span>  
@@ -62,5 +62,57 @@
                         </p>				
                 </div>
         </section>
+        
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    
+    /**
+      * 手机号格式化
+      */
+     function mobileFormater(val){
+         var value = val.replace(/[^0-9]/g,"");
+         var len = value.length;
+         if(len  <= 3){
+             return value.slice(0,3);
+         }else if(len  <= 7){
+             return value.slice(0,3) + ' ' +  value.slice(3,7);
+         }else{
+             return value.slice(0,3) + ' ' +  value.slice(3,7) + ' ' + value.slice(7,11);
+         }
+     }
+
+    /**
+     * 去除手机号中的空格
+     */
+    function mobileFormater2(val){
+        return val.replace(/[^0-9]/g,"");
+    }
+
+    /**
+     * 验证手机号格式
+     */
+    function checkMobile(val){
+        var myreg = /^1(3|4|5|7|8)\d{9}$/; 
+        return myreg.test(val);
+    }
+
+    /**
+     * 密码格式验证
+     */
+    function checkPassWord(password) {
+        var str = password;
+        if (str == null || str.length < 8) {
+            return false;
+        }
+        var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+        if (reg.test(str))
+            return true;
+    };
+    
+    $('#fr-input-mobile').on('input',function(){
+        $(this).val(mobileFormater($(this).val()))
+    });
+        
+</script>
     </body>
 </html>
