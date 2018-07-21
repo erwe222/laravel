@@ -33,10 +33,10 @@
         <div class="login-box">					
             <form action="javascript:;">
                 <div class="login-form">	
-                    <input type="tel"  placeholder="请输入手机号" style="font-size: 18px;background-color: transparent;" id="fr-input-mobile">
+                    <input type="tel"  placeholder="请输入手机号" style="font-size: 18px;background-color: transparent;" id="fr-input-mobile" maxlength="11">
                 </div>
                 <div class="login-form">		
-                  <input type="password" placeholder="请设置登录密码" style="font-size: 18px;background-color: transparent;" id="fr-input-pwd">				    
+                  <input type="password" placeholder="请设置登录密码" style="font-size: 18px;background-color: transparent;" id="fr-input-pwd" maxlength="16">				    
                 </div>
                 <div class="login-form">		
                     <input type="text" maxlength="6" placeholder="请填写验证码" style="font-size: 18px;background-color: transparent;width: 50%;" id="fr-input-code">	
@@ -219,7 +219,7 @@
             var mobile = $('#fr-input-mobile').val();
             if(mobile == ''){
                 layer.open({content: '请输入手机号',skin: 'msg',time: 2});return false;
-            }else if(!this.checkMobile(mobile)){
+            }else if(!obj.checkMobile(mobile)){
                 layer.open({content: '手机号格式错误',skin: 'msg',time: 2});return false;
             }
 
