@@ -48,4 +48,13 @@ class AuthController extends CController{
         sleep(2);
         return returnData(200,'注册成功',[]);
     }
+    
+    /**
+     * 发送注册短信验证码
+     * @param \Illuminate\Http\Request $request
+     */
+    public function sendRegisterSms(Request $request){
+        sleep(2);
+        return returnData(200,'发送成功',[]);
+    }
 }

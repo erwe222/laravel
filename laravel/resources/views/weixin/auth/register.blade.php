@@ -215,6 +215,13 @@
     objCode.start();
     $('#fr-code-btn').on('click',function(){
         if(!objCode.veriftyTime()){
+            var mobile = $('#fr-input-mobile').val();
+            if(mobile == ''){
+                layer.open({content: '请输入手机号',skin: 'msg',time: 2});return false;
+            }else if(!this.checkMobile(mobile)){
+                layer.open({content: '手机号格式错误',skin: 'msg',time: 2});return false;
+            }
+
             if(objCode.setCodeTime()){
                 objCode.CountDown();
                 layer.open({content: '发送成功',skin: 'msg',time: 2});

@@ -32,6 +32,8 @@ Route::group(['prefix' => 'weixin','namespace' => 'weixin'], function()
     Route::post('auth/postlogin', 'AuthController@postlogin')->name('w_auth_postlogin');
     Route::get('auth/register', 'AuthController@register')->name('w_auth_register');
     Route::post('auth/postregister', 'AuthController@postregister')->name('w_auth_postregister');
+    Route::post('auth/sendregistersms', 'AuthController@sendregistersms')->name('w_auth_sendregistersms');
+    
 });
 
 //后台路由配置
