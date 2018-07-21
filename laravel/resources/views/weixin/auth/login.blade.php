@@ -34,6 +34,10 @@
         input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
             color:#ccc;
         }
+        
+        .btn-login:active{
+            background:#f18238;
+        }
 	</style>
 </head>
     <body >
@@ -49,7 +53,7 @@
                           <div class="login-form">		
                             <input type="password" placeholder="请填写您的密码" style="font-size: 18px;background-color: transparent;">
                           </div>
-                          <input type="submit" class=" btn-login" value="登  录" style="font-size: 14px;">				 			  
+                          <input type="submit" class="btn-login" value="登  录" style="font-size: 14px;">				 			  
                         </form>
                 </div>
                 <div class="login-foot">
