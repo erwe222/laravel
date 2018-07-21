@@ -53,7 +53,7 @@
                       <div class="login-form">		
                         <input type="password" placeholder="请填写您的密码" style="font-size: 18px;background-color: transparent;">
                       </div>
-                      <input type="submit" class="btn-login" value="登  录" style="font-size: 14px;">				 			  
+                        <input type="submit" class="btn-login" value="登  录" style="font-size: 14px;" id="fr-btn-login">				 			  
                     </form>
                 </div>
                 <div class="login-foot">
@@ -105,6 +105,14 @@
     
     $('#fr-input-mobile').on('input',function(){
         $(this).val(mobileFormater($(this).val()))
+    });
+    
+    $('#fr-btn-login').on('click',function(){
+        $(this).val('登录中...');
+        
+        setTimeout(function(){
+            $('#fr-btn-login').val('登  录');
+        },2000);
     });
         
 </script>
