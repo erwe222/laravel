@@ -352,7 +352,12 @@
                 $(this).parent().addClass('active');
                 var obj = $(this).data('options');
                 mytab.addTab(obj);
-            })
+            });
+
+            $('.openTab').on('click',function(){
+                var obj = $(this).data('options');
+                mytab.addTab(obj);
+            });
 
         	/**
             * 主框架操作类
@@ -372,11 +377,52 @@
                 }
             };
 
+            /**
+            * 消息推送处理类
+            * @type type 
+            */
+            var messagePush = {
+                ws:null,
+                Connect:function(){
+                    var admin_id = "{{$user_info->id}}";
+                    var ws = new WebSocket("ws://118.24.1.228:9501?admin_id="+admin_id+'&channel=adminnotice');
 
-            $('.openTab').on('click',function(){
-            	var obj = $(this).data('options');
-            	mytab.addTab(obj);
-            });
+                    ws.onopen = function(){
+                        //ws.send("发送数据");
+                    };
+
+                    ws.onmessage = function (evt) {
+                        var msgObj = JSON.parse(evt.data);
+                        console.log(msgObj);
+
+                        var message_index = layer.open({
+                            type: 1
+                            ,title:'<span class="blue"><i class="ace-icon fa fa-envelope-o"></i> 消息提示</span>'
+                            ,offset: 'rb' //具体配置参考：offset参数项
+                            ,content: '<div style="padding:10px 10px 30px 10px;min-width:300px;"> '+ msgObj.message +'</div>'
+                            ,shade: 0
+                        });
+                    };
+                    
+                    ws.onclose = function(){
+                      // 关闭 websocket
+                      ws.send("关闭");
+                    };
+
+                    ws.onclose = function(){ 
+                        // 关闭 websocket
+                        console.log("即时通讯服务器连接失败..."); 
+                        setTimeout(function(){
+                            console.log("自动尝试连接即时通讯服务器..."); 
+                            messagePush.Connect();
+                        },2000);
+                    };
+
+                    this.ws;
+                }
+            };
+
+            messagePush.Connect();
         </script>
     </body>
 </html>

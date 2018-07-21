@@ -14,7 +14,7 @@ use App\Events\LoginBroadcastingEvent;
 
 use App\Model\Users;
 use App\Events\CreateActionLogEvent;
-
+use App\Events\CmsMessagePushEvent;
 /**
  * Description of TestController
  *
@@ -74,8 +74,8 @@ class TestController extends CController{
         // dd($res);
         $res3 = $this->usersChatGroupDetailModel->createUser(10,2);
 
-        dd($res3);
-    	exit;
+     //    dd($res3);
+    	// exit;
             //echo route('test.index');
 //		echo 'aaaaaaaaa';
 //		$test = app('test');
@@ -139,16 +139,22 @@ class TestController extends CController{
 //
 //        dd($weixin_api->getAccessToken());
 
-//        $weixin_api = new \App\Helpers\CurlRequest();
-//        $weixin_api ->setPost(['asd'=>'asdf']);
-//        $weixin_api ->setRequestUrl('http://www.lar.test.com/weixin');
-//        $weixin_api->request();
-//        var_dump($weixin_api);exit;
+       // $weixin_api = new \App\Helpers\CurlRequest();
+       // $weixin_api ->setPost(['asd'=>'asdf']);
+       // $weixin_api ->setRequestUrl('http://118.24.1.228:9501');
+       // $res = $weixin_api->request();
+       // var_dump($res);exit;
         
-        $ss = $this->checkLogin();
-        dd($this->getUserInfo()->status);
+        // $ss = $this->checkLogin();
+        // dd($this->getUserInfo()->status);
 
-
+        event(new CmsMessagePushEvent([
+            'channel'     =>'adminnotice',
+            'noticetype'  =>'2222222222',   #渠道下的消息别名
+            'msgtype'     =>'3333333333',         #渠道下的消息类型
+            'message'     =>'4444444444',         #渠道下的消息内容
+            'params'      =>['asdf'=>'fasdfasd'],           #渠道下的消息附加参数
+        ]));
     }
     
     public function test(){

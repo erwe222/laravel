@@ -174,7 +174,7 @@ class CurlRequest {
 
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json; charset=utf-8',
-                    'Content-Length: ' . strlen($this->_postFields)
+                    'Content-Length: ' . strlen(json_encode($this->_postFields))
                 ));
             }
             
@@ -187,7 +187,8 @@ class CurlRequest {
              *  情况下，尽量对post提交的数据进行http_build_query，然后发送出去，能实现更好的兼容性，更小的请求数据包。
              * 可通过 new CurlFile('D:\bakFile\TestFile.txt') 添加上传文件 例如：$this->_postFields['files] = new CurlFile('D:\bakFile\TestFile.txt')
              */
-            curl_setopt($ch,CURLOPT_POSTFIELDS,$this->_postFields);
+            // dd($this->_postFields);
+            curl_setopt($ch,CURLOPT_POSTFIELDS,http_build_query($this->_postFields));
         }
 
         $res = curl_exec($ch);

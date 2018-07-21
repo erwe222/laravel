@@ -16,14 +16,14 @@ class AdminController extends CController{
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
         
         $this->adminModel = new \App\Model\Admin();
         $this->rolesModel = new \App\Model\Roles();
         $this->adminRolesMdel = new \App\Model\AdminRoles();
         $this->actionLogModel = new \App\Model\ActionLog();
+        $this->taskModel = new \App\Model\Task();
     }
 
 
@@ -277,7 +277,49 @@ class AdminController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function task(Request $request){
-        return view('backend.admin.task-view',[]);
+        return view('backend.admin.task-view',[
+            'statusList' => $this->taskModel::STATUS,
+            'admin_id'   => $this->getUserInfo()->id,
+        ]);
+    }
+
+    /**
+     * 获取管理员列表数据
+     * @param \Illuminate\Http\Request $request
+     */
+    public function getTaskListData(Request $request){
+        $params = $this->queryDatatableParams($request);
+        $data = [];
+        if(isset($params['search']['name']) && !empty($params['search']['name'])){
+            $data['name'] = addslashes($params['search']['name']);
+        }
+        
+        if(isset($params['search']['email'])){
+            $data['email'] = $params['search']['email'];
+        }
+
+        if(isset($params['search']['status'])){
+            $data['status'] = $params['search']['status'];
+        }
+
+        if(!empty($params['orderBy']) && !empty($params['sort'])){
+            $data['orderBy']    = $params['orderBy'];
+            $data['sort']       = $params['sort'];
+        }
+
+        $data['offset']     = $params['offset'];
+        $data['pagesize']   = $params['pagesize'];
+        $lists = $this->taskModel->findTaskList($data);
+
+        // dd($lists);
+        return response()->json([
+            'code'=>200,
+            'draw'=>$params['draw'],
+            'recordsTotal'=>$lists['total'],
+            'recordsFiltered'=>$lists['total'],
+            'data'=>$lists['data'],
+            'page_index'=>$lists['page_index']
+        ]);
     }
     
     /**
@@ -310,7 +352,31 @@ class AdminController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function updateTaskStatus(Request $request){
-        
+
+        $task_id = $request->input('id',0);
+        $data = [
+            'status'      =>(int)$request->input('status',0),
+            'end_time'    =>$request->input('endtime','')
+        ];
+
+        if(empty($task_id) || empty($data['status'])){
+            return $this->returnData([],'参数不符合规范',301);
+        }
+
+        if($data['status'] != 3){
+            unset($data['end_time']);
+        }else if($data['status'] == 3 && empty($data['end_time'])){
+            return $this->returnData([],'参数不符合规范',301);
+        }
+
+        $delegate_id  = $this->getUserInfo()->id;
+        $res = $this->taskModel->updateStatus($task_id,$delegate_id,$data);
+
+        if($res){
+            return $this->returnData([], '状态修改成功',200);
+        }
+
+        return $this->returnData([], '状态修改失败', 305);
     }
     
     

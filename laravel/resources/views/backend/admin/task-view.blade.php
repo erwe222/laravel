@@ -7,16 +7,14 @@
                 <div class="form-group">
                     <label >状态：</label>
                     <select class="form-control" id="search-role-status" style="width: 100px;">
-                            <option value="">全 部</option>
-                            <option value="10">启 用</option>
-                            <option value="0">禁 用</option>
+                        <option value="">全 部</option>
+                        @foreach($statusList as $k=>$v)
+                            <option value="{{$k}}">{{$v}}</option>
+                        @endforeach
                     </select>
                 </div> 
                 <div class="form-group">
-                    <input type="text" id="search-admin-nickname"  class="form-control"  placeholder="昵称">
-                </div>
-                <div class="form-group">
-                    <input type="text" id="search-admin-email"  class="form-control"  placeholder="登录邮箱">
+                    <input type="text" id="search-task-title"  class="form-control"  placeholder="标题">
                 </div>
                 <button class="btn btn-info btn-sm"><i class="ace-icon fa fa-search"></i>搜索</button>
                 <button class="btn btn-info btn-sm" type='reset'><i class="ace-icon fa  fa-ban"></i>重置</button>
@@ -33,69 +31,57 @@
     </div>
     <div class="col-xs-12">
         <div class="clearfix"><div class="pull-right tableTools-container"></div></div>
-        <div class="table-header">角色列表</div>
+        <div class="table-header">任务计划</div>
         <div>
             <table id="dynamic-table" class="table table-striped table-bordered table-hover" style="width:100%;"></table>
         </div>
     </div>
 </div>
 
-<div id="dialog-message" class="hide" >
-    <form class="form-horizontal" role="form" id="add-admin-form">
-        <input type="hidden" id="fr-role-id"  value="0"  />
+<div id="cu-editstatus-box" style="display:none;width:300px;padding-top:10px;">
+    <form class="form-horizontal" role="form" id="add-admin-form" onsubmit='return false;'>
+        <input id="fr-task-id" type="hidden" class="form-control" value='0'>
         <div class="form-group">
-            <label class="col-sm-2 control-label no-padding-right" for="menu-name"> 登录邮箱 </label>
+            <label class="col-sm-3 control-label no-padding-right" > 处理状态 </label>
             <div class="col-sm-9">
-                <input type="text" id="fr-admin-email"  placeholder="请填写登录邮箱..." class="form-control" />
+                <select class="form-control" id="fr-task-status" >
+                    @foreach($statusList as $k=>$v)
+                        <option value="{{$k}}">{{$v}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label no-padding-right" for="menu-name"> 昵称 </label>
+        <div class="form-group " >
+            <label class="col-sm-3 control-label no-padding-right" for="date-timepicker1"> <span class='fr-time-box'>结束时间</span> </label>
             <div class="col-sm-9">
-                <input type="text" id="fr-admin-name"  placeholder="请填写角色名..." class="form-control" />
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label class="col-sm-2 control-label no-padding-right " for="menu-name"> 登录密码 </label>
-            <div class="col-sm-9">
-                <input type="password" id="fr-admin-pwd"  placeholder="请填写登录密码..." class="form-control "  />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label no-padding-right " for="menu-name"> 重复密码 </label>
-            <div class="col-sm-9">
-                <input type="password" id="fr-admin-pwd2"  placeholder="请重复填写登录密码..." class="form-control "  />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label no-padding-right" for="form-field-1-4"> 状态 </label>
-            <div class="col-sm-9">
-                <div class="radio">
-                    <label>
-                        <input name="fr-role-status" type="radio"  class="ace" checked="" value="10" />
-                        <span class="lbl">启用</span>
-                    </label>
-                    <label>
-                        <input name="fr-role-status" type="radio"  class="ace" value="0" />
-                        <span class="lbl">禁用</span>
-                    </label>
+                <div class="input-group fr-time-box">
+                    <input id="date-timepicker1" type="text" class="form-control">
+                    <span class="input-group-addon">
+                        <i class="fa fa-clock-o bigger-110"></i>
+                    </span>
                 </div>
             </div>
         </div>
+
         <div class="form-group">
-            <label class="col-sm-2 control-label no-padding-right" >  </label>
+            <label class="col-sm-3 control-label no-padding-right" for="menu-name">  </label>
             <div class="col-sm-9">
-                <p style='height:19px;color:red;' id='add-admin-error'></p>
+                <button class="btn btn-sm btn-primary" onclick="objClass.updateStatus()"> 修 改</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-sm btn-grey" onclick="layer.close(objClass.statusBoxIndex)"> 取 消</button>
             </div>
         </div>
-</form>
+    </form>
 </div>
+
+
 @endsection
 
 @push('scripts')
 <script src="/ace-asstes/js/jquery.dataTables.min.js"></script>
 <script src="/ace-asstes/js/jquery.dataTables.bootstrap.min.js"></script>
+<script src="/ace-asstes/js/moment.min.js"></script>
+<script src="/ace-asstes/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/js/myTable.js"></script>
 <script >
     var obj = {
@@ -106,27 +92,48 @@
                     return '<label class="pos-rel"><input type="checkbox" class="ace table-checkbox-l" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
-            {title: '登录邮箱',data: 'email',name:'email',orderable:false,width: 100},
-            {title: '昵称',data: 'name',name:'name',orderable:false,width: 100},
-            {title: '联系方式',data: 'telephone',name:'telephone',orderable:false,width: 100},
-            {title: '性别',data: 'sex',name:'sex',orderable:false,width: 10,render: function ( data, type, row, meta ) {
-                return (data == 1) ? '男': '女';
+            {title: '创建人',data: 'admin_name',name:'admin_name',orderable:false,width: 50},
+            {title: '处理人',data: 'delegate_name',name:'delegate_name',orderable:false,width: 50},
+            {title: '标题',data: 'title',name:'title',orderable:false,width: 300},
+            {title: '任务类型',data: 'type',name:'type',orderable:false,width: 30,render: function ( data, type, row, meta ) {
+                  var str ='';
+                  if(data == 1){
+                    str +='我的计划';
+                  }else {
+                    str +='委派任务';
+                  }
+
+                  return str;
             }},
-            {title: '状态',data: 'status',name:'status',orderable:false,width: 30,render: function ( data, type, row, meta ) {
-                var checked = (data == 10) ? 'checked':'';
-                return '<label><input  class="ace ace-switch ace-switch-2 editStatus" type="checkbox" '+checked+' data-id="'+row.id+'" data-status="'+data+'"><span class="lbl"></span></label>';
+            {title: '状态(可编辑)',data: 'status',name:'status',orderable:false,width: 30,render: function ( data, type, row, meta ) {
+                  var str = '<p style="cursor: pointer;" onclick="objClass.showUpdateBox(\''+meta.row+'\')" >';
+                  if(data == 1){
+                    str += '<span class="label label-white middle">等待处理</span>';
+                  }else if(data == 2){
+                    str += '<span class="label label-success label-white middle">处理中</span>';
+                  }else if(data == 3){
+                    str += '<span class="label label-warning label-white middle">延期处理</span>';
+                  }else if(data == 4){
+                    str += '<span class="label label-danger label-white middle">已完成</span>';
+                  }else{
+                    str += '<span class="label label-info label-white middle">已丢弃</span>';
+                  }
+
+                  str +'</p>';
+                  return str;
             }},
-            {title: '所属角色',data: 'role_name',name:'role_name',orderable:false,width: 100},
-            {title: '注册时间',data: 'created_at',width: 80},
+            {title: '开始时间',data: 'start_time',name:'start_time',orderable:true,width: 50},
+            {title: '结束时间',data: 'end_time',name:'end_time',orderable:true,width: 50},
+
             {title: '操 作',data: 'id',orderable:false,width: 20,render: function ( data, type, row, meta ) {
                 var str ='';
-                str += '<button class="btn btn-minier btn-success" onclick="objClass.change(\''+meta.row+'\')"><i class="ace-icon fa fa-pencil bigger-130"></i> 查看||分配角色</button>';
+                
                 return str;
             }}
-        ],
+        ]
     };
     
-    var myTable = new MyTable('#dynamic-table',obj,"{{route('b_admin_getadminListdata')}}");
+    var myTable = new MyTable('#dynamic-table',obj,"{{route('b_admin_gettasklistdata')}}");
     myTable.init();
     
     $('#grid-search-form').on('submit',function(){
@@ -134,64 +141,44 @@
     });
 
     var objClass = {
-        isAddLoading:false,
+        statusBoxIndex:null,
         isUpdateStatusLoading:false,
-        add:function(){
-            this.showFrom();
-        },
-        showSubmitError:function(msg,type){
-            if(type == 1){
-                $('#add-admin-error').html('<i class="ace-icon fa fa-spinner fa-spin orange bigger-120"></i>&nbsp; 数据提交中，请稍等...');
-            }else{
-                if(msg == '' || msg == undefined){
-                    $('#add-admin-error').html('');
-                }else{
-                    $('#add-admin-error').html('<i class="ace-icon fa fa-exclamation-triangle bigger-120 red"></i>&nbsp;'+msg);
-                }
+        refresh:function(flag){
+            var t = true;
+            if(flag != undefined){
+                t = flag;
             }
+            var data = {
+                title:$.trim($('#search-task-title').val()),
+                status:$('#search-role-status').val()
+            };
+
+            myTable.setSearchParams(data);
+            myTable.refresh(t);
         },
-        submit:function(){
-            var email       = $.trim($('#fr-admin-email').val());
-            var status      = $("input[name='fr-admin-status']:checked").val();
-            var name        = $.trim($('#fr-admin-name').val());
-            var pwd         = $.trim($('#fr-admin-pwd').val());
-            var pwd2        = $.trim($('#fr-admin-pwd2').val());
-            if(email == ''){
-                this.showSubmitError('登录邮箱不能为空');return false;
-            }else if(!isEmail(email)){
-                this.showSubmitError('登录邮箱格式填写错误');return false;
-            }else if(name == ''){
-                this.showSubmitError('昵称不能为空');return false;
-            }else if(pwd == ''){
-                this.showSubmitError('请设置登录密码');return false;
-            }else if(pwd.length < 8){
-                this.showSubmitError('登录密码必须大于等于8位数字或字母');return false;
-            }else if(pwd !== pwd2){
-                this.showSubmitError('重复密码输入错误');return false;
-            }
-            this.showSubmitError('');
-            if(this.isAddLoading == false){
-                this.isAddLoading = true;
-                this.showSubmitError('',1);
+        updateStatus:function(){
+            
+            if(this.isUpdateStatusLoading == false){
+                var index = layer.load(2);
                 $.ajax({
-                    url:"{{route('b_admin_createadmin')}}",
+                    url:"{{route('b_admin_updatetaskstatus')}}",
                     type:'post',
-                    data:{email:email,name:name,status:status,pwd:pwd},
+                    data:{id:$('#fr-task-id').val(),status:$('#fr-task-status').val(),endtime:$('#date-timepicker1').val()},
                     dataType:'json',
+                    beforeSend:function(){
+                        objClass.isUpdateStatusLoading = true;
+                    },
                     complete:function(){
-                        objClass.isAddLoading = false;
-                        objClass.showSubmitError('');
+                        layer.close(index);
+                        objClass.isUpdateStatusLoading = false;
                     },
                     success:function(res){
                         if(res.code == 200){
                             layer.msg(res.message, {icon: 1});
-                            $( "#dialog-message" ).dialog( "close" );
-                            $('#fr-admin-email').val('');
-                            $('#fr-admin-name').val('');
-                            $('#fr-admin-pwd').val('');
-                            $('#fr-admin-pwd2').val('');
-                            objClass.showSubmitError('');
-                            objClass.refresh();
+                            layer.close(objClass.statusBoxIndex)
+                            setTimeout(function(){
+                                objClass.refresh();
+                            },2000);
                         }else{
                             layer.msg(res.message, {icon: 5});
                         }
@@ -200,111 +187,67 @@
                 });
             }
         },
-        refresh:function(flag){
-            var t = true;
-            if(flag != undefined){
-                t = flag;
-            }
-            var data = {
-                name:$.trim($('#search-admin-nickname').val()),
-                email:$.trim($('#search-admin-email').val()),
-                status:$('#search-role-status').val()
-            };
-
-            myTable.setSearchParams(data);
-            myTable.refresh(t);
-        },
-        showFrom:function(){
-            var _this = this;
-            $( "#dialog-message" ).removeClass('hide').dialog({
-                modal: true,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon glyphicon glyphicon-plus'></i> 添加管理员</h4></div>",
-                title_html: true,
-                width:600,
-                closeOnEscape:false,
-                open:function(event,ui){$(".ui-dialog-titlebar-close").hide();},
-                show: {
-                effect: "blind",
-                    duration: 500
-                },
-                hide: {
-                    effect: "explode",
-                    duration: 1000
-                },
-                buttons: [{
-                        text: "取消",
-                        class : "btn btn-minier",
-                        click: function() {
-                            if(objClass.isAddLoading == false){
-                                $('#fr-admin-email').val('');
-                                $('#fr-admin-name').val('');
-                                $('#fr-admin-pwd').val('');
-                                $('#fr-admin-pwd2').val('');
-                                objClass.showSubmitError('');
-                                $( this ).dialog( "close" );
-                            }
-                        } 
-                    },{
-                        text: "添加",
-                        class: "btn btn-primary btn-minier",
-                        click: function() {
-                            _this.submit()
-                        } 
-                    }
-                ]
-            });
-        },
-        change:function(row_id){
+        showUpdateBox:function(row_id){
             var data = myTable.getRowData(row_id);
-            var url = "{{route('b_admin_adminpermissionsview')}}"+'?id='+data.id;
-            var title = "【"+data.name+"】查看或分配角色";
-            var data = {href:url,title:title,icon:'fa fa-pencil',index:data.id,lock:false};
-            var edit_admin_role = parent.layer.open({
-				type: 2,
-				maxmin: true,
-				area: ['700px', '450px'],
-				title: title,
-				content: url,
-                end:function(){
-                  objClass.refresh();
+
+            if(data.delegate_id != "{{$admin_id}}"){
+                layer.msg('无权修改');
+                return false;
+            }
+
+            $('#cu-editstatus-box').show();
+            $('#fr-task-id').val(data.id)
+            $('#fr-task-status').val(data.status);
+            if(data.status == 3){
+                $('.fr-time-box').show();
+            }else{
+                $('.fr-time-box').hide();
+            }
+
+            $('#date-timepicker1').val(data.end_time);
+            objClass.statusBoxIndex = layer.open({
+              title:'<i class="ace-icon fa fa-pencil-square-o blue"></i> <span class="blue">编辑进度</span>',
+              type: 1,
+              skin: 'layui-layer-rim', //加上边框
+              area: ['380px', '210px'], //宽高
+              content: $('#cu-editstatus-box'),
+              end:function(){
+                $('#cu-editstatus-box').hide();
               }
-			});
+            });
         }
     };
 
     $('#btns-type-one > button').on('click',function(){
         objClass[$(this).data('type')]();
     });
-    $(document).on('click','.editStatus', function(){
-        var _this = $(this);
-        var id = $(this).data('id');
-        var status = $(this).data('status');
-        layer.confirm('您确定要修改该用户的用户状态吗？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            status = (status == 0)?10:0;
-            var upload_index = layer.msg('修改中, 请稍等...', {icon: 16,shade: 0.01,time:0});
-            $.ajax({
-                url:"{{route('b_admin_updateadminstatus')}}",
-                type:'post',
-                data:{id:id,status},
-                dataType:'json',
-                complete:function(){
-                    layer.close(upload_index);
-                },
-                success:function(res){
-                    if(res.code == 200){
-                        layer.msg(res.message, {icon: 1});
-                        objClass.refresh(false);
-                    }else{
-                        layer.msg(res.message, {icon: 5});
-                    }
-                },
-                error: throwError,
-            });
-        });
-        return false;
+
+    $('#date-timepicker1').datetimepicker({
+     format: 'YYYY-MM-DD HH:mm:ss',//use this option to display seconds
+     icons: {
+        time: 'fa fa-clock-o',
+        date: 'fa fa-calendar',
+        up: 'fa fa-chevron-up',
+        down: 'fa fa-chevron-down',
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-arrows ',
+        clear: 'fa fa-trash',
+        close: 'fa fa-times'
+     }
+    }).next().on(ace.click_event, function(){
+        $(this).prev().focus();
     });
+
+    $('#fr-task-status').on('change',function(){
+        if(this.value == 3){
+            $('.fr-time-box').show();
+        }else{
+            $('.fr-time-box').hide();
+        }
+    });
+
+
     
 </script>
 @endpush

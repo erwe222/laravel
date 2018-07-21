@@ -54,6 +54,7 @@ Route::group(['prefix' => 'backend','namespace' => 'backend','middleware' => ['b
 
     //任务管理
     Route::get('/admin/task', 'AdminController@task')->name('b_admin_task');
+    Route::get('/admin/gettasklistdata', 'AdminController@gettasklistdata')->name('b_admin_gettasklistdata');
     Route::get('/admin/createtaskbox', 'AdminController@createtaskbox')->name('b_admin_createtaskbox');
     Route::post('/admin/createtask', 'AdminController@createtask')->name('b_admin_createtask');
     Route::post('/admin/deletetask', 'AdminController@deletetask')->name('b_admin_deletetask');

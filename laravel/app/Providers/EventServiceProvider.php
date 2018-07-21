@@ -19,7 +19,7 @@ class EventServiceProvider extends ServiceProvider
         
         'App\Events\CreateActionLogEvent' => [
             'App\Listeners\CreateActionLog',
-        ],
+        ]
     ];
 
     /**

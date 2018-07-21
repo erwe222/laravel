@@ -120,7 +120,7 @@
             {title: '注册时间',data: 'created_at',width: 80},
             {title: '操 作',data: 'id',orderable:false,width: 20,render: function ( data, type, row, meta ) {
                 var str ='';
-                str += '<button class="btn btn-minier btn-success" onclick="objClass.change(\''+meta.row+'\')"><i class="ace-icon fa fa-pencil bigger-130"></i> 查看||分配角色</button>';
+                str += '<button class="btn btn-minier btn-success" onclick="objClass.change(\''+meta.row+'\')" title="分配角色"><i class="ace-icon fa fa-pencil bigger-130"></i></button>';
                 return str;
             }}
         ],

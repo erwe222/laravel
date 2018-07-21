@@ -258,5 +258,14 @@ return [
 //            'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
             
         ],
+        'messagePush'=>[
+            'secretkey'=>'websocket',
+
+            //消息推送服务地址
+            'server_1'=>[
+                'http'=>'http://118.24.1.228:9501',
+                'ws'=>'ws://118.24.1.228:9501',
+            ],
+        ],
     ],
 ];

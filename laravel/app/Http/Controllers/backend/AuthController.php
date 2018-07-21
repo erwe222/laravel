@@ -7,6 +7,7 @@ use App\Events\CreateActionLogEvent;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\Des;
 use App\Mail\SendForgotPassword;
+use App\Events\CmsMessagePushEvent;
 
 /**
  * Description of AuthController
@@ -76,6 +77,14 @@ class AuthController extends CController{
                     'type'=>7,
                     'content'=>'登录后台，登录IP:'.$ip
                 ]);
+
+                event(new CmsMessagePushEvent([
+                    'channel'     =>'adminnotice',
+                    'noticetype'  =>'login',  
+                    'msgtype'     =>'1',
+                    'message'     =>'['.$user->name.'] 登录后台管理系统',
+                    'params'      =>[],
+                ]));
                 
                 return $this->returnData([],'登录成功',200);
             }
@@ -97,7 +106,15 @@ class AuthController extends CController{
             'type'=>8,
             'content'=>'退出后台',
         ]);
-        
+
+        event(new CmsMessagePushEvent([
+            'channel'     =>'adminnotice',
+            'noticetype'  =>'login',  
+            'msgtype'     =>'1',
+            'message'     =>'['.$user->name.'] 退出后台管理系统',
+            'params'      =>[],
+        ]));
+
         $this->guard()->logout();
 
         $request->session()->invalidate();
