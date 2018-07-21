@@ -48,7 +48,7 @@
                 <div class="login-box">					
                     <form action="javascript:;">
                       <div class="login-form">	
-                          <input type="text"  placeholder="请输入您的手机号" style="font-size: 18px;background-color: transparent;" id="fr-input-mobile">
+                          <input type="text"  placeholder="请输入您的手机号" style="font-size: 18px;background-color: transparent;" id="fr-input-mobile" maxlength="11">
                       </div>
                       <div class="login-form">		
                         <input type="password" placeholder="请填写您的密码" style="font-size: 18px;background-color: transparent;">
