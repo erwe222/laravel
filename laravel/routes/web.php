@@ -11,7 +11,7 @@
 |
 */
 Route::get('/',function(){
-    return redirect(route('f_index_index'));
+    return redirect(route('w_auth_login'));
 })->name('f_web_index');
 
 //前台路由配置
@@ -27,6 +27,8 @@ Route::group(['prefix' => 'front','namespace' => 'front'], function()
 Route::group(['prefix' => 'weixin','namespace' => 'weixin'], function()
 {
     Route::match(['get', 'post'],'/', 'WeixinController@index')->name('w_weixin_index');
+    
+    Route::get('auth/login', 'AuthController@login')->name('w_auth_login');
 });
 
 //后台路由配置
