@@ -43,7 +43,7 @@
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script src="/weixin/layer_mobile/layer.js"></script>
 <script>
-    
+
     var obj = {
         loginLoading:false,
         numberFormater:function(val){
@@ -61,7 +61,7 @@
             if (str == null || str.length < 8) {
                 return false;
             }
-            
+
             var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
             return reg.test(val);
         },
@@ -109,6 +109,8 @@
                             setTimeout(function(){
                                 window.location.href = "{{route('w_auth_register')}}";
                             },1000);
+                        }else{
+                            layer.open({content: res.message,skin: 'msg',time: 3});
                         }
                     },
                     error:function(){

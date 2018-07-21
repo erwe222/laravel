@@ -25,7 +25,7 @@ class AuthController extends CController{
      */
     public function postLogin(Request $request){
         
-        sleep(4);
+        sleep(2);
         return returnData(200,'登录成功',[]);
     }
 
