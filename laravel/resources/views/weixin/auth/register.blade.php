@@ -8,12 +8,12 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>小卖铺免费注册</title>
     <!--<link rel="stylesheet" href="css/font-awesome/css/font-awesome.css" />-->
-	<link rel="stylesheet" href="/weixin/css/login.css" />	
+    <link rel="stylesheet" href="/weixin/css/login.css" />	
         <style>
 	input[placeholder], [placeholder], *[placeholder] {
-   			color:#ccc !important;font-size:14px;
-		}
-	    input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+            color:#ccc !important;font-size:14px;
+        }
+/*	    input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 	　　	color: #ccc;font-size:14px;
 	　　}
 	　　input:-moz-placeholder, textarea:-moz-placeholder {
@@ -25,24 +25,24 @@
 
 	　　input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 	　　	color:#ccc;font-size:14px;
-	　　}
-	 	input::-webkit-input-placeholder{
-            color:#ccc;
+	　　}*/
+        input::-webkit-input-placeholder{
+            color:#ccc;font-size:14px;
         }
         input::-moz-placeholder{   /* Mozilla Firefox 19+ */
-            color:#ccc;
+            color:#ccc;font-size:14px;
         }
         input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
-            color:#ccc;
+            color:#ccc;font-size:14px;
         }
         input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
-            color:#ccc;
+            color:#ccc;font-size:14px;
         }
         
         .btn-login:active{
             background:#f18238;
         }
-	</style>
+    </style>
 </head>
     <body>
         <section class="container">
