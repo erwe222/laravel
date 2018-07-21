@@ -15,4 +15,8 @@ class AuthController extends CController{
     public function login(Request $request){
         return view('weixin.auth.login');
     }
+    
+    public function register(Request $request){
+        return view('weixin.auth.register');
+    }
 }

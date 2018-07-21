@@ -29,6 +29,7 @@ Route::group(['prefix' => 'weixin','namespace' => 'weixin'], function()
     Route::match(['get', 'post'],'/', 'WeixinController@index')->name('w_weixin_index');
     
     Route::get('auth/login', 'AuthController@login')->name('w_auth_login');
+    Route::get('auth/register', 'AuthController@register')->name('w_auth_register');
 });
 
 //后台路由配置

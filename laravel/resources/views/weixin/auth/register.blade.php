@@ -7,19 +7,19 @@
     <!--移动设备优先，让viewport等于设备宽度，初始化缩放比例为1-->
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>register</title>
-    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css" />
-	<link rel="stylesheet" href="css/login.css" />	
+    <!--<link rel="stylesheet" href="css/font-awesome/css/font-awesome.css" />-->
+	<link rel="stylesheet" href="/weixin/css/login.css" />	
 </head>
 	<body>
 		<section class="container">
 			<div class="login-logo">
-				<img src="images/logo.png">					
+				<img src="/weixin/images/logo.png">					
 			</div>
 			<div class="login-box">					
 				<form action="javascript:;">
 				  <div class="login-form">	
 				  	<label><i class="fa fa-user-o fa-lg"></i></label>
-				    <input type="number"  placeholder="请输入用户名">
+				    <input type="text"  placeholder="请输入用户名">
 				  </div>
 				  <div class="login-form">	
 				  	<label><i class="fa fa-envelope-o fa-lg"></i></label>
