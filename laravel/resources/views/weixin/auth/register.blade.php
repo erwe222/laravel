@@ -65,7 +65,8 @@
                 </form>
             </div>
             <div class="login-foot">
-                <p><span><a href="findpwd.html">忘记密码？</a></span>  
+                <p>
+                   <span><a href="#" style="color:#afa3a3;">忘记密码？</a></span>  
                    <span class="fr"><a href="{{route('w_auth_login')}}">立即登录</a></span>
                 </p>				
             </div>
