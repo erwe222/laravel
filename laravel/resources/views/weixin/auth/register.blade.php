@@ -21,6 +21,7 @@
             padding-right:5px;margin-top:-5px;
             cursor: pointer;
         }
+        #fr-code-btn:active{border-radius:15px;}
         .gray{
             background:#ccc !important;
         }
