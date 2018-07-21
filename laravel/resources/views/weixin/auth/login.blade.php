@@ -103,6 +103,7 @@
                     },
                     success:function(res){
                         if(res.code == 200){
+                            $('#fr-btn-login').val('登录成功');
                             layer.open({type: 2,content: '登录成功,页面跳转中...'});
                             setTimeout(function(){
                                 
