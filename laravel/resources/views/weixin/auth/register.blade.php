@@ -20,7 +20,7 @@
         <div class="login-box">					
             <form action="javascript:;">
                 <div class="login-form">	
-                    <input type="tel"  placeholder="请输入手机" style="font-size: 18px;background-color: transparent;" id="fr-input-mobile">
+                    <input type="tel"  placeholder="请输入手机号" style="font-size: 18px;background-color: transparent;" id="fr-input-mobile">
                 </div>
                 <div class="login-form">		
                   <input type="password" placeholder="请设置登录密码" style="font-size: 18px;background-color: transparent;" id="fr-input-pwd">				    
@@ -75,6 +75,10 @@
                 layer.open({content: '请填写登录密码',skin: 'msg',time: 2});return false;
             }else if(!this.checkPassWord(pwd)){
                 layer.open({content: '密码格式不正确',skin: 'msg',time: 2});return false;
+            }else if(code == ''){
+                layer.open({content: '请填写短信验证码',skin: 'msg',time: 2});return false;
+            }else if(code.length != 6){
+                layer.open({content: '短信验证码格式错误',skin: 'msg',time: 2});return false;
             }
 
             if(this.registerLoading == false){

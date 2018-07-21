@@ -45,6 +45,7 @@ class AuthController extends CController{
      * @return type
      */
     public function postRegister(Request $request){
-        return view('weixin.auth.register');
+        sleep(2);
+        return returnData(200,'注册成功',[]);
     }
 }
