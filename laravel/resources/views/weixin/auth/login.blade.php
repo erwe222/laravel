@@ -58,7 +58,7 @@
                 </div>
                 <div class="login-foot">
                     <p>
-                       <span><a href="#" style="color:#ccc;">忘记密码？</a></span>  
+                       <span><a href="#" style="color:#afa3a3;">忘记密码？</a></span>  
                        <span class="fr"><a href="{{route('w_auth_register')}}">快速注册</a></span>
                     </p>				
                 </div>
