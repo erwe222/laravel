@@ -82,9 +82,7 @@
                 layer.open({content: '请填写登录密码',skin: 'msg',time: 2});
                 return false;
             }
-            
-            
-            
+
             if(this.loginLoading == false){
                 var loginLoadingIndex = layer.open({type: 2,content: '登录中...'});
                 $.ajax({
@@ -98,20 +96,19 @@
                     },
                     complete:function(xhr, ts){
                         layer.close(loginLoadingIndex);
-                        obj.loginLoading = false;
                         if(xhr.responseJSON.code == 200){
                             $('#fr-btn-login').val('登录成功');
                         }else{
+                            obj.loginLoading = false;
                             $('#fr-btn-login').val('登  录');
                         }
                     },
                     success:function(res){
                         if(res.code == 200){
-                            
                             layer.open({type: 2,content: '登录成功,页面跳转中...'});
                             setTimeout(function(){
-                                
-                            },2000);
+                                window.location.href = "{{route('w_auth_register')}}";
+                            },1000);
                         }
                     },
                     error:function(){
