@@ -30,8 +30,7 @@ class TestController extends CController{
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
         
         $this->menuModel = new \App\Model\Menus;
@@ -44,8 +43,13 @@ class TestController extends CController{
 
         $this->usersChatGroupDetailModel = new \App\Model\UsersChatGroupDetail();
 
+        $con = [
+            'accountsid'=>'15d28ad029f680856498915c352811c1',
+            'token'=>'22293f258f0db698e792badbe160678c',
+            'appid'=>'2ca0f02849f446529639d966dfcd15a2',
+        ];
         
-
+        $this->smsModel = new \App\Lib\Sms($con);
     }
     
     public function index(Request $request){
@@ -148,13 +152,17 @@ class TestController extends CController{
         // $ss = $this->checkLogin();
         // dd($this->getUserInfo()->status);
 
-        event(new CmsMessagePushEvent([
-            'channel'     =>'adminnotice',
-            'noticetype'  =>'2222222222',   #渠道下的消息别名
-            'msgtype'     =>'3333333333',         #渠道下的消息类型
-            'message'     =>'4444444444',         #渠道下的消息内容
-            'params'      =>['asdf'=>'fasdfasd'],           #渠道下的消息附加参数
-        ]));
+        // event(new CmsMessagePushEvent([
+        //     'channel'     =>'adminnotice',
+        //     'noticetype'  =>'2222222222',   #渠道下的消息别名
+        //     'msgtype'     =>'3333333333',         #渠道下的消息类型
+        //     'message'     =>'4444444444',         #渠道下的消息内容
+        //     'params'      =>['asdf'=>'fasdfasd'],           #渠道下的消息附加参数
+        // ]));
+
+        $res = $this->smsModel->SendSms('2ca0f02849f446529639d966dfcd15a2',258714,666666,'15885446370',$uid='');
+
+        dd($res);
     }
     
     public function test(){

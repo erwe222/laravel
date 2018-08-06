@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>小卖铺免费注册</title>
+    <title>小卖铺—注册</title>
     <link rel="stylesheet" href="/weixin/css/login.css" />	
     <style>
 	input[placeholder], [placeholder], *[placeholder] {color:#ccc !important;font-size:14px;}
@@ -47,7 +47,7 @@
         </div>
         <div class="login-foot">
             <p>
-               <span><a href="#" style="color:#afa3a3;">忘记密码？</a></span>  
+               <span><a href="{{route('w_auth_findpwd')}}" style="color:#afa3a3;">忘记密码？</a></span>    
                <span class="fr"><a href="{{route('w_auth_login')}}">立即登录</a></span>
             </p>				
         </div>
@@ -57,6 +57,7 @@
 <script>
     var obj = {
         registerLoading:false,
+        sendSmsLoading:false,
         numberFormater:function(val){
             //去除手机号中的空格
             return val.replace(/[^0-9]/g,"");
@@ -210,6 +211,7 @@
             }
         }
     }
+
     var className = 'gray';
     var btnName = '获取短信';
     var objCode = new VerificationCode($('#fr-code-btn'),className,btnName);
@@ -223,10 +225,37 @@
                 layer.open({content: '手机号格式错误',skin: 'msg',time: 2});return false;
             }
 
-            if(objCode.setCodeTime()){
-                objCode.CountDown();
-                layer.open({content: '发送成功',skin: 'msg',time: 2});
+
+            if(obj.sendSmsLoading == false){
+                $.ajax({
+                    url:"{{route('w_auth_sendregistersms')}}",
+                    type:'post',
+                    data:{mobile:mobile},
+                    dataType:'json',
+                    beforeSend:function(){
+                        obj.sendSmsLoading = true;
+                    },
+                    complete:function(xhr, ts){
+                        obj.sendSmsLoading = false;
+                    },
+                    success:function(res){
+                        if(res.code == 200){
+                            if(objCode.setCodeTime()){
+                                objCode.CountDown();
+                                layer.open({content: '发送成功',skin: 'msg',time: 2});
+                            }
+                        }else{
+                            layer.open({content: '发送失败',skin: 'msg',time: 2});
+                        }
+                    },
+                    error:function(){
+                        layer.open({content: '网络繁忙，请稍后再试...',skin: 'msg',time: 2});
+                    }
+                });
             }
+
+
+            
         }
     });
 </script>

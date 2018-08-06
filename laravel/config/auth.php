@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'weixin' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -70,13 +74,13 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Model\Users::class,
         ],
 
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Model\Admin::class,
-        ],
+        ]
     ],
 
     /*
@@ -95,11 +99,11 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
+        // 'users' => [
+        //     'provider' => 'users',
+        //     'table' => 'password_resets',
+        //     'expire' => 60,
+        // ],
     ],
 
 ];

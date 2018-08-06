@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\weixin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 /**
  * 前端基类控制器
@@ -13,7 +14,7 @@ class CController extends Controller{
     
     
     public function __construct() {
-        
+        Auth::shouldUse('weixin');
     }
     
     /**
@@ -31,5 +32,4 @@ class CController extends Controller{
     public function getUserInfo(){
         return Auth::user();
     }
-
 }

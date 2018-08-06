@@ -1,17 +1,14 @@
 <?php
 namespace App\Model;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Description of Users
  *
  * @author dell
  */
-class Users extends Authenticatable{
+class Users extends \Illuminate\Foundation\Auth\User{
     
-    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +16,7 @@ class Users extends Authenticatable{
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'mobile', 'password',
     ];
 
     /**
@@ -31,7 +28,6 @@ class Users extends Authenticatable{
         'password', 'remember_token',
     ];
     
-    
     /**
      * 关联到模型的数据表
      *
@@ -40,14 +36,37 @@ class Users extends Authenticatable{
     protected $table = 'users';
     
     /**
-     * 添加管理员方法
+     * 通过mobile查询记录
+     * @param type $email 邮件地址
+     * @return boolean
      */
-    public function addUser($data){
-        self::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+    public function findMobile($mobile){
+        $res = self::where('mobile', $mobile)->first();
+        if($res){
+            return $res;
+        }
+        return false;
+    }
+
+    /**
+     * 注册用户信息
+     */
+    public function createUser($mobile,$password){
+        $res = self::create([
+            'mobile' => $mobile,
+            'password' => bcrypt($password),
             'remember_token' => str_random(10),
         ]);
+
+        if(!$res){
+            return false;
+        }
+
+        sleep(2);
+
+        //注册成功 处理其它业务
+
+
+        return true;
     }
 }

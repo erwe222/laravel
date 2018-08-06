@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>小卖铺登录</title>
+    <title>小卖铺—登录</title>
     <link rel="stylesheet" href="/weixin/css/login.css" />
     <link rel="stylesheet" href="/weixin/layer_mobile/need/layer.css" />
     <style>
@@ -34,9 +34,9 @@
         
         <div class="login-foot">
             <p>
-               <span><a href="#" style="color:#afa3a3;">忘记密码？</a></span>  
+               <span><a href="{{route('w_auth_findpwd')}}" style="color:#afa3a3;">忘记密码？</a></span>  
                <span class="fr"><a href="{{route('w_auth_register')}}">快速注册</a></span>
-            </p>				
+            </p>
         </div>
     </section>
 
@@ -96,24 +96,23 @@
                     },
                     complete:function(xhr, ts){
                         layer.close(loginLoadingIndex);
-                        if(xhr.responseJSON.code == 200){
-                            $('#fr-btn-login').val('登录成功');
-                        }else{
-                            obj.loginLoading = false;
-                            $('#fr-btn-login').val('登  录');
-                        }
                     },
                     success:function(res){
                         if(res.code == 200){
+                            $('#fr-btn-login').val('登录成功');
                             layer.open({type: 2,content: '登录成功,页面跳转中...'});
                             setTimeout(function(){
-                                window.location.href = "{{route('w_auth_register')}}";
+                                window.location.href = "{{route('w_user_main')}}";
                             },1000);
                         }else{
+                            obj.loginLoading = false;
+                            $('#fr-btn-login').val('登  录');
                             layer.open({content: res.message,skin: 'msg',time: 3});
                         }
                     },
                     error:function(){
+                        obj.loginLoading = false;
+                        $('#fr-btn-login').val('登  录');
                         layer.open({content: '网络繁忙，请稍后再试...',skin: 'msg',time: 2});
                     }
                 });

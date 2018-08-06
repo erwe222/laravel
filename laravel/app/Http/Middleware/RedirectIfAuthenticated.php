@@ -20,10 +20,11 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             if($guard == 'admin'){
                 return redirect('/backend');
+            }else if($guard == 'weixin'){
+                return redirect('/weixin/user/main');
             }else{
                 return redirect('/front');
             }
-            
         }
 
         return $next($request);

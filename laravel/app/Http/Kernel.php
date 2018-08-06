@@ -40,6 +40,10 @@ class Kernel extends HttpKernel
             //后台管理中间件分组
            \App\Http\Middleware\BackLoginAuth::class,
         ],
+        'weixin'=>[
+            //微信中间件分组
+           \App\Http\Middleware\weixin::class,
+        ],
         'api' => [
             'throttle:60,1',
             'bindings',
