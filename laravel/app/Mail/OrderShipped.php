@@ -28,7 +28,7 @@ class OrderShipped extends Mailable
      */
     public function build()
     {
-        return $this->from('18798276809@163.com')->to('1276816843@qq.com')->bcc('18798276809@139.com')->subject('邮件测试111')
+        return $this->from('18798276809@163.com')->to('837215079@qq.com')->subject('邮件队列发送测试')
         ->view('emails.test')
         ->with([
             'name' => 'xiaorao'

@@ -3,6 +3,8 @@ namespace App\Http\Controllers\backend;
 use Illuminate\Http\Request;
 use Validator;
 use App\Helpers\UploadFiles;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TaskNotice;
 
 /**
  * Description of AdminControllor
@@ -26,7 +28,6 @@ class AdminController extends CController{
         $this->taskModel = new \App\Model\Task();
     }
 
-
     /**
      * 管理员简介
      * @param \Illuminate\Http\Request $request
@@ -35,8 +36,6 @@ class AdminController extends CController{
         return view('backend.admin.index');
     }
 
-
-    
     /**
      * 管理员简介
      * @param \Illuminate\Http\Request $request
@@ -290,8 +289,8 @@ class AdminController extends CController{
     public function getTaskListData(Request $request){
         $params = $this->queryDatatableParams($request);
         $data = [];
-        if(isset($params['search']['name']) && !empty($params['search']['name'])){
-            $data['name'] = addslashes($params['search']['name']);
+        if(isset($params['search']['title']) && !empty($params['search']['title'])){
+            $data['title'] = addslashes($params['search']['title']);
         }
         
         if(isset($params['search']['email'])){
@@ -309,7 +308,7 @@ class AdminController extends CController{
 
         $data['offset']     = $params['offset'];
         $data['pagesize']   = $params['pagesize'];
-        $lists = $this->taskModel->findTaskList($data);
+        $lists = $this->taskModel->findTaskList($this->getUserInfo()->id,$data);
 
         // dd($lists);
         return response()->json([
@@ -328,7 +327,14 @@ class AdminController extends CController{
      * @return type
      */
     public function createTaskBox(Request $request){
-        return view('backend.admin.create-task-box',[]);
+        $adminList = $this->adminModel->getAdminNameList();
+
+        $id = $request->input('id',0);
+
+        $info = $this->taskModel->findId($this->getUserInfo()->id,$id);
+
+
+        return view('backend.admin.create-task-box',['adminList'=>$adminList,'admin_id'=>$this->getUserInfo()->id,'task_info'=>$info]);
     }
     
     /**
@@ -336,7 +342,60 @@ class AdminController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function createTask(Request $request){
+        $validator = Validator::make($request->all(), [
+            'type' => 'required',
+            'title' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'status' => 'required',
+        ],['required'=>'参数不符合规范']);
+
+        if ($validator->fails()) {
+            $error = $validator->errors()->all();
+            return $this->returnData([],$error[0],301);
+        }
+
+        $params = [];
+        $task_id                    = (int)$request->input('id',0);
+        $params['type']             = (int)$request->input('type',1);
+        $params['admin_id']         = $this->getUserInfo()->id;
+        if($params['type'] == 1){
+            $params['delegate_id']  = $params['admin_id'];
+        }else{
+            $params['delegate_id']  = (int)$request->input('adminid',0);
+            if(empty($params['delegate_id'])){
+                return $this->returnData([],'参数不符合规范',301);
+            }
+        }
+
+
+        $params['title']            = $request->input('title','');
+        $params['start_time']       = $request->input('start_time','');
+        $params['end_time']         = $request->input('end_time','');
+        $params['status']           = $request->input('status','');
+        $params['content']          = $request->input('content','');
         
+        if($task_id != 0){
+            $res = $this->taskModel->updateTask($task_id,$params['admin_id'],$params);
+        }else{
+            $res = $this->taskModel->createTask($params);
+        }
+
+        if($res){
+            if($params['type'] == 2){
+                $info = $this->adminModel->findId($params['delegate_id']);
+                Mail::queue((new TaskNotice($info['email'],[
+                    'adminName'         => $this->getUserInfo()->name,
+                    'content'           => $params['content'],
+                    'start_time'        => $params['start_time'],
+                    'end_time'          => $params['end_time'],
+                ]))->onConnection('database')->onQueue('emails'));
+            }
+
+            return $this->returnData([], '添加任务成功',200);
+        }
+
+        return $this->returnData([], '添加任务失败', 305);
     }
     
     /**
@@ -344,7 +403,19 @@ class AdminController extends CController{
      * @param \Illuminate\Http\Request $request
      */
     public function deleteTask(Request $request){
-        
+        $id = (int)$request->input('id',0);
+
+        if($id == 0){
+            return $this->returnData([],'参数不符合规范',301);
+        }
+
+
+        $res = $this->taskModel->deleteTask($this->getUserInfo()->id,$id);
+        if($res){
+            return $this->returnData([],'删除成功',200);
+        }
+
+        return $this->returnData([],'删除失败',305);
     }
     
     /**

@@ -135,6 +135,19 @@ class Admin extends \Illuminate\Foundation\Auth\User{
     }
 
     /**
+     * 通过Email查询记录
+     * @param type $email 邮件地址
+     * @return boolean
+     */
+    public function findId($id){
+        $res = self::where('id', $id)->first();
+        if($res){
+            return $res->toArray();
+        }
+        return false;
+    }
+
+    /**
      * 更新管理员重置密码token
      * @param type $name 菜单名
      * @return boolean
@@ -216,5 +229,14 @@ class Admin extends \Illuminate\Foundation\Auth\User{
      */
     public function getExpiryTime(){
         return date('Y-m-d H:i:s',strtotime('+30 day'));
+    }
+
+    public function getAdminNameList(){
+        $res = self::where('status', 10)->select('id','name')->orderBy('id', 'asc')->get();
+        if($res){
+            return $res->toArray();
+        }
+
+        return [];
     }
 }

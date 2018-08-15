@@ -15,6 +15,9 @@ use App\Events\LoginBroadcastingEvent;
 use App\Model\Users;
 use App\Events\CreateActionLogEvent;
 use App\Events\CmsMessagePushEvent;
+use App\Mail\OrderShipped;
+use App\Mail\TaskNotice;
+
 /**
  * Description of TestController
  *
@@ -32,7 +35,11 @@ class TestController extends CController{
      */
     public function __construct(){
         parent::__construct();
-        
+
+        $this->taskModel = new \App\Model\Task();
+
+        $this->adminModel = new \App\Model\Admin();
+
         $this->menuModel = new \App\Model\Menus;
 
         $this->usersFriendsModel = new \App\Model\UsersFriends;
@@ -54,6 +61,24 @@ class TestController extends CController{
     
     public function index(Request $request){
 
+        // $html = new TaskNotice('837215079@qq.com',[
+        //     'adminName' => '--------',
+        //     'content' => htmlentities($a[0]['content']),
+        //     'start_time' => '2222222',
+        //     'end_time' => '153153153'
+        // ]);
+        // echo '<pre>';
+        // print_r(htmlspecialchars_decode($html->params['content']));
+
+        // event(new CmsMessagePushEvent([
+        //     'channel'     =>'adminnotice',
+        //     'noticetype'  =>'login',  
+        //     'msgtype'     =>'1',
+        //     'message'     =>'[131531] 登录后台管理系统',
+        //     'params'      =>[],
+        // ]));
+
+        exit;
     	// $res = $this->usersGroupModel->createGroup(2,[
     	// 	'users_id'=>2,
     	// 	'groupname'=>'大家一起嗨嗨嗨',
@@ -76,7 +101,7 @@ class TestController extends CController{
         // $res = $this->usersChatGroupModel->deleteChatGroup(2,9);
 
         // dd($res);
-        $res3 = $this->usersChatGroupDetailModel->createUser(10,2);
+        // $res3 = $this->usersChatGroupDetailModel->createUser(10,2);
 
      //    dd($res3);
     	// exit;
@@ -116,10 +141,23 @@ class TestController extends CController{
      //        echo '邮件发送失败';
      //    }
      //    exit;
-
+        // dd('asd');
     	//队列模板发送
-        //$message = (new OrderShipped())->onConnection('database')->onQueue('emails');
-		// Mail::queue($message);
+// $message = (new OrderShipped())->onConnection('database')->onQueue('emails');
+// 		Mail::queue($message);
+		// Mail::queue((new TaskNotice('837215079@qq.com',[
+  //           'adminName' => '--------',
+  //           'content' => 'sssssssss',
+  //           'start_time' => '2222222',
+  //           'end_time' => '153153153'
+  //       ]))->onConnection('database')->onQueue('emails'));
+
+  //       $info = $this->adminModel->findId(5);
+
+  //       dd($info);
+
+
+exit;
 
 		//立即发送
         // $name = '发件人';

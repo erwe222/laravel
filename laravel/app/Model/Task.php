@@ -42,9 +42,9 @@ class Task extends Model
      *
      * @return array
      */
-    public function findTaskList($params = []){
-    	$count_sql = 'select count(1) as total from `lar_task` task where 1=1 ';
-        $sql = 'SELECT task.*,admin1.name as admin_name,admin2.name as delegate_name FROM `lar_task` task LEFT JOIN lar_admins admin1 ON task.admin_id = admin1.id  LEFT JOIN lar_admins admin2 ON task.delegate_id = admin2.id     where 1=1 ';
+    public function findTaskList($admin_id,$params = []){
+    	$count_sql = "select count(1) as total from `lar_task` task where 1=1 ";
+        $sql = "SELECT task.*,admin1.name as admin_name,admin2.name as delegate_name FROM `lar_task` task LEFT JOIN lar_admins admin1 ON task.admin_id = admin1.id  LEFT JOIN lar_admins admin2 ON task.delegate_id = admin2.id where 1=1 ";
 
         if(isset($params['title']) && !empty($params['title'])){
             $sql .= " and task.title like '%{$params['title']}%'";
@@ -56,6 +56,12 @@ class Task extends Model
             $count_sql .= " and task.status = {$params['status']}";
         }
         
+
+        if($admin_id){
+            $count_sql .= " and ( task.admin_id={$admin_id} or task.delegate_id= {$admin_id} )";
+            $sql .= " and ( task.admin_id={$admin_id} or task.delegate_id= {$admin_id} )";
+        }
+
         $count_info = DB::select($count_sql);
         
         $offset = isset($params['offset'])?$params['offset']:0;
@@ -65,6 +71,8 @@ class Task extends Model
         
         if(isset($params['orderBy']) && isset($params['sort'])){
             $sql .= " order by {$params['orderBy']} {$params['sort']}";
+        }else{
+            $sql .= " order by created_at desc";
         }
 
         $list = DB::select($sql.$page_info['limit']);
@@ -92,4 +100,83 @@ class Task extends Model
         return false;
     }
 
+    /**
+     * 创建任务方法
+     * @param admin_id 管理员id
+     * @param task_id  任务id
+     */
+    public function createTask($data){
+
+        $res = self::create([
+            'admin_id'      => $data['admin_id'],
+            'delegate_id'   => $data['delegate_id'],
+            'content'       => $data['content'],
+            'title'         => $data['title'],
+            'start_time'    => $data['start_time'],
+            'end_time'      => $data['end_time'],
+            'type'          => $data['type'],
+            'status'        => $data['status'],
+            'created_at'    => date('Y-m-d H:i:s'),
+            'updated_at'    => date('Y-m-d H:i:s')
+        ]);
+
+        if($res){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * 更新任务方法
+     * @param admin_id 管理员id
+     * @param task_id  任务id
+     */
+    public function updateTask($id,$admin_id,$data){
+
+        $res = self::where('id', $id)->where('admin_id',$admin_id)->update([
+            'admin_id'      => $data['admin_id'],
+            'delegate_id'   => $data['delegate_id'],
+            'content'       => $data['content'],
+            'title'         => $data['title'],
+            'start_time'    => $data['start_time'],
+            'end_time'      => $data['end_time'],
+            'type'          => $data['type'],
+            'status'        => $data['status'],
+            'updated_at'    => date('Y-m-d H:i:s')
+        ]);
+
+        if($res != false){
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
+    /**
+     * 删除任务方法
+     * @param admin_id 管理员id
+     * @param task_id  任务id
+     */
+    public function deleteTask($admin_id,$task_id){
+        $res = self::where('id', $task_id)->where('admin_id', $admin_id)->delete();
+
+        if($res != false){
+            return true;
+        }
+
+        return false;
+    }
+
+    public function findId($admin_id,$task_id){
+        $res = self::where('id', $task_id)->where('admin_id', $admin_id)->first();
+        if($res){
+            return $res->toArray();
+        }
+        
+        return false;
+    }
 }

@@ -84,8 +84,12 @@
 <script src="/ace-asstes/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/js/myTable.js"></script>
 <script >
+
+
     var obj = {
+        adminId:"{{$admin_id}}",
         scrollX: true,
+        order: [[ 9, "desc"]], //初始化默认排序
         columns: [
             {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
@@ -95,18 +99,14 @@
             {title: '创建人',data: 'admin_name',name:'admin_name',orderable:false,width: 50},
             {title: '处理人',data: 'delegate_name',name:'delegate_name',orderable:false,width: 50},
             {title: '标题',data: 'title',name:'title',orderable:false,width: 300},
+            {title: '详情',data: 'id',orderable:false,width: 30,render: function ( data, type, row, meta ) {
+                  return  '<a href="javascript:void(0)" onclick="objClass.catDetail('+meta.row+')" >查看详情</a>';
+            }},
             {title: '任务类型',data: 'type',name:'type',orderable:false,width: 30,render: function ( data, type, row, meta ) {
-                  var str ='';
-                  if(data == 1){
-                    str +='我的计划';
-                  }else {
-                    str +='委派任务';
-                  }
-
-                  return str;
+                  return  (data == 1) ?'我的计划':'委派任务';
             }},
             {title: '状态(可编辑)',data: 'status',name:'status',orderable:false,width: 30,render: function ( data, type, row, meta ) {
-                  var str = '<p style="cursor: pointer;" onclick="objClass.showUpdateBox(\''+meta.row+'\')" >';
+                  var str = '<p style="cursor: pointer;margin-bottom: 0px;" onclick="objClass.showUpdateBox(\''+meta.row+'\')" >';
                   if(data == 1){
                     str += '<span class="label label-white middle">等待处理</span>';
                   }else if(data == 2){
@@ -124,9 +124,15 @@
             }},
             {title: '开始时间',data: 'start_time',name:'start_time',orderable:true,width: 50},
             {title: '结束时间',data: 'end_time',name:'end_time',orderable:true,width: 50},
-
+            {title: '创建时间',data: 'created_at',name:'created_at',orderable:true,width: 50},
             {title: '操 作',data: 'id',orderable:false,width: 20,render: function ( data, type, row, meta ) {
                 var str ='';
+                
+
+                if(obj.adminId == row.admin_id){
+                    str ='<i class="ace-icon fa fa-pencil-square-o bigger-130 blue" style="cursor:pointer;" onclick="objClass.edit('+row.id+')" ></i> ';
+                    str += '&nbsp;&nbsp;<i class="ace-icon fa fa-trash-o bigger-130 red" style="cursor:pointer;" onclick="objClass.delete('+row.id+')"></i>';
+                }
                 
                 return str;
             }}
@@ -215,7 +221,69 @@
                 $('#cu-editstatus-box').hide();
               }
             });
-        }
+        },
+        add:function(){
+        	var index = layer.open({
+        	  // title:'创建任务计划',
+			  type: 2,
+			  area: ['700px', '450px'],
+			  fixed: false, //不固定
+			  maxmin: false,
+			  content: "{{route('b_admin_createtaskbox')}}",
+              end:function(){
+                objClass.refresh(true);
+              }
+			});
+
+			layer.full(index);
+        },
+        edit:function(id){
+            var index = layer.open({
+              // title:'创建任务计划',
+              type: 2,
+              area: ['700px', '450px'],
+              fixed: false, //不固定
+              maxmin: false,
+              content: "{{route('b_admin_createtaskbox')}}"+'?id='+id,
+              end:function(){
+                objClass.refresh(true);
+              }
+            });
+
+            layer.full(index);
+        },
+        delete:function(row_id){
+            layer.confirm('您确定要删除该任务吗？', {icon: 3,
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                $.ajax({
+                    url:"{{route('b_admin_deletetask')}}",
+                    type:'post',
+                    data:{id:row_id},
+                    dataType:'json',
+                    success:function(res){
+                        if(res.code == 200){
+                            layer.msg('任务删除成功...', {icon: 1});
+                            myTable.refresh();
+                        }else{
+                            layer.msg('任务删除失败', {icon: 5});
+                        }
+                    },
+                    error: throwError,
+                });
+            });
+        },
+        catDetail:function(row_id){
+            var data = myTable.getRowData(row_id);
+            layer.open({
+              type: 1,
+              title: '<i class="ace-icon fa fa-envelope-o blue"></i> <span class="blue">详情信息</span>',
+              shadeClose: true,
+              area: ['800px', '400px'], //宽高
+              skin: 'yourclass',
+              content: data.content
+            });
+        },
     };
 
     $('#btns-type-one > button').on('click',function(){
@@ -246,8 +314,5 @@
             $('.fr-time-box').hide();
         }
     });
-
-
-    
 </script>
 @endpush

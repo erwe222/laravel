@@ -20,6 +20,7 @@ class WeixinController extends CController{
      * 前台主页
      */
     public function index(){
+
         if(isset($_GET["echostr"])){
             \Log::info('echostr');
             $this->weChatApiClass->valid();

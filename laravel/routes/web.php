@@ -24,10 +24,10 @@ Route::group(['prefix' => 'front','namespace' => 'front'], function()
 });
 
 //微信路由配置
-Route::group(['prefix' => 'weixin','namespace' => 'weixin','middleware' => ['weixin']], function()
+Route::group(['prefix' => 'weixin','namespace' => 'weixin'], function()
 {
     
-    Route::match(['get', 'post'],'/', 'WeixinController@index')->name('w_weixin_index');
+    Route::match(['get', 'post'],'index/message', 'IndexController@message')->name('f_index_message');
     
 
 

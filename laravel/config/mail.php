@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', '18798276809@163.com'),
-        'name' => env('MAIL_FROM_NAME', '发件人'),
+        'name' => env('MAIL_FROM_NAME', 'XMP通知'),
     ],
 
     /*
