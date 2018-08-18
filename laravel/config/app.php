@@ -252,10 +252,10 @@ return [
             'token'     =>'xiaoxiaorao',
             'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
             
-//            'appId'     =>'wx5aea46e7d5f0b5bc',
-//            'appsecret' =>'a5031e8bde0ac632c7d87956039b4b04',
-//            'token'     =>'xiaoxiaorao',
-//            'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
+           // 'appId'     =>'wx5aea46e7d5f0b5bc',
+           // 'appsecret' =>'a5031e8bde0ac632c7d87956039b4b04',
+           // 'token'     =>'xiaoxiaorao',
+           // 'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
             
         ],
         'messagePush'=>[

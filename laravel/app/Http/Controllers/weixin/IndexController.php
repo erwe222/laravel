@@ -11,6 +11,12 @@ class IndexController extends CController{
     	parent::__construct();
         
         $this->weChatApiClass 	= new \App\Model\FunctionClass\WeChatApi();
+
+
+        $config = config('app.config.wechat');
+        $this->appId        = $config['appId'];
+        $this->appsecret    = $config['appsecret'];
+        $this->weChatJsSDK   = new \App\Model\FunctionClass\WeChatJsSDK($this->appId,$this->appsecret);
     }
 
 
@@ -43,4 +49,21 @@ class IndexController extends CController{
             recordLog(1,'消息验证失败');
         }
 	}
+
+
+    public function test(){
+
+        $is_wx = false;
+        $wx_info = [];
+        if(isWeiXin()){
+            $is_wx = true;
+            $this->wxAuthorize(true);
+            $wxAuthorize = request()->session()->get('wxAuthorize');
+            $res = $this->weChatApiClass->getUserAuthorizedUserInfo($wxAuthorize['access_token'],$wxAuthorize['openid']);
+            $wx_info = $res;
+        }
+
+        $res = $this->weChatJsSDK->getSignPackage();
+        return view('weixin.love.Love',['weixin_config'=>$res]);
+    }
 }

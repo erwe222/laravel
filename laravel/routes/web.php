@@ -50,6 +50,10 @@ Route::group(['prefix' => 'weixin','namespace' => 'weixin'], function()
     Route::get('user/editaddress', 'UserController@editaddress')->name('w_user_editaddress');
     Route::get('user/posteditaddress', 'UserController@posteditaddress')->name('w_user_posteditaddress');
     Route::get('user/modifypwd', 'UserController@modifypwd')->name('w_user_modifypwd');
+
+
+    Route::get('love/xiajinyan', 'IndexController@test')->name('f_index_xiajinyan');
+
     
 });
 
