@@ -97,6 +97,7 @@ class WeChatApi
     * @param bool $snsapi_userinfo  授权方式（true:用户点击的方式授权，false:静默授权不需要用户的同意）
     */
     public function getWeChatAuthCode($redir, $state = null, $snsapi_userinfo = true){
+
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize";
         $scope = $snsapi_userinfo ? 'snsapi_userinfo' : 'snsapi_base';
         $paramArr = array(

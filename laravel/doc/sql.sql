@@ -1,12 +1,29 @@
-/**产品分类数据表*/
-CREATE TABLE `lar_product_category` (
+
+/**货品类目数据表*/
+CREATE TABLE `lar_goods_category` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `pid` int(11) unsigned DEFAULT '0' COMMENT '父类ID',
-  `name` int(11) unsigned DEFAULT '0' COMMENT '分类名',
+  `name` varchar(50) DEFAULT '' COMMENT '类目名',
+  `description` varchar(200) DEFAULT '' COMMENT '类目描述',
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='货品类目数据表';
+
+
+/**品牌管理数据表*/
+CREATE TABLE `lar_brand` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50)  DEFAULT '0' COMMENT '品牌中文名',
+  `english_name` varchar(50) DEFAULT '' COMMENT '品牌英文名',
+  `logo_url` varchar(1000) DEFAULT '' COMMENT '品牌Logo',
+  `description` varchar(200) DEFAULT '' COMMENT '品牌描述',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='品牌管理数据表';
+
+
 
 
 /**产品详情表*/
@@ -21,7 +38,7 @@ CREATE TABLE `lar_product_detail` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 /**产品评价表*/
@@ -35,4 +52,4 @@ CREATE TABLE `lar_product_evaluate` (
   `images` text DEFAULT '' COMMENT '产品评论附加图片',
   `created_at` datetime DEFAULT NULL COMMENT '评论创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

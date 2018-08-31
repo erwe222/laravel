@@ -57,13 +57,20 @@ class IndexController extends CController{
         $wx_info = [];
         if(isWeiXin()){
             $is_wx = true;
-            $this->wxAuthorize(true);
+            $this->wxAuthorize(false);
             $wxAuthorize = request()->session()->get('wxAuthorize');
             $res = $this->weChatApiClass->getUserAuthorizedUserInfo($wxAuthorize['access_token'],$wxAuthorize['openid']);
             $wx_info = $res;
         }
 
+        var_dump($wx_info);
+
         $res = $this->weChatJsSDK->getSignPackage();
-        return view('weixin.love.Love',['weixin_config'=>$res]);
+        // return view('weixin.love.Love',['weixin_config'=>$res]);
+    }
+
+    public function vodio(){
+
+        return view('weixin.love.vodio');
     }
 }

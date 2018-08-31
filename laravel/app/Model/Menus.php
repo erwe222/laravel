@@ -28,7 +28,7 @@ class Menus extends Model
      *
      * @var array
      */
-    protected $fillable = ['parent_id','name','url','type','icon','status','created_at'];
+    protected $fillable = ['parent_id','name','url','type','icon','status','sort','created_at'];
 
     /**
      * 不能被批量赋值的属性
@@ -260,7 +260,7 @@ class Menus extends Model
      * @return type
      */
     public function getMenus(){
-        $menus_arr = self::where('status', self::STATUS_ENABLE)->get()->toArray();
+        $menus_arr = self::where('status', self::STATUS_ENABLE)->where('type', '<', 2)->get()->toArray();
         $handle_res = $this->getTree($menus_arr,0);
         return $this->procHtml($handle_res,0);
     }

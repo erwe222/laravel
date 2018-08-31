@@ -18,6 +18,8 @@ use App\Events\CmsMessagePushEvent;
 use App\Mail\OrderShipped;
 use App\Mail\TaskNotice;
 
+use App\Services\TencentCosService;
+
 /**
  * Description of TestController
  *
@@ -78,7 +80,6 @@ class TestController extends CController{
         //     'params'      =>[],
         // ]));
 
-        exit;
     	// $res = $this->usersGroupModel->createGroup(2,[
     	// 	'users_id'=>2,
     	// 	'groupname'=>'大家一起嗨嗨嗨',
@@ -106,7 +107,7 @@ class TestController extends CController{
      //    dd($res3);
     	// exit;
             //echo route('test.index');
-//		echo 'aaaaaaaaa';
+
 //		$test = app('test');
 //		$test->callMe('测试服务容器');
 
@@ -157,8 +158,6 @@ class TestController extends CController{
   //       dd($info);
 
 
-exit;
-
 		//立即发送
         // $name = '发件人';
         // $flag = Mail::send('emails.test',['name'=>$name],function($message){
@@ -198,9 +197,9 @@ exit;
         //     'params'      =>['asdf'=>'fasdfasd'],           #渠道下的消息附加参数
         // ]));
 
-        $res = $this->smsModel->SendSms('2ca0f02849f446529639d966dfcd15a2',258714,666666,'15885446370',$uid='');
+        // $res = $this->smsModel->SendSms('2ca0f02849f446529639d966dfcd15a2',258714,666666,'15885446370',$uid='');
 
-        dd($res);
+        // dd($res);
     }
     
     public function test(){
@@ -278,5 +277,44 @@ exit;
     public function easyUiTableList(){
         $menu_list = $this->menuModel->findMenuList();
         return response()->json(['total'=>$menu_list['total'],'rows'=>$menu_list['data']]);
+    }
+
+
+    /**
+    * 腾讯云上传文件测试
+    */
+    public function cosUpload(Request $request){
+        
+        // $cosClient = new Client([
+        //     'region' => 'ap-chengdu',
+        //     'credentials' => [
+        //         'secretId'    => 'AKIDveAQhjd4MPDl3BmsZ4LOCmESSDj1IuUq',
+        //         'secretKey' => 'HK9j4A1g7KI4f7RZXFgrseAQQAdqmX3N',
+        //     ]
+        // ]);
+
+        // $key = getRandImgName().'.png';
+        // $local_path = "/www/img_file/fengjing.jpg";
+
+
+        // ### 上传文件流
+        // $result = $cosClient->putObject(array(
+        //     'Bucket'    => 'file-1256209919',        //存储桶名称
+        //     'Key'       => $key,                        //保存的文件地址(相对于文件桶)
+        //     'Body'      => fopen($local_path, 'rb')    //文件本地地址
+        // ));
+        // dd($result);
+
+        $key = getRandImgName().'.png';
+        $local_path = "/www/img_file/fengjing.jpg";
+
+
+        $cosService = new TencentCosService();
+        // $url = $cosService->uploadFileFlow('file-1256209919',$key,$local_path);
+        // dd($url);
+
+
+
+        $cosService->downloadFile('file-1256209919','20180822162341wsYmgBY7z77SOQjS21yu.png');
     }
 }

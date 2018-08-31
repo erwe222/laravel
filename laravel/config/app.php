@@ -237,14 +237,14 @@ return [
         //后台系统名称
         'backstage_name'=>'我的后台管理',
         //是否开启页面授权验证（默认开启）
-        'authverify'=>true,
+        'authverify'=>false,
         'desSecret' =>'xjyryd',
         'wechat'=>[
 //            小小饶公众号
-//            'appId'     =>'wx9a868d2478eefeac',
-//            'appsecret' =>'f3f230f615bca3443581cfb96dbf2895',
-//            'token'     =>'xiaoxiaorao',
-//            'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
+           // 'appId'     =>'wx9a868d2478eefeac',
+           // 'appsecret' =>'f3f230f615bca3443581cfb96dbf2895',
+           // 'token'     =>'xiaoxiaorao',
+           // 'EncodingAESKey'=>'GHJKLZPOGADf3f230f615bca3443581cfb96dbf289P',
             
             //联通手机号申请的
             'appId'     =>'wxc8ea0012a334a359',
@@ -267,5 +267,10 @@ return [
                 'ws'=>'ws://118.24.1.228:9501',
             ],
         ],
+        'tencent'=>[
+            'COS_REGION'=>'ap-chengdu',
+            'SecretId'=>'AKIDveAQhjd4MPDl3BmsZ4LOCmESSDj1IuUq',
+            'SecretKey'=>'HK9j4A1g7KI4f7RZXFgrseAQQAdqmX3N',
+        ]
     ],
 ];

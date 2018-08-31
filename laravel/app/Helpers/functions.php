@@ -33,11 +33,12 @@ function getPagingInfo($total,$pageindex=1,$pagesize=20,$offset = false){
  * @param type $msg
  * @return type
  */
-function handleResult($result=true,$code=200,$msg=''){
+function handleResult($result=true,$code=200,$msg='',$params=[]){
     return [
         'result'=>$result,
         'code'=>$code,
-        'message'=>$msg
+        'message'=>$msg,
+        'params'=>$params
     ];
 }
 
@@ -375,4 +376,9 @@ function recordLog($type,$content,$params = []){
 
     unset($log);
     return true;
+}
+
+
+function getRandImgName(){
+    return date('YmdHis').rand_string(20);
 }

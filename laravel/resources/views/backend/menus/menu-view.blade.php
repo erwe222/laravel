@@ -6,6 +6,10 @@
     .tree-branch {
         border-left-width: 8px !important;
     }
+    .table > tbody > tr > td {
+        vertical-align: middle;
+    }
+    i{cursor: pointer;}
 </style>
 @endpush
 @section('content')
@@ -13,12 +17,6 @@
     <div class="col-xs-12">
         <div class="alert alert-info" >
             <form class="form-inline" role="form" id="grid-search-form" onsubmit="return false;">
-                <!-- <div class="form-group">
-                    <label >模块：</label>
-                    <select class="form-control" id="search-menu-id" style="width: 100px;">
-                            <option value="">全 部</option>
-                    </select>
-                </div>  -->
                 <div class="form-group">
                     <label >状态：</label>
                     <select class="form-control" id="search-menu-status" style="width: 100px;">
@@ -108,11 +106,15 @@
             <div class="radio">
                 <label>
                     <input name="menu-type" type="radio" class="ace" checked="" value="0" />
-                    <span class="lbl">目录菜单</span>
+                    <span class="lbl"> 目录</span>
                 </label>
                 <label>
                     <input name="menu-type" type="radio" class="ace" value="1" />
-                    <span class="lbl">页面菜单</span>
+                    <span class="lbl"> 页面菜单</span>
+                </label>
+                <label>
+                    <input name="menu-type" type="radio" class="ace" value="2" />
+                    <span class="lbl"> 权限操作</span>
                 </label>
             </div>
         </div>
@@ -145,35 +147,40 @@
 <script>
     var obj = {
         scrollX: true,
+        order: [[ 8, "desc"]], //初始化默认排序
         columns: [
             {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
                     return '<label class="pos-rel"><input type="checkbox" class="ace table-checkbox-l" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
-            {title: '父级菜单',data: 'parent_name',name:'parent_name',orderable:false,width: 100},
-            {title: '菜单名',data: 'name',width: 100,orderable:false},
-            {title: '菜单地址',data: 'url',width: 100,orderable:false},
-            {title: '图标',data: 'icon',width: 100,orderable:false},
+            {title: '父级菜单',data: 'parent_name',name:'parent_name',orderable:false,width: 150},
+            {title: '菜单名',data: 'name',width: 150,orderable:false},
+            {title: '菜单地址',data: 'url',orderable:false},
+            {title: '图标',data: 'icon',width: 20,orderable:false,render: function ( data, type, row, meta ) {
+                return '<i class="'+data+' blue" ></i>';
+            }},
             {title: '类型',data: 'type',name:'status',orderable:false,width: 100,render: function ( data, type, row, meta ) {
                 if(data == 0){
-                    return '<span  class="btn btn-white btn-yellow btn-sm">目录菜单</span>';
-                }else{
-                    return '<span  class="btn btn-white btn-pink btn-sm">地址菜单</span>';
+                    return '<span  class="btn btn-white btn-yellow btn-sm">目录</span>';
+                }else if(data == 1){
+                    return '<span  class="btn btn-white btn-pink btn-sm">菜单</span>';
+                }else if(data == 2){
+                    return '<span  class="btn btn-white btn-purple btn-sm">按钮</span>';
                 }
             }},
-            {title: '状态',data: 'status',name:'status',orderable:false,width: 100,render: function ( data, type, row, meta ) {
+            {title: '状态',data: 'status',name:'status',orderable:false,width: 50,render: function ( data, type, row, meta ) {
                 if(data == 1){
-                    return '<span class="label label-success" >启用</span>';
+                    return '<span class="label label-success" >使用中</span>';
                 }else{
-                    return '<span class="label label-danger" >禁用</span>';
+                    return '<span class="label label-danger" >已禁用</span>';
                 }
             }},
             {title: '排序',data: 'sort',width: 30,orderable:false},
             {title: '添加时间',data: 'created_at',width: 150},
-            {title: '操 作',data: 'id',orderable:false,width: 240,render: function ( data, type, row, meta ) {
-                var str = '<button class="btn btn-minier btn-purple" onclick="objClass.edit(\''+meta.row+'\')"><i class="ace-icon fa fa-pencil bigger-130"></i> 编辑</button>&nbsp;';
-                str += '<button class="btn btn-minier btn-danger" onclick="objClass.delete(\''+row.id+'\')"><i class="ace-icon fa fa-trash-o bigger-130"></i> 删除</button>&nbsp;';
+            {title: '操 作',data: 'id',orderable:false,width: 50,render: function ( data, type, row, meta ) {
+                var str = '<i class="ace-icon fa fa-pencil bigger-130 blue" onclick="objClass.edit(\''+meta.row+'\')"></i> &nbsp;&nbsp;&nbsp;';
+                str += '<i class="ace-icon fa fa-trash-o bigger-130 red" onclick="objClass.delete(\''+row.id+'\')"></i>';
                 return str;
             }}
         ],

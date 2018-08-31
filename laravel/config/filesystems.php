@@ -56,11 +56,17 @@ return [
         ],
 
         's3' => [
+            // 'driver' => 's3',
+            // 'key' => env('AWS_KEY'),
+            // 'secret' => env('AWS_SECRET'),
+            // 'region' => env('AWS_REGION'),
+            // 'bucket' => env('AWS_BUCKET'),
+
             'driver' => 's3',
-            'key' => env('AWS_KEY'),
-            'secret' => env('AWS_SECRET'),
-            'region' => env('AWS_REGION'),
-            'bucket' => env('AWS_BUCKET'),
+            'key' => 'HK9j4A1g7KI4f7RZXFgrseAQQAdqmX3N',
+            'secret' => 'AKIDveAQhjd4MPDl3BmsZ4LOCmESSDj1IuUq',
+            'region' => 'ap-chengdu',
+            'bucket' => 'file-1256209919',
         ],
 
     ],
