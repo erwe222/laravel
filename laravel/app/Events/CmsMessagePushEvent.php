@@ -23,10 +23,11 @@ class CmsMessagePushEvent
 
   		$this->message = [
   			'channel'     =>isset($message['channel']) ? $message['channel'] : '',
-  			'noticetype'  =>isset($message['noticetype']) ? $message['noticetype'] : '',   #渠道下的消息别名
+  			'channeltype'  =>isset($message['channeltype']) ? $message['channeltype'] : '',   #渠道下的消息别名
   			'msgtype'     =>isset($message['msgtype']) ? $message['msgtype'] : '',	       #渠道下的消息类型
   			'message'     =>isset($message['message']) ? $message['message'] : '',	       #渠道下的消息内容
   			'params'      =>isset($message['params']) ? $message['params'] : [],	       #渠道下的消息附加参数
+        'msgid'     =>isset($message['msgid']) ? $message['msgid'] : '',
   		];
   		 
 
@@ -43,7 +44,7 @@ class CmsMessagePushEvent
        $curl = new CurlRequest();
 
        $des = new Des(config('app.config.messagePush.secretkey'));
-       $this->message['token'] = $des->encrypt($this->message['channel'].$this->message['noticetype']);
+       $this->message['token'] = $des->encrypt($this->message['channel'].$this->message['channeltype']);
 
        $curl->setTimeOut(3000);
        $curl->setPost($this->message);

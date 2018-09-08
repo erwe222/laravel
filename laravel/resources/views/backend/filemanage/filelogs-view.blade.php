@@ -42,7 +42,7 @@
         paging:false,
         scrollX: true,
         columns: [
-            {title:'文件名',data: 'filename',name:'filename',orderable:false,width: 100},
+            {title:'日志文件名',data: 'filename',name:'filename',orderable:false},
             {title: '文件大小',data: 'filesize',orderable:false,width: 150},
             {title: '文件名编码类型',data: 'file_code',orderable:false,width: 150},
             {title: '类型',data: 'file_type',orderable:false,width: 50,render: function ( data, type, row, meta ) {
@@ -53,17 +53,17 @@
                 }
             }},
             {title: '创建时间',data: 'filectime',orderable:false,width: 150},
-            {title: '操 作',data: 'id',orderable:false,width: 240,render: function ( data, type, row, meta ) {
+            {title: '操 作',data: 'id',orderable:false,width: 100,render: function ( data, type, row, meta ) {
                 
                 
                 if(row.file_type == 1){
-                    var str = '<button class="btn btn-minier btn-purple" onclick="objClass.catInfo(\''+row.filename+'\',\''+row.file_code+'\',\''+row.file_dir_url+'\')"><i class="ace-icon fa fa-eye bigger-130"></i> 查看日志</button>&nbsp;';
+                    var str = '<i class="ace-icon fa fa-eye bigger-130 purple" onclick="objClass.catInfo(\''+row.filename+'\',\''+row.file_code+'\',\''+row.file_dir_url+'\')" title="查看日志" ></i> &nbsp;&nbsp;';
 
-                    str += '<button class="btn btn-minier btn-danger" onclick="objClass.delete(\''+row.filename+'\',\''+row.file_code+'\',\''+row.file_dir_url+'\')"><i class="ace-icon fa fa-trash-o bigger-130"></i> 删除</button>&nbsp;';
+                    str += '<i class="ace-icon fa fa-trash-o bigger-130 red" onclick="objClass.delete(\''+row.filename+'\',\''+row.file_code+'\',\''+row.file_dir_url+'\')" title="删除" ></i> &nbsp;&nbsp;';
 
-                    str += '<button class="btn btn-minier btn-info" onclick="objClass.download(\''+row.filename+'\',\''+row.file_code+'\',\''+row.file_dir_url+'\')"><i class="ace-icon fa fa-download bigger-130"></i> 下载文件</button>&nbsp;';
+                    str += '<i class="ace-icon fa fa-download bigger-130 blue" onclick="objClass.download(\''+row.filename+'\',\''+row.file_code+'\',\''+row.file_dir_url+'\')" title="下载文件" ></i> &nbsp;&nbsp;';
                 }else{
-                    var str = '<button class="btn btn-minier btn-info" onclick="objClass.findDir(\''+row.file_dir_url+'\',\''+row.file_code+'\')"><i class="ace-icon fa fa-eye bigger-130"></i> 查看文件夹</button>&nbsp;';
+                    var str = '<i class="ace-icon fa fa-eye bigger-130 blue" onclick="objClass.findDir(\''+row.file_dir_url+'\',\''+row.file_code+'\')" title="查看文件夹" ></i> &nbsp;';
                 }
 
                 return str;
@@ -81,7 +81,7 @@
     var objClass = {
         download:function(name,code,url1){
             var url = "{{route('b_filemanage_downloadlogfile')}}"+'?filename='+name+'&code='+code+'&url='+url1;
-            window.open(url); 
+            window.open(url);
         },
         delete:function(name,code,url1){
             layer.confirm('您确定要删除<span style="color:red;">['+name+']</span> 文件吗？', {icon: 3,

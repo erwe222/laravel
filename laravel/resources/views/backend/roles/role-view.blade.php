@@ -77,7 +77,7 @@
                     return '<label class="pos-rel"><input type="checkbox" class="ace table-checkbox-l" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
-            {title: '角色名',data: 'name',name:'name',orderable:false,width: 100},
+            {title: '角色名',data: 'name',name:'name',orderable:false},
             {title: '状态',data: 'status',name:'status',orderable:false,width: 100,render: function ( data, type, row, meta ) {
                 if(data == 1){
                     return '<span class="label label-success arrowed-in arrowed-in-right" data-rowindex="'+meta.row+'">启用</span>';
@@ -85,13 +85,13 @@
                     return '<span class="label label-danger arrowed" data-rowindex="'+meta.row+'">禁用</span>';
                 }
             }},
-            {title: '使用人数',data: 'total',width: 100,orderable:false},
+            {title: '角色人数',data: 'total',width: 100,orderable:false},
             {title: '添加时间',data: 'created_at',width: 150},
             {title: '修改时间',data: 'updated_at',width: 150},
-            {title: '操 作',data: 'id',orderable:false,width: 240,render: function ( data, type, row, meta ) {
-                var str = '<button class="btn btn-minier btn-purple" onclick="objClass.edit(\''+meta.row+'\')"><i class="ace-icon fa fa-pencil bigger-130"></i> 编辑</button>&nbsp;';
-                str += '<button class="btn btn-minier btn-danger" onclick="objClass.delete(\''+row.id+'\')"><i class="ace-icon fa fa-trash-o bigger-130"></i> 删除</button>&nbsp;';
-                str += '<button class="btn btn-minier btn-success" onclick="objClass.change(\''+meta.row+'\')"><i class="ace-icon fa fa-pencil bigger-130"></i> 修改权限</button>';
+            {title: '操 作',data: 'id',orderable:false,width: 100,render: function ( data, type, row, meta ) {
+                var str = '<i class="ace-icon fa fa-pencil bigger-130 blue" onclick="objClass.edit(\''+meta.row+'\')" title="编辑"></i> &nbsp;&nbsp;';
+                str += '<i class="ace-icon fa fa-trash-o bigger-130 red" onclick="objClass.delete(\''+row.id+'\')" title="删除" ></i> &nbsp;&nbsp;';
+                str += '<i class="ace-icon fa fa-pencil-square-o bigger-130 green" onclick="objClass.change(\''+meta.row+'\')" title="修改权限" ></i> ';
                 return str;
             }}
         ],

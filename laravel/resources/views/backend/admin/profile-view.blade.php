@@ -23,26 +23,22 @@
 			<!-- PAGE CONTENT BEGINS -->
 			<div class="clearfix">
 				<div class="pull-right">
-					<span class="green middle bolder">选择简介：&nbsp;</span>
+					<span class="green middle bolder">选择：&nbsp;</span>
 
 					<div class="btn-toolbar inline middle no-margin">
 						<div data-toggle="buttons" class="btn-group no-margin">
 							<label class="btn btn-sm btn-yellow active">
-								<span class="bigger-110">1</span>
+								<span class="bigger-110">个人简介</span>
 
 								<input type="radio" value="1" />
 							</label>
 
+
+
 							<label class="btn btn-sm btn-yellow">
-								<span class="bigger-110">2</span>
+								<span class="bigger-110">个人设置</span>
 
 								<input type="radio" value="2" />
-							</label>
-
-							<label class="btn btn-sm btn-yellow">
-								<span class="bigger-110">3</span>
-
-								<input type="radio" value="3" />
 							</label>
 						</div>
 					</div>
@@ -193,129 +189,9 @@
 				</div>
 			</div>
 
-			<div class="hide">
-				<div id="user-profile-2" class="user-profile">
-					<div class="tabbable">
-						<ul class="nav nav-tabs padding-18">
-							<li class="active">
-								<a data-toggle="tab" href="#friends">
-									<i class="blue ace-icon fa fa-users bigger-120"></i>
-									朋友
-								</a>
-							</li>
-
-							<li>
-								<a data-toggle="tab" href="#pictures">
-									<i class="pink ace-icon fa fa-picture-o bigger-120"></i>
-									图片
-								</a>
-							</li>
-						</ul>
-
-						<div class="tab-content no-border padding-24">
-
-							
-							<div id="friends" class="tab-pane in active">
-								<div class="profile-users clearfix">
-									<div class="itemdiv memberdiv">
-										<div class="inline pos-rel">
-											<div class="user">
-												<a href="#">
-													<img src="/ace-asstes/images/avatars/avatar4.png" alt="Bob Doe's avatar" />
-												</a>
-											</div>
-
-											<div class="body">
-												<div class="name">
-													<a href="#">
-														<span class="user-status status-online"></span>
-														鲍勃
-													</a>
-												</div>
-											</div>
-
-											<div class="popover">
-												<div class="arrow"></div>
-
-												<div class="popover-content">
-													<div class="bolder">内容编辑器</div>
-
-													<div class="time">
-														<i class="ace-icon fa fa-clock-o middle bigger-120 orange"></i>
-														<span class="green"> 20分钟前 </span>
-													</div>
-
-													<div class="hr dotted hr-8"></div>
-
-													<div class="tools action-buttons">
-														<a href="#">
-															<i class="ace-icon fa fa-facebook-square blue bigger-150"></i>
-														</a>
-
-														<a href="#">
-															<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-														</a>
-
-														<a href="#">
-															<i class="ace-icon fa fa-google-plus-square red bigger-150"></i>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>			
-								</div>
-
-								<div class="hr hr10 hr-double"></div>
-
-								<ul class="pager pull-right">
-									<li class="previous disabled">
-										<a href="#">&larr; 向前</a>
-									</li>
-
-									<li class="next">
-										<a href="#">向后 &rarr;</a>
-									</li>
-								</ul>
-							</div>
-
-							<div id="pictures" class="tab-pane">
-								<ul class="ace-thumbnails">
-									<li>
-										<a href="#" data-rel="colorbox">
-											<img alt="150x150" src="/ace-asstes/images/gallery/thumb-1.jpg" />
-											<div class="text">
-												<div class="inner">悬停的示例标题</div>
-											</div>
-										</a>
-
-										<div class="tools tools-bottom">
-											<a href="#">
-												<i class="ace-icon fa fa-link"></i>
-											</a>
-
-											<a href="#">
-												<i class="ace-icon fa fa-paperclip"></i>
-											</a>
-
-											<a href="#">
-												<i class="ace-icon fa fa-pencil"></i>
-											</a>
-
-											<a href="#">
-												<i class="ace-icon fa fa-times red"></i>
-											</a>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
 			<div class="hide">
-				<div id="user-profile-3" class="user-profile row">
+				<div id="user-profile-2" class="user-profile row">
 					<div class="col-sm-offset-1 col-sm-10">
 						<div class="well well-sm">
 							<div class="inline middle blue bigger-110"> 你的个人资料已完成70％ </div>
@@ -430,14 +306,28 @@
 
 										<div>
 											<label class="inline">
-												<input type="checkbox" name="form-field-checkbox" class="ace" />
-												<span class="lbl blue">&nbsp;&nbsp;&nbsp;&nbsp;<i class="ace-icon fa fa-bell-o bigger-110 purple"></i>&nbsp;收到委派任务时提示通知消息</span>
+												<input type="checkbox" name="form-task-notice-checkbox" class="ace" />
+												<span class="lbl blue">&nbsp;&nbsp;&nbsp;&nbsp;<i class="ace-icon fa fa-bell-o bigger-110 purple"></i>&nbsp;开启委派任务通知消息提示</span>
 											</label>
 										</div>
 
 										<div class="space-8"></div>
 
+										<div>
+											<label class="inline">
+												<input type="checkbox" name="form-login-notice-checkbox" class="ace" />
+												<span class="lbl blue">&nbsp;&nbsp;&nbsp;&nbsp;<i class="ace-icon fa fa-bell-o bigger-110 purple"></i>&nbsp;开启用户登录消息提示</span>
+											</label>
+										</div>
 
+										<div class="space-8"></div>
+
+										<div>
+											<label class="inline">
+												<input type="checkbox" name="form-login-notice-checkbox" class="ace" />
+												<span class="lbl blue">&nbsp;&nbsp;&nbsp;&nbsp;<i class="ace-icon fa fa-bell-o bigger-110 purple"></i>&nbsp;开启站内信消息提示</span>
+											</label>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -573,7 +463,5 @@
 	    		
 	    	},
 	    };
-
-
 	</script>
 @endpush

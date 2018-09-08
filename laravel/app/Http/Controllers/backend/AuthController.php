@@ -79,13 +79,14 @@ class AuthController extends CController{
                 ]);
 
                 event(new CmsMessagePushEvent([
-                    'channel'     =>'adminnotice',
-                    'noticetype'  =>'login',  
-                    'msgtype'     =>'1',
-                    'message'     =>'['.$user->name.'] 登录后台管理系统',
-                    'params'      =>[],
+                    'channel'           =>'loginchannel',              #渠道名
+                    'channeltype'       =>2,                          #渠道类型（1:个人渠道  2:群发渠道）
+                    'msgid'             =>0,                          #接收人id（若渠道类型为群发消息则该值默认为0，否则为管理员id）
+                    'msgtype'           =>1,               #消息提示类型
+                    'message'           =>'['.$user->name.'] 登录后台管理系统',               #消息详情
+                    'params'            =>[],       #附加参数
                 ]));
-                
+
                 return $this->returnData([],'登录成功',200);
             }
             return $this->returnData([],'登录失败',305);
@@ -108,11 +109,12 @@ class AuthController extends CController{
         ]);
 
         event(new CmsMessagePushEvent([
-            'channel'     =>'adminnotice',
-            'noticetype'  =>'login',  
-            'msgtype'     =>'1',
-            'message'     =>'['.$user->name.'] 退出后台管理系统',
-            'params'      =>[],
+            'channel'           =>'loginchannel',              #渠道名
+            'channeltype'       =>2,                          #渠道类型（1:个人渠道  2:群发渠道）
+            'msgid'             =>0,                          #接收人id（若渠道类型为群发消息则该值默认为0，否则为管理员id）
+            'msgtype'           =>1,               #消息提示类型
+            'message'           =>'['.$user->name.'] 退出后台管理系统',               #消息详情
+            'params'            =>[],       #附加参数
         ]));
 
         $this->guard()->logout();

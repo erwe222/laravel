@@ -200,6 +200,17 @@ class TestController extends CController{
         // $res = $this->smsModel->SendSms('2ca0f02849f446529639d966dfcd15a2',258714,666666,'15885446370',$uid='');
 
         // dd($res);
+
+
+
+        event(new CmsMessagePushEvent([
+            'channel'           =>'loginchannel',              #渠道名
+            'channeltype'       =>2,                          #渠道类型（1:个人渠道  2:群发渠道）
+            'msgid'             =>2,                          #接收人id（若渠道类型为群发消息则该值默认为0，否则为管理员id）
+            'msgtype'           =>1,               #消息提示类型
+            'message'           =>'55555555555',               #消息详情
+            'params'            =>['asdf'=>'fasdfasd'],       #附加参数
+        ]));
     }
     
     public function test(){

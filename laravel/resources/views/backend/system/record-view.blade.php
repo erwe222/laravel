@@ -44,17 +44,18 @@
 <script>
     var obj = {
         scrollX: true,
+        order: [[ 5, "desc"]], //初始化默认排序
         columns: [
             {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
                     return '<label class="pos-rel"><input type="checkbox" class="ace table-checkbox-l" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
-            {title: '操作人员',data: 'name',name:'name',orderable:false,width: 20},
-            {title: '操作类型',data: 'type',name:'type',orderable:false,width: 20},
+            {title: '操作人员',data: 'name',name:'name',orderable:false,width: 100},
+            {title: '操作类型',data: 'type',name:'type',orderable:false,width: 100},
             {title: '操作IP',data: 'ip',name:'ip',orderable:false,width: 50},
-            {title: '详情',data: 'content',name:'content',orderable:false,width: 500},
-            {title: '操作时间',data: 'created_at',width: 10}
+            {title: '详情',data: 'content',name:'content',orderable:false},
+            {title: '操作时间',data: 'created_at',width: 100}
         ],
     };
     

@@ -29,6 +29,7 @@
             }
             .datagrid-body .datagrid-btable tr{height:40px !important;}
             .datagrid-header-check {height:30px !important;}
+            i{cursor: pointer;}
         </style>
         @stack('css')
         <script src="/ace-asstes/js/ace-extra.min.js"></script>

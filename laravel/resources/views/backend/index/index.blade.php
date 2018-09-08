@@ -7,42 +7,27 @@
         <div class="col-xs-12">
             <div class="row">
                 <div class="space-6"></div>
-                <div class="col-sm-7 infobox-container">
+                <div class="col-sm-7 infobox-container" id="app">
                     <div class="infobox infobox-green">
                         <div class="infobox-icon">
                             <i class="ace-icon glyphicon glyphicon-user"></i>
                         </div>
                         <div class="infobox-data">
-                            <span class="infobox-data-number">32</span>
-                            <div class="infobox-content">2个评论</div>
+                            <span class="infobox-data-number">@{{statistics.users.total}}</span>
+                            <div class="infobox-content">会员数</div>
                         </div>
-                        <div class="stat stat-success">8%</div>
-                    </div>
-                    <div class="infobox infobox-blue">
-                        <div class="infobox-icon">
-                            <i class="ace-icon fa fa-twitter"></i>
-                        </div>
-
-                        <div class="infobox-data">
-                            <span class="infobox-data-number">11</span>
-                            <div class="infobox-content">新粉丝</div>
-                        </div>
-
-                        <div class="badge badge-success">
-                            +32%
-                            <i class="ace-icon fa fa-arrow-up"></i>
-                        </div>
+                        <div class="stat stat-success">@{{statistics.users.increase}}%</div>
                     </div>
                     <div class="infobox infobox-pink">
                         <div class="infobox-icon">
-                            <i class="ace-icon fa fa-shopping-cart"></i>
+                            <i class="ace-icon glyphicon glyphicon-user"></i>
                         </div>
 
                         <div class="infobox-data">
-                            <span class="infobox-data-number">8</span>
-                            <div class="infobox-content">新订单</div>
+                            <span class="infobox-data-number">@{{statistics.login.total}}</span>
+                            <div class="infobox-content">登录量</div>
                         </div>
-                        <div class="stat stat-important">4%</div>
+                        <div class="stat stat-important">@{{statistics.login.increase}}%</div>
                     </div>
                     <div class="infobox infobox-red">
                         <div class="infobox-icon">
@@ -61,7 +46,7 @@
 
                         <div class="infobox-data">
                             <span class="infobox-data-number">6,251</span>
-                            <div class="infobox-content">页面查看次数</div>
+                            <div class="infobox-content">首页访问量</div>
                         </div>
 
                         <div class="badge badge-success">
@@ -84,6 +69,10 @@
                             </div>
                         </div>
                     </div>
+
+                    
+
+
                     <div class="space-6"></div>
                     <div class="infobox infobox-green infobox-small infobox-dark">
                         <div class="infobox-progress">
@@ -181,7 +170,7 @@
                     <div class="widget-box transparent">
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title lighter">
-                                <i class="ace-icon fa fa-star orange"></i>热门域名
+                                <i class="ace-icon fa fa-star orange"></i>热门订单
                             </h4>
                             <div class="widget-toolbar">
                                 <a href="#" data-action="collapse"><i class="ace-icon fa fa-chevron-up"></i></a>
@@ -253,11 +242,13 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="/ace-asstes/js/jquery.easypiechart.min.js"></script>
 <script src="/ace-asstes/js/jquery.sparkline.index.min.js"></script>
 <script src="/ace-asstes/js/jquery.flot.min.js"></script>
 <script src="/ace-asstes/js/jquery.flot.pie.min.js"></script>
 <script src="/ace-asstes/js/jquery.flot.resize.min.js"></script>
+
 <script type="text/javascript">
     $(function() {
         $('.easy-pie-chart.percentage').each(function(){
@@ -461,6 +452,28 @@
                     $(this).addClass('dropup');
             else $(this).removeClass('dropup');
         });
+})
+
+</script>
+
+<script type="text/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    statistics:{
+        users:{
+            total:'-',increase:'-',
+        },
+        login:{
+            total:'-',increase:'-',
+        },
+    },
+
+  },
+  created:function(){
+     //实例化是加载数据
+     // this.total = 30;
+  }
 })
 </script>
 @endpush

@@ -63,10 +63,10 @@ class IndexController extends CController{
             $wx_info = $res;
         }
 
-        var_dump($wx_info);
+        // var_dump($wx_info);
 
         $res = $this->weChatJsSDK->getSignPackage();
-        // return view('weixin.love.Love',['weixin_config'=>$res]);
+        return view('weixin.love.Love',['weixin_config'=>$res]);
     }
 
     public function vodio(){

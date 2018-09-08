@@ -67,15 +67,16 @@
 <script>
     var obj = {
         scrollX: true,
+        order: [[ 6, "desc"]], //初始化默认排序
         columns: [
             {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
                     return '<label class="pos-rel"><input type="checkbox" class="ace table-checkbox-l" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
-            {title: '发布人',data: 'name',name:'name',orderable:false,width: 50},
+            {title: '发布人',data: 'name',name:'name',orderable:false,width: 100},
             {title: 'AppId',data: 'appid',name:'appid',orderable:false,width: 150},
-            {title: '菜单数据',data: 'menu_json',name:'menu_json',orderable:false,width: 200,render: function ( data, type, row, meta ) {
+            {title: '菜单数据',data: 'menu_json',name:'menu_json',orderable:false,render: function ( data, type, row, meta ) {
                 var data = JSON.stringify(JSON.parse(data), null, 2);
                 if(data.length > 100 ){
                     return "<a title='" + data+ "'>"+ data.slice(0,100) + "</a>";
@@ -99,9 +100,9 @@
             }},
             {title: '添加时间',data: 'created_at',width: 150},
             {title: '操 作',data: 'id',orderable:false,width: 50,render: function ( data, type, row, meta ) {
-                var str = '<button class="btn btn-minier btn-purple" onclick="objClass.cat(\''+meta.row+'\')"><i class="ace-icon fa fa-eye bigger-130"></i> 查看</button>&nbsp;';
+                var str = '<i class="ace-icon fa fa-eye bigger-130 blue" onclick="objClass.cat(\''+meta.row+'\')" title="查看"></i> &nbsp;';
                 if(row.status == 2){
-                    str += '<button class="btn btn-minier btn-info" onclick="objClass.upload(\''+row.id+'\')"><i class="ace-icon fa fa-cloud-upload bigger-130"></i> 发布 </button>&nbsp;';
+                    str += '<i class="ace-icon fa fa-cloud-upload bigger-130" title="发布" onclick="objClass.upload(\''+row.id+'\')"></i>';
                 }
                 return str;
             }}

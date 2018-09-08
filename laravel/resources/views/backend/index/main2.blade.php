@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{asset('css/nprogress.css')}}" />
         <link rel="stylesheet" href="/ace-asstes/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/ace-asstes/font-awesome/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="/ace-asstes/googlefonts/fonts.googleapis.com.css" />
+        <!-- <link rel="stylesheet" href="/ace-asstes/googlefonts/fonts.googleapis.com.css" /> -->
         <link rel="stylesheet" href="/ace-asstes/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-skins.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-rtl.min.css" />
@@ -81,9 +81,28 @@
                 z-index: 99999999 !important;
                 background: red;
             }
+
+            #cus-set-box{
+                width: 308px;border: 1px solid #eccbcb;position:absolute;right: 0px;top: 86px;z-index: 9999999;background: #fff;border-radius: 2px 0px 0px 2px;box-shadow: 0px 0px 2px #888888;
+                display: none;
+                overflow-y: auto;
+            }
+
+            .cus-set-theme-box{
+                width: 97px;
+                height: 52px;
+                border: 1px solid #ccc;
+                float: left;
+                margin-left: 4px;
+                margin-top: 5px;
+                cursor: pointer;
+
+            }
+            .cus-set-theme-box:hover{
+                border: 1px solid blue;
+            }
         </style>
     </head>
-
     <body class="no-skin">
         <div id="navbar" class="navbar navbar-default ace-save-state">
             <div class="navbar-container ace-save-state" id="navbar-container">
@@ -97,85 +116,52 @@
                     <a href="javasceipt:void(0)" class="navbar-brand">
                         <small>{{config('app.config.backstage_name')}}</small>
                     </a>
+
+                    <div class="pull-right light-blue dropdown-modal" id="cus-nav-1" style="width: 60px;padding-top: 8px;">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle" >
+                            <img class="nav-user-photo" src="{{asset($user_info->profile_pic)}}" alt="Jason's Photo" style="margin: -4px 8px 0 0;border-radius: 100%;border: 2px solid #FFF;    max-width: 40px;" />
+                        </a>
+                        <ul class="dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                            <li>
+                                <a href="javascript:voi(0)" class='openTab' data-options='{"href":"{{route('b_admin_profile')}}","icon":"ace-icon fa fa-key","title":"查看我的信息","index":"admin-cat-profile","lock":false}'><i class="ace-icon fa fa-user"></i>  我的信息</a>
+                            </li>
+                            <li>
+                                <a href="javascript:voi(0)" class='openTab' data-options='{"href":"{{route('b_admin_changepwdview')}}","icon":"ace-icon fa fa-key","title":"修改密码","index":"admin-change-pwd","lock":false}'><i class="ace-icon fa fa-key"></i>修改密码</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="javascript:voi(0)" onclick="mainObj.signOut('{{route('b_auth_logout')}}')"><i class="ace-icon fa fa-power-off"></i>退出</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
-                    <ul class="nav ace-nav">
-                        <li class="grey dropdown-modal">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <i class="ace-icon fa fa-tasks"></i>
-                                <span class="badge badge-grey">4</span>
+                    <ul class="nav ace-nav" >
+                        <li class="warning">
+                            <a  href="javascript:void(0)" id='cus-mySet-box'>
+                                <i class="ace-icon fa fa-tachometer"></i>
                             </a>
-                            <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-                                <li class="dropdown-header">
-                                    <i class="ace-icon fa fa-check"></i>
-                                    4项任务
-                                </li>
-                                <li class="dropdown-content">
-                                    <ul class="dropdown-menu dropdown-navbar">
-                                        <li>
-                                            <a href="#">
-                                                <div class="clearfix">
-                                                    <span class="pull-left">软件更新</span>
-                                                    <span class="pull-right">65%</span>
-                                                </div>
-
-                                                <div class="progress progress-mini">
-                                                    <div style="width:65%" class="progress-bar"></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-footer">
-                                    <a href="#">查看任务详情<i class="ace-icon fa fa-arrow-right"></i></a>
-                                </li>
-                            </ul>
                         </li>
-                        <li class="purple dropdown-modal">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <li class="purple">
+                            <a  href="#">
                                 <i class="ace-icon fa fa-bell icon-animated-bell"></i>
-                                <span class="badge badge-important">8</span>
+                                <span class="badge badge-important">0</span>
                             </a>
-                            <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-                                    <li class="dropdown-header">
-                                        <i class="ace-icon fa fa-exclamation-triangle"></i>8条通知
-                                    </li>
-                                    <li class="dropdown-content">
-                                        <ul class="dropdown-menu dropdown-navbar navbar-pink">
-                                            <li>
-                                                <a href="#">
-                                                    <div class="clearfix">
-                                                        <span class="pull-left">
-                                                            <i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>新评论
-                                                        </span>
-                                                        <span class="pull-right badge badge-info">+12</span>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                <li class="dropdown-footer">
-                                    <a href="#">查看所有通知<i class="ace-icon fa fa-arrow-right"></i></a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="green dropdown-modal">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                    <i class="ace-icon fa fa-envelope icon-animated-vertical"></i><span class="badge badge-success">5</span>
+                                    <i class="ace-icon fa fa-envelope icon-animated-vertical"></i><span class="badge badge-success">6</span>
                             </a>
                             <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-                                <li class="dropdown-header"><i class="ace-icon fa fa-envelope-o"></i>5条消息</li>
+                                <li class="dropdown-header"><i class="ace-icon fa fa-envelope-o"></i>0条消息</li>
                                 <li class="dropdown-content">
-                                    <ul class="dropdown-menu dropdown-navbar">
+                                    <ul class="dropdown-menu dropdown-navbar" style="cursor: pointer;">
                                         <li>
-                                            <a href="#" class="clearfix">
-                                                <img src="/ace-asstes/images/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-                                                <span class="msg-body">
-                                                    <span class="msg-title"><span class="blue">小明:</span>这是一个不错的模板呦...</span>
-                                                    <span class="msg-time"><i class="ace-icon fa fa-clock-o"></i><span>刚刚</span></span>
-                                                </span>
-                                            </a>
+                                            1. 发决定能否你手机看到你 
+                                        </li>
+                                        <li>
+                                            2. 阿斯顿发看奥斯卡了对方
                                         </li>
                                     </ul>
                                 </li>
@@ -283,7 +269,68 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="my-iframe-box" ></div>
+
+                    <div id="cus-set-box">
+                        <div>
+                            <div style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;text-indent: 10px;color:#756767;font-size: 16px;">系统主题设置</div>
+                            <div>
+                                <div class="cus-set-theme-box">
+                                    <img src="{{asset('ace-asstes/images/theme-blue.jpg')}}">
+                                </div>
+                                <div class="cus-set-theme-box">
+                                    <img src="{{asset('ace-asstes/images/theme-black.jpg')}}">
+                                </div>
+                                <div class="cus-set-theme-box">
+                                    <img src="{{asset('ace-asstes/images/theme-pink.jpg')}}">
+                                </div>
+                                <div class="cus-set-theme-box">
+                                    <img src="{{asset('ace-asstes/images/theme-gray.jpg')}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                        <div style="margin-top: 5px;">
+                            <div style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;text-indent: 10px;color:#756767;font-size: 16px;">个人设置</div>
+                            <div>
+                                <div style="padding: 5px;">
+                                    <table>
+                                        <tr>
+                                            <td width="230px" style="color: #000;">开启选项卡缓存 </td>
+                                            <td>
+                                                <label style="padding-top: 5px;">
+                                                    <input name="switch-field-1" class="ace ace-switch ace-switch-6" type="checkbox">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="230px" style="color: #000;">开启选项卡缓存 </td>
+                                            <td>
+                                                <label style="padding-top: 5px;">
+                                                    <input name="switch-field-1" class="ace ace-switch ace-switch-6" type="checkbox">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 10px;">
+                            <div style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;text-indent: 10px;color:#756767;font-size: 16px;">其它设置(预留)</div>
+                            <div>
+                               
+
+                            </div>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -305,28 +352,11 @@
         <script src="{{asset('ace-asstes/js/jquery.gritter.min.js')}}"></script>
         <script src="{{asset('js/nprogress.js')}}"></script>
         <script src="/ace-asstes/js/my-tab.js"></script>
-        <script>
+        <script src="/ace-asstes/js/webSocketMsg.js"></script>
+        <script type="text/javascript">
             nprogress.start();
             $(function(){
                 nprogress.done();
-                
-                //边缘弹出
-                @if($is_expiry_time)
-                    var expiry_time = '{{$user_info->expiry_time}}';
-                    var admin_name = '{{$user_info->name}}';
-                    var editpwd_index = layer.open({
-                        type: 1
-                        ,btn: '立即修改'
-                        ,title:'<span class="blue"><i class="ace-icon fa fa-envelope-o"></i> 密码提示</span>'
-                        ,offset: 'rb' //具体配置参考：offset参数项
-                        ,content: '<div style="padding:10px 10px 10px 10px">'+admin_name+'，您的密码于 <span class="blue" style="font-size:16px;">'+expiry_time+'</span> 分过期，为了不影响您的后续操作，请立即修改密码......</div>'
-                        ,shade: 0
-                        ,yes: function(){
-							mytab.addTab({"href":"{{route('b_admin_changepwdview')}}","icon":"ace-icon fa fa-key","title":"修改密码","index":"admin-change-pwd","lock":false});
-                            layer.close(editpwd_index);
-                        }
-                    });
-                @endif
             });
 
             var mytab = new MyTab({
@@ -359,7 +389,12 @@
                 mytab.addTab(obj);
             });
 
-        	/**
+            $('#cus-mySet-box').on('click',function(){
+                $('#cus-set-box').css('height',(document.documentElement.clientHeight-86) +'px').show();
+            });
+        </script>
+        <script type="text/javascript">
+            /**
             * 主框架操作类
             * @type type 
             */
@@ -377,52 +412,73 @@
                 }
             };
 
-            /**
-            * 消息推送处理类
-            * @type type 
-            */
-            var messagePush = {
-                ws:null,
-                Connect:function(){
-                    var admin_id = "{{$user_info->id}}";
-                    var ws = new WebSocket("ws://118.24.1.228:9501?admin_id="+admin_id+'&channel=adminnotice');
+        </script>
 
-                    ws.onopen = function(){
-                        //ws.send("发送数据");
-                    };
+        <script type="text/javascript">
+            //边缘弹出
+            @if($is_expiry_time)
+                var expiry_time = '{{$user_info->expiry_time}}';
+                var admin_name = '{{$user_info->name}}';
+                var editpwd_index = layer.open({
+                    type: 1
+                    ,btn: '立即修改'
+                    ,title:'<span class="blue"><i class="ace-icon fa fa-envelope-o"></i> 密码提示</span>'
+                    ,offset: 'rb' //具体配置参考：offset参数项
+                    ,content: '<div style="padding:10px 10px 10px 10px">'+admin_name+'，您的密码于 <span class="blue" style="font-size:16px;">'+expiry_time+'</span> 分过期，为了不影响您的后续操作，请立即修改密码......</div>'
+                    ,shade: 0
+                    ,yes: function(){
+                        mytab.addTab({"href":"{{route('b_admin_changepwdview')}}","icon":"ace-icon fa fa-key","title":"修改密码","index":"admin-change-pwd","lock":false});
+                        layer.close(editpwd_index);
+                    }
+                });
+            @endif
+        </script>
+        <script type="text/javascript">
+                /**
+                * 消息推送处理类
+                * @type type 
+                */
+                var o = new mySocket({
+                    adminid:"{{$user_info->id}}",
+                    url:'ws://118.24.1.228:9501',
+                },
+                [
+                    {
+                        channel     :'loginchannel',
+                        channelType :2,           //群发渠道
+                        callback    :function(res){
+                            layer.open({
+                                type: 1
+                                ,title:'<span class="blue"><i class="ace-icon fa fa-envelope-o"></i> 消息提示</span>'
+                                ,offset: 'rb' //具体配置参考：offset参数项
+                                ,content: '<div style="padding:10px 10px 30px 10px;min-width:300px;"> '+ res.message +'</div>'
+                                ,shade: 0
+                            });
+                        }
+                    }
+                ]);
+        </script>
 
-                    ws.onmessage = function (evt) {
-                        var msgObj = JSON.parse(evt.data);
-                        console.log(msgObj);
+        <script>
+            $(function(){
+                if(window.innerWidth <= 479){
+                    $('.ace-nav').hide();
+                    $('#cus-nav-1').show();
+                  }else {
+                    $('.ace-nav').show();
+                    $('#cus-nav-1').hide();
+                  }
+            });
 
-                        var message_index = layer.open({
-                            type: 1
-                            ,title:'<span class="blue"><i class="ace-icon fa fa-envelope-o"></i> 消息提示</span>'
-                            ,offset: 'rb' //具体配置参考：offset参数项
-                            ,content: '<div style="padding:10px 10px 30px 10px;min-width:300px;"> '+ msgObj.message +'</div>'
-                            ,shade: 0
-                        });
-                    };
-                    
-                    ws.onclose = function(){
-                      // 关闭 websocket
-                      ws.send("关闭");
-                    };
-
-                    ws.onclose = function(){ 
-                        // 关闭 websocket
-                        console.log("即时通讯服务器连接失败..."); 
-                        setTimeout(function(){
-                            console.log("自动尝试连接即时通讯服务器..."); 
-                            messagePush.Connect();
-                        },2000);
-                    };
-
-                    this.ws;
-                }
-            };
-
-            messagePush.Connect();
+            $(window).resize(function() {
+              if(window.innerWidth <= 479){
+                    $('.ace-nav').hide();
+                    $('#cus-nav-1').show();
+                  }else {
+                    $('.ace-nav').show();
+                    $('#cus-nav-1').hide();
+                  }
+            });
         </script>
     </body>
 </html>

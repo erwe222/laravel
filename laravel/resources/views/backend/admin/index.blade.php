@@ -1,5 +1,9 @@
 @extends('layouts.body')
 @section('content')
+<style>
+	i{cursor: pointer;}
+
+</style>
 <div class="row">
     <div class="col-xs-12">
         <div class="alert alert-info">
@@ -100,15 +104,16 @@
 <script >
     var obj = {
         scrollX: true,
+        order: [[ 7, "desc"]], //初始化默认排序
         columns: [
             {data:null,checkbox:true,width:10,orderable:false,class:'table-checkbox',
                 render:function(data){
                     return '<label class="pos-rel"><input type="checkbox" class="ace table-checkbox-l" value="' + data["id"] + '" /><span class="lbl"></span></label>';
                 }
             },
-            {title: '登录邮箱',data: 'email',name:'email',orderable:false,width: 100},
+            {title: '登录邮箱',data: 'email',name:'email',orderable:false},
             {title: '昵称',data: 'name',name:'name',orderable:false,width: 100},
-            {title: '联系方式',data: 'telephone',name:'telephone',orderable:false,width: 100},
+            {title: '联系方式',data: 'telephone',name:'telephone',orderable:false,width: 150},
             {title: '性别',data: 'sex',name:'sex',orderable:false,width: 10,render: function ( data, type, row, meta ) {
                 return (data == 1) ? '男': '女';
             }},
@@ -116,11 +121,11 @@
                 var checked = (data == 10) ? 'checked':'';
                 return '<label><input  class="ace ace-switch ace-switch-2 editStatus" type="checkbox" '+checked+' data-id="'+row.id+'" data-status="'+data+'"><span class="lbl"></span></label>';
             }},
-            {title: '所属角色',data: 'role_name',name:'role_name',orderable:false,width: 100},
+            {title: '所属角色',data: 'role_name',name:'role_name',orderable:false,width: 150},
             {title: '注册时间',data: 'created_at',width: 80},
-            {title: '操 作',data: 'id',orderable:false,width: 20,render: function ( data, type, row, meta ) {
+            {title: '操 作',data: 'id',orderable:false,width: 10,render: function ( data, type, row, meta ) {
                 var str ='';
-                str += '<button class="btn btn-minier btn-success" onclick="objClass.change(\''+meta.row+'\')" title="分配角色"><i class="ace-icon fa fa-pencil bigger-130"></i></button>';
+                str += '<i class="ace-icon fa fa-pencil bigger-130 blue" onclick="objClass.change(\''+meta.row+'\')" title="分配角色"></i>';
                 return str;
             }}
         ],
