@@ -83,8 +83,8 @@
             }
 
             #cus-set-box{
-                width: 325px;border: 1px solid #eccbcb;
-                position:absolute;right: 0px;top: 86px;z-index: 999999900000;
+                width: 306px;border: 1px solid #eccbcb;
+                position:absolute;right: 0px;top: 46px;z-index: 999999900000;
                 background: #fff;border-radius: 2px 0px 0px 2px;box-shadow: 0px 0px 2px #888888;
                 display: none;
                 /*overflow-y: auto;*/
@@ -331,7 +331,7 @@
                                 <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
                         </select>
 
-                        <div style="position:absolute;bottom: 0px;width: 100%;height: 20px;background: black;color:#FFF;text-align:center;cursor:pointer;">
+                        <div style="position:absolute;bottom: 0px;width: 100%;height: 20px;background: #ccc;color:#FFF;text-align:center;cursor:pointer;">
                             <p onclick="setBoxObj.closeBox()">关闭 <i class="ace-icon fa fa-arrow-right icon-on-right"></i></p>
                         </div>
                     </div>
@@ -433,7 +433,7 @@
             
             var setBoxObj = {
                 openBox:function(){
-                    $('#cus-set-box').css('height',(document.documentElement.clientHeight-100) +'px').show();
+                    $('#cus-set-box').css('height',(document.documentElement.clientHeight-54) +'px').show();
                 },
                 closeBox:function(){
                     $('#cus-set-box').slideUp();
