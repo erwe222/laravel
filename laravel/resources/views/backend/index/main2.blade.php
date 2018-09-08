@@ -149,15 +149,17 @@
                         <li class="purple">
                             <a  href="#">
                                 <i class="ace-icon fa fa-bell icon-animated-bell"></i>
-                                <span class="badge badge-important">0</span>
+                                <!--<span class="badge badge-important">0</span>-->
                             </a>
                         </li>
                         <li class="green dropdown-modal">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                    <i class="ace-icon fa fa-envelope icon-animated-vertical"></i><span class="badge badge-success">6</span>
+                                    <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                                    <!--<span class="badge badge-success">6</span>-->
                             </a>
                             <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-                                <li class="dropdown-header"><i class="ace-icon fa fa-envelope-o"></i>0条消息</li>
+                                <li class="dropdown-header">
+                                    <i class="ace-icon fa fa-envelope-o"></i>0条消息</li>
                                 <li class="dropdown-content">
                                     <ul class="dropdown-menu dropdown-navbar" style="cursor: pointer;">
                                         <li>
