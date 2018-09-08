@@ -83,9 +83,11 @@
             }
 
             #cus-set-box{
-                width: 308px;border: 1px solid #eccbcb;position:absolute;right: 0px;top: 86px;z-index: 9999999;background: #fff;border-radius: 2px 0px 0px 2px;box-shadow: 0px 0px 2px #888888;
+                width: 325px;border: 1px solid #eccbcb;
+                position:absolute;right: 0px;top: 86px;z-index: 999999900000;
+                background: #fff;border-radius: 2px 0px 0px 2px;box-shadow: 0px 0px 2px #888888;
                 display: none;
-                overflow-y: auto;
+                /*overflow-y: auto;*/
             }
 
             .cus-set-theme-box{
@@ -101,6 +103,7 @@
             .cus-set-theme-box:hover{
                 border: 1px solid blue;
             }
+            
         </style>
     </head>
     <body class="no-skin">
@@ -139,7 +142,7 @@
                 <div class="navbar-buttons navbar-header pull-right" role="navigation">
                     <ul class="nav ace-nav" >
                         <li class="warning">
-                            <a  href="javascript:void(0)" id='cus-mySet-box'>
+                            <a  href="javascript:void(0)" id='cus-mySet-box' onclick="setBoxObj.openBox()">
                                 <i class="ace-icon fa fa-tachometer"></i>
                             </a>
                         </li>
@@ -276,17 +279,17 @@
                         <div>
                             <div style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;text-indent: 10px;color:#756767;font-size: 16px;">系统主题设置</div>
                             <div>
-                                <div class="cus-set-theme-box">
-                                    <img src="{{asset('ace-asstes/images/theme-blue.jpg')}}">
+                                <div class="cus-set-theme-box" onclick="setBoxObj.click(0)">
+                                        <img src="{{asset('ace-asstes/images/theme-blue.jpg')}}">
                                 </div>
-                                <div class="cus-set-theme-box">
-                                    <img src="{{asset('ace-asstes/images/theme-black.jpg')}}">
+                                <div class="cus-set-theme-box" onclick="setBoxObj.click(1)">
+                                        <img src="{{asset('ace-asstes/images/theme-black.jpg')}}">
                                 </div>
-                                <div class="cus-set-theme-box">
-                                    <img src="{{asset('ace-asstes/images/theme-pink.jpg')}}">
+                                <div class="cus-set-theme-box" onclick="setBoxObj.click(2)">
+                                        <img src="{{asset('ace-asstes/images/theme-pink.jpg')}}">
                                 </div>
-                                <div class="cus-set-theme-box">
-                                    <img src="{{asset('ace-asstes/images/theme-gray.jpg')}}">
+                                <div class="cus-set-theme-box" onclick="setBoxObj.click(3)">
+                                        <img src="{{asset('ace-asstes/images/theme-gray.jpg')}}">
                                 </div>
                             </div>
                         </div>
@@ -306,18 +309,8 @@
                                             </td>
                                         </tr>
 
-                                        <tr>
-                                            <td width="230px" style="color: #000;">开启选项卡缓存 </td>
-                                            <td>
-                                                <label style="padding-top: 5px;">
-                                                    <input name="switch-field-1" class="ace ace-switch ace-switch-6" type="checkbox">
-                                                    <span class="lbl"></span>
-                                                </label>
-                                            </td>
-                                        </tr>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
 
@@ -328,8 +321,17 @@
 
                             </div>
                         </div>
+                        
+                        <select id="skin-colorpicker" class="hide">
+                                <option data-skin="no-skin" value="#438EB9">#438EB9</option>
+                                <option data-skin="skin-1" value="#222A2D">#222A2D</option>
+                                <option data-skin="skin-2" value="#C6487E">#C6487E</option>
+                                <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+                        </select>
 
-
+                        <div style="position:absolute;bottom: 0px;width: 100%;height: 20px;background: black;color:#FFF;text-align:center;cursor:pointer;">
+                            <p onclick="setBoxObj.closeBox()">关闭 <i class="ace-icon fa fa-arrow-right icon-on-right"></i></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -355,7 +357,26 @@
         <script src="/ace-asstes/js/webSocketMsg.js"></script>
         <script type="text/javascript">
             nprogress.start();
+            
+            $('.dropdown-colorpicker').addClass('hidden');
+            
+            function windowLoad(){
+                if(window.innerWidth <= 479){
+                  $('.ace-nav').hide();
+                  $('#cus-nav-1').show();
+                }else {
+                  $('.ace-nav').show();
+                  $('#cus-nav-1').hide();
+                }
+            }
+
+            $(window).resize(function() {
+              windowLoad();
+            });
+
             $(function(){
+                windowLoad();
+                
                 nprogress.done();
             });
 
@@ -380,18 +401,14 @@
                     $(this).parent().removeClass('active');
                 });
                 $(this).parent().addClass('active');
-                var obj = $(this).data('options');
-                mytab.addTab(obj);
+                mytab.addTab($(this).data('options'));
             });
 
             $('.openTab').on('click',function(){
-                var obj = $(this).data('options');
-                mytab.addTab(obj);
+                mytab.addTab($(this).data('options'));
             });
 
-            $('#cus-mySet-box').on('click',function(){
-                $('#cus-set-box').css('height',(document.documentElement.clientHeight-86) +'px').show();
-            });
+
         </script>
         <script type="text/javascript">
             /**
@@ -411,7 +428,18 @@
                     });
                 }
             };
-
+            
+            var setBoxObj = {
+                openBox:function(){
+                    $('#cus-set-box').css('height',(document.documentElement.clientHeight-100) +'px').show();
+                },
+                closeBox:function(){
+                    $('#cus-set-box').slideUp();
+                },
+                click:function(num){
+                    $('.dropdown-colorpicker .colorpick-btn').eq(num).trigger('click');
+                }
+            };
         </script>
 
         <script type="text/javascript">
@@ -460,25 +488,7 @@
         </script>
 
         <script>
-            $(function(){
-                if(window.innerWidth <= 479){
-                    $('.ace-nav').hide();
-                    $('#cus-nav-1').show();
-                  }else {
-                    $('.ace-nav').show();
-                    $('#cus-nav-1').hide();
-                  }
-            });
-
-            $(window).resize(function() {
-              if(window.innerWidth <= 479){
-                    $('.ace-nav').hide();
-                    $('#cus-nav-1').show();
-                  }else {
-                    $('.ace-nav').show();
-                    $('#cus-nav-1').hide();
-                  }
-            });
+            
         </script>
     </body>
 </html>
