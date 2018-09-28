@@ -71,6 +71,6 @@ class IndexController extends CController{
 
     public function vodio(){
 
-        return view('weixin.love.vodio');
+        return view('weixin.love.test');
     }
 }

@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{asset('css/nprogress.css')}}" />
         <link rel="stylesheet" href="/ace-asstes/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/ace-asstes/font-awesome/css/font-awesome.min.css" />
-        <!-- <link rel="stylesheet" href="/ace-asstes/googlefonts/fonts.googleapis.com.css" /> -->
+        <link rel="stylesheet" href="/ace-asstes/googlefonts/fonts.googleapis.com.css" />
         <link rel="stylesheet" href="/ace-asstes/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-skins.min.css" />
         <link rel="stylesheet" href="/ace-asstes/css/ace-rtl.min.css" />
@@ -254,20 +254,20 @@
                             <div style="height:40px;width:100000px;position:relative !important;left:15px" id='my-tab-nav-box'>
                                 <ul class="breadcrumb" id='my-tab-nav-ul'></ul>
                             </div>
-                            <div  id='left-slide' style="width: 25px;height: 30px;position: absolute;top:5px;text-align:right;background:#fff">
+                            <div  id='left-slide' style="width: 25px;height: 30px;position: absolute;top:5px;text-align:right;background:#e7f2f8">
                                 <div style="width: 20px;height: 30px;text-align:center;cursor: pointer;background-color:#E7E7E7!important;float:right;line-height:30px;">
                                         <i class="ace-icon fa fa-angle-double-left"></i>
                                 </div>
                             </div>
-                            <div id='right-slide' style="width: 20px;height: 30px;position: absolute;top:5px;right: 170px;line-height:30px;text-align:center;cursor: pointer;background-color:#E7E7E7!important;">
+                            <div id='right-slide' style="width: 20px;height: 30px;position: absolute;top:5px;right: 162px;line-height:30px;text-align:center;cursor: pointer;background-color:#E7E7E7!important;">
                                 <i class="ace-icon fa fa-angle-double-right"></i>
                             </div>
-                            <div id='tab-select-click' style="width: 170px;height: 30px;position: absolute;top:5px;right: 0px;line-height:30px;cursor: pointer;background:#fff;padding:0">
-                                <button  id='tab-nav-select-btn'  class="btn btn-info btn-sm dropdown-toggle" style="border-top-width: 2px;border-bottom-width: 2px;top:-2px;">
+                            <div id='tab-select-click' style="width: 170px;height: 30px;position: absolute;top:7px;right: -8px;line-height:30px;cursor: pointer;padding:0">
+                                <button  id='tab-nav-select-btn'  class="btn btn-info btn-sm dropdown-toggle" style="border-top-width: 2px;border-bottom-width: 2px;top:-4px;height: 30px">
                                     下拉菜单
                                     <span class="ace-icon fa fa-caret-down icon-on-right"></span>
                                 </button>
-                                <button id='tab-caozuo'  class="btn btn-success btn-sm" style="border-top-width: 2px;border-bottom-width: 2px;top:-2px;">
+                                <button id='tab-caozuo'  class="btn btn-success btn-sm" style="border-top-width: 2px;border-bottom-width: 2px;top:-4px;height: 30px">
                                     操 作
                                     <span class="ace-icon fa fa-caret-down icon-on-right"></span>
                                 </button>
@@ -279,7 +279,11 @@
 
                     <div id="cus-set-box">
                         <div>
-                            <div style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;text-indent: 10px;color:#756767;font-size: 16px;">系统主题设置</div>
+                            <div style="width: 100%;height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;text-indent: 10px;color:#756767;font-size: 16px;">
+                               <div class="pull-left">系统主题设置</div>
+                            	
+                               <div class="pull-right" style="margin-right:5px;cursor:pointer;" onclick="setBoxObj.closeBox()" >关闭<i class="ace-icon fa fa-angle-double-right"></i></div>
+                            </div>
                             <div>
                                 <div class="cus-set-theme-box" onclick="setBoxObj.click(0)">
                                         <img src="{{asset('ace-asstes/images/theme-blue.jpg')}}">
@@ -301,15 +305,15 @@
                             <div>
                                 <div style="padding: 5px;">
                                     <table>
-                                        <tr>
+                                        <!-- <tr>
                                             <td width="230px" style="color: #000;">开启选项卡缓存 </td>
                                             <td>
-                                                <label style="padding-top: 5px;">
-                                                    <input name="switch-field-1" class="ace ace-switch ace-switch-6" type="checkbox">
+                                                <label style="padding-top: 5px;" >
+                                                    <input name="tab-cache-switch" class="ace ace-switch ace-switch-6" type="checkbox"  id="tab-cache-switch" >
                                                     <span class="lbl"></span>
                                                 </label>
                                             </td>
-                                        </tr>
+                                        </tr> -->
 
                                     </table>
                                 </div>
@@ -330,10 +334,6 @@
                                 <option data-skin="skin-2" value="#C6487E">#C6487E</option>
                                 <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
                         </select>
-
-                        <div style="position:absolute;bottom: 0px;width: 100%;height: 20px;background: #ccc;color:#FFF;text-align:center;cursor:pointer;">
-                            <p onclick="setBoxObj.closeBox()">关闭 <i class="ace-icon fa fa-arrow-right icon-on-right"></i></p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -347,9 +347,9 @@
         <script src="/ace-asstes/js/jquery.ui.touch-punch.min.js"></script>
         <script src="/ace-asstes/js/jquery.easypiechart.min.js"></script>
         <script src="/ace-asstes/js/jquery.sparkline.index.min.js"></script>
-        <script src="/ace-asstes/js/jquery.flot.min.js"></script>
+    <!--     <script src="/ace-asstes/js/jquery.flot.min.js"></script>
         <script src="/ace-asstes/js/jquery.flot.pie.min.js"></script>
-        <script src="/ace-asstes/js/jquery.flot.resize.min.js"></script>
+        <script src="/ace-asstes/js/jquery.flot.resize.min.js"></script> -->
         <script src="/ace-asstes/js/ace-elements.min.js"></script>
         <script src="/ace-asstes/js/ace.min.js"></script>
         <script src="{{asset('ace-asstes/layer/layer.js')}}"></script>
@@ -359,6 +359,10 @@
         <script src="/ace-asstes/js/webSocketMsg.js"></script>
         <script type="text/javascript">
             nprogress.start();
+
+            window.baseConfig = {
+            	userkeys:'{{md5($user_info->id)}}',
+            }
             
             $('.dropdown-colorpicker').addClass('hidden');
             
@@ -389,6 +393,7 @@
                 index:'首 页',
                 lock:true,
             });
+
             mytab.init();
 
             $('.cus-click-url').on('click',function(){
@@ -409,9 +414,8 @@
             $('.openTab').on('click',function(){
                 mytab.addTab($(this).data('options'));
             });
-
-
         </script>
+
         <script type="text/javascript">
             /**
             * 主框架操作类
@@ -440,8 +444,27 @@
                 },
                 click:function(num){
                     $('.dropdown-colorpicker .colorpick-btn').eq(num).trigger('click');
+                },
+                init:function(){
+                	$('#tab-cache-switch').on('change',function(){
+		            	if($(this).is(":checked")){
+		            		sessionStorage.setItem('tab-cache-switch'+baseConfig.userkeys,1)
+		            	}else{
+		            		sessionStorage.setItem('tab-cache-switch'+baseConfig.userkeys,0)
+		            	}
+		            });
+
+		            if(sessionStorage.getItem('tab-cache-switch'+baseConfig.userkeys) == 1){
+		            	$('#tab-cache-switch').attr('checked',true); 
+		            }else{
+		            	$('#tab-cache-switch').attr('checked',false);
+		            }
                 }
             };
+
+            setBoxObj.init();
+
+            
         </script>
 
         <script type="text/javascript">
@@ -463,6 +486,7 @@
                 });
             @endif
         </script>
+
         <script type="text/javascript">
                 /**
                 * 消息推送处理类
@@ -487,10 +511,6 @@
                         }
                     }
                 ]);
-        </script>
-
-        <script>
-            
         </script>
     </body>
 </html>

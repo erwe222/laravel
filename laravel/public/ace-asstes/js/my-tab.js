@@ -1,14 +1,14 @@
 (function(window, $){
     
     function MyTab(ops){
-        this.scrollSetp = 30;          //menu左右按钮每次滑动的像素
-        this.operationWidth = 90;       //menu操作按钮的总宽度
-        this.leftOperationWidth = 30;   //左侧按钮的宽度
-        this.animatSpeed = 150;         //切换动画速度
+        this.scrollSetp         = 30;          //menu左右按钮每次滑动的像素
+        this.operationWidth     = 90;          //menu操作按钮的总宽度
+        this.leftOperationWidth = 30;          //左侧按钮的宽度
+        this.animatSpeed        = 150;         //切换动画速度
 
-        this.defaultPageIndex  = ops;
-        this.previousPageIndex = {};
-        this.currentPageIndex  = {};
+        this.defaultPageIndex   = ops;
+        this.currentPageIndex   = {};
+        this.keys               = window.baseConfig.userkeys;         //选项卡缓存标识
     }
 
      /**
@@ -29,8 +29,6 @@
         //检查选项卡是否已打开
         if(!this.isExist(ops)){
             //创建menu,绑定点击事件
-
-
             var iconClass = 'ace-icon glyphicon glyphicon-remove';
             if(ops.lock == true){
                 iconClass = 'ace-icon fa fa-lock';
@@ -105,6 +103,8 @@
             });
 
             this.addTabLog(ops);
+
+            _this.setCache(ops);
         }
 
         //激活选项卡
@@ -144,7 +144,6 @@
     }
 
     MyTab.prototype.addTabLog = function (ops) {
-        this.previousPageIndex = this.currentPageIndex;
         this.currentPageIndex  = ops;
     }
 
@@ -155,8 +154,12 @@
     MyTab.prototype.closeTab = function (ops) {
 
         var obj = $("#my-tab-nav-ul li[data-href='" + ops.href + "'][data-index='" + ops.index + "'][data-title='" + ops.title + "']");
+
+        this.remCache(ops);
+
         if(obj.hasClass('tab-nav-active')){
-            this.activeTab(this.defaultPageIndex);
+            var v = this.getCache();
+            this.activeTab(v[v.length - 1]);
         }
 
         //移除选项卡
@@ -166,8 +169,7 @@
         $(".show_iframe[data-href='" + ops.href + "'][data-index='" + ops.index + "'][data-title='" + ops.title + "']").remove();
 
         //移除选项卡下拉框
-        $(".tab-nav-select-li[data-href='" + ops.href + "'][data-index='" + ops.index + "'][data-title='" + ops.title + "']").remove();
-
+        $(".tab-nav-select-li[data-href='" + ops.href + "'][data-index='" + ops.index + "'][data-title='" + ops.title + "']").remove();        
     }
 
     MyTab.prototype.setIframeHeight = function(height){
@@ -179,7 +181,6 @@
             $('#my-iframe-box').css('top', '0px');
         }
 
-        //console.log(window.innerWidth);
         if(window.innerWidth < 300){
             alert('屏幕别再小了再小就看不见了');
         }
@@ -300,7 +301,14 @@
             $('#tab-caozuo-select').hide();
         });
 
-        this.addTab(this.defaultPageIndex);
+        var tabs = this.getCache();
+        if(sessionStorage.getItem('tab-cache-switch' + window.baseConfig.userkeys) == 1){
+            $.each(tabs,function(k,ops){
+                _this.addTab(ops);
+            });
+        }else{
+            this.addTab(this.defaultPageIndex);
+        }
     }
 
     //刷新当前页面
@@ -357,6 +365,48 @@
             lock:jQueryObj.data('lock')
         }
     }
-    
+
+    //获取选项卡缓存
+    MyTab.prototype.getCache = function(){
+        return JSON.parse(sessionStorage.getItem(this.keys));
+    }
+
+    //设置选项卡缓存
+    MyTab.prototype.setCache = function(Obj){
+        var value = this.getCache();
+        if(value == '' || value == null){
+            value = [];
+            value.push(Obj);
+        }else{
+            var num = 0;
+            $.each(value,function(k,v){
+                if(v.href == Obj.href && v.title == Obj.title && v.icon == Obj.icon && v.index == Obj.index && v.lock == Obj.lock){
+                    num++;
+                }
+            });
+
+            if(num == 0){
+                value.push(Obj);
+            }
+        }
+        
+        sessionStorage.setItem(this.keys,JSON.stringify(value));
+    }
+
+    //设置选项卡缓存
+    MyTab.prototype.remCache = function(Obj){
+        var value = this.getCache();
+        var tmparr = [];
+        $.each(value,function(k,v){
+            if(v.href == Obj.href && v.title == Obj.title && v.icon == Obj.icon && v.index == Obj.index && v.lock == Obj.lock){
+                
+            }else{
+                tmparr.push(v);
+            }
+        });
+
+        sessionStorage.setItem(this.keys,JSON.stringify(tmparr));
+    }
+
     window.MyTab = MyTab;
 })(window, jQuery);

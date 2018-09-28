@@ -8978,3 +8978,5 @@ In admin_routes.php line 116:
 
 [2018-08-30 15:54:07] Processing: App\Mail\TaskNotice
 [2018-08-30 15:54:09] Processed:  App\Mail\TaskNotice
+[2018-09-08 18:32:52] Processing: App\Mail\TaskNotice
+[2018-09-08 18:32:53] Processed:  App\Mail\TaskNotice
